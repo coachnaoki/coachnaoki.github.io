@@ -167,6 +167,12 @@
     <li><strong>判定アルゴリズム</strong>: 質問パターン (?, ですか, 教えてください) / 紹介パターン (お越しいただきました) / 短い相槌 (なるほど) → インタビュアー。 該当しない長めの発話 → インタビュイー</li>
     <li><strong>third_party の ｢｣ 自動付与は OFF にしない</strong>: 対談動画でも視聴者の声を引用する場面で従来通り使用</li>
   </ul>
+
+  <div class="section-label">⏱ テロップを Sequence でラップ (Studio タイムライン表示対応)</div>
+  <p class="version-desc">全テロップを <code>&lt;Sequence&gt;</code> でラップする運用に変更。 Remotion Studio の左下タイムラインに 1 テロップ = 1 ブロックとして並び、 視覚的にスクラブ・ドラッグ確認できるように。</p>
+
+  <div class="section-label">🔒 インフラ: 凍結リポを Private 化 + Pages を User Page repo に移行</div>
+  <p class="version-desc">v2.5.5 凍結 Public リポを Private 化してテンプレ漏洩リスクを完全排除。 Pages は <code>coachnaoki/coachnaoki.github.io</code> (User Page・docs only) から配信に切替。 URL は変わらず維持 (ブックマーク・SNS シェアそのまま)。</p>
 </div>
 
 <!-- v2.6.0 -->
