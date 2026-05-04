@@ -1,0 +1,280 @@
+<!-- 一番上: 2 本目以降の動画ジャンプボタン -->
+<div style="text-align:right;margin-bottom:16px">
+  <a href="#second-onwards" class="primary" style="display:inline-block;background:#f97316;color:#fff;padding:10px 22px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px">🔁 2本目以降の動画を作る方はこちら →</a>
+</div>
+
+<!-- Step 01: 事前準備 (ブックマーク + Chatwork + GitHub 招待 Accept) -->
+<section class="step-section" style="border-left:4px solid #22d3ee;background:#f0fdff">
+  <h2><span class="num" style="background:#22d3ee;color:#050506">01</span>事前準備（3つだけ）</h2>
+
+  <p style="font-size:14px;color:#444;margin-bottom:18px">動画制作を始める前に、 以下の 3 つを済ませてください。 どれも 5 分以内で終わります。</p>
+
+  <p><strong style="color:#121212">① このページをブックマーク</strong></p>
+  <p style="font-size:14px;color:#444;margin-top:6px">ライセンスIDを忘れた時にいつでも再表示できます。 Mac は <code>Cmd + D</code>、 Windows は <code>Ctrl + D</code> でブックマーク追加。</p>
+
+  <p style="margin-top:24px"><strong style="color:#121212">② Chatwork で Naoki を追加</strong></p>
+  <p style="font-size:14px;color:#444;margin-top:6px">サポート・ご質問の窓口です。 困ったらいつでも Chatwork でメッセージしてください。</p>
+  <div class="cta" style="margin-top:10px">
+    <a href="https://www.chatwork.com/Coach_Naoki" target="_blank" class="primary">Chatwork で Naoki を追加</a>
+  </div>
+
+  <p style="margin-top:24px"><strong style="color:#121212">③ GitHub からの招待メールを承認</strong></p>
+  <p style="font-size:14px;color:#444;margin-top:6px">同意書送信後に GitHub から「<strong>Invitation to coach-naoki/naoki-blueprint</strong>」 という件名のメール / GitHub 通知が届きます。 メール内の <strong style="color:#121212">「View invitation」 → 「Accept」</strong> をクリック。</p>
+  <div style="background:#fffbeb;border:1px solid #fcd34d;border-left:4px solid #f59e0b;border-radius:6px;padding:12px 16px;margin:10px 0 0;font-size:13px;color:#92400e;">
+    📌 招待 Accept をしないとリポジトリを取得 (Step 03) できません。 必ず最初に Accept してください。
+  </div>
+</section>
+
+<!-- Step 02: 環境セットアップ (公式推奨手順・1 行コピペ可) -->
+<section class="step-section">
+  <h2><span class="num">02</span>環境セットアップ（初回のみ）</h2>
+  <p>動画制作に必要なツールをインストールします。 <strong style="color:#121212">すでに入っているものはスキップ OK</strong>。 所要時間 5-10 分。</p>
+
+  <!-- ============ macOS ============ -->
+  <div class="os-label mac">macOS</div>
+
+  <p style="margin-top:12px"><strong style="color:#121212">① Homebrew をインストール</strong>（入っていない方のみ・パッケージ管理ツール）</p>
+  <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナル (Cursor 下部) で以下を実行:</p>
+  <div class="code">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</div>
+  <p style="font-size:12px;color:#888;margin-top:6px">※ パスワードを求められたら Mac のログインパスワードを入力 (入力中は何も表示されません)。</p>
+
+  <p style="margin-top:24px"><strong style="color:#121212">② 全ツールを 1 行でインストール</strong></p>
+  <p style="font-size:13px;color:#666;margin:6px 0 4px">Git / Node.js / FFmpeg / GitHub CLI / Claude Code をまとめて入れます:</p>
+  <div class="code">brew install git node ffmpeg gh && brew install --cask claude-code@latest</div>
+  <p style="font-size:12px;color:#888;margin-top:6px">※ 5-10 分かかります。 完了したら Cursor を一度閉じて再起動 (PATH 反映のため)。</p>
+
+  <p style="margin-top:24px"><strong style="color:#121212">③ GitHub にログイン</strong></p>
+  <div class="code">gh auth login</div>
+  <p style="font-size:13px;color:#666;margin-top:6px">プロンプトに従って:</p>
+  <ul style="color:#444;font-size:13px;padding-left:24px;line-height:1.8">
+    <li>What account do you want to log into? → <strong>GitHub.com</strong></li>
+    <li>What is your preferred protocol? → <strong>HTTPS</strong></li>
+    <li>Authenticate Git with your GitHub credentials? → <strong>Y</strong></li>
+    <li>How would you like to authenticate? → <strong>Login with a web browser</strong></li>
+    <li>表示された 8 桁コードをブラウザに入力 → 認証完了 (1 分)</li>
+  </ul>
+
+  <p style="margin-top:24px"><strong style="color:#121212">④ インストール確認</strong></p>
+  <div class="code">git --version && node --version && gh --version && claude --version</div>
+  <p style="font-size:13px;color:#666;margin-top:8px">4 つのバージョン番号が表示されれば OK。 1 つでも「command not found」 と出る場合は Cursor を再起動して再度実行してください。</p>
+
+  <!-- ============ Windows ============ -->
+  <div class="os-label win" style="margin-top:32px">Windows</div>
+
+  <p style="margin-top:12px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong></p>
+  <p style="font-size:13px;color:#666;margin:6px 0 4px">PowerShell (Cursor 下部) で以下を実行:</p>
+  <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode</div>
+  <p style="font-size:12px;color:#888;margin-top:6px">※ 5-10 分かかります。 完了したら Cursor を完全に閉じて再起動 (PATH 反映のため)。</p>
+  <p style="font-size:12px;color:#888;margin-top:4px">⚠ 「winget は認識されていません」 と出る場合: Microsoft Store から「<strong>アプリ インストーラー</strong>」 を更新してください。</p>
+
+  <p style="margin-top:24px"><strong style="color:#121212">② GitHub にログイン</strong></p>
+  <div class="code">gh auth login</div>
+  <p style="font-size:13px;color:#666;margin-top:6px">macOS と同じく、 GitHub.com → HTTPS → Login with a web browser で認証 (1 分)。</p>
+
+  <p style="margin-top:24px"><strong style="color:#121212">③ インストール確認</strong></p>
+  <div class="code">git --version; node --version; gh --version; claude --version</div>
+  <p style="font-size:12px;color:#888;margin-top:8px">⚠ 「node は認識されていません」 と出る場合: Cursor を完全に閉じて再起動。 それでもダメなら PC を再起動。</p>
+</section>
+
+
+<!-- Step 03: リポジトリ取得 -->
+<section class="step-section">
+  <h2><span class="num">03</span>リポジトリ取得</h2>
+  <p><strong id="userName" style="color:#121212"></strong> さん、準備を始めましょう。</p>
+
+  <p><strong style="color:#121212">① naoki-blueprint を置きたいフォルダに移動</strong>（お好きな場所でOK。以下は例）:</p>
+  <div class="code">cd ~/Desktop/Cursor</div>
+  <p style="font-size:13px;color:#666;margin-top:8px">💡 <code>~/Desktop/Cursor</code> は例です。<strong style="color:#121212">すでに別のフォルダで作業している方はそちらに cd</strong>してください。迷ったら <code>~/Desktop</code>（デスクトップ直下）でも大丈夫。</p>
+
+  <p style="margin-top:20px"><strong style="color:#121212">② リポジトリをダウンロード</strong>（Mac / Windows 共通）:</p>
+  <div class="code">git clone https://github.com/coach-naoki/naoki-blueprint.git</div>
+
+  <p style="margin-top:20px"><strong style="color:#121212">③ ダウンロードしたフォルダに入る</strong>:</p>
+  <div class="code">cd naoki-blueprint</div>
+</section>
+
+<section class="step-section">
+  <h2><span class="num">04</span>Claude Code を起動して動画作成開始</h2>
+  <p><strong style="color:#121212">① Claude Code を起動</strong>（Mac / Windows 共通）:</p>
+  <div class="code">claude --dangerously-skip-permissions</div>
+
+  <p style="margin-top:20px"><strong style="color:#121212">② Claude Code 内で <code>/new-video</code> を実行</strong>:</p>
+  <div class="code">/new-video</div>
+  <p>起動すると、以下を順に聞かれます:</p>
+  <ol style="color:#444;font-size:15px;padding-left:24px;margin:12px 0 16px">
+    <li style="margin-bottom:6px">動画タイプ</li>
+    <li>プロジェクト名（日付でOK。例: <code class="today-date">2026-04-19</code>）</li>
+  </ol>
+  <div class="choice-grid">
+    <div class="choice-card">
+      <span class="choice-num">1</span>
+      <h3>YouTube 横動画</h3>
+      <p>1920×1080<br>20ステップ / スライド・ワイプ・OP・ハイライト対応</p>
+    </div>
+    <div class="choice-card short">
+      <span class="choice-num">2</span>
+      <h3>ショート動画</h3>
+      <p>1080×1920<br>14ステップ / テロップ8種に絞り情報密度を優先</p>
+    </div>
+  </div>
+  <p style="font-size:13px;color:#666">プロジェクト作成 → <code>npm install</code> → AUTO_RUN モードで step01〜 が自動進行します。 途中でライセンス認証 (Step 03) が自動誘導されます。</p>
+</section>
+
+<section class="step-section" style="border-left:4px solid #16a34a">
+  <h2><span class="num" style="background:#16a34a">05</span>素材を配置 → 作業開始</h2>
+
+  <p><strong style="color:#121212">素材を <code>projects/&lt;プロジェクト名&gt;/public/</code> に配置</strong>（Finder / エクスプローラーからドラッグ＆ドロップでOK）:</p>
+  <div class="code">public/
+├── videos/             <span class="cmt">動画素材</span>
+│   ├── main/           <span class="cmt">本編動画 </span><span class="str">★必須</span>
+│   ├── inserts/        <span class="cmt">物理挿入動画（任意）</span>
+│   ├── overlays/       <span class="cmt">オーバーレイ動画（任意）</span>
+│   ├── opening/        <span class="cmt">OP動画（横動画のみ・任意）</span>
+│   └── highlight/      <span class="cmt">ハイライト動画（自動生成・横動画のみ）</span>
+├── images/             <span class="cmt">画像素材</span>
+│   ├── inserts/        <span class="cmt">横に表示する画像（任意）</span>
+│   └── overlays/       <span class="cmt">全画面表示画像・アニメーション付（任意）</span>
+├── bgm/                <span class="cmt">BGM（MP3）</span> <span class="str">★必須</span>
+├── se/                 <span class="cmt">SE効果音</span> <span class="str">★必須</span>
+│   ├── 強調/
+│   ├── ポジティブ/
+│   └── ネガティブ/
+├── script/             <span class="cmt">ナレーション台本（推奨）</span>
+└── output/             <span class="cmt">完成動画の出力先</span></div>
+
+  <div style="margin-top:20px;padding:14px 18px;background:#fffbeb;border-left:4px solid #f59e0b;border-radius:4px">
+    <p style="margin:0;font-size:14px;color:#92400e"><strong>💡 SE / BGM をまだ持っていない方へ</strong></p>
+    <p style="margin:6px 0 0;font-size:13px;color:#78350f;line-height:1.7">
+      Naoki が実際に使っている <strong>SE / BGM の推奨リスト</strong> を共有しています。 配布元サイト・楽曲名・利用シーン (強調 / ポジティブ / ネガティブ) でフィルタできます。<br>
+      👉 <a href="https://docs.google.com/spreadsheets/d/1YhYZ5QpRHpFToGnnKp5xEVEdiKM_DjgdwQlw0DeIJ-g/edit?gid=0#gid=0" target="_blank" rel="noopener" style="color:#b45309;font-weight:700;text-decoration:underline">SE / BGM 推奨リスト (Google Sheets)</a>
+    </p>
+  </div>
+
+  <p style="margin-top:24px">素材を置いたら Claude Code で「素材配置完了」 等と返答すれば AUTO_RUN が再開します。 あとは AI が次のコマンドを案内してくれるので、質問に答えながら進めるだけ。</p>
+</section>
+
+<!-- Step 06: ワークフロー詳細（全20ステップ / ショート14ステップ） -->
+<section class="step-section" style="border-left:4px solid #3b82f6">
+  <h2><span class="num" style="background:#3b82f6">🎬</span>ワークフロー詳細（横動画 全20 step / ショート 全14 step）</h2>
+  <p>各ステップは Claude Code でスラッシュコマンド1つで実行できます。<strong style="color:#121212">任意</strong> とあるステップは必要な演出だけ使えばOK。基本は AI が次のコマンドを案内してくれるので、<strong style="color:#121212">順番通りに進めるだけ</strong>で完成します。</p>
+
+  <!-- Phase 1 -->
+  <div style="margin-top:24px">
+    <div style="display:inline-block;background:#dbeafe;color:#1e40af;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 1 / 素材準備</div>
+    <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step01-context</code> 動画の目的・ターゲット・視聴者像を整理</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step02-assets</code> 素材確認（本編/物理挿入/オーバーレイ/OP/ハイライト）とFPS自動検出</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 本編を <strong style="color:#121212">mlx-whisper-large-v3</strong> で文字起こし（word-level timestamps・ローカル実行で API キー不要）</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step04-transcript-fix</code> 台本と照合して誤変換を修正（固有名詞・数字を重点チェック）</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step05-cut</code> 無音 + 言い直しを一括カット。 <strong style="color:#121212">N-gram 重複検出で複数回言い直しても最後の発話を残す</strong> (v2.5.3+)</li>
+      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step06-transcript</code> カット後の再文字起こし + 修正再適用</li>
+    </ul>
+  </div>
+
+  <!-- Phase 2 -->
+  <div style="margin-top:24px">
+    <div style="display:inline-block;background:#ede9fe;color:#6d28d9;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 2 / 動画構築</div>
+    <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step07-template</code> テンプレート設定。 <strong style="color:#121212">picker UI (v2.5+)</strong> で各テンプレのカラー・フォント・SE・アニメーションを GUI で選択 (localhost:5174)</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step08-telop</code> テロップデータ作成。 AI が 8 種のスタイル（normal/emphasis/negative等）から自動判定 + 字幕カバー率 90% ルール</li>
+      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step09-composition</code> MainComposition.tsx で動画 + テロップ + SE を統合。 <strong style="color:#121212">Remotion Studio がブラウザで起動</strong>（localhost:3000）+ メイン動画アニメ (zoom_in / zoom_out / blur) 適用</li>
+    </ul>
+  </div>
+
+  <!-- Phase 3 -->
+  <div style="margin-top:24px">
+    <div style="display:inline-block;background:#fce7f3;color:#be185d;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 3 / 素材・演出挿入（任意）</div>
+    <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step10-greenback</code> <span style="color:#999;font-size:12px">任意</span> グリーンバック背景置換。chromakey + rembg + HSV despill の3段パイプライン</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step11-videos</code> <span style="color:#999;font-size:12px">任意</span> デモ動画挿入（物理挿入=Series分割 / オーバーレイ=上に重ね）</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step12-slides-gen</code> <span style="color:#999;font-size:12px">任意・横のみ</span> 台本からスライドHTMLを生成</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step13-slides</code> <span style="color:#999;font-size:12px">任意・横のみ</span> スライドキャプチャ + タイムライン配置</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step14-wipe</code> <span style="color:#999;font-size:12px">任意・横のみ</span> ワイプ（顔出し）位置をピクセル座標で調整</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step15-images</code> <span style="color:#999;font-size:12px">任意</span> 画像挿入 + AI 生成 (Gemini) を 1 step に統合 (v2.5.5+)。 顔アイコン (Phase 3) のみ別途確認</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step16-special-components</code> <span style="color:#999;font-size:12px">任意・横のみ</span> 箇条書き・見出しバナー・CTAコンポーネント</li>
+      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step17-op-ed</code> <span style="color:#999;font-size:12px">任意・横のみ</span> OP / ED 連結 + Composition "Final" 組み立て (Series 構造)</li>
+    </ul>
+  </div>
+
+  <!-- Phase 4 -->
+  <div style="margin-top:24px">
+    <div style="display:inline-block;background:#dcfce7;color:#166534;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 4 / BGM・出力</div>
+    <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step18-bgm</code> BGM挿入（フェードイン/アウト付き、区間・音量指定可、不足時は自動ループ）</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step19-render</code> 本編レンダリング (Composition "Final" or MainComposition を MP4 書き出し)</li>
+      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step20-highlight-final</code> 本編からハイライト自動抽出 + <strong style="color:#121212">0.9 倍縮小 + 金縁 + 深紺額縁</strong> (v2.5.4+) + <strong style="color:#121212">ラウドネス正規化 -14 LUFS</strong> + 最終レンダリング → <strong style="color:#121212">完成 🎉</strong></li>
+    </ul>
+  </div>
+
+  <!-- ショート動画ワークフロー (縦 1080x1920・14 step) -->
+  <div style="margin-top:36px;padding-top:24px;border-top:2px solid #f0f0f0">
+    <h3 style="font-size:18px;margin:0 0 8px;color:#121212">📱 ショート動画 (縦 1080×1920・全 14 step)</h3>
+    <p style="font-size:14px;color:#666;margin-bottom:16px">縦動画用テンプレート。 情報密度を優先し、 横動画よりシンプル構成。 スライド・ワイプ・特殊コンポ・OP/ED・ハイライトは含まれません。</p>
+
+    <!-- Phase 1 (ショート) -->
+    <div style="margin-top:20px">
+      <div style="display:inline-block;background:#dbeafe;color:#1e40af;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 1 / 素材準備</div>
+      <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step01-context</code> 動画の目的・ターゲット・視聴者像を整理</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step02-assets</code> 素材確認 (本編 / 物理挿入 / オーバーレイ) と FPS 自動検出</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 本編を <strong style="color:#121212">mlx-whisper-large-v3</strong> で文字起こし (word-level timestamps・ローカル実行で API キー不要)</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step04-transcript-fix</code> 台本と照合して誤変換を修正 (固有名詞・数字を重点チェック)</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step05-cut</code> 無音 + 言い直しを一括カット。 <strong style="color:#121212">N-gram 重複検出で複数回言い直しても最後の発話を残す</strong></li>
+        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step06-transcript</code> カット後の再文字起こし + 修正再適用</li>
+      </ul>
+    </div>
+
+    <!-- Phase 2 (ショート) -->
+    <div style="margin-top:24px">
+      <div style="display:inline-block;background:#ede9fe;color:#6d28d9;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 2 / 動画構築</div>
+      <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step07-template</code> テンプレート設定 (picker UI でカラー・フォント・SE・アニメーションを選択)</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step08-telop</code> テロップデータ作成 (8 種のスタイルから AI が自動判定)</li>
+        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step09-composition</code> MainComposition.tsx で動画 + テロップ + SE を統合 + メイン動画アニメ (zoom_in / zoom_out / blur) 適用</li>
+      </ul>
+    </div>
+
+    <!-- Phase 3 (ショート) -->
+    <div style="margin-top:24px">
+      <div style="display:inline-block;background:#fce7f3;color:#be185d;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 3 / 素材挿入 (任意)</div>
+      <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step10-greenback</code> <span style="color:#999;font-size:12px">任意</span> グリーンバック背景置換</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step11-videos</code> <span style="color:#999;font-size:12px">任意</span> デモ動画挿入 (物理挿入 = Series 分割 / オーバーレイ = 上に重ね)</li>
+        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step12-images</code> <span style="color:#999;font-size:12px">任意</span> 画像挿入 + AI 生成 (Gemini)。 顔アイコン (Phase 3) も同 step で対応</li>
+      </ul>
+    </div>
+
+    <!-- Phase 4 (ショート) -->
+    <div style="margin-top:24px">
+      <div style="display:inline-block;background:#dcfce7;color:#166534;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 4 / BGM・出力</div>
+      <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step13-bgm</code> BGM 挿入 (フェードイン/アウト付き、 区間・音量指定可、 不足時は自動ループ)</li>
+        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step14-final</code> 1080×1920 で最終レンダリング + <strong style="color:#121212">ラウドネス正規化 -14 LUFS</strong> → <strong style="color:#121212">完成 🎉</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 便利機能 -->
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #3b82f6;border-radius:6px;padding:16px 20px;margin-top:14px;font-size:14px;color:#1e40af">
+    <strong style="color:#121212">💡 便利コマンド</strong>:
+    <code style="background:#f0f0f0;color:#121212;padding:2px 6px;border-radius:4px;font-size:13px">/catchup</code> で現在の進捗を確認できます。中断しても AI がどのステップから再開すべきか教えてくれるので、気軽に休憩OK。
+  </div>
+</section>
+
+<!-- 2本目以降の動画案内 (一番下) -->
+<section id="second-onwards" class="step-section" style="border-left:4px solid #f97316;background:#fff7ed">
+  <h2><span class="num" style="background:#f97316">🔁</span>2本目以降の動画を作る方へ</h2>
+  <p><strong style="color:#121212">Step 01〜04 はスキップしてOK。</strong>1本目のプロジェクト内で動いている Claude Code セッションで、 以下のコマンドを打つだけで新しい動画が作れます:</p>
+  <div class="code">/new-video</div>
+  <p style="margin-top:10px;font-size:14px">プロジェクト名と動画タイプ（横 / ショート）を聞かれた後、 そのまま AUTO_RUN モードで step01 から進行します。 Step 05 を参考に素材を配置してください。</p>
+
+  <p style="margin-top:18px;font-size:14px">自動で引き継がれるもの:</p>
+  <ul style="color:#444;font-size:14px;padding-left:24px;line-height:1.9">
+    <li>✅ ツール類（git / node / ffmpeg / gh / claude-code）— 再インストール不要</li>
+    <li>✅ naoki-blueprint 本体 — 再ダウンロード不要</li>
+    <li>✅ ライセンス（新規プロジェクトに自動コピー、再認証不要）</li>
+  </ul>
+
+  <p style="margin-top:16px;font-size:13px;color:#666"><strong style="color:#121212">※ Claude Code を閉じてしまった場合</strong>: <code>cd naoki-blueprint && claude --dangerously-skip-permissions</code> で起動して <code>/new-video</code> から始めてください。</p>
+</section>
+
