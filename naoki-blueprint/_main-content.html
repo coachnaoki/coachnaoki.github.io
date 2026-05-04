@@ -39,16 +39,12 @@
   <p style="font-size:12px;color:#888;margin-top:6px">※ パスワードを求められたら Mac のログインパスワードを入力 (入力中は何も表示されません)。</p>
 
   <p style="margin-top:24px"><strong style="color:#121212">② 全ツールを 1 行でインストール</strong></p>
-  <p style="font-size:13px;color:#666;margin:6px 0 4px">Git / Node.js / FFmpeg / GitHub CLI / Python 3.12 / Claude Code をまとめて入れます:</p>
-  <div class="code">brew install git node ffmpeg gh python@3.12 && brew install --cask claude-code@latest</div>
+  <p style="font-size:13px;color:#666;margin:6px 0 4px">Git / Node.js / FFmpeg / GitHub CLI / Python 3.12 / Claude Code / Whisper (文字起こし AI) をまとめて入れます:</p>
+  <div class="code">brew install git node ffmpeg gh python@3.12 && brew install --cask claude-code@latest && /opt/homebrew/bin/pip3.12 install mlx-whisper</div>
   <p style="font-size:12px;color:#888;margin-top:6px">※ 5-10 分かかります。 完了したら Cursor を一度閉じて再起動 (PATH 反映のため)。</p>
+  <p style="font-size:12px;color:#888;margin-top:4px">※ <strong style="color:#121212">初回の <code>/step03-transcript</code> 実行時に Whisper モデル (約 3GB) が自動 DL されます (5-10 分)</strong>。 2 回目以降はキャッシュで高速。</p>
 
-  <p style="margin-top:24px"><strong style="color:#121212">③ Whisper (文字起こし AI) をインストール</strong></p>
-  <p style="font-size:13px;color:#666;margin:6px 0 4px">Apple Silicon Mac 専用の高速版 (mlx-whisper) を入れます:</p>
-  <div class="code">/opt/homebrew/bin/pip3.12 install mlx-whisper</div>
-  <p style="font-size:12px;color:#888;margin-top:6px">※ <strong style="color:#121212">初回の <code>/step03-transcript</code> 実行時に Whisper モデル (約 3GB) が自動 DL されます (5-10 分)</strong>。 2 回目以降はキャッシュで高速。</p>
-
-  <p style="margin-top:24px"><strong style="color:#121212">④ GitHub にログイン</strong></p>
+  <p style="margin-top:24px"><strong style="color:#121212">③ GitHub にログイン</strong></p>
   <div class="code">gh auth login</div>
   <p style="font-size:13px;color:#666;margin-top:6px">プロンプトに従って:</p>
   <ul style="color:#444;font-size:13px;padding-left:24px;line-height:1.8">
@@ -59,31 +55,27 @@
     <li>表示された 8 桁コードをブラウザに入力 → 認証完了 (1 分)</li>
   </ul>
 
-  <p style="margin-top:24px"><strong style="color:#121212">⑤ インストール確認</strong></p>
-  <div class="code">git --version && node --version && gh --version && claude --version && /opt/homebrew/bin/python3.12 --version</div>
-  <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号が表示されれば OK。 1 つでも「command not found」 と出る場合は Cursor を再起動して再度実行してください。</p>
+  <p style="margin-top:24px"><strong style="color:#121212">④ インストール確認</strong></p>
+  <div class="code">git --version && node --version && gh --version && claude --version && /opt/homebrew/bin/python3.12 --version && /opt/homebrew/bin/python3.12 -c "import mlx_whisper; print('whisper OK')"</div>
+  <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号 + <code>whisper OK</code> が表示されれば成功。 1 つでも「command not found」 や Python エラーが出る場合は Cursor を再起動して再度実行してください。</p>
 
   <!-- ============ Windows ============ -->
   <div class="os-label win" style="margin-top:32px">Windows</div>
 
   <p style="margin-top:12px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong></p>
-  <p style="font-size:13px;color:#666;margin:6px 0 4px">PowerShell (Cursor 下部) で以下を実行:</p>
-  <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode; winget install Python.Python.3.12 -e</div>
-  <p style="font-size:12px;color:#888;margin-top:6px">※ 5-10 分かかります。 完了したら Cursor を完全に閉じて再起動 (PATH 反映のため)。</p>
+  <p style="font-size:13px;color:#666;margin:6px 0 4px">Git / Node.js / FFmpeg / GitHub CLI / Python 3.12 / Claude Code / Whisper (文字起こし AI) をまとめて入れます。 PowerShell (Cursor 下部) で以下を実行:</p>
+  <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode; winget install Python.Python.3.12 -e; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); py -3.12 -m pip install faster-whisper</div>
+  <p style="font-size:12px;color:#888;margin-top:6px">※ 5-10 分かかります。 <code>$env:Path = ...</code> の部分は <strong style="color:#121212">winget で入れた Python の PATH を即座に反映するための呪文</strong> (これがないと最後の <code>py -3.12</code> が見つからない)。 完了したら Cursor を完全に閉じて再起動。</p>
+  <p style="font-size:12px;color:#888;margin-top:4px">※ <strong style="color:#121212">初回の <code>/step03-transcript</code> 実行時に Whisper モデル (約 3GB) が自動 DL されます (5-10 分)</strong>。 2 回目以降はキャッシュで高速。</p>
   <p style="font-size:12px;color:#888;margin-top:4px">⚠ 「winget は認識されていません」 と出る場合: Microsoft Store から「<strong>アプリ インストーラー</strong>」 を更新してください。</p>
 
-  <p style="margin-top:24px"><strong style="color:#121212">② Whisper (文字起こし AI) をインストール</strong></p>
-  <p style="font-size:13px;color:#666;margin:6px 0 4px">Windows 用の Whisper 実装 (faster-whisper) を入れます:</p>
-  <div class="code">py -3.12 -m pip install faster-whisper</div>
-  <p style="font-size:12px;color:#888;margin-top:6px">※ <strong style="color:#121212">初回の <code>/step03-transcript</code> 実行時に Whisper モデル (約 3GB) が自動 DL されます (5-10 分)</strong>。 2 回目以降はキャッシュで高速。</p>
-
-  <p style="margin-top:24px"><strong style="color:#121212">③ GitHub にログイン</strong></p>
+  <p style="margin-top:24px"><strong style="color:#121212">② GitHub にログイン</strong></p>
   <div class="code">gh auth login</div>
   <p style="font-size:13px;color:#666;margin-top:6px">macOS と同じく、 GitHub.com → HTTPS → Login with a web browser で認証 (1 分)。</p>
 
-  <p style="margin-top:24px"><strong style="color:#121212">④ インストール確認</strong></p>
-  <div class="code">git --version; node --version; gh --version; claude --version; py -3.12 --version</div>
-  <p style="font-size:12px;color:#888;margin-top:8px">⚠ 「node は認識されていません」 と出る場合: Cursor を完全に閉じて再起動。 それでもダメなら PC を再起動。</p>
+  <p style="margin-top:24px"><strong style="color:#121212">③ インストール確認</strong></p>
+  <div class="code">git --version; node --version; gh --version; claude --version; py -3.12 --version; py -3.12 -c "import faster_whisper; print('whisper OK')"</div>
+  <p style="font-size:12px;color:#888;margin-top:8px">5 つのバージョン番号 + <code>whisper OK</code> が表示されれば成功。 「node は認識されていません」 等が出る場合: Cursor を完全に閉じて再起動。 それでもダメなら PC を再起動。</p>
 </section>
 
 
