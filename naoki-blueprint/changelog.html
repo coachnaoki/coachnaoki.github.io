@@ -168,6 +168,9 @@
     <li><strong>third_party の ｢｣ 自動付与は OFF にしない</strong>: 対談動画でも視聴者の声を引用する場面で従来通り使用</li>
   </ul>
 
+  <div class="section-label">🔊 SE 音量を 0.1 → 0.04 に下げる (-20dB → -28dB)</div>
+  <p class="version-desc">受講生から「SE が少し大きい」 と指摘あり。 旧仕様は BGM の -20dB ルールと同じ位置に SE があったため大きく聞こえていた。 新仕様で -28dB に統一 (BGM 0.03 の +2.5dB 上で聞こえる・メインから -28dB で邪魔しない)。 CLAUDE.md「音量基準」 セクションも業界経験則ベースで書き換え。</p>
+
   <div class="section-label">⏱ テロップを Sequence でラップ (Studio タイムライン表示対応)</div>
   <p class="version-desc">全テロップを <code>&lt;Sequence&gt;</code> でラップする運用に変更。 Remotion Studio の左下タイムラインに 1 テロップ = 1 ブロックとして並び、 視覚的にスクラブ・ドラッグ確認できるように。</p>
 
