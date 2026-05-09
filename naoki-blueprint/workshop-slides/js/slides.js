@@ -1,216 +1,273 @@
 // ================================================
-// naoki-blueprint Workshop Slides (Dark × Premium)
-// For existing users of naoki-blueprint
+// naoki-blueprint 1Day CAMP Slides (Dark × Premium)
+// For new participants (2026-05-10)
 // ================================================
 
-const T = 20;
+const T = 17;
 
 function ph(num, tag) {
-  return `<div class="page-header">
-    <span class="chapter">${tag}</span>
-    <span class="num">${String(num).padStart(2, '0')} / ${String(T).padStart(2, '0')}</span>
-  </div>`;
+  return '';
 }
 
 // 01. 表紙
 function slide01Cover() {
   return `<section class="slide hero-slide anim-blur-in" data-section="cover" data-anim-fixed
-    data-notes="みなさん、おはようございます。今日はnaoki-blueprintを使いこなすためのセミナーです。手を動かしながら完成度の高い動画を1本作り切るコツをお伝えします。">
+    data-notes="みなさん、おはようございます。今日は1日でAI動画編集環境を構築して、動画を1本完成させて持ち帰っていただきます。一人でやると5日詰まる作業を、1日で終わらせます。よろしくお願いします。">
     <div class="hero">
-      <div class="hero-tag">AI × Video Editing / Naoki's Blueprint</div>
-      <h1 class="hero-title">naoki-blueprint を、<br/><span class="em">使いこなす。</span></h1>
+      <div class="hero-tag">AI × Video Editing / 1Day CAMP</div>
+      <h1 class="hero-title">AI動画編集を、<br/><span class="em">丸投げできる仕組み。</span></h1>
       <div class="hero-rule"></div>
-      <p class="hero-subtitle">環境構築は完了済み、ライセンス発行済みの方向け。<br/>今日は "編集のコツ" と "完成度を上げる型" を伝えます。</p>
-      <div class="hero-meta">Naoki  /  Claude Code × Remotion</div>
+      <p class="hero-subtitle">Claude Code × Remotion で、撮影したMP4からYouTube動画まで自動化。<br/>1日で環境構築 ＋ 動画1本完成して持ち帰り。</p>
+      <div class="hero-meta">Naoki  /  naoki-blueprint</div>
       <div class="big-index">01</div>
     </div>
   </section>`;
 }
 
-// 02. AI が自動でやってくれる機能一覧
-function slide02Features() {
-  return `<section class="slide" data-section="intro"
-    data-notes="このテンプレートがやってくれることは6つ。無音カット、文字起こし、テロップ配置、BGMとSE、Step10以降の素材挿入、そしてレンダリング。レンダリング時にloudnormでYouTube標準音量に自動で揃えてくれます。">
-    ${ph(2, 'What it does')}
+// 02. 当日のタイムスケジュール
+function slide02Schedule() {
+  return `<section class="slide" data-section="schedule"
+    data-notes="今日のスケジュールは大きく3パートに分かれています。午前は基礎と環境構築。あなたのPCにAI動画編集環境を構築するところまで。お昼を挟んで、午後の前半でBlueprintを配布して編集スタート、テスト動画で一通りの流れを体験していただきます。午後の後半でブラッシュアップ。本番動画でプロファイルやデザインピッカーを使って、あなた専用の動画として仕上げて完成させます。終了後は希望者で懇親会を予定しています。">
+    ${ph(2, 'Today’s schedule')}
     <div class="slide-content">
-      <h2>AI がやってくれる<span class="g-primary">6つのこと</span></h2>
+      <h2>今日の<span class="g-primary">スケジュール</span></h2>
+      <p class="lead mb-32 text-white">3パート構成。<span class="hl">最後にあなたの動画が1本完成</span>している状態がゴール。</p>
       <div class="grid-3">
-        <div class="feature-tile"><div class="tile-num">01</div><div class="tile-title">無音カット</div><div class="tile-body">FFmpeg で沈黙区間と言い直しを一発削除<br/>音量ベースで発話末尾の切れ防止</div></div>
-        <div class="feature-tile"><div class="tile-num">02</div><div class="tile-title">文字起こし</div><div class="tile-body">Whisper large-v3 で word-level の精度</div></div>
-        <div class="feature-tile"><div class="tile-num">03</div><div class="tile-title">テロップ自動配置</div><div class="tile-body">8種のデザインから AI が自動判定<br/>句読点削除・半角｢｣・2行対応</div></div>
-        <div class="feature-tile"><div class="tile-num">04</div><div class="tile-title">SE & BGM</div><div class="tile-body">発言内容に合わせてランダム配置・フェード付き</div></div>
-        <div class="feature-tile"><div class="tile-num">05</div><div class="tile-title">Step10 以降の素材追加</div><div class="tile-body">グリーンバック・動画挿入・画像挿入・スライド・ワイプ等を任意で</div></div>
-        <div class="feature-tile" style="border-color:rgba(236,72,153,0.4)"><div class="tile-num" style="background:var(--grad-warm);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">06</div><div class="tile-title">レンダリング</div><div class="tile-body">Remotion で MP4 書き出し<br/><span class="hl">-14 LUFS</span> に自動調整</div></div>
-      </div>
-    </div>
-  </section>`;
-}
-
-// 03. 動画タイプ選択 + プロジェクト作成
-function slide03TypeProject() {
-  return `<section class="slide" data-section="start"
-    data-notes="プロジェクト作成は新規作成.shスクリプト1コマンドで自動化されています。実行するとプロジェクト名と動画タイプを聞かれるので答えるだけ。フォルダ作成・npm installまで自動です。新規作成前に特別な操作は不要です。">
-    ${ph(3, 'Create project')}
-    <div class="slide-content">
-      <h2>動画タイプを選んで<span class="g-primary">プロジェクト作成</span></h2>
-      <p class="lead mb-24">naoki-blueprint フォルダで 1コマンド実行:</p>
-      <div class="code">bash 新規作成.sh</div>
-      <p class="mt-24">起動すると順番に2つ聞かれます:</p>
-      <ol class="ordered" style="margin-top:12px;margin-bottom:24px">
-        <li><span class="bold text-white">プロジェクト名</span>（例: <code>2026-04-23</code> など日付でOK）</li>
-        <li><span class="bold text-white">動画タイプ</span>（1 or 2 を入力）</li>
-      </ol>
-      <div class="grid-2">
         <div class="card card--accent">
-          <div class="pill pill--primary mb-16">1. YouTube 横動画</div>
-          <div class="card-body">1920×1080<br/>20ステップ / スライド・ワイプ・OP・ハイライト対応</div>
+          <div class="pill pill--primary">午前</div>
+          <div class="card-title mt-16">基礎＆環境構築</div>
+          <div class="card-body">
+            <span class="text-cyan bold">・</span> AIエージェント基礎<br/>
+            <span class="text-cyan bold">・</span> Claude Code セットアップ<br/>
+            <span class="text-cyan bold">・</span> ライセンス認証<br/>
+            <span class="text-cyan bold">・</span> 音声操作 / SE設定<br/>
+            <span class="text-cyan bold">・</span> Whisper 環境構築
+          </div>
+        </div>
+        <div class="card card--warm">
+          <div class="pill pill--cool">午後 前半</div>
+          <div class="card-title mt-16">Blueprint 配布＆編集スタート</div>
+          <div class="card-body">
+            <span class="text-cyan bold">・</span> Blueprint 配布<br/>
+            <span class="text-cyan bold">・</span> テスト動画で一通り体験<br/>
+            <span class="text-cyan bold">・</span> step01〜09 をオートモードで<br/>
+            <span class="text-cyan bold">・</span> AI が動画を組み立てる流れを体感
+          </div>
         </div>
         <div class="card card--hot">
-          <div class="pill pill--hot mb-16">2. ショート動画</div>
-          <div class="card-body">1080×1920<br/>14ステップ / テロップ8種に絞り情報密度を優先</div>
+          <div class="pill pill--hot">午後 後半</div>
+          <div class="card-title mt-16">ブラッシュアップ＆完成</div>
+          <div class="card-body">
+            <span class="text-cyan bold">・</span> 本番動画で再スタート<br/>
+            <span class="text-cyan bold">・</span> プロファイルで自分の話し方学習<br/>
+            <span class="text-cyan bold">・</span> デザインピッカーで自分色に<br/>
+            <span class="text-cyan bold">・</span> <span class="hl">動画1本完成して持ち帰り</span>
+          </div>
+        </div>
+      </div>
+      <p class="lead mt-32" style="text-align:center;color:var(--ink-600)">途中で <span class="hl" style="color:var(--white)">ランチ休憩</span> を挟みます。終了後は <span class="hl" style="color:var(--white)">懇親会（任意参加）</span> を予定。</p>
+    </div>
+  </section>`;
+}
+
+// 03. AIが自動でやる6工程
+function slide03Features() {
+  return `<section class="slide" data-section="features"
+    data-notes="naoki-blueprintが自動でやってくれることは6つ。これが従来の動画編集で外注していた作業すべてです。撮影したMP4をフォルダに入れるだけで、ここにある6工程が全部自動で走ります。レンダリング時には音量も-14 LUFSというYouTube標準に自動で揃えてくれます。">
+    ${ph(3, 'What it does')}
+    <div class="slide-content">
+      <h2>AI が自動でやる<span class="g-primary">6つの工程</span></h2>
+      <div class="grid-3">
+        <div class="feature-tile"><div class="tile-num">01</div><div class="tile-title">無音＋言い直しカット</div><div class="tile-body">FFmpeg で沈黙区間と言い直しを一発削除<br/>音量ベースで発話末尾の切れ防止</div></div>
+        <div class="feature-tile"><div class="tile-num">02</div><div class="tile-title">文字起こし</div><div class="tile-body">Whisper large-v3 で word-level の精度<br/>台本と照合して誤変換を自動修正</div></div>
+        <div class="feature-tile"><div class="tile-num">03</div><div class="tile-title">テロップ＋SE 自動配置</div><div class="tile-body">発話の感情に応じてデザインを自動判定<br/>対応する SE フォルダから自動選択</div></div>
+        <div class="feature-tile"><div class="tile-num">04</div><div class="tile-title">画像・動画挿入</div><div class="tile-body">グリーンバック置換 / デモ動画 /<br/>AI画像生成（Gemini）/ 感情ベース配置</div></div>
+        <div class="feature-tile"><div class="tile-num">05</div><div class="tile-title">BGM 自動配置</div><div class="tile-body">単一 BGM / 区間切替（メイン/CTA/ED）<br/>フェードイン・アウト付き</div></div>
+        <div class="feature-tile" style="border-color:rgba(236,72,153,0.4)"><div class="tile-num" style="background:var(--grad-warm);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">06</div><div class="tile-title">レンダリング</div><div class="tile-body">Remotion で MP4 書き出し<br/><span class="hl">-14 LUFS</span> に音量自動調整</div></div>
+      </div>
+      <p class="lead mt-32 text-white">これが、これまで <span class="hl">外注に出していた作業すべて</span>。</p>
+    </div>
+  </section>`;
+}
+
+// 04. 動画タイプ選択
+function slide04TypeProject() {
+  return `<section class="slide" data-section="type-project"
+    data-notes="naoki-blueprintで作れる動画は2種類。YouTube用の横動画と、ショート動画用の縦動画です。横動画は20ステップ、縦動画は14ステップで完成します。両方とも同じ仕組みで、最初に動画タイプを選ぶだけ。途中で切り替える必要はありません。">
+    ${ph(4, 'Two video types')}
+    <div class="slide-content">
+      <h2>2種類の動画が作れる</h2>
+      <div class="grid-2 mt-24">
+        <div class="card card--accent">
+          <div class="pill pill--primary mb-16">YouTube 横動画</div>
+          <div class="card-title mt-16">1920×1080</div>
+          <div class="card-body"><span class="hl">20ステップ</span><br/>OP・スライド・ワイプ・ハイライト対応<br/>長尺コンテンツ向け</div>
+        </div>
+        <div class="card card--hot">
+          <div class="pill pill--hot mb-16">ショート動画</div>
+          <div class="card-title mt-16">1080×1920</div>
+          <div class="card-body"><span class="hl">14ステップ</span><br/>テロップ重視で情報密度を優先<br/>YouTube Shorts / TikTok / Reels 対応</div>
+        </div>
+      </div>
+      <p class="lead mt-48 text-white">プロジェクト作成時に <span class="hl">1 か 2 を選ぶだけ</span>。あとは同じワークフロー。</p>
+    </div>
+  </section>`;
+}
+
+// 05. 素材の配置
+function slide05Assets() {
+  return `<section class="slide" data-section="assets"
+    data-notes="プロジェクトを作ったら、publicフォルダに素材をドラッグアンドドロップで入れていきます。必須なのは本編動画とBGMとSEの3つだけ。あとは作りたい動画に応じて任意のフォルダを使います。今日はテスト用の動画と本番用の動画、両方持ってきてもらっているので、まずテスト用の方をmain/に入れて練習し、午後後半で本番用に差し替えます。">
+    ${ph(5, 'Project assets')}
+    <div class="slide-content">
+      <h2>素材を <code>public/</code> に置くだけ</h2>
+      <div class="card card--hot mt-24">
+        <div class="card-title">★ 必須の3フォルダ（これだけ揃えれば動く）</div>
+        <div class="card-body">
+          <span class="text-pink bold">videos/main/</span>　本編動画（撮影したMP4を入れる）<br/>
+          <span class="text-pink bold">bgm/</span>　BGM音源（MP3）<br/>
+          <span class="text-pink bold">se/</span>　SE効果音（強調 / ポジティブ / ネガティブ の3サブフォルダ）
+        </div>
+      </div>
+      <h3 style="color:var(--ink-600);font-size:24px;margin-top:32px;letter-spacing:0.1em">任意のフォルダ（必要な演出だけ）</h3>
+      <div class="grid-3 mt-16">
+        <div class="card">
+          <div class="card-title" style="font-size:22px">videos/inserts + overlays/</div>
+          <div class="card-body" style="font-size:18px">デモ動画の物理挿入・上に重ね</div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size:22px">videos/greenback/</div>
+          <div class="card-body" style="font-size:18px">グリーンバック素材</div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size:22px">videos/opening/</div>
+          <div class="card-body" style="font-size:18px">OP動画（横動画のみ）</div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size:22px">images/inserts + overlays/</div>
+          <div class="card-body" style="font-size:18px">話者横 720×405・全画面画像</div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size:22px">images/icon + endscreen/</div>
+          <div class="card-body" style="font-size:18px">対談用 顔アイコン・エンド画面</div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size:22px">script/</div>
+          <div class="card-body" style="font-size:18px">ナレーション台本（推奨）</div>
         </div>
       </div>
     </div>
   </section>`;
 }
 
-// 04. 素材の配置
-function slide04Assets() {
+// 06. オートモードで作業開始
+function slide06Start() {
   return `<section class="slide" data-section="start"
-    data-notes="プロジェクトフォルダの中の public フォルダに、素材をドラッグアンドドロップで入れます。動画系は videos の下、画像系は images の下。必須はメイン動画、BGM、SE の3つです。">
-    ${ph(4, 'Project start')}
+    data-notes="作業はオートモードで進めます。プロジェクトフォルダに入ってClaude Codeを起動して、スラッシュコマンドでnew-videoと打つだけ。あとはAIが質問してくるので、答えるだけで20ステップが順番に進みます。途中で止めても大丈夫。次回再開した時はチェックポイントから続きを案内してくれます。">
+    ${ph(6, 'Start with auto mode')}
     <div class="slide-content">
-      <h2>素材を <code>public/</code> に配置</h2>
-      <div class="code mt-16">
-public/
-├── videos/             <span class="cmt">動画素材</span>
-│   ├── main/           <span class="cmt">本編動画 </span><span class="str">★必須</span>
-│   ├── inserts/        <span class="cmt">物理挿入動画（任意）</span>
-│   ├── overlays/       <span class="cmt">オーバーレイ動画（任意）</span>
-│   ├── opening/        <span class="cmt">OP動画（横動画のみ・任意）</span>
-│   └── highlight/      <span class="cmt">ハイライト動画（自動生成・横動画のみ）</span>
-├── images/             <span class="cmt">画像素材</span>
-│   ├── inserts/        <span class="cmt">横に表示する画像 720×405（任意）</span>
-│   └── overlays/       <span class="cmt">全画面表示画像・アニメーション付き（任意）</span>
-├── bgm/                <span class="cmt">BGM（MP3） </span><span class="str">★必須</span>
-├── se/                 <span class="cmt">SE効果音 </span><span class="str">★必須</span>
-│   ├── 強調/
-│   ├── ポジティブ/
-│   └── ネガティブ/
-├── script/             <span class="cmt">ナレーション台本（推奨）</span>
-└── output/             <span class="cmt">完成動画の出力先</span></div>
-    </div>
-  </section>`;
-}
-
-// 05. 作業開始
-function slide05Start() {
-  return `<section class="slide" data-section="start"
-    data-notes="プロジェクトフォルダに入ってからClaude Codeを起動するのがポイント。naoki-blueprintフォルダで先にClaude Codeを立ち上げるとカレントディレクトリがズレてスラッシュコマンドが動かなくなるので、必ずこの順番で。あとはAIが次のコマンドを案内してくれます。">
-    ${ph(5, 'Start work')}
-    <div class="slide-content">
-      <h2>作業<span class="g-primary">スタート。</span></h2>
-      <p class="lead mb-16">プロジェクトフォルダに <span class="hl">入ってから</span> Claude Code を起動するのがポイント。</p>
-      <div class="code">cd projects/<span class="hi">2026-04-19</span>
+      <h2>オートモードで<span class="g-primary">作業スタート。</span></h2>
+      <p class="lead mb-16">プロジェクトフォルダに <span class="hl">入ってから</span> Claude Code を起動。</p>
+      <div class="code">cd projects/<span class="hi">2026-05-10</span>
 claude --dangerously-skip-permissions
-/step01-context</div>
+/new-video</div>
+      <div class="grid-2 mt-32">
+        <div class="card card--accent">
+          <div class="card-title">🚀 質問に答えるだけ</div>
+          <div class="card-body">AIが順番に質問してくるので答えるだけ。step01〜step20 が自動で進む。コマンドを覚える必要なし</div>
+        </div>
+        <div class="card card--warm">
+          <div class="card-title">⏸ 中断しても大丈夫</div>
+          <div class="card-body"><code>.auto-checkpoint.json</code> で進捗を保存。<code>/new-video resume</code> で続きから再開</div>
+        </div>
+      </div>
       <div class="card card--hot mt-32">
         <div class="card-title">⚠ 順番を間違えると…</div>
-        <div class="card-body">naoki-blueprint フォルダで先に Claude Code を立ち上げると <span class="bold text-white">cwd がズレて</span> <code>/step01-context</code> が見つからない。必ず <code>cd projects/XXX</code> してから <code>claude</code> を起動</div>
-      </div>
-      <div class="card card--accent mt-32">
-        <div class="card-title">中断しても大丈夫</div>
-        <div class="card-body"><code>/catchup</code> で現在の進捗を確認、どのステップから再開するか AI が教えてくれる</div>
+        <div class="card-body">naoki-blueprint ルートで先に Claude Code を立ち上げると <span class="bold text-white">cwd がズレて</span> 事故る。必ず <code>cd projects/XXX</code> してから <code>claude</code> を起動</div>
       </div>
     </div>
   </section>`;
 }
 
-// 06. 横動画ワークフロー
-function slide06WorkflowLong() {
-  return `<section class="slide" data-section="workflow"
-    data-notes="横動画版は全20ステップ。4つのフェーズに分かれています。全部通しても3時間程度で1本完成します。">
-    ${ph(6, 'Workflow / Long')}
+// 07. 横動画 20ステップフルリスト
+function slide07WorkflowLong() {
+  return `<section class="slide" data-section="workflow-long"
+    data-notes="横動画の全20ステップです。左半分のフェーズ1から2が下準備とテロップまで。文字起こしはmlx-whisper-large-v3でローカル実行、APIキー不要・課金ゼロです。右半分のフェーズ3から4で演出を載せていきます。step15の画像挿入はGemini APIでAI画像生成にも対応。step20でハイライト抽出して最終MP4が完成します。全部解説すると2時間かかるので、今日はこの一覧で全体像だけ掴んでください。">
+    ${ph(7, 'YouTube / 20 steps')}
     <div class="slide-content">
-      <h2 style="margin-bottom:32px">横動画ワークフロー<span class="g-primary"> 20</span><span style="color:var(--ink-600);font-size:48px">　steps</span></h2>
-      <div class="grid-3" style="gap:48px">
-        <div class="phase-row">
-          <div class="phase-title">Phase 1 / 素材準備</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">目的整理</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">素材確認</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">文字起こし</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">台本照合</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">無音+言い直し一括カット</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">カット後の再文字起こし</div>
-          <div class="phase-title mt-24">Phase 2 / 動画構築</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">テンプレ設定</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">テロップ作成</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">コンポジション統合</div>
-        </div>
-        <div class="phase-row">
-          <div class="phase-title">Phase 3 / 素材挿入</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">グリーンバック置換</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">デモ動画挿入</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">スライド生成</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">スライドキャプチャ</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">ワイプ位置調整</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">AI画像挿入</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">箇条書き・CTA</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">エンド画面</div>
-        </div>
-        <div class="phase-row">
-          <div class="phase-title">Phase 4 / BGM・出力</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">BGM挿入</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">OP連結</div>
-          <div class="step-item" style="font-size:24px;padding:9px 0">ハイライト抽出 + 完成</div>
-        </div>
-      </div>
-    </div>
-  </section>`;
-}
-
-// 07. 縦動画ワークフロー
-function slide07WorkflowShort() {
-  return `<section class="slide" data-section="workflow"
-    data-notes="ショート動画版は14ステップ。縦動画は情報密度が詰まりすぎるので、スライドもワイプも削っています。1本60秒の動画を1時間で作れます。">
-    ${ph(7, 'Workflow / Shorts')}
-    <div class="slide-content">
-      <h2>ショート動画ワークフロー<span class="g-warm"> 14</span><span style="color:var(--ink-600);font-size:48px">　steps</span></h2>
+      <h2>横動画 <span class="g-primary">20ステップ</span> フルリスト</h2>
       <div class="grid-2" style="gap:64px">
         <div class="phase-row">
-          <div class="phase-title">Phase 1 / 素材準備</div>
-          <div class="step-item">縦動画指定</div>
-          <div class="step-item">素材確認</div>
-          <div class="step-item">文字起こし</div>
-          <div class="step-item">台本照合</div>
-          <div class="step-item">無音+言い直し一括カット</div>
-          <div class="step-item">カット後の再文字起こし</div>
-          <div class="phase-title mt-32">Phase 2 / 動画構築</div>
-          <div class="step-item">テンプレ設定（8種）</div>
-          <div class="step-item">テロップ作成</div>
-          <div class="step-item">1080×1920 コンポジション</div>
+          <div class="phase-title">Phase 1 / 2　素材準備＋構築</div>
+          <div class="step-item">01. 方向性決定（context）</div>
+          <div class="step-item">02. 素材確認（assets）</div>
+          <div class="step-item">03. 文字起こし（Whisper）</div>
+          <div class="step-item">04. 台本照合・誤変換修正</div>
+          <div class="step-item">05. 無音＆言い直し自動カット</div>
+          <div class="step-item">06. カット後の再文字起こし</div>
+          <div class="step-item">07. テロップテンプレ設定</div>
+          <div class="step-item">08. テロップ自動生成</div>
+          <div class="step-item">09. コンポジション統合（Remotion）</div>
+          <div class="step-item">10. グリーンバック処理</div>
         </div>
         <div class="phase-row">
-          <div class="phase-title">Phase 3 / 素材挿入</div>
-          <div class="step-item">グリーンバック置換</div>
-          <div class="step-item">デモ動画挿入</div>
-          <div class="step-item">AI画像挿入</div>
-          <div class="phase-title mt-32">Phase 4 / BGM・出力</div>
-          <div class="step-item">BGM挿入</div>
-          <div class="step-item">1080×1920 レンダリング</div>
+          <div class="phase-title">Phase 3 / 4　演出＋出力</div>
+          <div class="step-item">11. デモ動画挿入</div>
+          <div class="step-item">12. HTMLスライド自動生成</div>
+          <div class="step-item">13. スライドキャプチャ＋タイムライン</div>
+          <div class="step-item">14. ワイプ位置自動調整</div>
+          <div class="step-item">15. 画像挿入（Gemini API対応）</div>
+          <div class="step-item">16. 特殊コンポ（CTA / 箇条書き等）</div>
+          <div class="step-item">17. OP・エンドスクリーン連結</div>
+          <div class="step-item">18. BGM挿入（区間切替対応）</div>
+          <div class="step-item">19. 本編レンダリング</div>
+          <div class="step-item">20. ハイライト抽出＋最終MP4</div>
         </div>
       </div>
     </div>
   </section>`;
 }
 
-// 08. Phase 1
-function slide08Phase1() {
-  return `<section class="slide" data-section="workflow"
-    data-notes="フェーズ1は素材準備。文字起こしから無音カットまでです。音量ベースの対称 padding で発話末尾のプツッとした切れを防止しています。ここで元動画の尺が40分くらいに縮みます。">
-    ${ph(8, 'Phase 1')}
+// 08. ショート動画 14ステップフルリスト
+function slide08WorkflowShort() {
+  return `<section class="slide" data-section="workflow-short"
+    data-notes="ショート動画は14ステップ。縦動画は情報密度が詰まりすぎるので、スライドもワイプも削っています。1本60秒の動画なら1時間程度で作れます。横動画と同じくオートモードで全部進められます。">
+    ${ph(8, 'Shorts / 14 steps')}
     <div class="slide-content">
-      <h2>Phase 1　<span class="g-primary">素材準備</span>　step01〜06</h2>
+      <h2>ショート動画 <span class="g-warm">14ステップ</span> フルリスト</h2>
+      <div class="grid-2" style="gap:64px">
+        <div class="phase-row">
+          <div class="phase-title">Phase 1 / 2　素材準備＋構築</div>
+          <div class="step-item">01. 縦動画指定（context）</div>
+          <div class="step-item">02. 素材確認（assets）</div>
+          <div class="step-item">03. 文字起こし（Whisper）</div>
+          <div class="step-item">04. 台本照合・誤変換修正</div>
+          <div class="step-item">05. 無音＆言い直し自動カット</div>
+          <div class="step-item">06. カット後の再文字起こし</div>
+          <div class="step-item">07. テロップテンプレ設定</div>
+          <div class="step-item">08. テロップ自動生成</div>
+          <div class="step-item">09. 1080×1920 コンポジション</div>
+        </div>
+        <div class="phase-row">
+          <div class="phase-title">Phase 3 / 4　演出＋出力</div>
+          <div class="step-item">10. グリーンバック処理</div>
+          <div class="step-item">11. デモ動画挿入</div>
+          <div class="step-item">12. 画像挿入（Gemini API対応）</div>
+          <div class="step-item">13. BGM挿入</div>
+          <div class="step-item">14. 1080×1920 レンダリング</div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+// 09. Phase 1 素材準備
+function slide09Phase1() {
+  return `<section class="slide" data-section="phase1"
+    data-notes="フェーズ1は素材準備。文字起こしから無音カットまで。step05が終わるとRemotion Studioが自動で起動して、ブラウザでフレーム単位の確認ができるようになります。発話末尾がプツッと切れていないか、不自然な間がないか、耳と目で確認してください。気になったらtranscript_fixed.jsonを直接編集してstep05を再実行するだけです。">
+    ${ph(9, 'Phase 1 / Prep')}
+    <div class="slide-content">
+      <h2>Phase 1　<span class="g-primary">素材準備</span></h2>
       <div class="grid-2">
         <div class="card card--accent">
           <div class="card-title">step01〜02　準備</div>
@@ -226,57 +283,24 @@ function slide08Phase1() {
         </div>
         <div class="card card--accent">
           <div class="card-title">step05〜06　一括カット</div>
-          <div class="card-body">無音 + 言い直しを FFmpeg 一発エンコード。<span class="hl">音量ベースで前後に余韻を残し</span>発話末尾プツッを防止</div>
+          <div class="card-body">無音 + 言い直しを FFmpeg 一発エンコード。<span class="hl">音量ベースで前後に余韻</span>を残しプツッ防止</div>
         </div>
+      </div>
+      <div class="card card--hot mt-32">
+        <div class="card-title">🚀 Remotion Studio 自動起動</div>
+        <div class="card-body"><code>step05</code> 完了時に <code>localhost:3000</code> で自動起動。<span class="hl">フレーム単位で精密確認</span> → 気になったら <code>transcript_fixed.json</code> 編集 → <code>/step05</code> 再実行</div>
       </div>
     </div>
   </section>`;
 }
 
-// 09. 🆕 編集のコツ① Remotion Studio でカット確認
-function slideTip1CutReview() {
-  return `<section class="slide" data-section="workflow"
-    data-notes="step05 完了時にRemotion Studioが自動起動します。localhost:3000でフレーム単位で確認できるので、発話末尾のプツッとした切れや不自然な間を耳と目でチェックしてください。気になる箇所はtranscript_fixed.jsonを直接編集してstep05を再実行するだけです。">
-    ${ph(9, 'Edit tip / Remotion review')}
-    <div class="slide-content">
-      <div class="tag" style="color:#fbbf24">💡 編集のコツ ①</div>
-      <h2 class="mt-16"><span class="g-primary">Remotion Studio</span> でフレーム確認</h2>
-      <div class="card card--warm mt-32">
-        <div class="card-title">🚀 自動起動</div>
-        <div class="card-body"><code>/step05</code> 完了時に Remotion Studio が <span class="hl">自動で起動</span>（<code>localhost:3000</code>）。フレーム単位で精密に確認できる</div>
-      </div>
-      <div class="grid-2 mt-32">
-        <div class="card card--accent">
-          <div class="card-title">✅ チェック項目</div>
-          <div class="card-body">
-            <span class="text-cyan bold">・</span> 発話末尾がプツッと切れていないか<br/>
-            <span class="text-cyan bold">・</span> 不自然な間が残っていないか<br/>
-            <span class="text-cyan bold">・</span> 話の繋がりが途切れていないか<br/>
-            <span class="text-cyan bold">・</span> Studio のタイムラインで前後フレームも確認
-          </div>
-        </div>
-        <div class="card card--hot">
-          <div class="card-title">⚠ 気になった時の直し方</div>
-          <div class="card-body">
-            <span class="text-pink bold">・</span> <code>transcript_fixed.json</code> を直接編集<br/>
-            <span class="text-pink bold">・</span> <code>/step05</code> を再実行<br/>
-            <span class="text-pink bold">・</span> 迷ったら必ず戻って直す<br/>
-            <span class="text-pink bold">・</span> ここの手間が完成度を分ける
-          </div>
-        </div>
-      </div>
-      <p class="lead mt-32">自動カットで大部分は整うが、<span class="hl">残りは人の耳が勝負</span>。</p>
-    </div>
-  </section>`;
-}
-
-// 10. Phase 2
+// 10. Phase 2 動画構築
 function slide10Phase2() {
-  return `<section class="slide" data-section="workflow"
-    data-notes="フェーズ2は動画の骨格を作ります。テンプレート設定でフォントや色を決めて、テロップデータを作成、最後にコンポジションで組み上げます。ここでRemotion Studioが起動して、ブラウザで完成形のプレビューができます。">
-    ${ph(10, 'Phase 2')}
+  return `<section class="slide" data-section="phase2"
+    data-notes="フェーズ2は動画の骨格作り。テンプレート設定、テロップデータ作成、コンポジション統合の3ステップ。AIが発話の内容と感情を読んで、強調すべき言葉や数字を自動でキャッチして、それぞれに合うデザインを当てていきます。例えば数字+単位は金色のグラデ、ネガティブな言葉は明朝体の白文字、というように。受講生は判断する必要なし。">
+    ${ph(10, 'Phase 2 / Build')}
     <div class="slide-content">
-      <h2>Phase 2　<span class="g-primary">動画構築</span>　step07〜09</h2>
+      <h2>Phase 2　<span class="g-primary">動画構築</span></h2>
       <div class="grid-3">
         <div class="card">
           <div class="card-title">step07　テンプレ</div>
@@ -284,234 +308,196 @@ function slide10Phase2() {
         </div>
         <div class="card">
           <div class="card-title">step08　テロップ</div>
-          <div class="card-body">transcript から<span class="bold text-white">一字一句</span>テロップ化。AI が自動でスタイル判定</div>
+          <div class="card-body">transcript から<span class="bold text-white">一字一句</span>テロップ化。<span class="hl">AI が感情で自動判定</span></div>
         </div>
         <div class="card">
           <div class="card-title">step09　統合</div>
           <div class="card-body">MainComposition.tsx で動画 + テロップ + SE を統合。Studio 起動</div>
         </div>
       </div>
-      <div class="card card--hot mt-48">
-        <div class="card-title">Remotion Studio がブラウザで開く</div>
-        <div class="card-body"><code>localhost:3000</code> で完成形をリアルタイムプレビュー。以降のステップでも開きっぱなしで使います</div>
+      <div class="card card--accent mt-32">
+        <div class="card-title">🎨 テロップは「感情」で自動判定</div>
+        <div class="card-body">
+          <span class="text-cyan bold">・</span> <span class="bold text-white">数字+単位</span>（1,000万円・3倍・500人）→ 金グラデ強調<br/>
+          <span class="text-cyan bold">・</span> <span class="bold text-white">ポジティブ強調</span>(最強・絶対・上達）→ 赤グラデ強調<br/>
+          <span class="text-cyan bold">・</span> <span class="bold text-white">ネガティブ・警告</span>（注意・ダメ・失敗）→ 明朝白文字<br/>
+          <span class="text-cyan bold">・</span> <span class="bold text-white">他者の発言</span>（口コミ・証言）→ <code>｢｣</code> 引用符付き<br/>
+          <span class="text-cyan bold">・</span> 通常の発話 → 紺の通常テロップ（SEなし）
+        </div>
       </div>
     </div>
   </section>`;
 }
 
-// 11. Phase 3
-function slide12Phase3() {
-  return `<section class="slide" data-section="workflow"
-    data-notes="フェーズ3は素材挿入。任意のステップが多いので、必要な演出だけ使ってください。step15の画像挿入は3フェーズ構造で、インサート画像・オーバーレイ画像・顔アイコンが明確に分離されています。">
-    ${ph(11, 'Phase 3')}
+// 11. Phase 3 演出
+function slide11Phase3() {
+  return `<section class="slide" data-section="phase3"
+    data-notes="フェーズ3は演出。ここから先は任意ステップなので、必要な要素だけ使ってもらえばOKです。グリーンバック置換は素人撮影の照明ムラにも対応する3段パイプラインを使っているので、緑が均一じゃなくても綺麗に抜けます。AI画像生成はGeminiで、step15が違反語を自動検出して安全な言い換えを提案してくれます。">
+    ${ph(11, 'Phase 3 / Effects')}
     <div class="slide-content">
-      <h2>Phase 3　<span class="g-primary">素材挿入</span>　任意</h2>
+      <h2>Phase 3　<span class="g-primary">演出</span>　<span style="color:var(--ink-600);font-size:36px">必要な要素だけ使えばOK</span></h2>
       <div class="grid-2">
         <div class="card">
           <div class="card-title">step10　グリーンバック</div>
-          <div class="card-body">クロマキー + rembg + despill の3段パイプライン。素人撮影でも背景を綺麗に置換</div>
+          <div class="card-body">クロマキー + rembg + despill の3段パイプライン。<span class="hl">素人撮影の照明ムラにも対応</span></div>
         </div>
         <div class="card">
           <div class="card-title">step11　デモ動画挿入</div>
-          <div class="card-body">物理挿入（Series分割）とオーバーレイ（上に重ね）の2方式</div>
+          <div class="card-body">物理挿入（Series分割）と<br/>オーバーレイ（上に重ね）の2方式</div>
         </div>
         <div class="card">
-          <div class="card-title">step12　画像挿入（3フェーズ構造）</div>
-          <div class="card-body"><span class="text-cyan bold">インサート画像 / オーバーレイ画像 / 顔アイコン</span> で明確分離</div>
+          <div class="card-title">step12〜14　スライド・ワイプ</div>
+          <div class="card-body">台本→HTMLスライド自動生成 → 4Kキャプチャ →<br/>動画にタイムライン配置 + ワイプ位置調整</div>
         </div>
         <div class="card card--warm">
-          <div class="card-title">横動画の追加</div>
-          <div class="card-body">step12-17　スライド生成・キャプチャ・ワイプ・特殊要素・エンド画面</div>
+          <div class="card-title">step15　AI画像挿入</div>
+          <div class="card-body">Gemini で画像生成。<span class="hl">違反語を自動検出</span>して言い換え提案<br/>感情ベースで配置タイミング自動判定</div>
         </div>
+      </div>
+      <div class="card card--accent mt-32">
+        <div class="card-title">step16〜17　仕上げ</div>
+        <div class="card-body">箇条書き・CTA・見出しバナー・テーマテロップ → OP/ED 連結で Final Composition 構築</div>
       </div>
     </div>
   </section>`;
 }
 
-// 13. 🆕 編集のコツ③ AI画像生成の規約
-function slideTip3ImagePolicy() {
-  return `<section class="slide" data-section="workflow"
-    data-notes="Geminiの画像生成にはGoogleのGenerative AI Prohibited Use Policyがあります。実在人物・児童・性的・暴力・なりすましは禁止。naoki-blueprintのstep15-imagesにはNG語リストと代替フレーズが搭載されているので、プロンプトを入れると自動で検出・言い換え提案されます。">
-    ${ph(12, 'Edit tip / Image policy')}
-    <div class="slide-content">
-      <div class="tag" style="color:#fbbf24">💡 編集のコツ ③</div>
-      <h2 class="mt-16">AI画像は <span class="g-warm">Google規約</span> <span class="g-primary">遵守が必須</span></h2>
-      <div class="grid-2 mt-32" style="gap:32px">
-        <div class="card card--hot">
-          <div class="card-title">🚫 絶対NG（Google Policy）</div>
-          <div class="card-body">
-            <span class="text-pink bold">・</span> 実在の人物（芸能人・政治家・有名人）<br/>
-            <span class="text-pink bold">・</span> 児童・性的・暴力コンテンツ<br/>
-            <span class="text-pink bold">・</span> 医療・法律アドバイスの装い<br/>
-            <span class="text-pink bold">・</span> なりすまし・誤情報
-          </div>
-        </div>
-        <div class="card card--accent">
-          <div class="card-title">📝 言い換え例</div>
-          <div class="card-body">
-            <span class="text-pink bold">×</span> 「ジョコビッチが構えている」<br/>
-            <span class="text-cyan bold">○</span> 「プロテニス選手のシルエット」<br/>
-            <br/>
-            <span class="text-pink bold">×</span> 「経営者が契約書にサイン」<br/>
-            <span class="text-cyan bold">○</span> 「ビジネスパーソンが書類に記入」
-          </div>
-        </div>
-      </div>
-      <div class="card card--warm mt-32">
-        <div class="card-title">✅ naoki-blueprint の自動ガード</div>
-        <div class="card-body"><code>step15-images</code> に NG語リスト・代替フレーズ・業種別違反パターン搭載済。プロンプトを入れると <span class="hl">AI が自動検出・言い換え提案</span></div>
-      </div>
-    </div>
-  </section>`;
-}
-
-// 14. Phase 4
-function slide14Phase4() {
-  return `<section class="slide" data-section="workflow"
-    data-notes="最後のフェーズ。BGMを入れて、OP連結して、ハイライトを自動抽出、そしてラウドネス正規化でYouTube基準に揃えて完成です。">
-    ${ph(13, 'Phase 4')}
+// 12. Phase 4 BGM・出力
+function slide12Phase4() {
+  return `<section class="slide" data-section="phase4"
+    data-notes="最後のフェーズはBGM・出力・ハイライト。レンダリング時に音量を-14 LUFSというYouTube・TikTok・X共通基準に自動で揃えてくれます。声・SE・BGMのバランスは崩さずに全体音量だけ揃える二段階loudnormを使っています。本編が完成したら、step20でハイライト動画を別途自動生成できます。">
+    ${ph(12, 'Phase 4 / Output')}
     <div class="slide-content">
       <h2>Phase 4　<span class="g-primary">BGM・出力</span></h2>
       <div class="grid-2">
         <div class="card card--accent">
-          <div class="card-title">BGM 挿入</div>
-          <div class="card-body">フェードイン / アウト付き<br/>区間・音量はユーザー指定可<br/>足りない場合はループ再生</div>
+          <div class="card-title">step18　BGM 挿入</div>
+          <div class="card-body">単一 BGM / 区間切替（メイン・CTA・ED）<br/>フェードイン / アウト付き<br/>足りない場合はループ再生</div>
         </div>
         <div class="card card--hot">
-          <div class="card-title">最終レンダリング</div>
-          <div class="card-body">Remotion で MP4 書き出し<br/>横動画: 1920×1080 / FPS自動検出<br/>ショート: 1080×1920 / FPS自動検出</div>
+          <div class="card-title">step19　最終レンダリング</div>
+          <div class="card-body">Remotion で MP4 書き出し<br/>横: 1920×1080 / 縦: 1080×1920<br/>FPS は元動画から自動検出</div>
         </div>
       </div>
       <div class="card card--warm mt-32">
         <div class="card-title">🔊 ラウドネス正規化</div>
-        <div class="card-body"><span class="hl">-14 LUFS / -1 dBTP / LRA 11</span>　YouTube/TikTok/X 共通基準に自動で揃える。二段階loudnormで声・SE・BGMのバランスは崩さない</div>
+        <div class="card-body"><span class="hl">-14 LUFS / -1 dBTP / LRA 11</span>　YouTube/TikTok/X 共通基準に自動で揃える。声・SE・BGMのバランスは崩さない二段階loudnorm</div>
       </div>
-      <p class="lead mt-32">完成動画は <code>public/output/</code> に出力されます</p>
+      <div class="card card--accent mt-32">
+        <div class="card-title">step20　ハイライト動画（任意）</div>
+        <div class="card-body">本編 MP4 からハイライト範囲を自動抽出 → 冒頭に連結して再レンダリング</div>
+      </div>
     </div>
   </section>`;
 }
 
-// 14. テロップ8種
-function slide15Telop() {
-  return `<section class="slide" data-section="rules"
-    data-notes="テロップは全部で8種類。発言の内容や感情に応じて、AIが自動で判定してくれます。">
-    ${ph(14, 'Telop / 8 styles')}
+// 13. デザインピッカー（看板機能①）
+function slide13Picker() {
+  return `<section class="slide" data-section="picker"
+    data-notes="ここからはnaoki-blueprintの看板機能を2つ紹介します。1つ目はデザインピッカー。テロップのフォントサイズ、文字色、SE、アニメーションをブラウザのUIで変更できます。コードを触る必要なし。テンプレートごとにON/OFFもできるので、自分の動画に必要なテロップだけ使う設定にできます。">
+    ${ph(13, 'Killer feature ①')}
     <div class="slide-content">
-      <h2>テロップ<span class="g-primary">8デザイン</span></h2>
-      <table>
-        <thead><tr><th style="width:18%">テンプレ</th><th style="width:30%">用途</th><th style="width:28%">見た目</th><th>SEフォルダ</th></tr></thead>
-        <tbody>
-          <tr><td class="bold text-white">normal</td><td>通常の字幕</td><td>紺文字 + 白フチ（丸ゴ）</td><td class="text-ink-700">なし</td></tr>
-          <tr><td class="bold text-white">normal_emphasis</td><td>1語だけ赤で強調</td><td>紺+赤 + 白フチ</td><td>se/強調</td></tr>
-          <tr><td class="bold text-gold">emphasis</td><td>ポジティブ強調（概念）</td><td>赤グラデ + 金フチ + グロー</td><td>se/ポジティブ</td></tr>
-          <tr><td class="bold text-gold">emphasis2</td><td>数字+単位の強調</td><td>金グラデ + ダークゴールド縁</td><td>se/ポジティブ</td></tr>
-          <tr><td class="bold text-white">section</td><td>セクション見出し</td><td>赤文字 + 白フチ（大サイズ）</td><td>se/強調</td></tr>
-          <tr><td class="bold text-pink">negative</td><td>警告・失敗</td><td>白文字 + 黒グロー（明朝）</td><td>se/ネガティブ</td></tr>
-          <tr><td class="bold text-pink">negative2</td><td>絶望・衝撃</td><td>白文字 + 黒縁 + グレースケール</td><td>se/ネガティブ</td></tr>
-          <tr><td class="bold text-white">third_party</td><td>他者の発言・視聴者の声</td><td>白文字 + グレーフチ + <span class="hl">｢｣</span></td><td>se/強調</td></tr>
-        </tbody>
-      </table>
+      <div class="tag" style="color:#22d3ee">🎨 看板機能 ①</div>
+      <h2 class="mt-16"><span class="g-primary">デザインピッカー</span> で自分色に</h2>
+      <div class="grid-2 mt-32">
+        <div class="card card--accent">
+          <div class="card-title">何ができるか</div>
+          <div class="card-body">
+            <span class="text-cyan bold">・</span> テロップの<span class="bold text-white">フォントサイズ</span>変更<br/>
+            <span class="text-cyan bold">・</span> <span class="bold text-white">色バリエーション</span>切替（red/green/cyan/...）<br/>
+            <span class="text-cyan bold">・</span> <span class="bold text-white">SE フォルダ</span>変更<br/>
+            <span class="text-cyan bold">・</span> <span class="bold text-white">アニメーション</span>切替（slide_up / slide_left / none）<br/>
+            <span class="text-cyan bold">・</span> テンプレ単位の <span class="bold text-white">ON/OFF</span>
+          </div>
+        </div>
+        <div class="card card--hot">
+          <div class="card-title">どう使うか</div>
+          <div class="card-body">
+            <span class="text-pink bold">①</span> ブラウザで picker を開く<br/>
+            <span class="text-pink bold">②</span> プレビュー見ながらドラッグ・クリック<br/>
+            <span class="text-pink bold">③</span> 保存ボタンで <code>templateVariants.ts</code> に反映<br/>
+            <br/>
+            <span class="hl">コードを一切触らない</span>
+          </div>
+        </div>
+      </div>
+      <p class="lead mt-32 text-white">「<span class="hl">AIに任せる</span>」と「<span class="hl">自分の好みに調整</span>」を両立。</p>
     </div>
   </section>`;
 }
 
-// 15. テロップ運用ルール
-function slide15bTelopRules() {
-  return `<section class="slide" data-section="rules"
-    data-notes="テロップを組む時のルールは4つ。句読点は自動で削除、引用符は半角｢｣、emphasisWord は配列で複数強調に対応、ショート動画は2行化可能です。">
-    ${ph(15, 'Telop rules')}
+// 14. プロファイル（看板機能②）
+function slide14Profile() {
+  return `<section class="slide" data-section="profile"
+    data-notes="2つ目の看板機能はプロファイル。これが他のAI動画編集ツールにない、naoki-blueprint最大の差別化ポイントです。あなたのNGワード、口癖、専門用語、テロップの好みを一度プロファイルファイルに書いておけば、全ての動画で自動反映されます。動画ごとに毎回教え直す必要なし。動画を作るたびに「次回もこのスタイルで」と確認されて、yesと答えればプロファイルに自動追記されていきます。使えば使うほど、あなた専用のAI編集者に育っていきます。">
+    ${ph(14, 'Killer feature ②')}
     <div class="slide-content">
-      <h2><span class="g-primary">テロップ運用ルール</span></h2>
+      <div class="tag" style="color:#fbbf24">📝 看板機能 ②</div>
+      <h2 class="mt-16"><span class="g-warm">プロファイル</span> で「あなた専用」に育てる</h2>
       <div class="card card--warm mt-32">
-        <div class="card-body" style="font-size:20px;line-height:2.0">
-          <span class="text-cyan bold">・</span> <span class="bold text-white">句読点削除</span>: <code>、</code> <code>。</code> は自動削除（<code>?</code> <code>!</code> は残す）<br/>
-          <span class="text-cyan bold">・</span> <span class="bold text-white">引用符は半角</span> <code>｢｣</code>: 全角「」はセンタリングがズレるため統一<br/>
-          <span class="text-cyan bold">・</span> <span class="bold text-white">emphasisWord は配列可</span>: <code>['前衛','後衛']</code> のように対句・複数強調に対応<br/>
-          <span class="text-cyan bold">・</span> <span class="bold text-white">ショート動画は2行可</span>: <code>\\n</code> で改行。主語述語が散る時・対句が分断される時に使用
+        <div class="card-title">⚠ 他のAI動画編集ツールとの最大の違い</div>
+        <div class="card-body">普通は<span class="bold text-white">動画ごとに毎回</span>「私はこういう話し方をします」「この言葉は使わないで」と教え直す必要がある。naoki-blueprint は <span class="hl">一度プロファイルに書けば全動画で自動反映</span>。</div>
+      </div>
+      <div class="grid-2 mt-32">
+        <div class="card card--accent">
+          <div class="card-title">プロファイルに書く内容</div>
+          <div class="card-body">
+            <span class="text-cyan bold">・</span> NGワード（使わせない言葉）<br/>
+            <span class="text-cyan bold">・</span> 口癖・好む表現<br/>
+            <span class="text-cyan bold">・</span> 専門用語の正しい表記<br/>
+            <span class="text-cyan bold">・</span> テロップの好み（強調の頻度・スタイル）<br/>
+            <span class="text-cyan bold">・</span> カテゴリ別に複数プロファイル可（戦術解説 / 試合実況 等）
+          </div>
+        </div>
+        <div class="card card--hot">
+          <div class="card-title">勝手に育つ仕組み</div>
+          <div class="card-body">
+            動画作成中に「この強調は赤じゃなく金で」と指示<br/>
+            → 動画完成時に <span class="hl">「次回もこのスタイルで？」</span> と確認<br/>
+            → yes ならプロファイルに自動追記<br/>
+            <br/>
+            <span class="bold text-white">使うほどあなた専用に育つ</span>
+          </div>
         </div>
       </div>
     </div>
   </section>`;
 }
 
-// 16. SE配置ルール
-function slide16SE() {
-  return `<section class="slide" data-section="rules"
-    data-notes="SEは3つのフォルダに分けて管理します。テロップのテンプレに応じて、フォルダの中からランダムに選ばれます。SE音量は0.06で、BGMとのバランスが自然になるよう調整済みです。">
-    ${ph(16, 'SE rules')}
+// 15. 2本目以降は /new-video のみ
+function slide15SecondVideo() {
+  return `<section class="slide" data-section="second"
+    data-notes="2本目以降はもっとシンプル。ライセンス認証は今日のうちに済ませるので、明日以降は naoki-blueprint フォルダで claude を起動して、スラッシュコマンドの new-video を打つだけ。プロジェクト作成からオートモード進行まで、これ1つで全部やってくれます。今日のセミナーが終わったら、まず家に帰って2本目を作ってみてください。">
+    ${ph(15, 'For next videos')}
     <div class="slide-content">
-      <h2>SE 配置ルール</h2>
-      <div class="grid-3">
-        <div class="card">
-          <div class="pill pill--primary mb-16">se/強調</div>
-          <div class="card-body">normal_emphasis / section / third_party で使用。決定音・拍子木系</div>
-        </div>
-        <div class="card">
-          <div class="pill pill--warm mb-16">se/ポジティブ</div>
-          <div class="card-body">emphasis / emphasis2 で使用。きらーん・シャキーン・和太鼓系</div>
-        </div>
-        <div class="card">
-          <div class="pill pill--hot mb-16">se/ネガティブ</div>
-          <div class="card-body">negative / negative2 で使用。チーン・ポカン・間抜け系</div>
-        </div>
-      </div>
-      <div class="card card--accent mt-48">
-        <div class="card-title">AI の選択ロジック</div>
-        <div class="card-body">
-          <span class="text-cyan bold">・</span> startFrame をシードにした疑似乱数で選択（毎回同じ結果）<br/>
-          <span class="text-cyan bold">・</span> 直近2回と同じSEは避ける<br/>
-          <span class="text-cyan bold">・</span> 連続SE間隔は最低 <span class="hl">50フレーム（2秒）</span><br/>
-          <span class="text-cyan bold">・</span> <span class="hl">SE音量 0.06</span>（BGM 0.03との自然バランス）
-        </div>
-      </div>
-    </div>
-  </section>`;
-}
-
-// 17. 2本目以降
-function slide17SecondVideo() {
-  return `<section class="slide" data-section="advanced"
-    data-notes="2本目以降はもっと簡単です。ライセンス認証はもう終わっているので、新規作成.shでプロジェクトを作って、そのフォルダに入ってClaude Codeを起動するだけです。">
-    ${ph(17, 'For next videos')}
-    <div class="slide-content">
-      <h2>2本目以降は、<span class="g-primary">3コマンド。</span></h2>
-      <p class="lead mb-24">ライセンス認証は初回のみ。<span class="hl">通常のターミナル</span>で以下3行を順に実行:</p>
+      <h2>2本目以降は、<span class="g-primary">1コマンドだけ。</span></h2>
+      <p class="lead mb-24">ライセンス認証は今日で完了。明日以降は <span class="hl">naoki-blueprint フォルダで</span>:</p>
       <div class="code">
-<span class="cmt"># ① naoki-blueprint フォルダでプロジェクト作成</span>
-bash 新規作成.sh
+<span class="cmt"># naoki-blueprint フォルダで Claude Code を起動して</span>
+claude --dangerously-skip-permissions
 
-<span class="cmt"># ② 作ったプロジェクトフォルダに移動</span>
-cd projects/<span class="hi">2026-04-23</span>
-
-<span class="cmt"># ③ そこで Claude Code を起動 → /step01-context</span>
-claude --dangerously-skip-permissions</div>
-    </div>
-  </section>`;
-}
-
-// (旧 18. Video Use 比較は削除)
-
-// 19. Xへ投稿
-function slide19Post() {
-  return `<section class="slide anim-fade-up" data-section="post"
-    data-notes="感想や成果物はぜひXにシェアしてください。QRに投稿本文があらかじめセットされているので、スマホで読み取ればそのまま投稿できます。投稿いただいた内容はこちらで拡散させていただきます。">
-    ${ph(18, 'Share on X')}
-    <div class="slide-content" style="align-items:center;text-align:center">
-      <h2 style="font-size:96px;text-align:center;margin-bottom:24px">今日の成果を<span class="g-warm">投稿しましょう！</span></h2>
-      <p class="lead" style="text-align:center;margin-bottom:56px">QRを読むだけで投稿画面が開きます。みんなで盛り上げよう。</p>
-      <div class="qr-card" style="padding:32px">
-        <div class="qr-box" style="width:400px;height:400px"><img src="assets/qr-post.png" alt="X post QR" /></div>
+<span class="cmt"># そのまま new-video コマンドを打つだけ</span>
+/new-video</div>
+      <div class="grid-2 mt-32">
+        <div class="card card--accent">
+          <div class="card-title">/new-video が全部やる</div>
+          <div class="card-body">プロジェクト名と動画タイプを聞かれる → フォルダ自動作成 → そのままオートモードで step01 へ進む</div>
+        </div>
+        <div class="card card--warm">
+          <div class="card-title">途中で止めても安心</div>
+          <div class="card-body">チェックポイントが自動保存される。次回 <code>/new-video resume</code> で続きから再開</div>
+        </div>
       </div>
-      <p class="mt-48" style="text-align:center;font-size:28px;color:var(--white);font-weight:600">投稿いただいた内容は<span class="hl">こちらで拡散させていただきます</span></p>
+      <p class="lead mt-32 text-white">あとは <span class="hl">質問に答えるだけ</span>。コマンドを覚える必要なし。</p>
     </div>
   </section>`;
 }
 
-// 20. サポート窓口
-function slide20Support() {
-  return `<section class="slide" data-section="closing"
-    data-notes="このセミナーが終わったあとも、Chatworkのグループで1ヶ月間サポートします。1ヶ月経過後は個別でご案内します。">
-    ${ph(19, 'Support')}
+// 16. サポート体制
+function slide16Support() {
+  return `<section class="slide" data-section="support"
+    data-notes="今日で終わりじゃありません。Chatworkのグループで1ヶ月間、私が直接お応えします。エラーが出た時、2本目を作る時の質問、何でも聞いてください。1ヶ月経過後は個別でご案内します。">
+    ${ph(16, 'Support')}
     <div class="slide-content" style="align-items:center;text-align:center">
       <h2 style="text-align:center">サポート窓口</h2>
       <div class="pill pill--primary" style="margin-bottom:40px">Chatwork グループ</div>
@@ -521,24 +507,24 @@ function slide20Support() {
       </div>
       <p class="lead" style="text-align:center;max-width:1200px;margin-top:48px">
         参加者専用の Chatwork グループで、質問・相談いつでもOK。<br/>
-        本セミナーから<span class="hl">1ヶ月間</span>は私たちが直接お応えします。
+        本セミナーから<span class="hl">1ヶ月間</span>は私が直接お応えします。
       </p>
       <p style="text-align:center;font-size:24px;color:var(--ink-600);margin-top:32px">1ヶ月経過後は個別にご案内させていただきます</p>
     </div>
   </section>`;
 }
 
-// 21. クロージング
-function slide21Closing() {
+// 17. クロージング
+function slide17Closing() {
   return `<section class="slide hero-slide anim-fade-up" data-section="closing" data-anim-fixed
-    data-notes="最後まで参加いただきありがとうございました。今日学んだことを使って、ぜひ動画制作を習慣にしてください。また次のセミナーでお会いしましょう。">
+    data-notes="最後まで参加いただきありがとうございました。今日学んだことを使って、ぜひ動画制作を習慣にしてください。自動化で浮いた時間で、次のコンテンツを作る。これが正しい使い方です。また次のセミナーでお会いしましょう。">
     <div class="hero">
       <div class="hero-tag">Thank you for joining</div>
       <h1 class="hero-title">動画制作を、<br/><span class="em-warm">習慣に。</span></h1>
       <div class="hero-rule"></div>
       <p class="hero-subtitle">自動化で浮いた時間で、次のコンテンツを作ろう。<br/>また次のセミナーで会いましょう。</p>
       <div class="hero-meta">Naoki  /  AI × Video Editing</div>
-      <div class="big-index">20</div>
+      <div class="big-index">17</div>
     </div>
   </section>`;
 }
@@ -546,46 +532,40 @@ function slide21Closing() {
 // === Register ===
 window.slideFactories = [
   slide01Cover,
-  slide02Features,
-  slide03TypeProject,
-  slide04Assets,
-  slide05Start,
-  slide06WorkflowLong,
-  slide07WorkflowShort,
-  slide08Phase1,
-  slideTip1CutReview,
+  slide02Schedule,
+  slide03Features,
+  slide04TypeProject,
+  slide05Assets,
+  slide06Start,
+  slide07WorkflowLong,
+  slide08WorkflowShort,
+  slide09Phase1,
   slide10Phase2,
-  slide12Phase3,
-  slideTip3ImagePolicy,
-  slide14Phase4,
-  slide15Telop,
-  slide15bTelopRules,
-  slide16SE,
-  slide17SecondVideo,
-  slide19Post,
-  slide20Support,
-  slide21Closing
+  slide11Phase3,
+  slide12Phase4,
+  slide13Picker,
+  slide14Profile,
+  slide15SecondVideo,
+  slide16Support,
+  slide17Closing
 ];
 
 window.agendaItems = [
   { id: 'cover', label: '表紙' },
-  { id: 'features', label: '6つの自動化機能' },
-  { id: 'type-project', label: '動画タイプ+プロジェクト作成' },
+  { id: 'schedule', label: '今日のスケジュール' },
+  { id: 'features', label: 'AIが自動でやる6工程' },
+  { id: 'type-project', label: '横/縦の2種類' },
   { id: 'assets', label: '素材の配置' },
-  { id: 'start', label: '作業スタート' },
-  { id: 'workflow-long', label: '横動画ワークフロー' },
-  { id: 'workflow-short', label: '縦動画ワークフロー' },
+  { id: 'start', label: 'オートモード作業開始' },
+  { id: 'workflow-long', label: '横動画 20ステップ' },
+  { id: 'workflow-short', label: 'ショート 14ステップ' },
   { id: 'phase1', label: 'Phase 1 / 素材準備' },
-  { id: 'tip-cut', label: '💡 編集のコツ① Remotion確認' },
   { id: 'phase2', label: 'Phase 2 / 動画構築' },
-  { id: 'phase3', label: 'Phase 3 / 素材挿入' },
-  { id: 'tip-image', label: '💡 編集のコツ③ AI画像の規約' },
+  { id: 'phase3', label: 'Phase 3 / 演出' },
   { id: 'phase4', label: 'Phase 4 / BGM・出力' },
-  { id: 'telop', label: 'テロップ 8種' },
-  { id: 'telop-rules', label: 'テロップ運用ルール' },
-  { id: 'se', label: 'SE 配置ルール' },
+  { id: 'picker', label: '🎨 デザインピッカー' },
+  { id: 'profile', label: '📝 プロファイル' },
   { id: 'second', label: '2本目以降' },
-  { id: 'post', label: '🎯 X へ投稿' },
   { id: 'support', label: 'サポート窓口' },
   { id: 'closing', label: 'クロージング' }
 ];
