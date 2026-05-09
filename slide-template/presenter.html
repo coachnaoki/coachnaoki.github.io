@@ -161,7 +161,17 @@
     <div>← / → で本体をページ送り</div>
   </div>
 
-  <script>try{eval(localStorage.getItem("slide-template-code")||"");}catch(e){console.error(e);}</script>
+  <script>
+  // load slides.js from localStorage via dynamic <script> for global scope
+  (function(){
+    var code = localStorage.getItem("slide-template-code") || "";
+    if (!code) { console.warn("no slides code in localStorage"); return; }
+    var s = document.createElement("script");
+    s.text = code;
+    document.head.appendChild(s);
+    console.log("Presenter: loaded factories =", (window.slideFactories || []).length);
+  })();
+  </script>
   <script>
     // ★ channel名は本体 app.js と必ず一致させる
     const CHANNEL_NAME = 'naoki-blueprint-workshop-presenter';
