@@ -186,19 +186,11 @@
 
   <!-- 本体ウィンドウ (window.opener) の slideFactories を直接読む方式 -->
   <script>
-    // ★ channel名は本体 app.js と必ず一致させる
+    // ============ Single Source of Truth: localStorage ============
+    const STATE_KEY = 'slide-template-state-v1';
     const CHANNEL_NAME = 'naoki-blueprint-workshop-presenter';
     const NOTES_KEY = 'naoki-blueprint-workshop-notes-override';
-
-    // window.opener (本体ウィンドウ) から factories を直接取得
-    function getMainFactories() {
-      try {
-        if (window.opener && !window.opener.closed) {
-          return window.opener.window.slideFactories || window.opener.slideFactories || [];
-        }
-      } catch (e) { console.error('opener access failed:', e); }
-      return [];
-    }
+    const CLIENT_ID = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('p-' + Math.random().toString(36).slice(2));
 
     const counter = document.getElementById('counter');
     const currentFrame = document.getElementById('currentFrame');
@@ -213,7 +205,36 @@
     const prevThumb = prevFrame.closest('.pv-thumb');
     const nextThumb = nextFrame.closest('.pv-thumb');
 
+    let loadedCode = null;
     let currentIndex = -1;
+    let totalSlides = 0;
+
+    function getState() {
+      try { return JSON.parse(localStorage.getItem(STATE_KEY) || '{}'); }
+      catch (e) { return {}; }
+    }
+    function setState(patch) {
+      const cur = getState();
+      const next = Object.assign({}, cur, patch, { updatedAt: Date.now() });
+      localStorage.setItem(STATE_KEY, JSON.stringify(next));
+      try { channel.postMessage({ type: 'state-changed', sender: CLIENT_ID }); } catch (_) {}
+      syncFromStorage();
+    }
+
+    // ============ Slides Code Loader (eval to populate factories) ============
+    function loadSlidesCode(code) {
+      if (!code || code === loadedCode) return false;
+      window.slideFactories = [];
+      window.agendaItems = [];
+      try {
+        new Function(code)();
+      } catch (e) {
+        console.error('Presenter eval error:', e);
+        return false;
+      }
+      loadedCode = code;
+      return true;
+    }
 
     function loadOverrides() {
       try { return JSON.parse(localStorage.getItem(NOTES_KEY)) || {}; } catch { return {}; }
@@ -225,9 +246,9 @@
       localStorage.setItem(NOTES_KEY, JSON.stringify(o));
     }
 
-    // index 受け取り → 本体の factories から HTML 取得して frame に描画
+    // ============ Render slide into frame ============
     function renderSlideInto(frame, index) {
-      const factories = getMainFactories();
+      const factories = window.slideFactories || [];
       if (index < 0 || index >= factories.length) {
         frame.innerHTML = '<div class="pv-thumb-empty" style="position:absolute;inset:0">—</div>';
         return;
@@ -237,12 +258,10 @@
         frame.innerHTML = '<div class="pv-thumb-empty" style="position:absolute;inset:0">—</div>';
         return;
       }
-      // スライド全体を1920x1080の内部座標でスケールして表示
-      frame.innerHTML = `<div class="pv-slide-scaler" style="position:absolute;inset:0;overflow:hidden"><div class="pv-slide-inner" style="position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:top left;">${html}</div></div>`;
-      // active化
+      frame.innerHTML = '<div class="pv-slide-scaler" style="position:absolute;inset:0;overflow:hidden"><div class="pv-slide-inner" style="position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:top left;">' + html + '</div></div>';
       const slideEl = frame.querySelector('.slide');
       if (slideEl) slideEl.classList.add('active');
-      // スケーリング (幅0なら最大15回リトライ)
+
       let attempts = 0;
       function applyScale() {
         const rect = frame.getBoundingClientRect();
@@ -255,9 +274,13 @@
         const scale = Math.min(rect.width / 1920, rect.height / 1080);
         const offsetX = (rect.width - 1920 * scale) / 2;
         const offsetY = (rect.height - 1080 * scale) / 2;
-        inner.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+        inner.style.transform = 'translate(' + offsetX + 'px, ' + offsetY + 'px) scale(' + scale + ')';
       }
       requestAnimationFrame(applyScale);
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
 
     function swapNotesContent(html, edited) {
@@ -270,11 +293,43 @@
       }, 180);
     }
 
-    function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    // ============ The single sync entry point ============
+    function syncFromStorage() {
+      const state = getState();
+      if (state.slidesCode) loadSlidesCode(state.slidesCode);
+
+      const factories = window.slideFactories || [];
+      totalSlides = factories.length;
+      const i = state.slideIndex != null ? state.slideIndex : 0;
+      currentIndex = Math.max(0, Math.min(totalSlides - 1, i));
+
+      counter.textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+      renderSlideInto(currentFrame, currentIndex);
+      renderSlideInto(prevFrame, currentIndex - 1);
+      renderSlideInto(nextFrame, currentIndex + 1);
+      prevNum.textContent = currentIndex > 0 ? String(currentIndex).padStart(2, '0') : '';
+      nextNum.textContent = currentIndex < totalSlides - 1 ? String(currentIndex + 2).padStart(2, '0') : '';
+      prevThumb.classList.toggle('disabled', currentIndex <= 0);
+      nextThumb.classList.toggle('disabled', currentIndex >= totalSlides - 1);
+
+      // Notes
+      const slideHtml = factories[currentIndex] ? factories[currentIndex]() : '';
+      const m = slideHtml.match(/data-notes="([^"]*)"/);
+      const builtinNotes = m ? m[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>') : '';
+      const overrides = loadOverrides();
+      const override = overrides[currentIndex];
+      const sourceText = override != null ? override : builtinNotes;
+      swapNotesContent(
+        sourceText
+          ? escapeHtml(sourceText).replace(/\n/g, '<br>')
+          : '<div class="pv-waiting" style="padding:40px 0">（このスライドにカンペはありません。クリックで追記できます）</div>',
+        override != null
+      );
+      editHint.textContent = override != null ? '編集済み · クリックで修正' : 'クリックで編集';
+      editHint.classList.toggle('saved', override != null);
     }
 
-    const channel = new BroadcastChannel(CHANNEL_NAME);
+    // ============ Connection status ============
     let connected = false;
     let heartbeatTimer;
     function markConnected() {
@@ -291,56 +346,41 @@
       }, 4000);
     }
 
+    // ============ BroadcastChannel + storage event ============
+    const channel = new BroadcastChannel(CHANNEL_NAME);
     channel.onmessage = (e) => {
-      const data = e.data;
-      if (!data) return;
-      if (data.type === 'state') {
+      if (!e.data) return;
+      if (e.data.sender === CLIENT_ID) return;
+      if (e.data.type === 'state-changed' || e.data.type === 'heartbeat') {
         markConnected();
-        const i = data.index, total = data.total;
-        currentIndex = i;
-        counter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-        renderSlideInto(currentFrame, i);
-        renderSlideInto(prevFrame, i - 1);
-        renderSlideInto(nextFrame, i + 1);
-        prevNum.textContent = i > 0 ? String(i).padStart(2, '0') : '';
-        nextNum.textContent = i < total - 1 ? String(i + 2).padStart(2, '0') : '';
-        prevThumb.classList.toggle('disabled', i <= 0);
-        nextThumb.classList.toggle('disabled', i >= total - 1);
-
-        const overrides = loadOverrides();
-        const override = overrides[i];
-        const sourceText = override != null ? override : (data.notes || '');
-        swapNotesContent(
-          sourceText
-            ? escapeHtml(sourceText).replace(/\n/g, '<br>')
-            : '<div class="pv-waiting" style="padding:40px 0">（このスライドにカンペはありません。クリックで追記できます）</div>',
-          override != null
-        );
-        editHint.textContent = override != null ? '編集済み · クリックで修正' : 'クリックで編集';
-        editHint.classList.toggle('saved', override != null);
-      } else if (data.type === 'heartbeat') {
-        markConnected();
+        if (e.data.type === 'state-changed') syncFromStorage();
       }
     };
+    setInterval(() => { try { channel.postMessage({ type: 'heartbeat', sender: CLIENT_ID }); } catch(_) {} }, 1500);
 
-    channel.postMessage({ type: 'hello' });
+    window.addEventListener('storage', (e) => {
+      if (e.key === STATE_KEY) {
+        markConnected();
+        syncFromStorage();
+      }
+    });
 
+    // ============ Thumbnail click → navigate ============
     prevThumb.addEventListener('click', () => {
       if (prevThumb.classList.contains('disabled')) return;
-      channel.postMessage({ type: 'goTo', index: currentIndex - 1 });
+      setState({ slideIndex: currentIndex - 1 });
     });
     nextThumb.addEventListener('click', () => {
       if (nextThumb.classList.contains('disabled')) return;
-      channel.postMessage({ type: 'goTo', index: currentIndex + 1 });
+      setState({ slideIndex: currentIndex + 1 });
     });
 
+    // ============ Notes editing (with override save) ============
     let saveTimer;
     function persistNotes() {
       if (currentIndex < 0) return;
       const text = notes.innerText.replace(/\n{3,}/g, '\n\n').trim();
-      // factories依存を排除。 編集判定は単純に空かどうかで判断
-      const fallback = '';
-      if (text && text !== fallback.trim()) {
+      if (text) {
         saveOverride(currentIndex, text);
         notes.classList.add('edited');
         editHint.textContent = '保存済み ✓';
@@ -363,13 +403,21 @@
       if (notes.querySelector('.pv-waiting')) notes.innerHTML = '';
     });
 
+    // ============ Keyboard nav ============
     document.addEventListener('keydown', (e) => {
       if (document.activeElement === notes) return;
-      if (['ArrowRight','ArrowLeft',' ','PageDown','PageUp'].includes(e.key)) {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
         e.preventDefault();
-        channel.postMessage({ type: 'key', key: e.key });
+        if (currentIndex < totalSlides - 1) setState({ slideIndex: currentIndex + 1 });
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        if (currentIndex > 0) setState({ slideIndex: currentIndex - 1 });
       }
     });
+
+    // ============ Bootstrap ============
+    syncFromStorage();
+    markConnected();
   </script>
 </body>
 </html>
