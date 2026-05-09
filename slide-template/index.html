@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AIスライドジェネレーター</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<style>
+/* ===================================================
+   naoki-blueprint Workshop
+   Dark × Premium for executives & video creators
+   =================================================== */
+
+:root {
+  /* Brand palette */
+  --blue: #3b82f6;
+  --blue-light: #60a5fa;
+  --purple: #8b5cf6;
+  --pink: #ec4899;
+  --gold: #facc15;
+  --orange: #f59e0b;
+  --cyan: #22d3ee;
+  --lime: #a3e635;
+  --red: #ef4444;
+
+  /* Neutrals (dark) */
+  --ink-000: #050506;
+  --ink-50: #0a0a0c;
+  --ink-100: #111114;
+  --ink-150: #16161a;
+  --ink-200: #1c1c22;
+  --ink-300: #26262e;
+  --ink-400: #353541;
+  --ink-500: #555566;
+  --ink-600: #8a8a9a;
+  --ink-700: #b5b5c2;
+  --ink-800: #d8d8df;
+  --ink-900: #f0f0f3;
+  --white: #ffffff;
+
+  /* Surfaces */
+  --bg: #0a0a0c;
+  --surface: #111114;
+  --surface-raised: #16161a;
+  --border: #26262e;
+  --border-strong: #353541;
+
+  /* Fonts */
+  --font-sans: "Inter", "Hiragino Kaku Gothic ProN", "Yu Gothic Medium",
+               "Noto Sans JP", "Meiryo", -apple-system, "Helvetica Neue", sans-serif;
+  --font-num: "Inter", "SF Pro Display", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  /* Canvas */
+  --canvas-w: 1920px;
+  --canvas-h: 1080px;
+
+  /* Gradients */
+  --grad-primary: linear-gradient(135deg, var(--blue) 0%, var(--purple) 50%, var(--pink) 100%);
+  --grad-warm: linear-gradient(135deg, var(--gold) 0%, var(--orange) 60%, var(--pink) 100%);
+  --grad-cool: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 60%, var(--purple) 100%);
+  --grad-subtle: linear-gradient(180deg, rgba(59,130,246,0.08), rgba(236,72,153,0.03));
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--ink-000);
+  font-family: var(--font-sans);
+  color: var(--ink-900);
+  overflow: hidden;
+  letter-spacing: 0.01em;
+  font-feature-settings: "palt" 1, "ss01" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============ Stage & Canvas ============ */
+#stage {
+  position: fixed; inset: 0;
+  background: var(--bg);
+}
+.canvas {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  border: none;
+}
+
+/* ============ Slide ============ */
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: var(--canvas-w);
+  height: var(--canvas-h);
+  display: none;
+  padding: 110px 130px 110px 130px;
+  flex-direction: column;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 80% -10%, rgba(139,92,246,0.10) 0%, rgba(0,0,0,0) 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(59,130,246,0.07) 0%, rgba(0,0,0,0) 55%);
+  color: var(--ink-900);
+  transform-origin: top left;
+}
+.slide.active { display: flex; }
+.slide-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ============ Typography ============ */
+.slide h1 {
+  font-size: 128px; font-weight: 800;
+  line-height: 1.08; letter-spacing: -0.02em;
+  color: var(--white);
+}
+.slide h2 {
+  font-size: 88px; font-weight: 800;
+  line-height: 1.12; letter-spacing: -0.018em;
+  color: var(--white);
+  margin-bottom: 48px;
+}
+.slide h3 {
+  font-size: 38px; font-weight: 700;
+  line-height: 1.45; letter-spacing: -0.005em;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.slide p {
+  font-size: 28px; font-weight: 400;
+  line-height: 1.8; letter-spacing: 0.02em;
+  color: var(--ink-700);
+}
+.slide .lead {
+  font-size: 36px; font-weight: 500;
+  line-height: 1.65; letter-spacing: 0.01em;
+  color: var(--ink-800);
+}
+.slide .tag {
+  display: inline-block;
+  font-size: 14px; letter-spacing: 0.28em;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 6px 0;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Gradient text */
+.g-primary {
+  background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.g-warm {
+  background: var(--grad-warm);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.g-cool {
+  background: var(--grad-cool);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* ============ Page header ============ */
+.page-header {
+  position: absolute;
+  top: 56px; left: 130px; right: 130px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px; letter-spacing: 0.3em;
+  color: var(--ink-600);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+.page-header .chapter { color: var(--ink-800); letter-spacing: 0.36em; }
+.page-header .num {
+  font-family: var(--font-num); letter-spacing: 0.14em;
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* ============ Cards ============ */
+.card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  padding: 44px 48px;
+  display: flex; flex-direction: column; gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(0,0,0,0) 60%);
+  pointer-events: none;
+}
+.card > * { position: relative; z-index: 1; }
+.card--accent {
+  border-color: rgba(59,130,246,0.4);
+  background: linear-gradient(135deg, rgba(59,130,246,0.10), var(--surface-raised) 60%);
+}
+.card--hot {
+  border-color: rgba(236,72,153,0.4);
+  background: linear-gradient(135deg, rgba(236,72,153,0.10), var(--surface-raised) 60%);
+}
+.card--warm {
+  border-color: rgba(250,204,21,0.35);
+  background: linear-gradient(135deg, rgba(250,204,21,0.08), var(--surface-raised) 60%);
+}
+.card-title {
+  font-size: 30px; font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.005em;
+}
+.card-body {
+  font-size: 22px; line-height: 1.85;
+  color: var(--ink-700);
+  letter-spacing: 0.02em;
+}
+
+/* Feature tile */
+.feature-tile {
+  border: 1px solid var(--border);
+  background: var(--surface-raised);
+  padding: 42px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+}
+.feature-tile::after {
+  content: ""; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: var(--grad-primary);
+  opacity: 0.7;
+}
+.feature-tile .tile-num {
+  font-family: var(--font-num);
+  font-size: 56px; font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.feature-tile .tile-title {
+  font-size: 30px; font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.005em;
+}
+.feature-tile .tile-body {
+  font-size: 20px; line-height: 1.8;
+  color: var(--ink-700);
+  letter-spacing: 0.02em;
+}
+
+/* Pills */
+.pill {
+  display: inline-flex; align-items: center;
+  padding: 6px 16px; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.22em;
+  background: rgba(255,255,255,0.06);
+  color: var(--ink-800);
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+}
+.pill--primary {
+  background: var(--blue); color: var(--white); border-color: transparent;
+}
+.pill--hot {
+  background: var(--pink); color: var(--white); border-color: transparent;
+}
+.pill--warm {
+  background: var(--gold); color: var(--ink-000); border-color: transparent;
+}
+.pill--cool {
+  background: var(--cyan); color: var(--ink-000); border-color: transparent;
+}
+
+/* ============ Lists ============ */
+ul.bullet, ol.ordered {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 22px;
+}
+ul.bullet li {
+  font-size: 28px; line-height: 1.85;
+  color: var(--ink-800);
+  padding-left: 40px; position: relative;
+  letter-spacing: 0.02em;
+}
+ul.bullet li::before {
+  content: ""; position: absolute;
+  left: 0; top: 18px;
+  width: 14px; height: 14px;
+  background: var(--grad-primary);
+}
+ol.ordered { counter-reset: step; }
+ol.ordered li {
+  counter-increment: step;
+  font-size: 30px; line-height: 1.75;
+  color: var(--ink-800);
+  padding-left: 96px; position: relative;
+  letter-spacing: 0.02em;
+}
+ol.ordered li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute; left: 0; top: -4px;
+  font-family: var(--font-num);
+  font-size: 48px; font-weight: 700;
+  background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+/* ============ Grid ============ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* ============ Code block ============ */
+.code {
+  background: var(--ink-100);
+  color: var(--ink-800);
+  padding: 32px 40px;
+  font-family: var(--font-mono);
+  font-size: 22px; line-height: 1.95;
+  letter-spacing: 0.01em;
+  overflow-x: auto;
+  white-space: pre;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--blue);
+  /* pre内の先頭改行を無視 */
+}
+.code::first-line { /* no-op hack */ }
+.code .cmt { color: var(--ink-500); }
+.code .kw { color: var(--cyan); font-weight: 600; }
+.code .str { color: var(--gold); }
+.code .hi { color: var(--pink); font-weight: 700; }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: rgba(255,255,255,0.06);
+  color: var(--cyan);
+  padding: 2px 10px;
+  letter-spacing: 0;
+  border: 1px solid var(--border);
+}
+
+/* ============ Table ============ */
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 22px;
+}
+table th {
+  background: transparent;
+  color: var(--ink-600);
+  font-weight: 700;
+  text-align: left;
+  padding: 18px 22px;
+  border-bottom: 2px solid var(--border-strong);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+table td {
+  padding: 22px;
+  color: var(--ink-800);
+  border-bottom: 1px solid var(--border);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+table tr:last-child td { border-bottom: none; }
+
+/* ============ Hero (cover / closing) ============ */
+.slide.hero-slide {
+  padding: 0;
+  background:
+    radial-gradient(ellipse at 25% 30%, rgba(59,130,246,0.22) 0%, rgba(0,0,0,0) 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(236,72,153,0.18) 0%, rgba(0,0,0,0) 55%),
+    radial-gradient(ellipse at 60% 10%, rgba(139,92,246,0.12) 0%, rgba(0,0,0,0) 55%),
+    #050506;
+}
+.hero {
+  height: 100%; width: 100%;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 130px 150px;
+  gap: 38px;
+  position: relative;
+}
+.hero-tag {
+  font-size: 16px; letter-spacing: 0.36em;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-title {
+  font-size: 168px; font-weight: 800;
+  line-height: 1.02; letter-spacing: -0.025em;
+  color: var(--white);
+}
+.hero-title .em {
+  background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-title .em-warm {
+  background: var(--grad-warm);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-subtitle {
+  font-size: 36px; font-weight: 400;
+  line-height: 1.65;
+  color: var(--ink-700);
+  max-width: 1400px;
+  letter-spacing: 0.02em;
+}
+.hero-meta {
+  font-size: 15px; color: var(--ink-500);
+  letter-spacing: 0.32em;
+  margin-top: 40px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.hero-rule {
+  width: 140px; height: 4px;
+  background: var(--grad-primary);
+  margin-top: 4px;
+}
+
+.big-index {
+  position: absolute;
+  right: 130px; bottom: 130px;
+  font-family: var(--font-num);
+  font-size: 280px; font-weight: 200;
+  color: rgba(255,255,255,0.025);
+  letter-spacing: -0.04em; line-height: 1;
+  pointer-events: none;
+}
+
+/* Before/After Stat */
+.ba-wrap {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  gap: 48px; align-items: center;
+  margin-top: 24px;
+}
+.ba-box {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  padding: 48px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.ba-label {
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-600);
+}
+.ba-num {
+  font-family: var(--font-num);
+  font-size: 140px; font-weight: 800;
+  line-height: 1; letter-spacing: -0.03em;
+  color: var(--ink-600);
+}
+.ba-num--hot {
+  background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ba-desc {
+  font-size: 22px; color: var(--ink-700);
+  letter-spacing: 0.02em;
+}
+.ba-arrow {
+  font-size: 64px; font-weight: 200;
+  color: var(--blue);
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+/* ============ QR / Post ============ */
+.qr-wrap {
+  display: grid; grid-template-columns: 560px 1fr;
+  gap: 80px; align-items: center;
+  margin-top: 24px;
+}
+.qr-card {
+  background: var(--white);
+  padding: 36px;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.qr-box {
+  width: 440px; height: 440px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--white);
+}
+.qr-box img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+.qr-caption {
+  font-size: 18px; color: var(--ink-500);
+  letter-spacing: 0.08em;
+  text-align: center; line-height: 1.7;
+  font-weight: 600;
+}
+.post-example {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--blue);
+  padding: 36px 40px;
+  font-family: var(--font-sans);
+  font-size: 26px; line-height: 1.95;
+  color: var(--ink-900);
+  white-space: pre-wrap;
+  letter-spacing: 0.02em;
+}
+.post-example .mention { color: var(--blue-light); font-weight: 700; }
+.post-example .hash { color: var(--pink); font-weight: 700; }
+
+/* ============ Phases / steps ============ */
+.phase-row { display: flex; flex-direction: column; gap: 8px; }
+.phase-title {
+  font-size: 18px; font-weight: 700;
+  color: var(--white);
+  padding: 8px 0 14px 0;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.phase-title::before {
+  content: "";
+  width: 10px; height: 10px;
+  background: var(--grad-primary);
+  display: inline-block;
+}
+.step-item {
+  display: flex; align-items: baseline; gap: 24px;
+  font-size: 28px; line-height: 1.6;
+  padding: 12px 0;
+  letter-spacing: 0.04em;
+  color: var(--ink-800);
+  font-weight: 500;
+}
+.step-item::before {
+  content: "";
+  width: 8px; height: 8px;
+  background: var(--cyan);
+  display: inline-block;
+  transform: translateY(-4px);
+  flex-shrink: 0;
+}
+
+/* ============ Highlight ============ */
+.hl {
+  background: linear-gradient(transparent 60%, rgba(250,204,21,0.35) 60%);
+  padding: 0 4px; font-weight: 700;
+  color: var(--white);
+}
+.hl-line {
+  display: inline-block;
+  background: var(--grad-primary);
+  color: var(--white);
+  padding: 4px 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.quote {
+  font-size: 32px; line-height: 1.8;
+  color: var(--white);
+  border-left: 4px solid var(--blue);
+  padding: 10px 0 10px 36px;
+  letter-spacing: 0.02em;
+}
+
+/* ============ Big Stat ============ */
+.stat {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 40px;
+  border: 1px solid var(--border);
+  background: var(--surface-raised);
+  position: relative;
+  overflow: hidden;
+}
+.stat::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: var(--grad-primary);
+}
+.stat .stat-num {
+  font-family: var(--font-num);
+  font-size: 140px; font-weight: 700;
+  background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1; letter-spacing: -0.03em;
+}
+.stat .stat-label {
+  font-size: 18px; font-weight: 700;
+  color: var(--ink-600);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.stat .stat-unit {
+  font-size: 24px; font-weight: 700;
+  color: var(--ink-700);
+  letter-spacing: 0.04em;
+  margin-top: -16px;
+}
+
+/* ============ Top-right UI ============ */
+.top-right-ui {
+  position: fixed; top: 20px; right: 28px;
+  display: flex; align-items: center; gap: 14px;
+  z-index: 100; pointer-events: none;
+}
+.top-right-ui > * { pointer-events: auto; }
+.page-counter {
+  font-family: var(--font-num);
+  font-size: 12px; letter-spacing: 0.2em;
+  color: var(--ink-800); opacity: 0.55;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.presenter-btn {
+  background: transparent; border: none; cursor: pointer;
+  font-size: 20px; line-height: 1;
+  color: var(--ink-800); opacity: 0.55;
+  padding: 4px 8px; transition: opacity 0.2s, color 0.2s;
+}
+.presenter-btn:hover { opacity: 1; color: var(--cyan); }
+
+/* ============ Sidebar ============ */
+.sidebar-hover-zone {
+  position: fixed; top: 0; left: 0; width: 20px; height: 100vh;
+  z-index: 90;
+}
+.sidebar {
+  position: fixed; top: 0; left: 0; height: 100vh;
+  width: 380px;
+  background: rgba(12,12,15,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border);
+  padding: 44px 32px;
+  transform: translateX(-100%);
+  transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.3, 1);
+  z-index: 95;
+  overflow-y: auto;
+}
+.sidebar.open { transform: translateX(0); }
+.sidebar h3 {
+  font-size: 12px; font-weight: 700;
+  color: var(--ink-500);
+  letter-spacing: 0.32em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.sidebar li button {
+  background: none; border: none; text-align: left;
+  padding: 12px 16px 12px 20px;
+  font-size: 14px;
+  color: var(--ink-700);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  width: 100%;
+  border-left: 2px solid transparent;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  line-height: 1.5;
+  font-family: var(--font-sans);
+}
+.sidebar li button:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--white);
+}
+.sidebar li.active button {
+  border-left-color: var(--cyan);
+  color: var(--cyan);
+  font-weight: 700;
+  background: rgba(34,211,238,0.06);
+}
+.sidebar-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 93;
+}
+.sidebar-overlay.show { opacity: 1; pointer-events: auto; }
+
+/* ============ Animations ============ */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideLeft { from { opacity: 0; transform: translateX(80px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideRight { from { opacity: 0; transform: translateX(-80px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+@keyframes blurIn { from { opacity: 0; filter: blur(16px); } to { opacity: 1; filter: blur(0); } }
+@keyframes rotateIn { from { opacity: 0; transform: rotate(-1.5deg) scale(0.97); } to { opacity: 1; transform: rotate(0) scale(1); } }
+@keyframes reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+.slide.active.anim-fade-up > * { animation: fadeUp 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.slide.active.anim-fade-down > * { animation: fadeDown 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.slide.active.anim-slide-left > * { animation: slideLeft 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.slide.active.anim-slide-right > * { animation: slideRight 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.slide.active.anim-scale-in > * { animation: scaleIn 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.slide.active.anim-blur-in > * { animation: blurIn 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.slide.active.anim-rotate-in > * { animation: rotateIn 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.slide.active.anim-reveal > * { animation: reveal 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+
+.slide.active > *:nth-child(1) { animation-delay: 0.05s; }
+.slide.active > *:nth-child(2) { animation-delay: 0.24s; }
+.slide.active > *:nth-child(3) { animation-delay: 0.43s; }
+.slide.active > *:nth-child(4) { animation-delay: 0.62s; }
+.slide.active > *:nth-child(5) { animation-delay: 0.81s; }
+.slide.active > *:nth-child(6) { animation-delay: 1.00s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide.active > * { animation: none !important; }
+}
+
+/* Utility */
+.text-white { color: var(--white); }
+.text-ink-700 { color: var(--ink-700); }
+.text-blue { color: var(--blue-light); }
+.text-cyan { color: var(--cyan); }
+.text-pink { color: var(--pink); }
+.text-gold { color: var(--gold); }
+.text-lime { color: var(--lime); }
+.text-red { color: var(--red); }
+.bold { font-weight: 700; }
+.italic { font-style: italic; }
+.mb-8 { margin-bottom: 8px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
+.mb-48 { margin-bottom: 48px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mt-32 { margin-top: 32px; }
+.mt-48 { margin-top: 48px; }
+.mt-64 { margin-top: 64px; }
+
+/* ============ Paste Mode UI ============ */
+.paste-mode {
+  position: fixed; inset: 0;
+  background: var(--ink-000);
+  z-index: 200;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 40px;
+  gap: 24px;
+}
+.paste-mode h1 {
+  font-size: 48px; font-weight: 800; color: var(--white);
+  letter-spacing: -0.02em; text-align: center;
+  background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.paste-mode p {
+  font-size: 18px; color: var(--ink-700); text-align: center;
+  max-width: 700px; line-height: 1.7;
+}
+.paste-mode textarea {
+  width: 100%; max-width: 900px; height: 360px;
+  background: var(--surface);
+  color: var(--ink-900);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  font-family: var(--font-mono);
+  font-size: 14px; line-height: 1.6;
+  letter-spacing: 0;
+  resize: vertical;
+}
+.paste-mode textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.paste-mode .actions {
+  display: flex; gap: 12px;
+}
+.paste-mode button {
+  background: var(--grad-primary);
+  color: var(--white);
+  border: none;
+  padding: 14px 32px;
+  font-size: 16px; font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.paste-mode button:hover { opacity: 0.9; }
+.paste-mode button:active { transform: translateY(1px); }
+.paste-mode button.secondary {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+}
+.paste-mode .help {
+  font-size: 13px; color: var(--ink-500);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+.paste-mode .error {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: var(--red);
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px; max-width: 900px; width: 100%;
+  display: none;
+}
+.paste-mode .error.show { display: block; }
+
+/* Download button (在slide view) */
+.download-btn {
+  background: transparent; border: none; cursor: pointer;
+  font-size: 18px; line-height: 1;
+  color: var(--ink-800); opacity: 0.55;
+  padding: 4px 8px; transition: opacity 0.2s, color 0.2s;
+}
+.download-btn:hover { opacity: 1; color: var(--lime); }
+
+.back-btn {
+  background: transparent; border: none; cursor: pointer;
+  font-size: 16px;
+  color: var(--ink-800); opacity: 0.55;
+  padding: 4px 10px; transition: opacity 0.2s;
+  font-family: var(--font-sans);
+  letter-spacing: 0.04em;
+}
+.back-btn:hover { opacity: 1; color: var(--cyan); }
+</style>
+</head>
+<body>
+
+<!-- Paste Mode (default view) -->
+<div class="paste-mode" id="pasteMode">
+  <div style="font-size: 12px; letter-spacing: 0.32em; color: var(--ink-600); text-transform: uppercase; font-weight: 700;">
+    AI × Slide Generator
+  </div>
+  <h1>あなたのslides.jsを<br/>貼り付けて表示</h1>
+  <p>
+    Claude.ai プロジェクトで生成された slides.js コードを下に貼り付けて、
+    「スライド表示」 をクリック。<br/>
+    workshop-slides 水準のプレゼンテーションが即座に再生されます。
+  </p>
+  <div class="error" id="pasteError"></div>
+  <textarea id="slidesCode" placeholder="// Claude.ai が生成した slides.js コードをここに貼り付け
+// (function slide01Cover() { ... } から window.slideFactories = [...]; window.agendaItems = [...]; まで全部)"></textarea>
+  <div class="actions">
+    <button onclick="renderSlides()">スライド表示 →</button>
+    <button class="secondary" onclick="loadDemo()">デモを見る</button>
+  </div>
+  <div class="help">
+    キーボード: ← → でページ送り / Pキー で発表者ビュー / 左端ホバー で目次<br/>
+    完成後は右上の ⬇ ボタンで HTMLダウンロード可能
+  </div>
+</div>
+
+<!-- Slide View (hidden initially) -->
+<div class="sidebar-hover-zone" id="sidebarHoverZone" style="display:none;"></div>
+<nav class="sidebar" id="sidebar">
+  <h3>Agenda</h3>
+  <ul id="sidebarList"></ul>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="top-right-ui" id="topRightUi" style="display:none;">
+  <button class="back-btn" id="backBtn" title="貼り付けに戻る">← 戻る</button>
+  <button class="download-btn" id="downloadBtn" title="HTMLダウンロード">⬇</button>
+  <span class="page-counter" id="pageCounter">01 / 01</span>
+  <button class="presenter-btn" id="presenterBtn" title="発表者ビュー (P)" aria-label="発表者ビュー">▶</button>
+</div>
+
+<div id="stage" style="display:none;">
+  <div class="canvas" id="canvas"></div>
+</div>
+
+<script>
+// ============ Paste Mode Logic ============
+function showError(msg) {
+  const err = document.getElementById('pasteError');
+  err.textContent = msg;
+  err.classList.add('show');
+}
+function hideError() {
+  document.getElementById('pasteError').classList.remove('show');
+}
+function loadDemo() {
+  document.getElementById('slidesCode').value = DEMO_SLIDES_CODE;
+  renderSlides();
+}
+function renderSlides() {
+  const code = document.getElementById('slidesCode').value.trim();
+  if (!code) { showError('slides.js のコードを貼り付けてください'); return; }
+  hideError();
+  try {
+    // Reset globals
+    window.slideFactories = undefined;
+    window.agendaItems = undefined;
+    // eval the user code
+    eval(code);
+    if (!Array.isArray(window.slideFactories) || window.slideFactories.length === 0) {
+      throw new Error('window.slideFactories が定義されていません');
+    }
+    if (!Array.isArray(window.agendaItems)) {
+      throw new Error('window.agendaItems が定義されていません');
+    }
+    // Save code to localStorage for presenter view + persistence
+    localStorage.setItem('slide-template-code', code);
+    // Switch to slide view
+    document.getElementById('pasteMode').style.display = 'none';
+    document.getElementById('sidebarHoverZone').style.display = '';
+    document.getElementById('topRightUi').style.display = '';
+    document.getElementById('stage').style.display = '';
+    // Run app
+    initSlideApp();
+  } catch (e) {
+    showError('コードのエラー: ' + e.message);
+    console.error(e);
+  }
+}
+function backToPaste() {
+  document.getElementById('pasteMode').style.display = '';
+  document.getElementById('sidebarHoverZone').style.display = 'none';
+  document.getElementById('topRightUi').style.display = 'none';
+  document.getElementById('stage').style.display = 'none';
+  document.getElementById('canvas').innerHTML = '';
+}
+
+// Restore from localStorage on load (URL hash #saved triggers restore)
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('backBtn').addEventListener('click', backToPaste);
+  document.getElementById('downloadBtn').addEventListener('click', downloadHTML);
+  if (location.hash === '#saved') {
+    const saved = localStorage.getItem('slide-template-code');
+    if (saved) {
+      document.getElementById('slidesCode').value = saved;
+      renderSlides();
+    }
+  }
+});
+
+// ============ Slide App (workshop-slides app.js inline) ============
+function initSlideApp() {
+(() => {
+  const canvas = document.getElementById('canvas');
+  const stage = document.getElementById('stage');
+  const pageCounter = document.getElementById('pageCounter');
+  const sidebar = document.getElementById('sidebar');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
+  const sidebarHoverZone = document.getElementById('sidebarHoverZone');
+  const sidebarList = document.getElementById('sidebarList');
+
+  const factories = window.slideFactories || [];
+  const agendaItems = window.agendaItems || [];
+
+  // Render all slides
+  canvas.innerHTML = factories.map((f) => f()).join('');
+  const slideEls = Array.from(canvas.querySelectorAll('.slide'));
+
+  // Animation palette
+  const ANIMS = [
+    'anim-fade-up', 'anim-fade-down', 'anim-slide-left', 'anim-slide-right',
+    'anim-scale-in', 'anim-blur-in', 'anim-rotate-in', 'anim-reveal'
+  ];
+  slideEls.forEach((el, i) => {
+    if (el.hasAttribute('data-anim-fixed')) return;
+    const pick = ANIMS[(i * 3 + 1) % ANIMS.length];
+    el.classList.add(pick);
+  });
+
+  // Build sidebar
+  agendaItems.forEach((item, i) => {
+    const li = document.createElement('li');
+    li.dataset.index = i;
+    const btn = document.createElement('button');
+    btn.textContent = String(i + 1).padStart(2, '0') + ' ' + item.label;
+    btn.addEventListener('click', () => { goTo(i); closeSidebar(); });
+    li.appendChild(btn);
+    sidebarList.appendChild(li);
+  });
+
+  // Sidebar open/close
+  function openSidebar() {
+    sidebar.classList.add('open');
+    sidebarOverlay.classList.add('show');
+  }
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    sidebarOverlay.classList.remove('show');
+  }
+  sidebarHoverZone.addEventListener('mouseenter', openSidebar);
+  sidebar.addEventListener('mouseleave', closeSidebar);
+  sidebarOverlay.addEventListener('click', closeSidebar);
+
+  // Scaling: canvas を 100vw x 100vh とし、各 .slide を scale + 中央配置
+  function fitCanvas() {
+    const w = window.innerWidth, h = window.innerHeight;
+    const scale = Math.min(w / 1920, h / 1080);
+    const offsetX = (w - 1920 * scale) / 2;
+    const offsetY = (h - 1080 * scale) / 2;
+    slideEls.forEach(el => {
+      el.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+    });
+  }
+  window.addEventListener('resize', fitCanvas);
+  fitCanvas();
+
+  // コードブロック先頭の改行・空白を除去（HTML内のインデント対策）
+  canvas.querySelectorAll('.code').forEach(el => {
+    if (el.firstChild && el.firstChild.nodeType === Node.TEXT_NODE) {
+      el.firstChild.textContent = el.firstChild.textContent.replace(/^\s+/, '');
+    }
+    if (el.lastChild && el.lastChild.nodeType === Node.TEXT_NODE) {
+      el.lastChild.textContent = el.lastChild.textContent.replace(/\s+$/, '');
+    }
+  });
+
+  // Navigation
+  let current = 0;
+  function getSlide(i) {
+    if (i < 0 || i >= slideEls.length) return null;
+    return {
+      el: slideEls[i],
+      notes: slideEls[i].dataset.notes || ''
+    };
+  }
+
+  function render() {
+    slideEls.forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    pageCounter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(slideEls.length).padStart(2, '0');
+    Array.from(sidebarList.children).forEach((li, i) => {
+      li.classList.toggle('active', i === current);
+    });
+    // Regenerate QR if slide contains qr target
+    renderQRIfNeeded();
+    broadcastState();
+  }
+
+  function go(step) {
+    const next = Math.max(0, Math.min(slideEls.length - 1, current + step));
+    if (next === current) return;
+    current = next; render();
+  }
+  function goTo(i) {
+    if (i < 0 || i >= slideEls.length) return;
+    current = i; render();
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(-1); }
+    else if (e.key === 'Home') { goTo(0); }
+    else if (e.key === 'End') { goTo(slideEls.length - 1); }
+    else if (e.key === 'p' || e.key === 'P') { openPresenter(); }
+  });
+
+  // QR generation (one time per slide show)
+  function renderQRIfNeeded() {
+    const target = slideEls[current].querySelector('.qr-box[data-qr]');
+    if (!target) return;
+    if (target.dataset.generated === '1') return;
+    const url = target.dataset.qr;
+    target.innerHTML = '';
+    QRCode.toCanvas(document.createElement('canvas'), url, {
+      margin: 0, width: 360,
+      color: { dark: '#23221e', light: '#ffffff' }
+    }, (err, c) => {
+      if (err) { target.textContent = 'QR生成エラー'; return; }
+      target.appendChild(c);
+      target.dataset.generated = '1';
+    });
+  }
+
+  // === Presenter Integration ===
+  const PRESENTER_CHANNEL = 'naoki-blueprint-workshop-presenter';
+  const channel = new BroadcastChannel(PRESENTER_CHANNEL);
+  let presenterWin = null;
+
+  function broadcastState() {
+    const data = getSlide(current);
+    if (!data) return;
+    channel.postMessage({
+      type: 'state',
+      index: current,
+      total: slideEls.length,
+      notes: data.notes || '',
+      label: 'Slide ' + String(current + 1).padStart(2, '0')
+    });
+  }
+
+  channel.onmessage = (e) => {
+    const data = e.data;
+    if (!data) return;
+    if (data.type === 'hello') broadcastState();
+    else if (data.type === 'key') {
+      if (data.key === 'ArrowRight' || data.key === ' ' || data.key === 'PageDown') go(1);
+      else if (data.key === 'ArrowLeft' || data.key === 'PageUp') go(-1);
+    }
+    else if (data.type === 'goTo' && typeof data.index === 'number') goTo(data.index);
+  };
+  setInterval(() => channel.postMessage({ type: 'heartbeat' }), 1500);
+
+  function openPresenter() {
+    const features = 'width=1100,height=720,menubar=no,toolbar=no,location=no,status=no';
+    presenterWin = window.open('presenter.html', 'slidePresenter', features);
+    if (presenterWin) presenterWin.focus();
+  }
+  document.getElementById('presenterBtn').addEventListener('click', openPresenter);
+
+  // First render
+  render();
+})();
+}
+
+// ============ Download as Standalone HTML ============
+function downloadHTML() {
+  const code = localStorage.getItem('slide-template-code') || '';
+  if (!code) { alert('まずスライドを生成してください'); return; }
+  // Build self-contained HTML by cloning current DOM with auto-render script
+  const docHTML = document.documentElement.outerHTML;
+  // Encode code as base64 to avoid all escaping issues
+  const b64 = btoa(unescape(encodeURIComponent(code)));
+  const autoRenderScript = '<script>window.addEventListener("DOMContentLoaded",function(){var ta=document.getElementById("slidesCode");if(ta){ta.value=decodeURIComponent(escape(atob("' + b64 + '")));setTimeout(function(){renderSlides();},100);}});<\/script>';
+  const finalHTML = docHTML.replace('</head>', autoRenderScript + '</head>');
+  const blob = new Blob(['<!DOCTYPE html>\n' + finalHTML], {type: 'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'slides.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ============ Demo slides ============
+const DEMO_SLIDES_CODE = `function slide01Cover() {
+  return \`<section class="slide hero-slide anim-blur-in" data-section="cover" data-anim-fixed
+    data-notes="デモスライドです。 これがworkshop-slides水準のサンプル。 矢印キー → でページを送ってみてください。">
+    <div class="hero">
+      <div class="hero-tag">DEMO / SAMPLE SLIDES</div>
+      <h1 class="hero-title">AIスライド<br/><span class="em">ジェネレーター</span></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-subtitle">Claude.aiで生成したslides.jsを貼り付けるだけ。<br/>workshop-slides水準のプレゼンが完成します。</p>
+      <div class="hero-meta">DEMO PRESENTATION</div>
+      <div class="big-index">01</div>
+    </div>
+  </section>\`;
+}
+function slide02Concept() {
+  return \`<section class="slide" data-section="concept"
+    data-notes="このプロジェクトの仕組みを説明します。">
+    <div class="slide-content">
+      <h2>仕組みは<span class="g-primary">3ステップ</span></h2>
+      <div class="grid-3 mt-32">
+        <div class="card card--accent">
+          <div class="pill pill--primary">STEP 1</div>
+          <div class="card-title mt-16">Claude.ai に台本</div>
+          <div class="card-body">テーマ・対象・目的を入力</div>
+        </div>
+        <div class="card card--warm">
+          <div class="pill pill--warm">STEP 2</div>
+          <div class="card-title mt-16">slides.js 生成</div>
+          <div class="card-body">構成案を承認 → コード出力</div>
+        </div>
+        <div class="card card--hot">
+          <div class="pill pill--hot">STEP 3</div>
+          <div class="card-title mt-16">貼り付けて完成</div>
+          <div class="card-body">このページに貼ると即表示</div>
+        </div>
+      </div>
+    </div>
+  </section>\`;
+}
+function slide03Closing() {
+  return \`<section class="slide hero-slide anim-fade-up" data-section="closing" data-anim-fixed
+    data-notes="あなたのスライドを作ってみましょう。">
+    <div class="hero">
+      <div class="hero-tag">YOUR TURN</div>
+      <h1 class="hero-title">あなたの<span class="em-warm">プレゼンを</span><br/>作ってみよう</h1>
+      <div class="hero-rule"></div>
+      <p class="hero-subtitle">「← 戻る」 から自分のslides.jsを貼り付けてください。</p>
+      <div class="big-index">03</div>
+    </div>
+  </section>\`;
+}
+window.slideFactories = [slide01Cover, slide02Concept, slide03Closing];
+window.agendaItems = [
+  { id: 'cover', label: '表紙' },
+  { id: 'concept', label: '仕組み' },
+  { id: 'closing', label: 'まとめ' }
+];`;
+</script>
+</body>
+</html>
