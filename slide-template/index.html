@@ -1111,12 +1111,16 @@ function initSlideApp() {
   function broadcastState() {
     const data = getSlide(current);
     if (!data) return;
+    const factories = window.slideFactories || [];
     channel.postMessage({
       type: 'state',
       index: current,
       total: slideEls.length,
       notes: data.notes || '',
-      label: 'Slide ' + String(current + 1).padStart(2, '0')
+      label: 'Slide ' + String(current + 1).padStart(2, '0'),
+      currentHTML: factories[current] ? factories[current]() : '',
+      prevHTML: factories[current - 1] ? factories[current - 1]() : '',
+      nextHTML: factories[current + 1] ? factories[current + 1]() : ''
     });
   }
 

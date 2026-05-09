@@ -161,17 +161,7 @@
     <div>← / → で本体をページ送り</div>
   </div>
 
-  <script>
-  // load slides.js from localStorage via dynamic <script> for global scope
-  (function(){
-    var code = localStorage.getItem("slide-template-code") || "";
-    if (!code) { console.warn("no slides code in localStorage"); return; }
-    var s = document.createElement("script");
-    s.text = code;
-    document.head.appendChild(s);
-    console.log("Presenter: loaded factories =", (window.slideFactories || []).length);
-  })();
-  </script>
+  <!-- factories はもう使わない。 本体側からHTMLを直接受け取る -->
   <script>
     // ★ channel名は本体 app.js と必ず一致させる
     const CHANNEL_NAME = 'naoki-blueprint-workshop-presenter';
@@ -190,7 +180,6 @@
     const prevThumb = prevFrame.closest('.pv-thumb');
     const nextThumb = nextFrame.closest('.pv-thumb');
 
-    const factories = window.slideFactories || [];
     let currentIndex = -1;
 
     function loadOverrides() {
@@ -203,13 +192,12 @@
       localStorage.setItem(NOTES_KEY, JSON.stringify(o));
     }
 
-    function renderSlideInto(frame, index) {
-      if (index < 0 || index >= factories.length) {
+    // 本体から受け取ったHTMLを直接frameに描画
+    function renderSlideInto(frame, html) {
+      if (!html) {
         frame.innerHTML = '<div class="pv-thumb-empty" style="position:absolute;inset:0">—</div>';
         return;
       }
-      const html = factories[index]();
-      if (!html) return;
       // スライド全体を1920x1080の内部座標でスケールして表示
       frame.innerHTML = `<div class="pv-slide-scaler" style="position:absolute;inset:0;overflow:hidden"><div class="pv-slide-inner" style="position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:top left;">${html}</div></div>`;
       // active化
@@ -266,9 +254,9 @@
         const i = data.index, total = data.total;
         currentIndex = i;
         counter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-        renderSlideInto(currentFrame, i);
-        renderSlideInto(prevFrame, i - 1);
-        renderSlideInto(nextFrame, i + 1);
+        renderSlideInto(currentFrame, data.currentHTML || '');
+        renderSlideInto(prevFrame, data.prevHTML || '');
+        renderSlideInto(nextFrame, data.nextHTML || '');
         prevNum.textContent = i > 0 ? String(i).padStart(2, '0') : '';
         nextNum.textContent = i < total - 1 ? String(i + 2).padStart(2, '0') : '';
         prevThumb.classList.toggle('disabled', i <= 0);
@@ -305,7 +293,8 @@
     function persistNotes() {
       if (currentIndex < 0) return;
       const text = notes.innerText.replace(/\n{3,}/g, '\n\n').trim();
-      const fallback = (factories[currentIndex] ? factories[currentIndex]().notes : '') || '';
+      // factories依存を排除。 編集判定は単純に空かどうかで判断
+      const fallback = '';
       if (text && text !== fallback.trim()) {
         saveOverride(currentIndex, text);
         notes.classList.add('edited');
