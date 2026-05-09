@@ -184,11 +184,21 @@
     <div>← / → で本体をページ送り</div>
   </div>
 
-  <!-- factories はもう使わない。 本体側からHTMLを直接受け取る -->
+  <!-- 本体ウィンドウ (window.opener) の slideFactories を直接読む方式 -->
   <script>
     // ★ channel名は本体 app.js と必ず一致させる
     const CHANNEL_NAME = 'naoki-blueprint-workshop-presenter';
     const NOTES_KEY = 'naoki-blueprint-workshop-notes-override';
+
+    // window.opener (本体ウィンドウ) から factories を直接取得
+    function getMainFactories() {
+      try {
+        if (window.opener && !window.opener.closed) {
+          return window.opener.window.slideFactories || window.opener.slideFactories || [];
+        }
+      } catch (e) { console.error('opener access failed:', e); }
+      return [];
+    }
 
     const counter = document.getElementById('counter');
     const currentFrame = document.getElementById('currentFrame');
@@ -215,8 +225,14 @@
       localStorage.setItem(NOTES_KEY, JSON.stringify(o));
     }
 
-    // 本体から受け取ったHTMLを直接frameに描画
-    function renderSlideInto(frame, html) {
+    // index 受け取り → 本体の factories から HTML 取得して frame に描画
+    function renderSlideInto(frame, index) {
+      const factories = getMainFactories();
+      if (index < 0 || index >= factories.length) {
+        frame.innerHTML = '<div class="pv-thumb-empty" style="position:absolute;inset:0">—</div>';
+        return;
+      }
+      const html = factories[index]();
       if (!html) {
         frame.innerHTML = '<div class="pv-thumb-empty" style="position:absolute;inset:0">—</div>';
         return;
@@ -283,9 +299,9 @@
         const i = data.index, total = data.total;
         currentIndex = i;
         counter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-        renderSlideInto(currentFrame, data.currentHTML || '');
-        renderSlideInto(prevFrame, data.prevHTML || '');
-        renderSlideInto(nextFrame, data.nextHTML || '');
+        renderSlideInto(currentFrame, i);
+        renderSlideInto(prevFrame, i - 1);
+        renderSlideInto(nextFrame, i + 1);
         prevNum.textContent = i > 0 ? String(i).padStart(2, '0') : '';
         nextNum.textContent = i < total - 1 ? String(i + 2).padStart(2, '0') : '';
         prevThumb.classList.toggle('disabled', i <= 0);
