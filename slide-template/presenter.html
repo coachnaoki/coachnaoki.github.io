@@ -203,16 +203,22 @@
       // active化
       const slideEl = frame.querySelector('.slide');
       if (slideEl) slideEl.classList.add('active');
-      // スケーリング
-      requestAnimationFrame(() => {
+      // スケーリング (幅0なら最大15回リトライ)
+      let attempts = 0;
+      function applyScale() {
         const rect = frame.getBoundingClientRect();
         const inner = frame.querySelector('.pv-slide-inner');
-        if (!inner || rect.width === 0) return;
+        if (!inner) return;
+        if (rect.width === 0 || rect.height === 0) {
+          if (attempts++ < 15) requestAnimationFrame(applyScale);
+          return;
+        }
         const scale = Math.min(rect.width / 1920, rect.height / 1080);
         const offsetX = (rect.width - 1920 * scale) / 2;
         const offsetY = (rect.height - 1080 * scale) / 2;
         inner.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
-      });
+      }
+      requestAnimationFrame(applyScale);
     }
 
     function swapNotesContent(html, edited) {
