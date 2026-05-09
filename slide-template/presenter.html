@@ -111,6 +111,29 @@
     }
     .pv-status-dot.disconnected { background: #f87171; animation: none; }
     @keyframes pvPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* === Disable slide animations inside presenter frames ===
+       本体側のスライド .anim-* はフェードイン中は opacity:0 になるため、
+       presenter で再描画するたびにサムネイルが一時的に見えなくなる事故が起きる。
+       presenter 内のスライドはすべて即時表示にする (アニメ無効・透過なし) */
+    .pv-slide-inner .slide,
+    .pv-slide-inner .slide.active,
+    .pv-slide-inner .slide *,
+    .pv-slide-inner .slide.active > *,
+    .pv-slide-inner .slide.active.anim-fade-up > *,
+    .pv-slide-inner .slide.active.anim-fade-down > *,
+    .pv-slide-inner .slide.active.anim-slide-left > *,
+    .pv-slide-inner .slide.active.anim-slide-right > *,
+    .pv-slide-inner .slide.active.anim-scale-in > *,
+    .pv-slide-inner .slide.active.anim-blur-in > *,
+    .pv-slide-inner .slide.active.anim-rotate-in > *,
+    .pv-slide-inner .slide.active.anim-reveal > * {
+      animation: none !important;
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+      clip-path: inset(0 0 0 0) !important;
+    }
   </style>
 </head>
 <body class="presenter">
