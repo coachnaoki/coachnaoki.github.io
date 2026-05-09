@@ -915,13 +915,23 @@ function hideError() {
   document.getElementById('pasteError').classList.remove('show');
 }
 function loadDemo() {
-  document.getElementById('slidesCode').value = DEMO_SLIDES_CODE;
-  renderSlides();
+  // Save demo code & reload for clean state
+  localStorage.setItem('slide-template-code', DEMO_SLIDES_CODE);
+  location.hash = '#saved';
+  location.reload();
 }
 function renderSlides() {
   const code = document.getElementById('slidesCode').value.trim();
   if (!code) { showError('slides.js のコードを貼り付けてください'); return; }
   hideError();
+  // 既にスライド初期化済みなら、 必ず location.reload() で完全リフレッシュ
+  // (古い IIFE の listeners を確実に削除するため)
+  if (window.__appInitialized) {
+    localStorage.setItem('slide-template-code', code);
+    location.hash = '#saved';
+    location.reload();
+    return;
+  }
   try {
     // Reset globals
     window.slideFactories = undefined;
@@ -943,17 +953,16 @@ function renderSlides() {
     document.getElementById('stage').style.display = '';
     // Run app
     initSlideApp();
+    window.__appInitialized = true;
   } catch (e) {
     showError('コードのエラー: ' + e.message);
     console.error(e);
   }
 }
 function backToPaste() {
-  document.getElementById('pasteMode').style.display = '';
-  document.getElementById('sidebarHoverZone').style.display = 'none';
-  document.getElementById('topRightUi').style.display = 'none';
-  document.getElementById('stage').style.display = 'none';
-  document.getElementById('canvas').innerHTML = '';
+  // 完全クリーン状態にするため reload
+  location.hash = '';
+  location.reload();
 }
 
 // Restore from localStorage on load (URL hash #saved triggers restore)
