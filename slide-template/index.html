@@ -970,7 +970,22 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============ Slide App (workshop-slides app.js inline) ============
+let __slideAppCleanup = null;
 function initSlideApp() {
+  // 旧インスタンスのリスナー・channel・interval をクリーンアップ
+  if (typeof __slideAppCleanup === 'function') {
+    try { __slideAppCleanup(); } catch (e) { console.warn('cleanup failed', e); }
+  }
+  const __abort = new AbortController();
+  const __signal = __abort.signal;
+  let __heartbeatId = null;
+  let __channel = null;
+  __slideAppCleanup = () => {
+    __abort.abort();
+    if (__heartbeatId) clearInterval(__heartbeatId);
+    if (__channel) try { __channel.close(); } catch(_) {}
+  };
+
 (() => {
   const canvas = document.getElementById('canvas');
   const stage = document.getElementById('stage');
@@ -979,6 +994,9 @@ function initSlideApp() {
   const sidebarOverlay = document.getElementById('sidebarOverlay');
   const sidebarHoverZone = document.getElementById('sidebarHoverZone');
   const sidebarList = document.getElementById('sidebarList');
+
+  // Sidebar list を毎回リセット
+  sidebarList.innerHTML = '';
 
   const factories = window.slideFactories || [];
   const agendaItems = window.agendaItems || [];
@@ -1018,9 +1036,9 @@ function initSlideApp() {
     sidebar.classList.remove('open');
     sidebarOverlay.classList.remove('show');
   }
-  sidebarHoverZone.addEventListener('mouseenter', openSidebar);
-  sidebar.addEventListener('mouseleave', closeSidebar);
-  sidebarOverlay.addEventListener('click', closeSidebar);
+  sidebarHoverZone.addEventListener('mouseenter', openSidebar, { signal: __signal });
+  sidebar.addEventListener('mouseleave', closeSidebar, { signal: __signal });
+  sidebarOverlay.addEventListener('click', closeSidebar, { signal: __signal });
 
   // Scaling: canvas を 100vw x 100vh とし、各 .slide を scale + 中央配置
   function fitCanvas() {
@@ -1032,7 +1050,7 @@ function initSlideApp() {
       el.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
     });
   }
-  window.addEventListener('resize', fitCanvas);
+  window.addEventListener('resize', fitCanvas, { signal: __signal });
   fitCanvas();
 
   // コードブロック先頭の改行・空白を除去（HTML内のインデント対策）
@@ -1084,7 +1102,7 @@ function initSlideApp() {
     else if (e.key === 'Home') { goTo(0); }
     else if (e.key === 'End') { goTo(slideEls.length - 1); }
     else if (e.key === 'p' || e.key === 'P') { openPresenter(); }
-  });
+  }, { signal: __signal });
 
   // QR generation (one time per slide show)
   function renderQRIfNeeded() {
@@ -1106,6 +1124,7 @@ function initSlideApp() {
   // === Presenter Integration ===
   const PRESENTER_CHANNEL = 'naoki-blueprint-workshop-presenter';
   const channel = new BroadcastChannel(PRESENTER_CHANNEL);
+  __channel = channel;
   let presenterWin = null;
 
   function broadcastState() {
@@ -1134,14 +1153,14 @@ function initSlideApp() {
     }
     else if (data.type === 'goTo' && typeof data.index === 'number') goTo(data.index);
   };
-  setInterval(() => channel.postMessage({ type: 'heartbeat' }), 1500);
+  __heartbeatId = setInterval(() => channel.postMessage({ type: 'heartbeat' }), 1500);
 
   function openPresenter() {
     const features = 'width=1100,height=720,menubar=no,toolbar=no,location=no,status=no';
     presenterWin = window.open('presenter.html', 'slidePresenter', features);
     if (presenterWin) presenterWin.focus();
   }
-  document.getElementById('presenterBtn').addEventListener('click', openPresenter);
+  document.getElementById('presenterBtn').addEventListener('click', openPresenter, { signal: __signal });
 
   // First render
   render();
