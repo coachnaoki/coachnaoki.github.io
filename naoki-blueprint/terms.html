@@ -511,38 +511,15 @@ submitBtn.addEventListener("click", async () => {
       if (data.activateUrl && activateBtn) {
         activateBtn.href = data.activateUrl;
       }
-      // GitHub 招待ステータス表示
+      // GitHub 招待バナー (成功1パターンに統一)
       const inviteBox = document.getElementById('inviteStatus');
-      if (inviteBox && data.github_invite) {
-        const username = githubUsername.replace(/^@/, "");
-        if (data.github_invite === "invited") {
-          inviteBox.style.background = "#ecfdf5";
-          inviteBox.style.border = "1px solid #6ee7b7";
-          inviteBox.style.color = "#065f46";
-          inviteBox.innerHTML = "<strong>GitHub 招待を送信しました</strong><br>" +
-            "GitHub 登録のメールアドレス、 または <a href='https://github.com/notifications' target='_blank' rel='noopener' style='color:#047857;text-decoration:underline;'>github.com/notifications</a> から招待を承認してください。 <strong>承認後にインストールが可能になります。</strong>";
-          inviteBox.style.display = "block";
-        } else if (data.github_invite === "already_member") {
-          inviteBox.style.background = "#eff6ff";
-          inviteBox.style.border = "1px solid #93c5fd";
-          inviteBox.style.color = "#1e40af";
-          inviteBox.innerHTML = "<strong>GitHub アクセスは既に有効です</strong><br>このまま下のボタンからライセンス ID を取得してインストールに進めます。";
-          inviteBox.style.display = "block";
-        } else if (data.github_invite === "skipped_existed") {
-          inviteBox.style.background = "#eff6ff";
-          inviteBox.style.border = "1px solid #93c5fd";
-          inviteBox.style.color = "#1e40af";
-          inviteBox.innerHTML = "<strong>既に登録済みのアカウントです</strong><br>初回登録時に GitHub 招待をお送りしています。 招待が見つからない場合は Naoki にご連絡ください。";
-          inviteBox.style.display = "block";
-        } else {
-          inviteBox.style.background = "#fef3c7";
-          inviteBox.style.border = "1px solid #fcd34d";
-          inviteBox.style.color = "#92400e";
-          inviteBox.innerHTML = "<strong>⚠ GitHub 招待の自動送信に失敗しました</strong><br>" +
-            "ご記入の username: <code>" + username + "</code><br>" +
-            "Naoki にこの画面を見せて手動招待を依頼してください (ライセンス自体は発行済みです)。";
-          inviteBox.style.display = "block";
-        }
+      if (inviteBox) {
+        inviteBox.style.background = "#ecfdf5";
+        inviteBox.style.border = "1px solid #6ee7b7";
+        inviteBox.style.color = "#065f46";
+        inviteBox.innerHTML = "<strong>GitHub からの招待メールを確認してください</strong><br>" +
+          "GitHub 登録のメールアドレス、 または <a href='https://github.com/notifications' target='_blank' rel='noopener' style='color:#047857;text-decoration:underline;'>github.com/notifications</a> から招待を承認してください。 <strong>承認後にインストールが可能になります。</strong>";
+        inviteBox.style.display = "block";
       }
     } else {
       errorMsg.textContent = data.error || "送信に失敗しました";
