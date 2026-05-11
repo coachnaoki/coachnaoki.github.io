@@ -35,7 +35,7 @@
 
   <p style="margin-top:12px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong> (Homebrew + Git/Node/FFmpeg/GitHub CLI/Python 3.12/Claude Code/Whisper まで全部)</p>
   <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナル (Cursor 下部) で以下を実行:</p>
-  <div class="code">[ -x /opt/homebrew/bin/brew ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval "$(/opt/homebrew/bin/brew shellenv)" && brew install git node ffmpeg gh python@3.12 && brew install --cask claude-code@latest && /opt/homebrew/bin/pip3.12 install mlx-whisper</div>
+  <div class="code">[ -x /opt/homebrew/bin/brew ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval "$(/opt/homebrew/bin/brew shellenv)" && brew install git node ffmpeg gh python@3.12 && brew install --cask claude-code@latest && /opt/homebrew/bin/pip3.12 install mlx-whisper --break-system-packages</div>
   <p style="font-size:12px;color:#888;margin-top:6px">※ 先頭の <code>[ -x /opt/homebrew/bin/brew ] || ...</code> は <strong style="color:#121212">「Homebrew が無ければインストール / あればスキップ」</strong> の自動判定です。 既に Homebrew がある人は最初の行が一瞬で skip して、 ツール install からすぐ始まります。</p>
   <p style="font-size:12px;color:#888;margin-top:4px">※ Homebrew 新規インストール時は <strong style="color:#121212">Mac のログインパスワード</strong>と <strong style="color:#121212">RETURN キー押下</strong>を求められます (入力中はパスワード非表示)。 5-15 分かかります。 完了したら Cursor を一度閉じて再起動 (PATH 反映のため)。</p>
   <p style="font-size:12px;color:#888;margin-top:4px">※ <strong style="color:#121212">初回の <code>/step03-transcript</code> 実行時に Whisper モデル (約 3GB) が自動 DL されます (5-10 分)</strong>。 2 回目以降はキャッシュで高速。</p>
