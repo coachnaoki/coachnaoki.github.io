@@ -80,19 +80,24 @@
   <h2><span class="num">03</span>リポジトリ取得</h2>
   <p>準備を始めましょう。</p>
 
-  <p style="margin-top:16px"><strong style="color:#121212">① ターミナル (Cursor 下部) で、 naoki-blueprint を置きたいフォルダに移動</strong></p>
-  <p style="font-size:13px;color:#dc2626;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 14px;margin:8px 0 12px"><strong>⚠ ここはコピペ厳禁エリアです。</strong> 下の 2 つから <strong>どちらか 1 つだけ</strong> を選んで実行してください。</p>
+  <p style="margin-top:16px"><strong style="color:#121212">① まず、 naoki-blueprint を置く専用フォルダを作成</strong></p>
+  <p style="font-size:13px;color:#444;margin:6px 0 8px">Finder (Mac) / エクスプローラ (Win) で、 動画制作用の<strong style="color:#121212">空フォルダ</strong>を好きな場所に作ります (例: フォルダ名「<strong>video</strong>」 / 場所はデスクトップでも書類でも OK)。</p>
 
-  <p style="margin-top:12px;font-size:14px;color:#444"><strong style="color:#121212">A. 迷ったらこれ</strong>（デスクトップ直下に置く・初心者の方はこちら推奨）</p>
-  <div class="code">cd ~/Desktop</div>
+  <p style="margin-top:16px"><strong style="color:#121212">② そのフォルダのパスをコピー</strong></p>
+  <ul style="font-size:13px;color:#444;padding-left:24px;line-height:1.8;margin:6px 0">
+    <li><strong>Mac</strong>: Finder でフォルダを右クリック → <strong>「option」 キーを押す</strong>とメニューが切り替わる → 「<strong>"video" のパス名をコピー</strong>」</li>
+    <li><strong>Windows</strong>: エクスプローラで作成したフォルダを開く → 上部の<strong>アドレスバーをクリック</strong>するとパス (例: <code>C:\Users\…\video</code>) が表示される → 選択してコピー</li>
+  </ul>
 
-  <p style="margin-top:14px;font-size:14px;color:#444"><strong style="color:#121212">B. 既に作業用フォルダがある人だけ</strong>（自分のフォルダパスに置き換える）</p>
-  <p style="font-size:13px;color:#666;margin:4px 0 4px">例: <code>~/Desktop/Cursor/</code> に置きたいなら <code>cd ~/Desktop/Cursor</code> を実行。 <strong style="color:#dc2626">パス部分は必ず自分の環境に合わせて書き換える</strong>こと。</p>
+  <p style="margin-top:16px"><strong style="color:#121212">③ ターミナル (Cursor 下部) で <code>cd </code> の後ろにコピーしたパスを貼り付け</strong></p>
+  <p style="font-size:13px;color:#dc2626;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 14px;margin:8px 0 8px"><strong>⚠ 下の例はそのままコピペしない</strong>。 <code>cd </code> (cd の後ろに半角スペース) を打ってから、 ②でコピーしたパスを貼り付けて Enter。</p>
+  <p style="font-size:13px;color:#666;margin:6px 0">例 (Mac でデスクトップに <code>video</code> を作った人の場合):</p>
+  <div class="code">cd /Users/<ユーザー名>/Desktop/video</div>
 
-  <p style="margin-top:20px"><strong style="color:#121212">② リポジトリをダウンロード</strong>（Mac / Windows 共通・このコマンドはそのままコピペでOK）:</p>
+  <p style="margin-top:20px"><strong style="color:#121212">④ リポジトリをダウンロード</strong>（Mac / Windows 共通・このコマンドはそのままコピペでOK）:</p>
   <div class="code">git clone https://github.com/coach-naoki/naoki-blueprint.git</div>
 
-  <p style="margin-top:20px"><strong style="color:#121212">③ ダウンロードしたフォルダに入る</strong>（このコマンドもそのままコピペでOK）:</p>
+  <p style="margin-top:20px"><strong style="color:#121212">⑤ ダウンロードしたフォルダに入る</strong>（このコマンドもそのままコピペでOK）:</p>
   <div class="code">cd naoki-blueprint</div>
 </section>
 
@@ -103,6 +108,7 @@
 
   <p style="margin-top:20px"><strong style="color:#121212">② Claude Code 内で <code>/new-video</code> を実行</strong>:</p>
   <div class="code">/new-video</div>
+  <p style="font-size:13px;color:#0891b2;background:#ecfeff;border:1px solid #a5f3fc;border-radius:8px;padding:10px 14px;margin:8px 0 12px"><strong style="color:#121212">📌 初回のみ</strong>: <code>/new-video</code> を実行するとライセンスコード (例: <code>NK-XXXX-XXXX-XXXX</code>) の入力を求められます。 同意書送信後に届くアクティベートページで表示される ID を貼り付けてください。</p>
   <p>起動すると、以下を順に聞かれます:</p>
   <ol style="color:#444;font-size:15px;padding-left:24px;margin:12px 0 16px">
     <li style="margin-bottom:6px">動画タイプ</li>
