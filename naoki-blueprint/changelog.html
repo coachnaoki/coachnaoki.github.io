@@ -121,7 +121,7 @@
 <div class="header">
   <h1>更新履歴</h1>
   <p>naoki-blueprint のバージョンアップ履歴（Semantic Versioning）</p>
-  <p style="margin-top:6px"><strong style="color:#121212">最新版: v2.7.0</strong> (2026-05-04)</p>
+  <p style="margin-top:6px"><strong style="color:#121212">最新版: v2.11.27</strong> (2026-05-11)</p>
 </div>
 
 <div class="card">
@@ -130,10 +130,181 @@
 
 <div class="card">
 
+<!-- v2.11.24 〜 v2.11.27 (検証システム強化) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge latest">v2.11.24〜v2.11.27</span>
+    <span class="version-date">2026-05-11</span>
+    <span style="background:#16a34a;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">検証システム強化</span>
+  </div>
+
+  <div class="section-label">🛡 グリーンバック / エンドスクリーン配布バグ → 多層防御化</div>
+  <p class="version-desc">v2.10.0 で <code>icon/</code> フォルダの <code>.gitkeep</code> 取りこぼしを直したのと同じパターンが <code>greenback/</code> / <code>endscreen/</code> でも発生していた (受講生環境にフォルダが配布されず、 step10 / step17 の自動検知が常に OFF)。 「mistakes.md に書くだけでは再発する」 事実を直視し、 機械検知に移行する 4 段階の改修を実施。</p>
+  <ul>
+    <li><strong>v2.11.24 (即時の出血止め)</strong>: <code>.template/public/images/greenback/.gitkeep</code> + <code>endscreen/.gitkeep</code> + <code>.template-shorts/</code> 側両方を追加。 受講生環境に即配布</li>
+    <li><strong>v2.11.25 (構造的再発防止)</strong>: step02-assets SKILL.md に明示的な <code>mkdir -p</code> + Finder/Explorer-open ブロックを横/ショート両方に追加。 ROOT に <code>scripts/validate-template-paths.mjs</code> 新規 (SKILL.md / commands で参照される <code>public/&lt;top&gt;/&lt;sub&gt;/</code> パスを grep して <code>.gitkeep</code> 存在を検証)</li>
+    <li><strong>v2.11.26 (検知可能項目を validate へ昇格)</strong>: <code>validate-no-secrets.mjs</code> + <code>validate-shell-scripts.mjs</code> + <code>validate-triple-files.mjs</code> 追加。 <code>npm run validate-all</code> で 4 種一括実行。 mistakes.md §4 §5 §6 冒頭に 🤖 Machine-detected マーカーを追記</li>
+    <li><strong>v2.11.27 (走らせ忘れ防止)</strong>: <code>scripts/hooks/pre-commit</code> + <code>scripts/setup-hooks.sh</code> 追加。 commit 直前に validate-all が自動走行。 緊急時は <code>--no-verify</code> で bypass 可</li>
+  </ul>
+
+  <div class="section-label">🔍 4 種の validate スクリプトと検知範囲</div>
+  <ul>
+    <li><strong>validate-paths</strong>: SKILL.md / commands で参照される <code>public/&lt;top&gt;/&lt;sub&gt;/</code> のフォルダ + <code>.gitkeep</code> 存在チェック</li>
+    <li><strong>validate-secrets</strong>: <code>GOCSPX-</code> / <code>ghp_</code> / <code>github_pat_</code> / <code>AKIA*</code> / <code>sk-ant-</code> / <code>api_key=</code> / <code>PRIVATE KEY</code> 等のリテラル検出 (<code>--staged</code> フラグで pre-commit 用途)</li>
+    <li><strong>validate-shell</strong>: bare <code>python3</code> / pip <code>--break-system-packages</code> 抜け / <code>start "URL"</code> bare / <code>curl --max-time 5</code> 等 Win + Mac 互換の地雷パターン</li>
+    <li><strong>validate-triple</strong>: <code>.template/</code> ↔ <code>.template-shorts/</code> の B-section 構造同期 + <code>PROJECT_DIR</code> / <code>AUTO_RUN</code> / <code>.auto-checkpoint.json</code> / <code>AskUserQuestion</code> 必須キーワード存在</li>
+    <li>各 validate には行単位 whitelist 機構あり (<code># validate-skip: &lt;CHECK_NAME&gt;</code>)</li>
+  </ul>
+</div>
+
+<!-- v2.11.21 〜 v2.11.23 (作業会 FB + validate 9 個) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.11.21〜v2.11.23</span>
+    <span class="version-date">2026-05-11</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">作業会 FB 全件対応</span>
+  </div>
+
+  <div class="section-label">🎯 作業会フィードバック 9 件を一括解消 (v2.11.21)</div>
+  <p class="version-desc">2026-05-10 の作業会で受講生から挙がった 9 件のフィードバックを翌日に全件配布。</p>
+  <ul>
+    <li><strong>通常テロップの白縁を細く</strong>: strokeWidth 32 → 20 に統一 (CLAUDE.md + step09 SVG)</li>
+    <li><strong>mp3 入力でスライド中心動画</strong>: <code>audio-to-video.mjs</code> 新規 + step02 で audio フォルダ自動検出</li>
+    <li><strong>文字起こし手編集レビュー</strong>: <code>export-transcript-review.mjs</code> + <code>apply-transcript-review.mjs</code> + step04 Phase 6 で人間チェックフェーズ追加</li>
+    <li><strong>パーソナルナレッジ辞書</strong>: <code>knowledge.txt</code> を <code>transcribe.mjs</code> の Whisper <code>initial_prompt</code> に注入。 固有名詞 (受講生名・地名・専門用語) の認識率向上</li>
+    <li><strong>言い直しカット regression 修正</strong>: step05 の <code>min_ngram</code> をモード別に分岐 (default 10 / dialog_no_script 5)</li>
+    <li><strong>watch-finalize でテキスト消失バグ</strong>: <code>sync-from-root.mjs</code> に text 同期追加 (横/ショート両方)</li>
+    <li><strong>強調テロップ SVG 再現性</strong>: step09 SKILL.md に emphasis 5 層 / emphasis2 7 層の完全コード例転記</li>
+    <li><strong>3 カードスライドはみ出し</strong>: aislides three-cards を可変高化</li>
+  </ul>
+
+  <div class="section-label">📐 全 7 ステップに validate スクリプト追加 (v2.11.22)</div>
+  <p class="version-desc">step07 / 08 / 09 / 12 / 13 / 16 / 17 / 18 / 19 の各完了時点で機械的にチェック。 「Claude が SKILL.md を読んだ前提」 を信じず、 生成物を grep で実検証する体制に移行。</p>
+
+  <div class="section-label">🚦 validate 結果を 3 階層化 (v2.11.23)</div>
+  <p class="version-desc">9 個の validate を Critical / Warning / Info に分類して優先度を明示。</p>
+  <ul>
+    <li><strong>🔴 Critical (自動再生成・1 回まで)</strong>: validate-telop / validate-renderer / validate-slides — 受講生に見せる最終品質に直結</li>
+    <li><strong>🟡 Warning (続行・受講生判断)</strong>: validate-template / validate-slide-timeline / validate-special-components / validate-final-composition / validate-bgm</li>
+    <li><strong>🟢 Info (任意実行)</strong>: validate-render (ffprobe 検証)</li>
+  </ul>
+</div>
+
+<!-- v2.11.17 〜 v2.11.20 (SVG レンダラー強制上書き + スライド + Win Python) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.11.17〜v2.11.20</span>
+    <span class="version-date">2026-05-09〜11</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">配布インフラ修正</span>
+  </div>
+
+  <div class="section-label">🔧 SVG レンダラー本体の強制上書きに切替 (v2.11.17)</div>
+  <p class="version-desc">v2.7.6 以降、 SKILL.md / picker のテロップデザイン更新が受講生環境の <code>src/templateVariants.ts</code> / <code>templateColorVariants.ts</code> に降りない事故が継続 (約 1 ヶ月半)。 <code>アップデート.sh</code> の <code>src/</code> 同期を 2 段階に分離し、 SVG レンダラー本体だけ強制上書き、 その他 (telopData / MainComposition / templateConfig 等) は従来通り保護に変更。</p>
+
+  <div class="section-label">📐 スライド構造リファレンス + 検証スクリプト (v2.11.18 → v2.11.19)</div>
+  <p class="version-desc"><code>step12-slides-gen</code> のスライド再現性が振れていた問題を解消。 17 種類全テンプレ分の <code>aislides/reference.html</code> を同梱 + <code>validate-slides.mjs</code> で TODO プレースホルダー残り / 直書きカラー / 必須装飾欠落を機械検証。</p>
+  <ul>
+    <li>v2.11.18: 5 種 (stats / two-columns / three-cards / answer / closing) のリファレンス + validate-slides.mjs</li>
+    <li>v2.11.19: 17 種全部に拡張 (title / big-message / steps / before-after / quote / highlight-box / checklist / timeline / ranking / versus / key-concept / table 追加)</li>
+    <li>英語ラベル全廃 (Today's video → 「今日のテーマ」 等) + 複数行レイアウトを「最長行に合わせた中央配置・中身は左揃え」 ルールで統一</li>
+  </ul>
+
+  <div class="section-label">🪟 Windows Python 検出を実体検証ベースに (v2.11.20)</div>
+  <p class="version-desc">Microsoft Store の Python リダイレクトスタブが入った Windows 環境で、 <code>command -v python3</code> は true を返すのに実体は Store を開くだけのスタブ → <code>.license</code> パースが silently fail → update_allowed 判定が完全にスキップされ、 受講生はエラーに気付かないまま壊れた状態に。</p>
+  <ul>
+    <li>各候補 (<code>python3</code> → <code>python</code> → <code>py</code>) を実際に <code>--version</code> で叩いて 「Python X.Y.Z」 形式の出力検証してから採用するロジックに修正</li>
+    <li>Mac 環境セットアップを 1 行化 (<code>--break-system-packages</code> フラグを <code>docs/_main-content.html</code> の Mac インストーラに追加)</li>
+    <li>terms.html 同意書送信時に GitHub Outside Collaborator を自動招待 (PAT を GAS Script Properties に保存)</li>
+    <li>install-guide のリポジトリ取得セクションを cd コマンドコピペ事故を防ぐ構成に再構築</li>
+  </ul>
+</div>
+
+<!-- v2.11.0 〜 v2.11.16 (HDR speaker icon + picker 改善 + Studio) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.11.0〜v2.11.16</span>
+    <span class="version-date">2026-05-07〜09</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">対談動画 + picker 拡張</span>
+  </div>
+
+  <div class="section-label">🎤 HDR/SDR 自動判定 + 話者アイコン焼き込み式に刷新 (v2.11.0〜v2.11.4)</div>
+  <p class="version-desc">対談動画用の話者アイコン合成パイプラインを根本から作り直し。 iPhone HDR (BT.2020/HLG) 素材で色が破綻する事故を解消。</p>
+  <ul>
+    <li><strong>役割分担</strong>: ffmpeg (zscale + tonemap) で色変換 → Python (numpy/PIL) でアイコン合成 → ffmpeg (h264_videotoolbox / nvenc) で HW エンコード</li>
+    <li><strong>固定 + 部分追従の焼き込み式</strong>: アイコンは画面下部固定 / 顔の動きに合わせて x/y オフセット調整可</li>
+    <li><strong>setup-ffmpeg.sh</strong>: zscale 入り ffmpeg を自動 DL (Homebrew default は zimg 未対応)</li>
+  </ul>
+
+  <div class="section-label">🎨 emphasis テンプレ variant 連動 + picker UI 改善 (v2.11.5〜v2.11.12)</div>
+  <ul>
+    <li><strong>_emphasis テンプレ variant 継承</strong>: base template の variant を _emphasis にも継承 (色がバラバラになる事故修正)</li>
+    <li><strong>強調ワード色 10 色対応</strong>: variant 連動で picker から動的選択可</li>
+    <li><strong>mainVideoEffect "暗転" ラベル</strong>: blur → dim_on_bullet にリネーム + preview に動的暗転アニメ追加</li>
+    <li><strong>npm run dev / studio</strong>: どちらでも watch-finalize が同伴起動するように</li>
+    <li><strong>Win での npx.cmd spawn</strong>: shell:true で起動可能に</li>
+  </ul>
+
+  <div class="section-label">🔒 動画完成フロー強化 (v2.11.14〜v2.11.16)</div>
+  <ul>
+    <li><strong>プロファイル保存必須化</strong>: 動画完成時にスキップ防止 (受講生が styles/ にカスタムを残せるよう強制)</li>
+    <li><strong>レンダリング前に Studio プレビュー必須化</strong>: 完成前の目視確認を強制</li>
+    <li><strong>Apple Silicon 確実判定</strong>: hw arch を <code>uname -m</code> で取得 (x64 側で起動する事故修正)</li>
+  </ul>
+</div>
+
+<!-- v2.10.0 〜 v2.10.2 (ハイライト 4 択 + 2 行 tspan + faceicon 復活) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.10.0〜v2.10.2</span>
+    <span class="version-date">2026-05-07</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">ハイライト + 2 行表示</span>
+  </div>
+
+  <div class="section-label">🎬 ハイライト 4 択選択 (v2.10.0)</div>
+  <p class="version-desc">step20-highlight-final 起動時に 4 択を提示する形式に変更。</p>
+  <ul>
+    <li><strong>🤖 おまかせ自動選定</strong>: Claude が telopData/transcript から盛り上がり区間を自動抽出 (20-35 秒・冒頭/末尾 30 秒は除外)</li>
+    <li><strong>📋 推奨シーンから選ぶ</strong>: 候補 3 つを根拠付きで提示 → 番号で選択</li>
+    <li><strong>✏️ 手動で範囲指定</strong>: fromSec/toSec を直接入力 (既存挙動)</li>
+    <li><strong>⏭ ハイライト不要</strong>: step19 の MP4 をそのまま完成品に</li>
+    <li>候補スコアリング: emphasis +1.0 / emphasis2 +1.5 / negative・negative2 +1.5 / section・theme +2.0 / BulletList・TableComponent +1.5 / SE +0.5</li>
+    <li><code>public/images/icon/</code> フォルダの実体を <code>.gitkeep</code> 入りで復活 (v2.0 から取りこぼしていた)</li>
+  </ul>
+
+  <div class="section-label">🪛 ショート動画 2 行表示の実装ガイド復活 (v2.10.1)</div>
+  <p class="version-desc">v2.7.6 で 「<code>\n</code> で 2 行表示」 と SKILL.md / CLAUDE.md に書いたが、 step09-composition SKILL.md に実装ガイドを降ろし忘れ → 約 1 ヶ月半受講生環境で 1 行に詰まる事故継続。</p>
+  <ul>
+    <li>step09-composition SKILL.md に <code>&lt;tspan&gt;</code> で 2 行描画する実装パターンを追加 (negative 例 + 全 SVG 層共通化ガイド)</li>
+    <li><code>scripts/validate-telop.mjs</code> 追加: telopData の各 entry が単語の途中で切れているか検証 (5 種ヒューリスティック)</li>
+    <li>既存プロジェクトは src/ 保護のため自動反映されない。 step09 やり直しか手修正が必要</li>
+  </ul>
+
+  <div class="section-label">🛡 レンダラー出力検証スクリプト追加 (v2.10.2)</div>
+  <p class="version-desc"><code>scripts/validate-renderer.mjs</code> 追加。 生成された MainComposition.tsx を機械チェック (<code>&lt;tspan&gt;</code> 存在 / split 改行 / lineHeight 計算 / x 属性) し、 2 行レンダラー未実装なら exit 1。 入力 (telopData) と出力 (renderer) の二重ガードが完成。</p>
+</div>
+
+<!-- v2.7.6 〜 v2.9.x (中間パッチ群) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.7.6〜v2.9.x</span>
+    <span class="version-date">2026-05-04〜06</span>
+    <span style="background:#7c3aed;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">細部チューニング</span>
+  </div>
+
+  <div class="section-label">🔧 v2.7 リリース後の安定化パッチ群</div>
+  <p class="version-desc">v2.7.0 配布後に判明した細かい改善・バグ修正を継続的にリリース。 主にショート動画 2 行表示の周辺整備、 customColorVariants 周りのリネーム、 step09 SKILL.md の実装パターン整理など。</p>
+  <ul>
+    <li><strong>ショート動画 2 行テロップ周辺整備</strong>: <code>\n</code> 改行ルールを CLAUDE.md / SKILL.md / step08-telop / step09-composition の 4 箇所に同期 (実装漏れは v2.10.1 で完全解消)</li>
+    <li><strong>templateColorVariants → customColorVariants 整理</strong>: 受講生のカスタム保存先を customColorVariants.ts に分離 (アップデートで上書き保護)</li>
+    <li><strong>step08 emphasis vs normal_emphasis/interviewee_emphasis 境界明確化</strong>: 既存テロップとの色衝突を防ぐルール追加</li>
+    <li><strong>step09 emphasis SVG 実装パターン転記</strong>: 横/ショート両方の SKILL.md に実装パターンを記載</li>
+  </ul>
+</div>
+
 <!-- v2.7.0 -->
 <div class="version-entry">
   <div class="version-header">
-    <span class="version-badge latest">v2.7.0</span>
+    <span class="version-badge">v2.7.0</span>
     <span class="version-date">2026-05-04</span>
     <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">文字起こし精度向上</span>
   </div>
