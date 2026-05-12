@@ -149,7 +149,7 @@
 
     <section class="step-section" style="border-left:4px solid #16a34a;background:#f0fdf4">
       <h2><span class="num" style="background:#16a34a">✓</span>セットアップ完了!</h2>
-      <p>これで Cursor + 環境ツール + Claude Code がすべて動く状態になりました。 ライセンス発行ページの 「03 リポジトリ取得」 から始めてください (「02 環境セットアップ」 は完了したのでスキップして OK)。</p>
+      <p>これで Cursor + 環境ツール + Claude Code がすべて動く状態になりました。</p>
     </section>
   </div>
 
@@ -273,7 +273,7 @@
 
     <section class="step-section" style="border-left:4px solid #16a34a;background:#f0fdf4">
       <h2><span class="num" style="background:#16a34a">✓</span>セットアップ完了!</h2>
-      <p>これで Cursor + 環境ツール + Claude Code がすべて動く状態になりました。 ライセンス発行ページの 「03 リポジトリ取得」 から始めてください (「02 環境セットアップ」 は完了したのでスキップして OK)。</p>
+      <p>これで Cursor + 環境ツール + Claude Code がすべて動く状態になりました。</p>
     </section>
   </div>
 
@@ -293,6 +293,30 @@ function showOS(os) {
   var hash = (location.hash || '').replace('#', '');
   if (hash === 'win') showOS('win');
 })();
+
+// コードブロックにコピーボタンを動的追加 (activate.html と同じ仕組み)
+function setupCodeCopyButtons() {
+  document.querySelectorAll('.code').forEach(code => {
+    if (code.parentElement && code.parentElement.classList.contains('code-wrap')) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'code-wrap';
+    code.parentNode.insertBefore(wrap, code);
+    wrap.appendChild(code);
+    const btn = document.createElement('button');
+    btn.className = 'code-copy';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', () => {
+      const text = code.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+      });
+    });
+    wrap.appendChild(btn);
+  });
+}
+setupCodeCopyButtons();
 </script>
 
 </body>
