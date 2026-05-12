@@ -66,6 +66,7 @@
   <ol style="color:#444;font-size:15px;padding-left:24px;margin:12px 0 16px">
     <li style="margin-bottom:6px">動画タイプ (横動画 / ショート動画)</li>
     <li style="margin-bottom:6px">プロジェクト名（日付でOK。例: <code class="today-date">2026-04-19</code>）</li>
+    <li style="margin-bottom:6px">プロファイル (過去動画のテロップ・アニメ等のカスタムを引き継ぐ場合に選択。 初回は 「プロファイルなし」 でOK)</li>
     <li style="margin-bottom:6px">オートモード (途中の確認をスキップして一気に進めるか)</li>
     <li>対談動画かどうか (インタビュー / 対談ならインタビュアーとインタビュイーで字幕色を分けます)</li>
   </ol>
@@ -81,8 +82,6 @@
       <p>1080×1920<br>14ステップ / テロップ8種に絞り情報密度を優先</p>
     </div>
   </div>
-  <p style="font-size:13px;color:#666">プロジェクト作成 → <code>npm install</code> → AUTO_RUN モードで step01〜 が自動進行します。 途中でライセンス認証 (Step 03) が自動誘導されます。</p>
-
   <div style="background:#ecfeff;border:1px solid #a5f3fc;border-left:4px solid #0891b2;border-radius:8px;padding:14px 18px;margin:16px 0 0;font-size:14px;color:#155e75">
     <strong style="color:#121212">📝 続いて step01 (動画コンテキスト確認)</strong><br>
     動画のターゲット・趣旨・話者位置などを聞かれます。 後の字幕生成・画像配置のベースになる情報なので、 簡単で OK です。
@@ -94,7 +93,7 @@
 
   <div style="background:#ecfeff;border:1px solid #a5f3fc;border-left:4px solid #0891b2;border-radius:8px;padding:14px 18px;margin:12px 0 18px;font-size:14px;color:#155e75">
     <strong style="color:#121212">📂 step02 (素材確認) に入った瞬間に <code>public/</code> フォルダが自動で開きます</strong><br>
-    Finder (Mac) / エクスプローラー (Win) で <code>public/</code> が開くので、 以下のフォルダ構成を参考に素材をドラッグ＆ドロップしてください。 配置できたら Claude Code に 「配置完了」 と返答すれば残りの step が自動で進みます。
+    以下のフォルダ構成を参考に素材をドラッグ＆ドロップしてください。 配置できたら Claude Code に 「配置完了」 と返答すれば残りの step が自動で進みます。
   </div>
 
   <p><strong style="color:#121212">フォルダ構成 (<code>projects/&lt;プロジェクト名&gt;/public/</code>)</strong>:</p>
@@ -105,17 +104,19 @@
 │   ├── overlays/       <span class="cmt">オーバーレイ動画（任意）</span>
 │   ├── opening/        <span class="cmt">OP動画（横動画のみ・任意）</span>
 │   └── highlight/      <span class="cmt">ハイライト動画（自動生成・横動画のみ）</span>
+├── audio/              <span class="cmt">音声のみ素材（動画なしでスライド中心の動画を作る場合・任意）</span>
 ├── images/             <span class="cmt">画像素材</span>
 │   ├── inserts/        <span class="cmt">横に表示する画像（任意）</span>
 │   ├── overlays/       <span class="cmt">全画面表示画像・アニメーション付（任意）</span>
-│   └── icon/           <span class="cmt">話者アイコン・対談動画用（任意）</span>
+│   ├── greenback/      <span class="cmt">背景置換用画像（任意・step10 自動ON）</span>
+│   ├── icon/           <span class="cmt">話者アイコン・対談動画用（任意）</span>
+│   └── endscreen/      <span class="cmt">エンドスクリーン素材（横動画のみ・任意）</span>
 ├── bgm/                <span class="cmt">BGM（MP3）</span> <span class="str">★必須</span>
 ├── se/                 <span class="cmt">SE効果音</span> <span class="str">★必須</span>
 │   ├── 強調/
 │   ├── ポジティブ/
 │   └── ネガティブ/
-├── script/             <span class="cmt">ナレーション台本（推奨）</span>
-└── output/             <span class="cmt">完成動画の出力先</span></div>
+└── script/             <span class="cmt">ナレーション台本（推奨）</span></div>
 
   <div style="margin-top:20px;padding:14px 18px;background:#fffbeb;border-left:4px solid #f59e0b;border-radius:4px">
     <p style="margin:0;font-size:14px;color:#92400e"><strong>💡 SE / BGM をまだ持っていない方へ</strong></p>
@@ -125,7 +126,6 @@
     </p>
   </div>
 
-  <p style="margin-top:24px">素材を置いたら Claude Code で「素材配置完了」 等と返答すれば AUTO_RUN が再開します。 あとは AI が次のコマンドを案内してくれるので、質問に答えながら進めるだけ。</p>
 </section>
 
 <!-- Step 06: ワークフロー詳細（全20ステップ / ショート14ステップ） -->
