@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursor セットアップガイド | Naoki's Blueprint</title>
+  <link rel="stylesheet" href="common.css">
+  <style>
+    .os-tabs { display:flex; gap:8px; margin:24px 0 16px; justify-content:center; }
+    .os-tab { padding:10px 22px; border:1px solid #ddd; border-radius:8px; background:#fff; color:#666; font-weight:600; cursor:pointer; font-size:14px; text-decoration:none; }
+    .os-tab.active { background:#2563EB; color:#fff; border-color:#2563EB; }
+    .os-section { display:none; }
+    .os-section.active { display:block; }
+    .info-box { background:#ecfeff; border:1px solid #a5f3fc; border-left:4px solid #0891b2; border-radius:8px; padding:12px 16px; margin:12px 0; font-size:13px; color:#155e75; }
+    .warn-box { background:#fef2f2; border:1px solid #fca5a5; border-left:4px solid #dc2626; border-radius:8px; padding:12px 16px; margin:12px 0; font-size:13px; color:#7f1d1d; }
+    .step-meta { font-size:13px; color:#666; margin:6px 0 12px; }
+    .step-meta span { display:inline-block; margin-right:16px; }
+    .step-section ol, .step-section ul { padding-left:24px; margin:8px 0 12px; line-height:1.9; color:#444; font-size:14px; }
+    .back-link { display:inline-block; margin:20px 0; color:#2563EB; text-decoration:none; font-weight:600; }
+    .back-link:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="brand-tag">Naoki's Blueprint / Setup</div>
+  <h1>Cursor セットアップガイド</h1>
+  <p class="lead">Cursor をまだインストールしていない方向け。 セットアップ完了まで 15-30 分。</p>
+
+  <a href="./activate.html" class="back-link">← ライセンス発行ページに戻る</a>
+
+  <div class="info-box" style="margin-top:8px">
+    <strong style="color:#121212">このガイドのゴール</strong>: Cursor の起動 → 環境ツール (Git / Node.js / Claude Code 等) のインストール → Claude Code 起動確認 まで。 完了したら ライセンス発行ページの 「02 環境セットアップ」 をスキップして 「03 リポジトリ取得」 から始められます。
+  </div>
+
+  <!-- OS タブ -->
+  <div class="os-tabs">
+    <a href="#mac" class="os-tab active" id="tab-mac" onclick="showOS('mac');return false;">🍎 Mac 版</a>
+    <a href="#win" class="os-tab" id="tab-win" onclick="showOS('win');return false;">🪟 Windows 版</a>
+  </div>
+
+
+  <!-- ============================================== -->
+  <!-- 🍎 Mac 版 -->
+  <!-- ============================================== -->
+  <div class="os-section active" id="section-mac">
+
+    <section class="step-section">
+      <h2><span class="num">01</span>Cursor をダウンロード</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: .dmg ファイルがダウンロードフォルダに保存された状態</span></p>
+      <p style="font-size:14px;color:#444">Cursor は 「AI 付きのコードエディタ」 です。 これがあなたの作業場になります。 動画テンプレートを開いたり、 AI (Claude) に指示を出したり、 すべてこの中で完結します。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>公式サイトにアクセス: <a href="https://cursor.com/" target="_blank" rel="noopener">https://cursor.com/</a></li>
+        <li>中央の 「Download for macOS」 ボタンをクリック</li>
+        <li>.dmg ファイルがダウンロードされる (約 200MB)</li>
+      </ol>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">02</span>Cursor をインストール</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 2〜3分</span><span>🎯 ゴール: アプリケーションフォルダに Cursor が入った状態</span></p>
+
+      <p><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>ダウンロードした .dmg ファイルをダブルクリック</li>
+        <li>ウィンドウが開いたら、 Cursor アイコンを 「Applications」 フォルダにドラッグ</li>
+        <li>Launchpad または Finder → アプリケーション から Cursor を起動</li>
+      </ol>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ エラー: 「"Cursor" は開発元を検証できないため開けません」</strong><br>
+        通常は表示されません (現行 Cursor は Apple 署名済み)。 もし出たら:<br>
+        システム設定 → プライバシーとセキュリティ → 下にスクロール → 「"Cursor" は開発元を検証できないためブロックされました」 の右の 「このまま開く」 をクリック。
+      </div>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">03</span>初回セットアップ</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Cursor のメイン画面が開いた状態</span></p>
+
+      <p><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>Cursor を起動すると、 アカウントログイン画面が出る</li>
+        <li>「Sign in with GitHub」 をクリック<br>
+          <span style="font-size:13px;color:#666">→ GitHub アカウント未作成の場合は <a href="https://github.com/join" target="_blank" rel="noopener">https://github.com/join</a> で先に作成</span>
+        </li>
+        <li>ブラウザで GitHub にログイン → 「Authorize Cursor」 をクリック → Cursor に戻る</li>
+        <li>もし 「What language do you primarily use?」 と聞かれたら 「TypeScript」 を選択<br>
+          <span style="font-size:13px;color:#666">→ 出ない場合 (現行版ではスキップされることが多い) はそのまま次へ</span>
+        </li>
+        <li>メイン画面が開く。 以下の 3 エリアがあることを確認:
+          <ul style="margin-top:4px">
+            <li>左サイドバー: ファイル一覧 / 検索 / Agents / Chat 等のアイコン列</li>
+            <li>中央: コード編集エリア (まだファイルは開いていない)</li>
+            <li>下部: ターミナル (隠れている場合は <code>Command+J</code> で開く)</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">04</span>環境セットアップ (初回のみ)</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 5〜15分</span><span>🎯 ゴール: 動画制作に必要なツール (Git / Node.js / FFmpeg / GitHub CLI / Python / Claude Code / Whisper) が全部入った状態</span></p>
+      <p style="font-size:14px;color:#444">すでに入っているツールはスキップ OK。 1 行のコマンドで全部まとめてインストールします。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">Cursor 下部のターミナルで以下のコマンドをコピペして Enter:</p>
+      <div class="code">[ -x /opt/homebrew/bin/brew ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" &amp;&amp; eval "$(/opt/homebrew/bin/brew shellenv)" &amp;&amp; brew install git node ffmpeg gh python@3.12 &amp;&amp; brew install --cask claude-code@latest &amp;&amp; /opt/homebrew/bin/pip3.12 install mlx-whisper --break-system-packages</div>
+
+      <p style="margin-top:24px"><strong style="color:#121212">② GitHub にログイン</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
+      <div class="code">gh auth login</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">プロンプトに従って:</p>
+      <ul style="font-size:13px">
+        <li>What account do you want to log into? → <strong>GitHub.com</strong></li>
+        <li>What is your preferred protocol? → <strong>HTTPS</strong></li>
+        <li>Authenticate Git with your GitHub credentials? → <strong>Y</strong></li>
+        <li>How would you like to authenticate? → <strong>Login with a web browser</strong></li>
+        <li>表示された 8 桁コードをブラウザに入力 → 認証完了 (1 分)</li>
+      </ul>
+
+      <p style="margin-top:24px"><strong style="color:#121212">③ インストール確認</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
+      <div class="code">git --version &amp;&amp; node --version &amp;&amp; gh --version &amp;&amp; claude --version &amp;&amp; /opt/homebrew/bin/python3.12 --version &amp;&amp; /opt/homebrew/bin/python3.12 -c "import mlx_whisper; print('whisper OK')"</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号 + <code>whisper OK</code> が表示されれば成功。</p>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">05</span>Claude Code を起動する</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: ターミナルで claude --dangerously-skip-permissions を打つと、 オレンジのカニキャラクターが表示された状態</span></p>
+      <p style="font-size:14px;color:#444">Claude Code は AI アシスタント 「Claude」 をターミナルから直接使えるようにするツールです。 これを使って 「テロップを入れて」 「SE を追加して」 と日本語で指示します。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>Cursor 下部のターミナルで以下を実行:</li>
+      </ol>
+      <div class="code">claude --dangerously-skip-permissions</div>
+      <ol start="2">
+        <li>初回のみ認証画面が出るので、 ブラウザで Anthropic にログインしてください。</li>
+        <li>オレンジのカニキャラクターが表示されれば成功 🦀</li>
+      </ol>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ エラー: 「command not found: claude」 や 「claude: command not found」</strong><br>
+        PATH が反映されていません。 Cursor を完全に終了 (<code>Cmd+Q</code>) → 再起動して、 もう一度ターミナルで上のコマンドを実行してください。
+      </div>
+    </section>
+
+
+    <section class="step-section" style="border-left:4px solid #16a34a;background:#f0fdf4">
+      <h2><span class="num" style="background:#16a34a">✓</span>セットアップ完了!</h2>
+      <p>これで Cursor + 環境ツール + Claude Code がすべて動く状態になりました。</p>
+      <p style="margin-top:12px">次は <a href="./activate.html" style="color:#16a34a;font-weight:700">ライセンス発行ページ</a> に戻り、 <strong style="color:#121212">「03 リポジトリ取得」 から</strong> 始めてください (「02 環境セットアップ」 は完了したのでスキップして OK)。</p>
+    </section>
+  </div>
+
+
+  <!-- ============================================== -->
+  <!-- 🪟 Windows 版 -->
+  <!-- ============================================== -->
+  <div class="os-section" id="section-win">
+
+    <section class="step-section">
+      <h2><span class="num">01</span>Cursor をダウンロード</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span></p>
+
+      <p><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>公式サイトにアクセス: <a href="https://cursor.com/" target="_blank" rel="noopener">https://cursor.com/</a></li>
+        <li>中央の 「Download for Windows」 ボタンをクリック</li>
+        <li>通常は 「User Installer (推奨)」 を選択
+          <ul>
+            <li>User Installer: 管理者権限不要、 自分専用にインストール (おすすめ)</li>
+            <li>System Installer: 管理者権限が必要、 PC 全体にインストール</li>
+          </ul>
+        </li>
+        <li>.exe ファイルがダウンロードされる (約 200MB)</li>
+      </ol>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">02</span>Cursor をインストール</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 2〜3分</span><span>🎯 ゴール: スタートメニューに 「Cursor」 が追加された状態</span></p>
+
+      <p><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>ダウンロードした .exe ファイルをダブルクリック</li>
+        <li>インストール画面が出たら、 全てデフォルト設定のまま 「Next」 → 「Install」 を進める</li>
+        <li>「Run Cursor」 にチェックが入った状態で 「Finish」 をクリック → Cursor が起動</li>
+      </ol>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ エラー: 「Windows によって PC が保護されました」 (SmartScreen)</strong><br>
+        「詳細情報」 をクリック → 「実行」 ボタンを押す。 これは Microsoft の新しいアプリへの警告で、 Cursor 自体は安全です。
+      </div>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">03</span>初回セットアップ</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Cursor のメイン画面が開いた状態</span></p>
+
+      <p><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>Cursor を起動すると、 アカウントログイン画面が出る</li>
+        <li>「Sign in with GitHub」 をクリック<br>
+          <span style="font-size:13px;color:#666">→ GitHub アカウント未作成の場合は <a href="https://github.com/join" target="_blank" rel="noopener">https://github.com/join</a> で先に作成</span>
+        </li>
+        <li>ブラウザで GitHub にログイン → 「Authorize Cursor」 をクリック → Cursor に戻る</li>
+        <li>もし 「What language do you primarily use?」 と聞かれたら 「TypeScript」 を選択<br>
+          <span style="font-size:13px;color:#666">→ 出ない場合 (現行版ではスキップされることが多い) はそのまま次へ</span>
+        </li>
+        <li>メイン画面が開く。 以下の 3 エリアがあることを確認:
+          <ul style="margin-top:4px">
+            <li>左サイドバー: ファイル一覧 / 検索 / Agents / Chat 等のアイコン列</li>
+            <li>中央: コード編集エリア (まだファイルは開いていない)</li>
+            <li>下部: ターミナル (隠れている場合は <code>Ctrl+J</code> で開く)</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">04</span>環境セットアップ (初回のみ)</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 5〜15分</span><span>🎯 ゴール: 動画制作に必要なツール (Git / Node.js / FFmpeg / GitHub CLI / Python / Claude Code / Whisper) が全部入った状態</span></p>
+      <p style="font-size:14px;color:#444">すでに入っているツールはスキップ OK。 1 行のコマンドで全部まとめてインストールします。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">Cursor 下部のターミナル (PowerShell) で以下のコマンドをコピペして Enter:</p>
+      <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode; winget install Python.Python.3.12 -e; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); py -3.12 -m pip install faster-whisper</div>
+
+      <p style="margin-top:24px"><strong style="color:#121212">② GitHub にログイン</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
+      <div class="code">gh auth login</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">プロンプトに従って:</p>
+      <ul style="font-size:13px">
+        <li>What account do you want to log into? → <strong>GitHub.com</strong></li>
+        <li>What is your preferred protocol? → <strong>HTTPS</strong></li>
+        <li>Authenticate Git with your GitHub credentials? → <strong>Y</strong></li>
+        <li>How would you like to authenticate? → <strong>Login with a web browser</strong></li>
+        <li>表示された 8 桁コードをブラウザに入力 → 認証完了 (1 分)</li>
+      </ul>
+
+      <p style="margin-top:24px"><strong style="color:#121212">③ インストール確認</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
+      <div class="code">git --version; node --version; gh --version; claude --version; py -3.12 --version; py -3.12 -c "import faster_whisper; print('whisper OK')"</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号 + <code>whisper OK</code> が表示されれば成功。</p>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">05</span>Claude Code を起動する</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: ターミナルで claude --dangerously-skip-permissions を打つと、 オレンジのカニキャラクターが表示された状態</span></p>
+      <p style="font-size:14px;color:#444">Claude Code は AI アシスタント 「Claude」 をターミナルから直接使えるようにするツールです。 これを使って 「テロップを入れて」 「SE を追加して」 と日本語で指示します。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>Cursor 下部のターミナル (PowerShell) で以下を実行:</li>
+      </ol>
+      <div class="code">claude --dangerously-skip-permissions</div>
+      <ol start="2">
+        <li>初回のみ認証画面が出るので、 ブラウザで Anthropic にログインしてください。</li>
+        <li>オレンジのカニキャラクターが表示されれば成功 🦀</li>
+      </ol>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ エラー: 「claude : 用語 'claude' は、 コマンドレット、 関数、 スクリプト ファイル、 または操作可能なプログラムの名前として認識されません」</strong><br>
+        PATH が反映されていません。 Cursor を完全に終了 → 再起動して、 もう一度ターミナルで上のコマンドを実行してください。
+      </div>
+    </section>
+
+
+    <section class="step-section" style="border-left:4px solid #16a34a;background:#f0fdf4">
+      <h2><span class="num" style="background:#16a34a">✓</span>セットアップ完了!</h2>
+      <p>これで Cursor + 環境ツール + Claude Code がすべて動く状態になりました。</p>
+      <p style="margin-top:12px">次は <a href="./activate.html" style="color:#16a34a;font-weight:700">ライセンス発行ページ</a> に戻り、 <strong style="color:#121212">「03 リポジトリ取得」 から</strong> 始めてください (「02 環境セットアップ」 は完了したのでスキップして OK)。</p>
+    </section>
+  </div>
+
+
+  <a href="./activate.html" class="back-link">← ライセンス発行ページに戻る</a>
+</div>
+
+<script>
+function showOS(os) {
+  document.getElementById('section-mac').classList.toggle('active', os === 'mac');
+  document.getElementById('section-win').classList.toggle('active', os === 'win');
+  document.getElementById('tab-mac').classList.toggle('active', os === 'mac');
+  document.getElementById('tab-win').classList.toggle('active', os === 'win');
+  // URL ハッシュを更新 (ブックマーク・直接リンク用)
+  history.replaceState(null, '', '#' + os);
+}
+// URL ハッシュで初期表示
+(function() {
+  var hash = (location.hash || '').replace('#', '');
+  if (hash === 'win') showOS('win');
+})();
+</script>
+
+</body>
+</html>
