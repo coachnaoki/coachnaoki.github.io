@@ -26,59 +26,11 @@
   </div>
 </section>
 
-<!-- Step 02: 環境セットアップ (公式推奨手順・1 行コピペ可) -->
+
+
+<!-- Step 02: リポジトリ取得 -->
 <section class="step-section">
-  <h2><span class="num">02</span>環境セットアップ（初回のみ）</h2>
-  <p>動画制作に必要なツールをインストールします。 <strong style="color:#121212">すでに入っているものはスキップ OK</strong>。 所要時間 5-10 分。</p>
-
-  <!-- ============ macOS ============ -->
-  <div class="os-label mac">macOS</div>
-
-  <p style="margin-top:12px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong> (Homebrew + Git/Node/FFmpeg/GitHub CLI/Python 3.12/Claude Code/Whisper まで全部)</p>
-  <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナル (Cursor 下部) で以下を実行:</p>
-  <div class="code">[ -x /opt/homebrew/bin/brew ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval "$(/opt/homebrew/bin/brew shellenv)" && brew install git node ffmpeg gh python@3.12 && brew install --cask claude-code@latest && /opt/homebrew/bin/pip3.12 install mlx-whisper --break-system-packages</div>
-  <p style="font-size:12px;color:#888;margin-top:6px">※ 先頭の <code>[ -x /opt/homebrew/bin/brew ] || ...</code> は <strong style="color:#121212">「Homebrew が無ければインストール / あればスキップ」</strong> の自動判定です。 既に Homebrew がある人は最初の行が一瞬で skip して、 ツール install からすぐ始まります。</p>
-  <p style="font-size:12px;color:#888;margin-top:4px">※ Homebrew 新規インストール時は <strong style="color:#121212">Mac のログインパスワード</strong>と <strong style="color:#121212">RETURN キー押下</strong>を求められます (入力中はパスワード非表示)。 5-15 分かかります。 完了したら Cursor を一度閉じて再起動 (PATH 反映のため)。</p>
-  <p style="font-size:12px;color:#888;margin-top:4px">※ <strong style="color:#121212">初回の <code>/step03-transcript</code> 実行時に Whisper モデル (約 3GB) が自動 DL されます (5-10 分)</strong>。 2 回目以降はキャッシュで高速。</p>
-
-  <p style="margin-top:24px"><strong style="color:#121212">② GitHub にログイン</strong></p>
-  <div class="code">gh auth login</div>
-  <p style="font-size:13px;color:#666;margin-top:6px">プロンプトに従って:</p>
-  <ul style="color:#444;font-size:13px;padding-left:24px;line-height:1.8">
-    <li>What account do you want to log into? → <strong>GitHub.com</strong></li>
-    <li>What is your preferred protocol? → <strong>HTTPS</strong></li>
-    <li>Authenticate Git with your GitHub credentials? → <strong>Y</strong></li>
-    <li>How would you like to authenticate? → <strong>Login with a web browser</strong></li>
-    <li>表示された 8 桁コードをブラウザに入力 → 認証完了 (1 分)</li>
-  </ul>
-
-  <p style="margin-top:24px"><strong style="color:#121212">③ インストール確認</strong></p>
-  <div class="code">git --version && node --version && gh --version && claude --version && /opt/homebrew/bin/python3.12 --version && /opt/homebrew/bin/python3.12 -c "import mlx_whisper; print('whisper OK')"</div>
-  <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号 + <code>whisper OK</code> が表示されれば成功。 1 つでも「command not found」 や Python エラーが出る場合は Cursor を再起動して再度実行してください。</p>
-
-  <!-- ============ Windows ============ -->
-  <div class="os-label win" style="margin-top:32px">Windows</div>
-
-  <p style="margin-top:12px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong></p>
-  <p style="font-size:13px;color:#666;margin:6px 0 4px">Git / Node.js / FFmpeg / GitHub CLI / Python 3.12 / Claude Code / Whisper (文字起こし AI) をまとめて入れます。 PowerShell (Cursor 下部) で以下を実行:</p>
-  <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode; winget install Python.Python.3.12 -e; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); py -3.12 -m pip install faster-whisper</div>
-  <p style="font-size:12px;color:#888;margin-top:6px">※ 5-10 分かかります。 <code>$env:Path = ...</code> の部分は <strong style="color:#121212">winget で入れた Python の PATH を即座に反映するための呪文</strong> (これがないと最後の <code>py -3.12</code> が見つからない)。 完了したら Cursor を完全に閉じて再起動。</p>
-  <p style="font-size:12px;color:#888;margin-top:4px">※ <strong style="color:#121212">初回の <code>/step03-transcript</code> 実行時に Whisper モデル (約 3GB) が自動 DL されます (5-10 分)</strong>。 2 回目以降はキャッシュで高速。</p>
-  <p style="font-size:12px;color:#888;margin-top:4px">⚠ 「winget は認識されていません」 と出る場合: Microsoft Store から「<strong>アプリ インストーラー</strong>」 を更新してください。</p>
-
-  <p style="margin-top:24px"><strong style="color:#121212">② GitHub にログイン</strong></p>
-  <div class="code">gh auth login</div>
-  <p style="font-size:13px;color:#666;margin-top:6px">macOS と同じく、 GitHub.com → HTTPS → Login with a web browser で認証 (1 分)。</p>
-
-  <p style="margin-top:24px"><strong style="color:#121212">③ インストール確認</strong></p>
-  <div class="code">git --version; node --version; gh --version; claude --version; py -3.12 --version; py -3.12 -c "import faster_whisper; print('whisper OK')"</div>
-  <p style="font-size:12px;color:#888;margin-top:8px">5 つのバージョン番号 + <code>whisper OK</code> が表示されれば成功。 「node は認識されていません」 等が出る場合: Cursor を完全に閉じて再起動。 それでもダメなら PC を再起動。</p>
-</section>
-
-
-<!-- Step 03: リポジトリ取得 -->
-<section class="step-section">
-  <h2><span class="num">03</span>リポジトリ取得</h2>
+  <h2><span class="num">02</span>リポジトリ取得</h2>
   <p>準備を始めましょう。</p>
 
   <p style="margin-top:16px"><strong style="color:#121212">① まず、 naoki-blueprint を置く専用フォルダを作成</strong></p>
@@ -103,7 +55,7 @@
 </section>
 
 <section class="step-section">
-  <h2><span class="num">04</span>Claude Code を起動して動画作成開始</h2>
+  <h2><span class="num">03</span>Claude Code を起動して動画作成開始</h2>
   <p><strong style="color:#121212">① Claude Code を起動</strong>（Mac / Windows 共通）:</p>
   <div class="code">claude --dangerously-skip-permissions</div>
 
@@ -131,7 +83,7 @@
 </section>
 
 <section class="step-section" style="border-left:4px solid #16a34a">
-  <h2><span class="num" style="background:#16a34a">05</span>素材を配置 → 作業開始</h2>
+  <h2><span class="num" style="background:#16a34a">04</span>素材を配置 → 作業開始</h2>
 
   <p><strong style="color:#121212">素材を <code>projects/&lt;プロジェクト名&gt;/public/</code> に配置</strong>（Finder / エクスプローラーからドラッグ＆ドロップでOK）:</p>
   <div class="code">public/
@@ -272,69 +224,6 @@
   </div>
 </section>
 
-<!-- 🆘 トラブルシューティング (インストールで詰まった時) -->
-<section class="step-section" style="border-left:4px solid #ef4444;background:#fef2f2">
-  <h2><span class="num" style="background:#ef4444">🆘</span>困った時のトラブルシューティング</h2>
-  <p style="font-size:14px;color:#444;margin-bottom:18px">インストール中によくある詰まりポイントと対処法をまとめました。 該当する症状を探して対処してください。</p>
-
-  <h3 style="font-size:16px;color:#121212;margin-top:20px;margin-bottom:8px">🔧 Mac / Windows 共通</h3>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ 「command not found」 系のエラーが出る</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ Cursor を <strong style="color:#121212">完全に閉じて再起動</strong> してください。 環境変数 (PATH) はインストール後に Cursor を開き直さないと反映されません。 それでもダメなら PC 自体を再起動。</p>
-  </div>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ git clone で 「Permission denied」 「could not access」 のエラー</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ GitHub からの招待メール (件名 「Invitation to coach-naoki/naoki-blueprint」) を Accept していますか? 受信ボックス・迷惑メールを確認 → 「View invitation」 → 「Accept」 をクリックしてから再実行してください。</p>
-  </div>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ 5 分以上経っても何も表示されず止まって見える</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ Whisper モデル (約 3GB) のダウンロード中の可能性があります。 進捗バーが見えなくても裏で動いています。 10-15 分は待ってみてください (回線速度次第)。</p>
-  </div>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ gh auth login のブラウザが自動で開かない</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ ターミナルに表示された URL を手動でコピーしてブラウザに貼り付け、 表示された 8 桁コードを入力してください。 URL が改行で折り返されている場合は、 改行を含めず 1 行として全部コピーするのがコツ。</p>
-  </div>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ GitHub の招待メールが届かない</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ ① 迷惑メールフォルダを確認 ② 同意書で入力した GitHub username が普段ログインしているアカウントと一致しているか確認 ③ <a href="https://github.com/coach-naoki/naoki-blueprint/invitations" target="_blank" style="color:#0891b2;font-weight:700">GitHub の招待ページ</a> に直接アクセスして Accept する手も使えます。</p>
-  </div>
-
-  <h3 style="font-size:16px;color:#121212;margin-top:24px;margin-bottom:8px">🍎 macOS</h3>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ パスワードを入力しても何も表示されない</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ <strong style="color:#121212">これは仕様です</strong>。 セキュリティのため Mac ではパスワード入力中の文字は画面に表示されません。 そのまま入力して Enter キーを押せば進みます。</p>
-  </div>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ Homebrew のインストールに 15 分以上かかる</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ 初回インストール時は Xcode Command Line Tools の DL も含むため最大 20 分かかることがあります。 進行中であれば待つのが正解。 完全に止まっていそうなら Cursor を再起動して再実行。</p>
-  </div>
-
-  <h3 style="font-size:16px;color:#121212;margin-top:24px;margin-bottom:8px">🪟 Windows</h3>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ 「winget は内部コマンドまたは外部コマンド・・・として認識されません」</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ Microsoft Store を開き、 検索欄で「<strong style="color:#121212">アプリ インストーラー</strong>」 を検索 → 「更新」 ボタンをクリック。 更新完了後、 PowerShell を開き直して再実行してください。</p>
-  </div>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ 「py -3.12 は認識されません」 が最後だけ出る</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ PATH 反映の呪文 (<code>$env:Path = ...</code>) が正しくコピーされなかった可能性。 改行が混ざらないように、 Step 02 ① のコマンド全体を <strong style="color:#121212">1 行として</strong> コピーして再実行してください。 それでもダメなら Cursor を完全に閉じて再起動。</p>
-  </div>
-
-  <div style="background:#fff;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:10px 0">
-    <p style="font-weight:700;color:#991b1b;margin:0 0 6px;font-size:14px">❓ 「実行ポリシーによりこのスクリプトは実行できません」</p>
-    <p style="margin:0;font-size:13px;color:#444;line-height:1.7">→ PowerShell で以下を実行: <code style="background:#f0f0f0;padding:2px 6px;border-radius:3px">Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</code> (Y を押して許可) してから再実行。</p>
-  </div>
-
-  <p style="margin-top:24px;font-size:14px;color:#444">それでも解決しない場合は <a href="https://www.chatwork.com/Coach_Naoki" target="_blank" style="color:#0891b2;font-weight:700">Chatwork で Naoki に連絡</a> してください。 エラーメッセージのスクショを添えて送ると早く解決できます。</p>
-</section>
 
 
 <!-- 2本目以降の動画案内 (一番下) -->
