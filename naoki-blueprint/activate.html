@@ -107,7 +107,8 @@ async function fetchLicense() {
     // 3. 個別値を反映（ライセンスID・ユーザー名・日付）
     document.getElementById('loading').style.display = 'none';
     document.getElementById('result').style.display = 'block';
-    document.getElementById('userName').textContent = data.name || '';
+    const userNameEl = document.getElementById('userName');
+    if (userNameEl) userNameEl.textContent = data.name || '';
     document.getElementById('licenseId').textContent = data.license_id;
     const licIdInCode = document.getElementById('licenseIdInCode');
     if (licIdInCode) licIdInCode.textContent = data.license_id;
