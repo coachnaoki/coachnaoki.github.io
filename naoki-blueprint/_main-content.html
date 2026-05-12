@@ -85,7 +85,12 @@
 <section class="step-section" style="border-left:4px solid #16a34a">
   <h2><span class="num" style="background:#16a34a">04</span>素材を配置 → 作業開始</h2>
 
-  <p><strong style="color:#121212">素材を <code>projects/&lt;プロジェクト名&gt;/public/</code> に配置</strong>（Finder / エクスプローラーからドラッグ＆ドロップでOK）:</p>
+  <div style="background:#ecfeff;border:1px solid #a5f3fc;border-left:4px solid #0891b2;border-radius:8px;padding:14px 18px;margin:12px 0 18px;font-size:14px;color:#155e75">
+    <strong style="color:#121212">📂 素材フォルダは自動で開きます</strong><br>
+    <code>/new-video</code> で動画タイプ (縦 / 横) ・プロジェクト名・オートモード・対談動画の有無を答えると、 <strong style="color:#121212">step01 (コンテキスト確認) → step02 (素材確認)</strong> と進みます。 step02 に入った瞬間に <strong style="color:#121212">Finder (Mac) / エクスプローラー (Win) で <code>public/</code> フォルダが自動で開く</strong>ので、 以下の構成を参考に素材をドラッグ＆ドロップしてください。 配置できたら Claude Code に 「配置完了」 と返答すれば残りの step が自動で進みます。
+  </div>
+
+  <p><strong style="color:#121212">フォルダ構成 (<code>projects/&lt;プロジェクト名&gt;/public/</code>)</strong>:</p>
   <div class="code">public/
 ├── videos/             <span class="cmt">動画素材</span>
 │   ├── main/           <span class="cmt">本編動画 </span><span class="str">★必須</span>
