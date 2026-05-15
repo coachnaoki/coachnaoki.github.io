@@ -140,7 +140,7 @@
     <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
       <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step01-context</code> 動画の目的・ターゲット・視聴者像を整理</li>
       <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step02-assets</code> 素材確認（本編/物理挿入/オーバーレイ/OP/ハイライト）とFPS自動検出</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 本編を <strong style="color:#121212">mlx-whisper-large-v3</strong> で文字起こし（word-level timestamps・ローカル実行で API キー不要）</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 本編を <strong style="color:#121212">Speechmatics standard</strong>（クラウド ASR）で文字起こし（word-level timestamps・無料 8 時間/月）</li>
       <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step04-transcript-fix</code> 台本と照合して誤変換を修正（固有名詞・数字を重点チェック）</li>
       <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step05-cut</code> 無音 + 言い直しを一括カット。 <strong style="color:#121212">N-gram 重複検出で複数回言い直しても最後の発話を残す</strong> (v2.5.3+)</li>
       <li style="padding:8px 0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step06-transcript</code> カット後の再文字起こし + 修正再適用</li>
@@ -193,7 +193,7 @@
       <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
         <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step01-context</code> 動画の目的・ターゲット・視聴者像を整理</li>
         <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step02-assets</code> 素材確認 (本編 / 物理挿入 / オーバーレイ) と FPS 自動検出</li>
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 本編を <strong style="color:#121212">mlx-whisper-large-v3</strong> で文字起こし (word-level timestamps・ローカル実行で API キー不要)</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 本編を <strong style="color:#121212">Speechmatics standard</strong>（クラウド ASR）で文字起こし (word-level timestamps・無料 8 時間/月)</li>
         <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step04-transcript-fix</code> 台本と照合して誤変換を修正 (固有名詞・数字を重点チェック)</li>
         <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step05-cut</code> 無音 + 言い直しを一括カット。 <strong style="color:#121212">N-gram 重複検出で複数回言い直しても最後の発話を残す</strong></li>
         <li style="padding:8px 0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step06-transcript</code> カット後の再文字起こし + 修正再適用</li>
@@ -248,7 +248,7 @@
 
   <p style="margin-top:18px;font-size:14px">自動で引き継がれるもの:</p>
   <ul style="color:#444;font-size:14px;padding-left:24px;line-height:1.9">
-    <li>✅ ツール類（git / node / ffmpeg / gh / claude-code / python@3.12 + Whisper）— 再インストール不要</li>
+    <li>✅ ツール類（git / node / ffmpeg / gh / claude-code / python@3.12）— 再インストール不要</li>
     <li>✅ naoki-blueprint 本体 — 再ダウンロード不要</li>
     <li>✅ ライセンス（新規プロジェクトに自動コピー、再認証不要）</li>
   </ul>

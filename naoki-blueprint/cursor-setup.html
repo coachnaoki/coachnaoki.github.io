@@ -99,12 +99,12 @@
 
     <section class="step-section">
       <h2><span class="num">04</span>環境セットアップ (初回のみ)</h2>
-      <p class="step-meta"><span>⏱ 所要時間: 5〜15分</span><span>🎯 ゴール: 動画制作に必要なツール (Git / Node.js / FFmpeg / GitHub CLI / Python / Claude Code / Whisper) が全部入った状態</span></p>
+      <p class="step-meta"><span>⏱ 所要時間: 5〜15分</span><span>🎯 ゴール: 動画制作に必要なツール (Git / Node.js / FFmpeg / GitHub CLI / Python / Claude Code) が全部入った状態</span></p>
       <p style="font-size:14px;color:#444">すでに入っているツールはスキップ OK。 1 行のコマンドで全部まとめてインストールします。</p>
 
       <p style="margin-top:14px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">Cursor 下部のターミナルで以下のコマンドをコピペして Enter:</p>
-      <div class="code">[ -x /opt/homebrew/bin/brew ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" &amp;&amp; eval "$(/opt/homebrew/bin/brew shellenv)" &amp;&amp; brew install git node ffmpeg gh python@3.12 &amp;&amp; brew install --cask claude-code@latest &amp;&amp; /opt/homebrew/bin/pip3.12 install mlx-whisper --break-system-packages</div>
+      <div class="code">[ -x /opt/homebrew/bin/brew ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" &amp;&amp; eval "$(/opt/homebrew/bin/brew shellenv)" &amp;&amp; brew install git node ffmpeg gh python@3.12 &amp;&amp; brew install --cask claude-code@latest</div>
 
       <p style="margin-top:24px"><strong style="color:#121212">② GitHub にログイン</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
@@ -120,8 +120,8 @@
 
       <p style="margin-top:24px"><strong style="color:#121212">③ インストール確認</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
-      <div class="code">git --version &amp;&amp; node --version &amp;&amp; gh --version &amp;&amp; claude --version &amp;&amp; /opt/homebrew/bin/python3.12 --version &amp;&amp; /opt/homebrew/bin/python3.12 -c "import mlx_whisper; print('whisper OK')"</div>
-      <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号 + <code>whisper OK</code> が表示されれば成功。</p>
+      <div class="code">git --version &amp;&amp; node --version &amp;&amp; gh --version &amp;&amp; claude --version &amp;&amp; /opt/homebrew/bin/python3.12 --version</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号が表示されれば成功。</p>
     </section>
 
 
@@ -224,12 +224,12 @@
 
     <section class="step-section">
       <h2><span class="num">04</span>環境セットアップ (初回のみ)</h2>
-      <p class="step-meta"><span>⏱ 所要時間: 5〜15分</span><span>🎯 ゴール: 動画制作に必要なツール (Git / Node.js / FFmpeg / GitHub CLI / Python / Claude Code / Whisper) が全部入った状態</span></p>
+      <p class="step-meta"><span>⏱ 所要時間: 5〜15分</span><span>🎯 ゴール: 動画制作に必要なツール (Git / Node.js / FFmpeg / GitHub CLI / Python / Claude Code) が全部入った状態</span></p>
       <p style="font-size:14px;color:#444">すでに入っているツールはスキップ OK。 1 行のコマンドで全部まとめてインストールします。</p>
 
       <p style="margin-top:14px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">Cursor 下部のターミナル (PowerShell) で以下のコマンドをコピペして Enter:</p>
-      <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode; winget install Python.Python.3.12 -e; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); py -3.12 -m pip install faster-whisper</div>
+      <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode; winget install Python.Python.3.12 -e; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User")</div>
 
       <p style="margin-top:24px"><strong style="color:#121212">② GitHub にログイン</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
@@ -245,8 +245,8 @@
 
       <p style="margin-top:24px"><strong style="color:#121212">③ インストール確認</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
-      <div class="code">git --version; node --version; gh --version; claude --version; py -3.12 --version; py -3.12 -c "import faster_whisper; print('whisper OK')"</div>
-      <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号 + <code>whisper OK</code> が表示されれば成功。</p>
+      <div class="code">git --version; node --version; gh --version; claude --version; py -3.12 --version</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号が表示されれば成功。</p>
     </section>
 
 
