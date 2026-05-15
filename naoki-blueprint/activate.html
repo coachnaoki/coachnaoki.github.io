@@ -46,17 +46,6 @@
       <h2><span class="num">📋</span>更新履歴</h2>
       <p>追加された機能・改善の一覧です。新しい動画を作るときは <code>bash 新規作成.sh</code> が自動で最新版を取得します。</p>
 
-      <p style="margin-top:16px;font-size:14px"><strong style="color:#121212">直近のハイライト</strong>（最新版 v2.10.2 / 2026-05-07）</p>
-      <ul style="margin:8px 0 20px 20px;color:#444;font-size:13px;line-height:1.8">
-        <li><strong style="color:#121212">🛡️ レンダラー出力検証スクリプト追加 (二重ガード化)</strong> (v2.10.2): step09 完了時に <code>validate-renderer.mjs</code> で MainComposition.tsx の 2 行レンダラー実装を機械的にチェック。 v2.10.1 の SKILL.md ガイドだけでは Claude のスルー事故を防げないため、 検証スクリプトで強制ガード。 telop 入力 (validate-telop) + renderer 出力 (validate-renderer) の二重ガード体制完成</li>
-        <li><strong style="color:#121212">🪛 ショート動画 2 行表示の実装ガイド復活 + テロップ単語境界バリデーター</strong> (v2.10.1): v2.7.6 から欠落していた step09 の <code>&lt;tspan&gt;</code> 2 行描画ガイドを追加。 <code>scripts/validate-telop.mjs</code> で「単語の中間で切れている」 telop を自動検出。 既存プロジェクトは MainComposition.tsx 手修正 or step09 やり直しで対応</li>
-        <li><strong style="color:#121212">🎬 ハイライト 4択選択 + faceicon 復活</strong> (v2.10.0): step20 起動時に「おまかせ自動選定 / 推奨3候補 / 手動範囲 / 不要」 の 4 択。 telopData/transcript からスコアリングして候補抽出。 顔アイコン用 <code>public/images/icon/</code> フォルダの実体も復活</li>
-        <li><strong style="color:#121212">🎙️ 文字起こし mlx-whisper-large-v3 復帰</strong> (v2.7.0): AssemblyAI 廃止 → ローカル Whisper に復帰。 API キー不要・追加費用なし。 ショート文字数 1080px 厳格化 + 対談動画モード (interviewee テンプレ追加)</li>
-        <li><strong style="color:#121212">🔒 Private 化 + Organization 移管</strong> (v2.6.0): リポを <code>coach-naoki/naoki-blueprint</code> (Private) に移管。 受講生は招待制で clone 可能に</li>
-        <li><strong style="color:#121212">🎨 picker UI 大幅改修</strong> (v2.5.4): カラーランダム / メイン動画アニメ (zoom_in / zoom_out + grayscale / blur) / カスタムテンプレ追加 / ハイライト額縁</li>
-        <li><strong style="color:#121212">🎯 N-gram「最後の発話を残す」 ルール</strong> (v2.5.3): 複数回言い直しても採用したい発話 (最後の言い直し) の冒頭が消えない</li>
-      </ul>
-
       <p style="margin-top:20px">
         <a href="changelog.html" style="display:inline-block;background:#CCFF00;color:#121212;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;font-size:15px">📋 すべての更新履歴を見る →</a>
       </p>
