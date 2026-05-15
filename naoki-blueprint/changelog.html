@@ -121,7 +121,7 @@
 <div class="header">
   <h1>更新履歴</h1>
   <p>naoki-blueprint のバージョンアップ履歴（Semantic Versioning）</p>
-  <p style="margin-top:6px"><strong style="color:#121212">最新版: v2.11.27</strong> (2026-05-11)</p>
+  <p style="margin-top:6px"><strong style="color:#121212">最新版: v2.18.5</strong> (2026-05-15)</p>
 </div>
 
 <div class="card">
@@ -130,10 +130,97 @@
 
 <div class="card">
 
+<!-- v2.14.1 〜 v2.18.5 (プロファイル機能本格運用) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge latest">v2.14.1〜v2.18.5</span>
+    <span class="version-date">2026-05-15</span>
+    <span style="background:#a855f7;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">プロファイル機能</span>
+  </div>
+
+  <div class="section-label">🎨 デザイン設定をプロファイル化 → 次の動画にワンタッチで再利用</div>
+  <p class="version-desc">過去動画で蓄積したデザイン (テロップ色 / フォント / アニメ / カラー / SE 音量 / オートモード設定) を 「プロファイル」 として保存できる仕組みを本格運用。 <code>/new-video</code> 起動時にプロファイルを選べば、 同じトンマナの動画が次の動画にもそのまま適用される。</p>
+  <ul>
+    <li><strong>プロファイル機械適用 (v2.15.0)</strong>: <code>apply-profile.mjs</code> でプロファイルから 3 ファイル (templateConfig / templateVariants / customColorVariants) を上書きコピー。 semver 互換チェック + エラーハンドリング</li>
+    <li><strong>フルオート制約 (v2.15.0)</strong>: プロファイル無しのフルオートは禁止 (= マニュアル / セミオート に降格)。 適当な動画が出来上がるリスクを排除</li>
+    <li><strong>台本自動推定 (v2.16.0)</strong>: フルオート + 台本あり → step01 の質問を全部スキップして AI が target / tone / style / 長さを推定。 受講生は「やり直して」で再実行可能</li>
+    <li><strong>停止ポイント編集 (v2.15.0)</strong>: オートモード中の停止ポイント (step01 / step08 / step19 等) を step ごとに「停止する/しない」 で個別カスタマイズ</li>
+    <li><strong>停止ポイント刷新 (v2.14.2)</strong>: マニュアル / セミオート / フルオートの 3 モードで step ごとに停止条件を整理 (例: step08-telop はマニュアル/セミオートで必ず停止 / step19-render は全モード必ず停止)</li>
+    <li><strong>profileRenderers.tsx 分離 (v2.18.0)</strong>: テロップの SVG レンダラー 7 種 (normal / emphasis / emphasis2 / section / negative / negative2 / third_party) を独立ファイル化 → プロファイルで丸ごと差替可能に</li>
+    <li><strong>素材投入フロー改善 (v2.14.1)</strong>: <code>新規作成.sh</code> 末尾で <code>public/videos/main/</code> を自動オープン (Mac: open / Win Git Bash: cmd start)。 step02 で開く挙動は撤廃</li>
+    <li><strong>extract-profile スキル再設計 (v2.16.0)</strong>: 旧「styles/{slug}.md に自然言語追記」 方式から「styles/projects/{slug}/ に 3 ファイル snapshot」 方式に刷新。 ファイルベースで誰でも再利用可能に</li>
+  </ul>
+</div>
+
+<!-- v2.17.0 (Studio UI 刷新) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.17.0</span>
+    <span class="version-date">2026-05-15</span>
+    <span style="background:#16a34a;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">Studio UI 刷新</span>
+  </div>
+
+  <div class="section-label">🎨 Remotion Studio Schema 編集を廃止 → picker-telop に統一</div>
+  <p class="version-desc">Studio の Props パネルでテロップを編集する旧仕様は反映バグ多発 (Save しても適用されない / 改行マーカー破壊) のため廃止。 新規プロジェクトでは telopData.ts を直接参照する形に変更し、 編集は <strong>picker-telop (<code>npm run telop</code>)</strong> に統一。 既存プロジェクトは旧形式を維持して破壊回避。</p>
+  <ul>
+    <li><strong>Timeline 非表示化</strong>: <code>Config.setMaxTimelineTracks(0)</code> で Studio の Timeline を完全非表示。 100 個以上のシーケンスがあるテロップで「動画が壊れて見える」誤解を解消</li>
+    <li><strong>ピッカーフォント差替</strong>: 「丸」 スロットを M PLUS Rounded 1c → <strong>Reggae One</strong> (極太字形) に変更。 4 スロットを「角 / 明 / 太 / 教」 で漢字統一</li>
+    <li><strong>Google Fonts 明示 import</strong>: <code>src/index.css</code> で 4 フォントを @import → Studio とレンダリング両方で確実に反映</li>
+  </ul>
+</div>
+
+<!-- v2.14.0 (対談動画話者分離 + picker-telop 手動修正) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.14.0</span>
+    <span class="version-date">2026-05-15</span>
+    <span style="background:#3b82f6;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">対談動画</span>
+  </div>
+
+  <div class="section-label">👥 対談 / インタビュー動画の話者分離を Claude 4 ルール v3 に刷新</div>
+  <p class="version-desc">インタビュアー (発信者・normal) / インタビュイー (ゲスト・interviewee) の自動判定ロジックを大幅刷新。 ASR では話者分離できないので、 step08-telop が transcript の内容を分析して自動分類する設計。 picker-telop に手動修正 UI を追加し、 AI 分類が間違った時もブラウザで一発修正可能に。</p>
+</div>
+
+<!-- v2.13.0 (Speechmatics 移行) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.13.0</span>
+    <span class="version-date">2026-05-14</span>
+    <span style="background:#f59e0b;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">文字起こし刷新</span>
+  </div>
+
+  <div class="section-label">🎙️ 文字起こし ASR を Speechmatics standard に完全移行</div>
+  <p class="version-desc">旧 mlx-whisper / faster-whisper は smoothing で「言い直し」が消えるため picker-cut の検出が機能していなかった (9 分動画で 1 件しか拾えず実用不可)。 <strong>Speechmatics standard</strong> に完全移行することで、 phrase 認識完全性と言い直し検出件数の両方で Deepgram を上回る結果に。</p>
+  <ul>
+    <li><strong>無料枠 8 時間/月</strong> (超過時 $0.204/時 = ¥31/時)</li>
+    <li><strong>動画 → 16kHz mono mp3 軽量化を内蔵</strong> (1GB → 数 MB に圧縮)</li>
+    <li><strong>Python + Whisper 環境が不要に</strong> (Mac mlx-whisper / Win faster-whisper のインストール手順が消える)</li>
+    <li><strong>API キー登録</strong>: <code>.env</code> ファイルに <code>SPEECHMATICS_API_KEY=</code> を直接記載 (チャットにキーを貼らせない流儀)</li>
+    <li><strong>句読点抑止</strong> で picker-cut の N-gram 検出が素直に動くように</li>
+  </ul>
+</div>
+
+<!-- v2.12.0 (picker-cut UI) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.12.0</span>
+    <span class="version-date">2026-05-14</span>
+    <span style="background:#ec4899;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">カット UI</span>
+  </div>
+
+  <div class="section-label">🎬 step05-cut に Filmora 相当のブラウザ UI (picker-cut) を統合</div>
+  <p class="version-desc">無音 + 言い直しカットをブラウザ UI でプレビューしながら確認 → 「ここは残す」 「ここは削る」 の手動調整が可能に。 N-gram 検出感度のスライダー、 波形表示、 ジャンプボタンを完備。</p>
+  <ul>
+    <li><strong>rsync → cp ベース置換</strong>: <code>sync_delete</code> / <code>sync_ignore_existing</code> 関数で実装。 Mac / Windows / Linux のどの Bash でも動作 (rsync 不要に)</li>
+    <li><strong>ライセンス API を Vercel に移行</strong>: GAS → <code>naoki-blueprint-license.vercel.app/exec</code>。 GAS の 302 リダイレクト問題を解消し、 バージョン記録 (rp) が正常動作するように</li>
+    <li><strong>アップデート.sh の git fetch を 3 回リトライ + 失敗時 exit 1</strong>: 「アップデート完了風」 メッセージで誤魔化さない</li>
+  </ul>
+</div>
+
 <!-- v2.11.24 〜 v2.11.27 (検証システム強化) -->
 <div class="version-entry">
   <div class="version-header">
-    <span class="version-badge latest">v2.11.24〜v2.11.27</span>
+    <span class="version-badge">v2.11.24〜v2.11.27</span>
     <span class="version-date">2026-05-11</span>
     <span style="background:#16a34a;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">検証システム強化</span>
   </div>
