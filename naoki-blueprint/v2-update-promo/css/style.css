@@ -179,16 +179,24 @@ video {
   background: #020617;
 }
 
-.fixed-cta {
+.fixed-cta-layer {
   position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fixed-cta {
+  position: absolute;
   right: 50%;
   bottom: 18px;
-  z-index: 20;
   display: block;
   width: min(calc(100% - 24px), 760px);
   transform: translateX(50%);
   text-decoration: none;
   line-height: 0;
+  pointer-events: auto;
   filter: drop-shadow(0 14px 24px rgba(15, 23, 42, 0.28)) drop-shadow(0 0 18px rgba(37, 99, 235, 0.58));
   animation:
     cta-float 3.2s ease-in-out infinite,
