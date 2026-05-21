@@ -84,7 +84,7 @@
     <img src="assets/images/07.png" alt="" class="slice" loading="lazy" />
   </section>
 
-  <section class="lp-image cta-image-wrap">
+  <section id="final-cta-section" class="lp-image cta-image-wrap">
     <img src="assets/images/08.png" alt="" class="slice" loading="lazy" />
     <a
       class="image-cta-hotspot image-cta-hotspot--final"
@@ -107,6 +107,49 @@
     <img src="assets/images/fixed-cta.png" alt="審査エントリーする" />
   </a>
 </div>
+
+<script>
+(() => {
+  const fixedCtaLayer = document.querySelector(".fixed-cta-layer");
+  const finalCtaHotspot = document.querySelector(".image-cta-hotspot--final");
+
+  if (!fixedCtaLayer || !finalCtaHotspot) {
+    return;
+  }
+
+  const setFixedCtaHidden = (isHidden) => {
+    fixedCtaLayer.classList.toggle("is-hidden", isHidden);
+    fixedCtaLayer.setAttribute("aria-hidden", isHidden ? "true" : "false");
+  };
+
+  const updateFixedCta = () => {
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const finalCtaRect = finalCtaHotspot.getBoundingClientRect();
+    const pageBottom = document.documentElement.scrollHeight - 2;
+    const currentBottom = window.scrollY + viewportHeight;
+    const finalCtaVisible = finalCtaRect.top < viewportHeight - 12 && finalCtaRect.bottom > 12;
+
+    setFixedCtaHidden(finalCtaVisible || currentBottom >= pageBottom);
+  };
+
+  let ticking = false;
+  const requestUpdate = () => {
+    if (ticking) {
+      return;
+    }
+
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      updateFixedCta();
+      ticking = false;
+    });
+  };
+
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate);
+  updateFixedCta();
+})();
+</script>
 
 </body>
 </html>
