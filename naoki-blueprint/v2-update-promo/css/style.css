@@ -11,7 +11,6 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-  padding-bottom: 104px;
   background:
     linear-gradient(90deg, rgba(29, 78, 216, 0.08), rgba(255, 255, 255, 0), rgba(29, 78, 216, 0.08)),
     #eff6ff;
