@@ -21,7 +21,7 @@
   window.addEventListener("pageshow", resetScroll, { once: true });
 })();
 </script>
-<link rel="stylesheet" href="css/style.css?v=20260522-scrollfix" />
+<link rel="stylesheet" href="css/style.css?v=20260522-overscrollguard" />
 </head>
 <body>
 
@@ -165,6 +165,50 @@
   window.addEventListener("scroll", requestUpdate, { passive: true });
   window.addEventListener("resize", requestUpdate);
   updateFixedCta();
+})();
+</script>
+
+<script>
+(() => {
+  const isViewportAtTop = () => window.scrollY <= 0;
+  const isViewportAtBottom = () => (
+    window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1
+  );
+
+  const shouldBlockViewportOverscroll = (deltaY) => (
+    (deltaY < 0 && isViewportAtTop()) ||
+    (deltaY > 0 && isViewportAtBottom())
+  );
+
+  window.addEventListener("wheel", (event) => {
+    if (shouldBlockViewportOverscroll(event.deltaY)) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+
+  let lastTouchY = null;
+
+  window.addEventListener("touchstart", (event) => {
+    lastTouchY = event.touches.length ? event.touches[0].clientY : null;
+  }, { passive: true });
+
+  window.addEventListener("touchmove", (event) => {
+    if (lastTouchY === null || !event.touches.length) {
+      return;
+    }
+
+    const currentTouchY = event.touches[0].clientY;
+    const deltaY = lastTouchY - currentTouchY;
+    lastTouchY = currentTouchY;
+
+    if (shouldBlockViewportOverscroll(deltaY)) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+
+  window.addEventListener("touchend", () => {
+    lastTouchY = null;
+  }, { passive: true });
 })();
 </script>
 
