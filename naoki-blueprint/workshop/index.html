@@ -4,6 +4,94 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Naoki式 AI動画編集 Blueprint</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  overflow-anchor: none;
+  overscroll-behavior-y: none;
+  scroll-behavior: auto;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  overflow-anchor: none;
+  overscroll-behavior-y: none;
+}
+
+.lp-shell {
+  width: min(100%, 860px);
+  margin: 0 auto;
+}
+
+.lp-image {
+  line-height: 0;
+}
+
+.slice {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cta-image-wrap {
+  position: relative;
+}
+
+.image-cta-hotspot {
+  position: absolute;
+  display: block;
+}
+
+.student-results {
+  padding: 16px 18px 26px;
+}
+
+.comparison-block,
+.result-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.comparison-block {
+  margin-bottom: 14px;
+}
+
+video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.fixed-cta-layer {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fixed-cta {
+  position: absolute;
+  right: 50%;
+  bottom: 18px;
+  display: block;
+  width: min(calc(100% - 24px), 760px);
+  transform: translateX(50%);
+  line-height: 0;
+  pointer-events: auto;
+}
+
+.fixed-cta img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style>
 <script>
 (() => {
   if ("scrollRestoration" in history) {
@@ -21,7 +109,7 @@
   window.addEventListener("pageshow", resetScroll, { once: true });
 })();
 </script>
-<link rel="stylesheet" href="css/style.css?v=20260522-overscrollguard" />
+<link rel="stylesheet" href="css/style.css?v=20260522-critical" />
 </head>
 <body>
 
