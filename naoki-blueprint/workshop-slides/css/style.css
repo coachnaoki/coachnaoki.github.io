@@ -816,3 +816,63 @@ table tr:last-child td { border-bottom: none; }
   color: #67e8f9;
   border-radius: 4px;
 }
+
+/* === 1 ピッカー 1 ページ レイアウト === */
+.picker-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 56px 80px 64px;
+  box-sizing: border-box;
+}
+.picker-head {
+  flex: 0 0 auto;
+  margin-bottom: 32px;
+}
+.picker-head h2 {
+  font-size: 56px;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--white);
+}
+.picker-num-big {
+  color: #22d3ee;
+  font-family: var(--font-num);
+  font-weight: 800;
+  font-size: 64px;
+  margin-right: 12px;
+}
+.picker-step-big {
+  color: var(--ink-600);
+  font-size: 28px;
+  font-weight: 500;
+  margin-left: 12px;
+  letter-spacing: 0.02em;
+}
+.picker-lede {
+  margin-top: 12px;
+  font-size: 24px;
+  color: var(--ink-700);
+  line-height: 1.6;
+}
+.picker-lede code {
+  font-family: var(--font-mono, ui-monospace, "SF Mono", monospace);
+  font-size: 20px;
+  padding: 4px 12px;
+  margin-left: 8px;
+  background: rgba(34, 211, 238, 0.12);
+  color: #67e8f9;
+  border-radius: 4px;
+}
+.picker-fullshot {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  object-fit: contain;
+  object-position: top center;
+  background: #f4f6fa;
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+.mt-8 { margin-top: 8px; }

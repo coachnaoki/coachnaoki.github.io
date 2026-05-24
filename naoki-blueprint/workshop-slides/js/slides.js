@@ -391,53 +391,75 @@ function slide12Phase4() {
   </section>`;
 }
 
-// 13. 4種のピッカー（看板機能①）
-function slide13Picker() {
-  return `<section class="slide" data-section="picker"
-    data-notes="naoki-blueprintには編集者がブラウザで触れるピッカーが4種類あります。AIが組み立てた結果を、コードを書かずに最終調整できる仕組みです。1つ目のカットピッカーはカット位置の微調整。AIが切ったタイミングをタイムラインでドラッグ調整できます。2つ目のデザインピッカーはテロップのフォント・色・SE・アニメの設定。3つ目のテロップピッカーはテロップの文字とタイミングの編集。読み間違いやニュアンス変更がブラウザで完結。4つ目のスライドピッカーはHTMLスライドの色・フォント・サイズ調整。全部ブラウザUIで動きます。">
-    ${ph(13, 'Killer feature ①')}
-    <div class="slide-content">
-      <div class="tag" style="color:#22d3ee">🎨 看板機能 ①　4種のピッカー</div>
-      <h2 class="mt-16">コードを書かずに <span class="g-primary">最終調整できる</span></h2>
-      <div class="picker-grid mt-24">
-        <div class="picker-card">
-          <img src="assets/pickers/02-picker-cut.png" alt="カットピッカー" class="picker-shot" />
-          <div class="picker-meta">
-            <div class="picker-title"><span class="picker-num">①</span> カットピッカー <span class="picker-step">/ step05</span></div>
-            <div class="picker-body">無音・言い直しカットの<b>手動微調整</b><br/><code>npm run cut</code></div>
-          </div>
-        </div>
-        <div class="picker-card">
-          <img src="assets/pickers/01-design-picker.png" alt="デザインピッカー" class="picker-shot" />
-          <div class="picker-meta">
-            <div class="picker-title"><span class="picker-num">②</span> デザインピッカー <span class="picker-step">/ step07</span></div>
-            <div class="picker-body">テロップの<b>フォント・色・SE・アニメ</b>切替<br/><code>node picker/server.mjs</code></div>
-          </div>
-        </div>
-        <div class="picker-card">
-          <img src="assets/pickers/03-picker-telop.png" alt="テロップピッカー" class="picker-shot" />
-          <div class="picker-meta">
-            <div class="picker-title"><span class="picker-num">③</span> テロップピッカー <span class="picker-step">/ step08〜</span></div>
-            <div class="picker-body">テロップの<b>文字 + タイミング</b>編集<br/><code>npm run telop</code></div>
-          </div>
-        </div>
-        <div class="picker-card">
-          <img src="assets/pickers/04-slide-picker.png" alt="スライドピッカー" class="picker-shot" />
-          <div class="picker-meta">
-            <div class="picker-title"><span class="picker-num">④</span> スライドピッカー <span class="picker-step">/ step12</span></div>
-            <div class="picker-body">HTMLスライドの<b>色・フォント・サイズ</b>調整<br/><code>npm run slide-picker</code></div>
-          </div>
-        </div>
-      </div>
+// 13. カットピッカー（看板機能① / 4 of 4）
+function slide13PickerCut() {
+  return `<section class="slide" data-section="picker-cut"
+    data-notes="ここからnaoki-blueprintの看板機能、4種のピッカーを1つずつ紹介します。1つ目はカットピッカー。step05のしきい値調整UIで、AIが切った無音区間と言い直しを、ブラウザのタイムラインで波形を見ながらドラッグで微調整できます。気になったカットだけ手動で残す・追加カットする、を直感的に。npm run cut で起動。">
+    ${ph(13, 'Killer feature ① / Cut Picker')}
+    <div class="picker-page">
+      <header class="picker-head">
+        <div class="tag" style="color:#22d3ee">🎨 看板機能 ①　4種のピッカー　<span style="color:var(--ink-600);font-weight:500">1 / 4</span></div>
+        <h2 class="mt-8"><span class="picker-num-big">①</span> <span class="g-primary">カットピッカー</span> <span class="picker-step-big">/ step05</span></h2>
+        <p class="picker-lede">無音・言い直しカットを <span class="hl">波形を見ながらドラッグ調整</span>。 <code>npm run cut</code></p>
+      </header>
+      <img src="assets/pickers/02-picker-cut.png" alt="カットピッカー" class="picker-fullshot" />
     </div>
   </section>`;
 }
 
-// 14. プロファイル（看板機能②）
-function slide14Profile() {
+// 14. デザインピッカー（看板機能① / 2 of 4）
+function slide14PickerDesign() {
+  return `<section class="slide" data-section="picker-design"
+    data-notes="2つ目はデザインピッカー。step07のテロップテンプレ設定UIで、テロップごとにフォント、色、SEフォルダ、アニメーションをクリックで切り替えられます。テンプレ単位でON/OFFもできるので、自分の動画に必要なテロップだけ使う設定にできます。コードを一切触らない。node picker/server.mjs で起動。">
+    ${ph(14, 'Killer feature ① / Design Picker')}
+    <div class="picker-page">
+      <header class="picker-head">
+        <div class="tag" style="color:#22d3ee">🎨 看板機能 ①　4種のピッカー　<span style="color:var(--ink-600);font-weight:500">2 / 4</span></div>
+        <h2 class="mt-8"><span class="picker-num-big">②</span> <span class="g-primary">デザインピッカー</span> <span class="picker-step-big">/ step07</span></h2>
+        <p class="picker-lede">テロップの <span class="hl">フォント・色・SE・アニメ</span> をクリックで切替。 <code>node picker/server.mjs</code></p>
+      </header>
+      <img src="assets/pickers/01-design-picker.png" alt="デザインピッカー" class="picker-fullshot" />
+    </div>
+  </section>`;
+}
+
+// 15. テロップピッカー（看板機能① / 3 of 4）
+function slide15PickerTelop() {
+  return `<section class="slide" data-section="picker-telop"
+    data-notes="3つ目はテロップピッカー。step08以降で、テロップの文字とタイミングをブラウザで編集できます。読み間違いの修正、ニュアンス変更、表示時間の調整がドラッグとクリックで完結。文字数上限超過は赤バナーで該当エントリに即遷移できます。npm run telop で起動。">
+    ${ph(15, 'Killer feature ① / Telop Picker')}
+    <div class="picker-page">
+      <header class="picker-head">
+        <div class="tag" style="color:#22d3ee">🎨 看板機能 ①　4種のピッカー　<span style="color:var(--ink-600);font-weight:500">3 / 4</span></div>
+        <h2 class="mt-8"><span class="picker-num-big">③</span> <span class="g-primary">テロップピッカー</span> <span class="picker-step-big">/ step08〜</span></h2>
+        <p class="picker-lede">テロップの <span class="hl">文字 + タイミング</span> をブラウザで編集。 <code>npm run telop</code></p>
+      </header>
+      <img src="assets/pickers/03-picker-telop.png" alt="テロップピッカー" class="picker-fullshot" />
+    </div>
+  </section>`;
+}
+
+// 16. スライドピッカー（看板機能① / 4 of 4）
+function slide16PickerSlide() {
+  return `<section class="slide" data-section="picker-slide"
+    data-notes="4つ目はスライドピッカー。step12でHTMLスライドを生成した後、色・フォント・サイズをスライダーとカラーピッカーで微調整できます。5ダーク・5ライトのプリセット切替、スライド単位の個別編集も可能。npm run slide-picker で起動。これがv2.24で追加された最新機能です。">
+    ${ph(16, 'Killer feature ① / Slide Picker')}
+    <div class="picker-page">
+      <header class="picker-head">
+        <div class="tag" style="color:#22d3ee">🎨 看板機能 ①　4種のピッカー　<span style="color:var(--ink-600);font-weight:500">4 / 4</span></div>
+        <h2 class="mt-8"><span class="picker-num-big">④</span> <span class="g-primary">スライドピッカー</span> <span class="picker-step-big">/ step12</span></h2>
+        <p class="picker-lede">HTMLスライドの <span class="hl">色・フォント・サイズ</span> をUI調整。 <code>npm run slide-picker</code></p>
+      </header>
+      <img src="assets/pickers/04-slide-picker.png" alt="スライドピッカー" class="picker-fullshot" />
+    </div>
+  </section>`;
+}
+
+// 17. プロファイル（看板機能②）
+function slide17Profile() {
   return `<section class="slide" data-section="profile"
     data-notes="2つ目の看板機能はプロファイル。これが他のAI動画編集ツールにない、naoki-blueprint最大の差別化ポイントです。あなたのNGワード、口癖、専門用語、テロップの好みを一度プロファイルファイルに書いておけば、全ての動画で自動反映されます。動画ごとに毎回教え直す必要なし。動画を作るたびに「次回もこのスタイルで」と確認されて、yesと答えればプロファイルに自動追記されていきます。使えば使うほど、あなた専用のAI編集者に育っていきます。">
-    ${ph(14, 'Killer feature ②')}
+    ${ph(17, 'Killer feature ②')}
     <div class="slide-content">
       <div class="tag" style="color:#fbbf24">📝 看板機能 ②</div>
       <h2 class="mt-16"><span class="g-warm">プロファイル</span> で「あなた専用」に育てる</h2>
@@ -471,11 +493,11 @@ function slide14Profile() {
   </section>`;
 }
 
-// 15. 編集者向けの強化機能（v2.20〜v2.26）
-function slide15PowerTools() {
+// 18. 編集者向けの強化機能（v2.20〜v2.26）
+function slide18PowerTools() {
   return `<section class="slide" data-section="power-tools"
     data-notes="ピッカーとプロファイル以外にも、編集者目線で「これ欲しかった」という機能が最近4つ追加されました。1つ目はテロップの2行表示。長い発言を綺麗に2行で見せられます。横もショートも対応。2つ目はTextEditベースのテロップ校閲。テロップ全件をテキストファイルに書き出して、TextEditで一気通読・修正→反映できます。Mac標準アプリで快適。3つ目はライセンス認証の自動リカバリ。fingerprint衝突や別PC移行で詰まっても、勝手に修復してくれます。4つ目は/new-video起動時の強制アップデート。修正直後のバグが残ったまま動画作るリスクを構造的に防ぎます。">
-    ${ph(15, 'Power tools')}
+    ${ph(18, 'Power tools')}
     <div class="slide-content">
       <div class="tag" style="color:#fbbf24">✨ 編集者向け強化機能（v2.20〜v2.26）</div>
       <h2 class="mt-16"><span class="g-warm">これ欲しかった</span> を最近実装</h2>
@@ -501,11 +523,11 @@ function slide15PowerTools() {
   </section>`;
 }
 
-// 16. 2本目以降は /new-video のみ
-function slide16SecondVideo() {
+// 19. 2本目以降は /new-video のみ
+function slide19SecondVideo() {
   return `<section class="slide" data-section="second"
     data-notes="2本目以降はもっとシンプル。ライセンス認証は今日のうちに済ませるので、明日以降は naoki-blueprint フォルダで claude を起動して、スラッシュコマンドの new-video を打つだけ。プロジェクト作成からオートモード進行まで、これ1つで全部やってくれます。今日のセミナーが終わったら、まず家に帰って2本目を作ってみてください。">
-    ${ph(16, 'For next videos')}
+    ${ph(19, 'For next videos')}
     <div class="slide-content">
       <h2>2本目以降は、<span class="g-primary">1コマンドだけ。</span></h2>
       <p class="lead mb-24">ライセンス認証は今日で完了。明日以降は <span class="hl">naoki-blueprint フォルダで</span>:</p>
@@ -530,11 +552,11 @@ claude --dangerously-skip-permissions
   </section>`;
 }
 
-// 17. サポート体制
-function slide17Support() {
+// 20. サポート体制
+function slide20Support() {
   return `<section class="slide" data-section="support"
     data-notes="今日で終わりじゃありません。Chatworkのグループで1ヶ月間、私が直接お応えします。エラーが出た時、2本目を作る時の質問、何でも聞いてください。1ヶ月経過後は個別でご案内します。">
-    ${ph(17, 'Support')}
+    ${ph(20, 'Support')}
     <div class="slide-content" style="align-items:center;text-align:center">
       <h2 style="text-align:center">サポート窓口</h2>
       <div class="pill pill--primary" style="margin-bottom:40px">Chatwork グループ</div>
@@ -551,8 +573,8 @@ function slide17Support() {
   </section>`;
 }
 
-// 18. クロージング
-function slide18Closing() {
+// 21. クロージング
+function slide21Closing() {
   return `<section class="slide hero-slide anim-fade-up" data-section="closing" data-anim-fixed
     data-notes="最後まで参加いただきありがとうございました。今日学んだことを使って、ぜひ動画制作を習慣にしてください。自動化で浮いた時間で、次のコンテンツを作る。これが正しい使い方です。また次のセミナーでお会いしましょう。">
     <div class="hero">
@@ -561,7 +583,7 @@ function slide18Closing() {
       <div class="hero-rule"></div>
       <p class="hero-subtitle">自動化で浮いた時間で、次のコンテンツを作ろう。<br/>また次のセミナーで会いましょう。</p>
       <div class="hero-meta">Naoki  /  AI × Video Editing</div>
-      <div class="big-index">18</div>
+      <div class="big-index">21</div>
     </div>
   </section>`;
 }
@@ -580,12 +602,15 @@ window.slideFactories = [
   slide10Phase2,
   slide11Phase3,
   slide12Phase4,
-  slide13Picker,
-  slide14Profile,
-  slide15PowerTools,
-  slide16SecondVideo,
-  slide17Support,
-  slide18Closing
+  slide13PickerCut,
+  slide14PickerDesign,
+  slide15PickerTelop,
+  slide16PickerSlide,
+  slide17Profile,
+  slide18PowerTools,
+  slide19SecondVideo,
+  slide20Support,
+  slide21Closing
 ];
 
 window.agendaItems = [
@@ -601,7 +626,10 @@ window.agendaItems = [
   { id: 'phase2', label: 'Phase 2 / 動画構築' },
   { id: 'phase3', label: 'Phase 3 / 演出' },
   { id: 'phase4', label: 'Phase 4 / BGM・出力' },
-  { id: 'picker', label: '🎨 4種のピッカー（画像）' },
+  { id: 'picker-cut', label: '🎨 ① カットピッカー' },
+  { id: 'picker-design', label: '🎨 ② デザインピッカー' },
+  { id: 'picker-telop', label: '🎨 ③ テロップピッカー' },
+  { id: 'picker-slide', label: '🎨 ④ スライドピッカー' },
   { id: 'profile', label: '📝 プロファイル' },
   { id: 'power-tools', label: '✨ 編集者向け強化機能' },
   { id: 'second', label: '2本目以降' },
