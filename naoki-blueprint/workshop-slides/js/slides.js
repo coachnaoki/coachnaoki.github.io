@@ -391,49 +391,44 @@ function slide12Phase4() {
   </section>`;
 }
 
-// 13. 4種のブラウザピッカー（看板機能①）
+// 13. 4種のピッカー（看板機能①）
 function slide13Picker() {
   return `<section class="slide" data-section="picker"
-    data-notes="naoki-blueprintには編集者がブラウザで触れるピッカーが4種類あります。AIが組み立てた結果を、コードを書かずに最終調整できる仕組みです。1つ目のpicker-cutはカット位置の微調整。AIが切ったタイミングをタイムラインでドラッグ調整できます。2つ目のデザインピッカーはテロップのフォント・色・SE・アニメの設定。3つ目のpicker-telopはテロップの文字とタイミングの編集。読み間違いやニュアンス変更がブラウザで完結。4つ目のスライドピッカーはHTMLスライドの色・フォント・サイズ調整。全部ブラウザUIで動きます。">
+    data-notes="naoki-blueprintには編集者がブラウザで触れるピッカーが4種類あります。AIが組み立てた結果を、コードを書かずに最終調整できる仕組みです。1つ目のカットピッカーはカット位置の微調整。AIが切ったタイミングをタイムラインでドラッグ調整できます。2つ目のデザインピッカーはテロップのフォント・色・SE・アニメの設定。3つ目のテロップピッカーはテロップの文字とタイミングの編集。読み間違いやニュアンス変更がブラウザで完結。4つ目のスライドピッカーはHTMLスライドの色・フォント・サイズ調整。全部ブラウザUIで動きます。">
     ${ph(13, 'Killer feature ①')}
     <div class="slide-content">
-      <div class="tag" style="color:#22d3ee">🎨 看板機能 ①　4種のブラウザピッカー</div>
+      <div class="tag" style="color:#22d3ee">🎨 看板機能 ①　4種のピッカー</div>
       <h2 class="mt-16">コードを書かずに <span class="g-primary">最終調整できる</span></h2>
-      <div class="grid-2 mt-32">
-        <div class="card card--accent">
-          <div class="card-title">① picker-cut <span style="color:var(--ink-600);font-size:18px">/ step05</span></div>
-          <div class="card-body">
-            無音・言い直しカットの<span class="bold text-white">手動微調整</span>UI<br/>
-            Filmora風タイムラインでドラッグ → 保存<br/>
-            <code>npm run cut</code>
+      <div class="picker-grid mt-24">
+        <div class="picker-card">
+          <img src="assets/pickers/02-picker-cut.png" alt="カットピッカー" class="picker-shot" />
+          <div class="picker-meta">
+            <div class="picker-title"><span class="picker-num">①</span> カットピッカー <span class="picker-step">/ step05</span></div>
+            <div class="picker-body">無音・言い直しカットの<b>手動微調整</b><br/><code>npm run cut</code></div>
           </div>
         </div>
-        <div class="card card--accent">
-          <div class="card-title">② デザインピッカー <span style="color:var(--ink-600);font-size:18px">/ step07</span></div>
-          <div class="card-body">
-            テロップの<span class="bold text-white">フォント・色・SE・アニメ</span>切替<br/>
-            テンプレ単位 ON/OFF / 色バリエーション切替<br/>
-            <code>node picker/server.mjs</code>
+        <div class="picker-card">
+          <img src="assets/pickers/01-design-picker.png" alt="デザインピッカー" class="picker-shot" />
+          <div class="picker-meta">
+            <div class="picker-title"><span class="picker-num">②</span> デザインピッカー <span class="picker-step">/ step07</span></div>
+            <div class="picker-body">テロップの<b>フォント・色・SE・アニメ</b>切替<br/><code>node picker/server.mjs</code></div>
           </div>
         </div>
-        <div class="card card--hot">
-          <div class="card-title">③ picker-telop <span style="color:var(--ink-600);font-size:18px">/ step08〜</span></div>
-          <div class="card-body">
-            テロップの<span class="bold text-white">文字 + タイミング</span>編集UI<br/>
-            <span class="hl">上限超過バナー</span>でNG entryに即遷移<br/>
-            <code>npm run telop</code>
+        <div class="picker-card">
+          <img src="assets/pickers/03-picker-telop.png" alt="テロップピッカー" class="picker-shot" />
+          <div class="picker-meta">
+            <div class="picker-title"><span class="picker-num">③</span> テロップピッカー <span class="picker-step">/ step08〜</span></div>
+            <div class="picker-body">テロップの<b>文字 + タイミング</b>編集<br/><code>npm run telop</code></div>
           </div>
         </div>
-        <div class="card card--hot">
-          <div class="card-title">④ スライドピッカー <span style="color:var(--ink-600);font-size:18px">/ step12</span></div>
-          <div class="card-body">
-            HTMLスライドの<span class="bold text-white">色・フォント・サイズ</span>調整<br/>
-            5ダーク/5ライト プリセット + スライド単位編集<br/>
-            <code>npm run slide-picker</code>
+        <div class="picker-card">
+          <img src="assets/pickers/04-slide-picker.png" alt="スライドピッカー" class="picker-shot" />
+          <div class="picker-meta">
+            <div class="picker-title"><span class="picker-num">④</span> スライドピッカー <span class="picker-step">/ step12</span></div>
+            <div class="picker-body">HTMLスライドの<b>色・フォント・サイズ</b>調整<br/><code>npm run slide-picker</code></div>
           </div>
         </div>
       </div>
-      <p class="lead mt-32 text-white">「<span class="hl">AIに任せる</span>」と「<span class="hl">自分の好みに調整</span>」を両立。</p>
     </div>
   </section>`;
 }
@@ -606,7 +601,7 @@ window.agendaItems = [
   { id: 'phase2', label: 'Phase 2 / 動画構築' },
   { id: 'phase3', label: 'Phase 3 / 演出' },
   { id: 'phase4', label: 'Phase 4 / BGM・出力' },
-  { id: 'picker', label: '🎨 4種のピッカー' },
+  { id: 'picker', label: '🎨 4種のピッカー（画像）' },
   { id: 'profile', label: '📝 プロファイル' },
   { id: 'power-tools', label: '✨ 編集者向け強化機能' },
   { id: 'second', label: '2本目以降' },
