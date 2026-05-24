@@ -79,7 +79,7 @@ function slide03Features() {
       <h2>AI が自動でやる<span class="g-primary">6つの工程</span></h2>
       <div class="grid-3">
         <div class="feature-tile"><div class="tile-num">01</div><div class="tile-title">無音＋言い直しカット</div><div class="tile-body">FFmpeg で沈黙区間と言い直しを一発削除<br/>音量ベースで発話末尾の切れ防止</div></div>
-        <div class="feature-tile"><div class="tile-num">02</div><div class="tile-title">文字起こし</div><div class="tile-body">Whisper large-v3 で word-level の精度<br/>台本と照合して誤変換を自動修正</div></div>
+        <div class="feature-tile"><div class="tile-num">02</div><div class="tile-title">文字起こし</div><div class="tile-body">Speechmatics（enhanced）で word-level<br/>話者分離・台本照合で誤変換を自動修正</div></div>
         <div class="feature-tile"><div class="tile-num">03</div><div class="tile-title">テロップ＋SE 自動配置</div><div class="tile-body">発話の感情に応じてデザインを自動判定<br/>対応する SE フォルダから自動選択</div></div>
         <div class="feature-tile"><div class="tile-num">04</div><div class="tile-title">画像・動画挿入</div><div class="tile-body">グリーンバック置換 / デモ動画 /<br/>AI画像生成（Gemini）/ 感情ベース配置</div></div>
         <div class="feature-tile"><div class="tile-num">05</div><div class="tile-title">BGM 自動配置</div><div class="tile-body">単一 BGM / 区間切替（メイン/CTA/ED）<br/>フェードイン・アウト付き</div></div>
@@ -192,7 +192,7 @@ claude --dangerously-skip-permissions
 // 07. 横動画 20ステップフルリスト
 function slide07WorkflowLong() {
   return `<section class="slide" data-section="workflow-long"
-    data-notes="横動画の全20ステップです。左半分のフェーズ1から2が下準備とテロップまで。文字起こしはmlx-whisper-large-v3でローカル実行、APIキー不要・課金ゼロです。右半分のフェーズ3から4で演出を載せていきます。step15の画像挿入はGemini APIでAI画像生成にも対応。step20でハイライト抽出して最終MP4が完成します。全部解説すると2時間かかるので、今日はこの一覧で全体像だけ掴んでください。">
+    data-notes="横動画の全20ステップです。左半分のフェーズ1から2が下準備とテロップまで。文字起こしはSpeechmatics enhancedで、word-level精度に加えて話者分離も自動で入ります。右半分のフェーズ3から4で演出を載せていきます。step15の画像挿入はGemini APIでAI画像生成にも対応。step20でハイライト抽出して最終MP4が完成します。全部解説すると2時間かかるので、今日はこの一覧で全体像だけ掴んでください。">
     ${ph(7, 'YouTube / 20 steps')}
     <div class="slide-content">
       <h2>横動画 <span class="g-primary">20ステップ</span> フルリスト</h2>
@@ -201,7 +201,7 @@ function slide07WorkflowLong() {
           <div class="phase-title">Phase 1 / 2　素材準備＋構築</div>
           <div class="step-item">01. 方向性決定（context）</div>
           <div class="step-item">02. 素材確認（assets）</div>
-          <div class="step-item">03. 文字起こし（Whisper）</div>
+          <div class="step-item">03. 文字起こし（Speechmatics）</div>
           <div class="step-item">04. 台本照合・誤変換修正</div>
           <div class="step-item">05. 無音＆言い直し自動カット</div>
           <div class="step-item">06. カット後の再文字起こし</div>
@@ -240,7 +240,7 @@ function slide08WorkflowShort() {
           <div class="phase-title">Phase 1 / 2　素材準備＋構築</div>
           <div class="step-item">01. 縦動画指定（context）</div>
           <div class="step-item">02. 素材確認（assets）</div>
-          <div class="step-item">03. 文字起こし（Whisper）</div>
+          <div class="step-item">03. 文字起こし（Speechmatics）</div>
           <div class="step-item">04. 台本照合・誤変換修正</div>
           <div class="step-item">05. 無音＆言い直し自動カット</div>
           <div class="step-item">06. カット後の再文字起こし</div>
@@ -264,7 +264,7 @@ function slide08WorkflowShort() {
 // 09. Phase 1 素材準備
 function slide09Phase1() {
   return `<section class="slide" data-section="phase1"
-    data-notes="フェーズ1は素材準備。文字起こしから無音カットまで。step05が終わるとRemotion Studioが自動で起動して、ブラウザでフレーム単位の確認ができるようになります。発話末尾がプツッと切れていないか、不自然な間がないか、耳と目で確認してください。気になったらtranscript_fixed.jsonを直接編集してstep05を再実行するだけです。">
+    data-notes="フェーズ1は素材準備。文字起こしから無音カットまで。文字起こしはSpeechmatics enhancedで、word-level精度に加えて話者分離も自動で入るので対談動画もOK。step05が終わるとRemotion Studioが自動で起動して、ブラウザでフレーム単位の確認ができるようになります。発話末尾がプツッと切れていないか、不自然な間がないか、耳と目で確認してください。気になったらブラウザのpicker-cutでドラッグ調整→保存するだけ。直接JSON編集も可能です。">
     ${ph(9, 'Phase 1 / Prep')}
     <div class="slide-content">
       <h2>Phase 1　<span class="g-primary">素材準備</span></h2>
@@ -275,7 +275,7 @@ function slide09Phase1() {
         </div>
         <div class="card card--accent">
           <div class="card-title">step03　文字起こし</div>
-          <div class="card-body">Whisper <span class="text-cyan bold">large-v3</span> で word-level の精度。Mac / Windows 自動切替</div>
+          <div class="card-body"><span class="text-cyan bold">Speechmatics（enhanced）</span>で word-level + <span class="hl">話者分離</span>。対談動画もOK</div>
         </div>
         <div class="card card--accent">
           <div class="card-title">step04　台本照合</div>
@@ -283,7 +283,7 @@ function slide09Phase1() {
         </div>
         <div class="card card--accent">
           <div class="card-title">step05〜06　一括カット</div>
-          <div class="card-body">無音 + 言い直しを FFmpeg 一発エンコード。<span class="hl">音量ベースで前後に余韻</span>を残しプツッ防止</div>
+          <div class="card-body">無音 + 言い直しを FFmpeg 一発エンコード。<span class="hl">音量ベースで前後に余韻</span>を残しプツッ防止。<code>picker-cut</code> で手動調整も可</div>
         </div>
       </div>
       <div class="card card--hot mt-32">
@@ -391,33 +391,45 @@ function slide12Phase4() {
   </section>`;
 }
 
-// 13. デザインピッカー（看板機能①）
+// 13. 4種のブラウザピッカー（看板機能①）
 function slide13Picker() {
   return `<section class="slide" data-section="picker"
-    data-notes="ここからはnaoki-blueprintの看板機能を2つ紹介します。1つ目はデザインピッカー。テロップのフォントサイズ、文字色、SE、アニメーションをブラウザのUIで変更できます。コードを触る必要なし。テンプレートごとにON/OFFもできるので、自分の動画に必要なテロップだけ使う設定にできます。">
+    data-notes="naoki-blueprintには編集者がブラウザで触れるピッカーが4種類あります。AIが組み立てた結果を、コードを書かずに最終調整できる仕組みです。1つ目のpicker-cutはカット位置の微調整。AIが切ったタイミングをタイムラインでドラッグ調整できます。2つ目のデザインピッカーはテロップのフォント・色・SE・アニメの設定。3つ目のpicker-telopはテロップの文字とタイミングの編集。読み間違いやニュアンス変更がブラウザで完結。4つ目のスライドピッカーはHTMLスライドの色・フォント・サイズ調整。全部ブラウザUIで動きます。">
     ${ph(13, 'Killer feature ①')}
     <div class="slide-content">
-      <div class="tag" style="color:#22d3ee">🎨 看板機能 ①</div>
-      <h2 class="mt-16"><span class="g-primary">デザインピッカー</span> で自分色に</h2>
+      <div class="tag" style="color:#22d3ee">🎨 看板機能 ①　4種のブラウザピッカー</div>
+      <h2 class="mt-16">コードを書かずに <span class="g-primary">最終調整できる</span></h2>
       <div class="grid-2 mt-32">
         <div class="card card--accent">
-          <div class="card-title">何ができるか</div>
+          <div class="card-title">① picker-cut <span style="color:var(--ink-600);font-size:18px">/ step05</span></div>
           <div class="card-body">
-            <span class="text-cyan bold">・</span> テロップの<span class="bold text-white">フォントサイズ</span>変更<br/>
-            <span class="text-cyan bold">・</span> <span class="bold text-white">色バリエーション</span>切替（red/green/cyan/...）<br/>
-            <span class="text-cyan bold">・</span> <span class="bold text-white">SE フォルダ</span>変更<br/>
-            <span class="text-cyan bold">・</span> <span class="bold text-white">アニメーション</span>切替（slide_up / slide_left / none）<br/>
-            <span class="text-cyan bold">・</span> テンプレ単位の <span class="bold text-white">ON/OFF</span>
+            無音・言い直しカットの<span class="bold text-white">手動微調整</span>UI<br/>
+            Filmora風タイムラインでドラッグ → 保存<br/>
+            <code>npm run cut</code>
+          </div>
+        </div>
+        <div class="card card--accent">
+          <div class="card-title">② デザインピッカー <span style="color:var(--ink-600);font-size:18px">/ step07</span></div>
+          <div class="card-body">
+            テロップの<span class="bold text-white">フォント・色・SE・アニメ</span>切替<br/>
+            テンプレ単位 ON/OFF / 色バリエーション切替<br/>
+            <code>node picker/server.mjs</code>
           </div>
         </div>
         <div class="card card--hot">
-          <div class="card-title">どう使うか</div>
+          <div class="card-title">③ picker-telop <span style="color:var(--ink-600);font-size:18px">/ step08〜</span></div>
           <div class="card-body">
-            <span class="text-pink bold">①</span> ブラウザで picker を開く<br/>
-            <span class="text-pink bold">②</span> プレビュー見ながらドラッグ・クリック<br/>
-            <span class="text-pink bold">③</span> 保存ボタンで <code>templateVariants.ts</code> に反映<br/>
-            <br/>
-            <span class="hl">コードを一切触らない</span>
+            テロップの<span class="bold text-white">文字 + タイミング</span>編集UI<br/>
+            <span class="hl">上限超過バナー</span>でNG entryに即遷移<br/>
+            <code>npm run telop</code>
+          </div>
+        </div>
+        <div class="card card--hot">
+          <div class="card-title">④ スライドピッカー <span style="color:var(--ink-600);font-size:18px">/ step12</span></div>
+          <div class="card-body">
+            HTMLスライドの<span class="bold text-white">色・フォント・サイズ</span>調整<br/>
+            5ダーク/5ライト プリセット + スライド単位編集<br/>
+            <code>npm run slide-picker</code>
           </div>
         </div>
       </div>
@@ -464,11 +476,41 @@ function slide14Profile() {
   </section>`;
 }
 
-// 15. 2本目以降は /new-video のみ
-function slide15SecondVideo() {
+// 15. 編集者向けの強化機能（v2.20〜v2.26）
+function slide15PowerTools() {
+  return `<section class="slide" data-section="power-tools"
+    data-notes="ピッカーとプロファイル以外にも、編集者目線で「これ欲しかった」という機能が最近4つ追加されました。1つ目はテロップの2行表示。長い発言を綺麗に2行で見せられます。横もショートも対応。2つ目はTextEditベースのテロップ校閲。テロップ全件をテキストファイルに書き出して、TextEditで一気通読・修正→反映できます。Mac標準アプリで快適。3つ目はライセンス認証の自動リカバリ。fingerprint衝突や別PC移行で詰まっても、勝手に修復してくれます。4つ目は/new-video起動時の強制アップデート。修正直後のバグが残ったまま動画作るリスクを構造的に防ぎます。">
+    ${ph(15, 'Power tools')}
+    <div class="slide-content">
+      <div class="tag" style="color:#fbbf24">✨ 編集者向け強化機能（v2.20〜v2.26）</div>
+      <h2 class="mt-16"><span class="g-warm">これ欲しかった</span> を最近実装</h2>
+      <div class="grid-2 mt-32">
+        <div class="card card--accent">
+          <div class="card-title">📝 テロップ 2 行表示（<code>\\n</code>）</div>
+          <div class="card-body">長い発言を<span class="hl">綺麗に 2 行</span>で見せられる<br/>横版（v2.25）・ショート版（v2.26）両対応<br/>1 行 = 1 SVG 方式で各行のグラデが独立</div>
+        </div>
+        <div class="card card--accent">
+          <div class="card-title">📄 TextEdit ベースのテロップ校閲</div>
+          <div class="card-body">全テロップを <code>telop-review.txt</code> に書き出し<br/>TextEdit で<span class="hl">一気通読・修正</span> → 反映<br/><code>npm run telop-export</code> / <code>telop-apply</code></div>
+        </div>
+        <div class="card card--hot">
+          <div class="card-title">🔐 ライセンス認証の自動リカバリ</div>
+          <div class="card-body">fingerprint 衝突・別 PC 移行で詰まっても<br/><span class="hl">勝手に修復</span>してくれる（v2.20〜）<br/>困ったら <code>/fix-license</code></div>
+        </div>
+        <div class="card card--hot">
+          <div class="card-title">🔄 /new-video 時の強制アップデート</div>
+          <div class="card-body">作業開始時に<span class="hl">必ず最新版</span>へ同期<br/>修正直後のバグを残したまま編集するリスクを根絶（v2.23.2）</div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+// 16. 2本目以降は /new-video のみ
+function slide16SecondVideo() {
   return `<section class="slide" data-section="second"
     data-notes="2本目以降はもっとシンプル。ライセンス認証は今日のうちに済ませるので、明日以降は naoki-blueprint フォルダで claude を起動して、スラッシュコマンドの new-video を打つだけ。プロジェクト作成からオートモード進行まで、これ1つで全部やってくれます。今日のセミナーが終わったら、まず家に帰って2本目を作ってみてください。">
-    ${ph(15, 'For next videos')}
+    ${ph(16, 'For next videos')}
     <div class="slide-content">
       <h2>2本目以降は、<span class="g-primary">1コマンドだけ。</span></h2>
       <p class="lead mb-24">ライセンス認証は今日で完了。明日以降は <span class="hl">naoki-blueprint フォルダで</span>:</p>
@@ -493,11 +535,11 @@ claude --dangerously-skip-permissions
   </section>`;
 }
 
-// 16. サポート体制
-function slide16Support() {
+// 17. サポート体制
+function slide17Support() {
   return `<section class="slide" data-section="support"
     data-notes="今日で終わりじゃありません。Chatworkのグループで1ヶ月間、私が直接お応えします。エラーが出た時、2本目を作る時の質問、何でも聞いてください。1ヶ月経過後は個別でご案内します。">
-    ${ph(16, 'Support')}
+    ${ph(17, 'Support')}
     <div class="slide-content" style="align-items:center;text-align:center">
       <h2 style="text-align:center">サポート窓口</h2>
       <div class="pill pill--primary" style="margin-bottom:40px">Chatwork グループ</div>
@@ -514,8 +556,8 @@ function slide16Support() {
   </section>`;
 }
 
-// 17. クロージング
-function slide17Closing() {
+// 18. クロージング
+function slide18Closing() {
   return `<section class="slide hero-slide anim-fade-up" data-section="closing" data-anim-fixed
     data-notes="最後まで参加いただきありがとうございました。今日学んだことを使って、ぜひ動画制作を習慣にしてください。自動化で浮いた時間で、次のコンテンツを作る。これが正しい使い方です。また次のセミナーでお会いしましょう。">
     <div class="hero">
@@ -524,7 +566,7 @@ function slide17Closing() {
       <div class="hero-rule"></div>
       <p class="hero-subtitle">自動化で浮いた時間で、次のコンテンツを作ろう。<br/>また次のセミナーで会いましょう。</p>
       <div class="hero-meta">Naoki  /  AI × Video Editing</div>
-      <div class="big-index">17</div>
+      <div class="big-index">18</div>
     </div>
   </section>`;
 }
@@ -545,9 +587,10 @@ window.slideFactories = [
   slide12Phase4,
   slide13Picker,
   slide14Profile,
-  slide15SecondVideo,
-  slide16Support,
-  slide17Closing
+  slide15PowerTools,
+  slide16SecondVideo,
+  slide17Support,
+  slide18Closing
 ];
 
 window.agendaItems = [
@@ -563,8 +606,9 @@ window.agendaItems = [
   { id: 'phase2', label: 'Phase 2 / 動画構築' },
   { id: 'phase3', label: 'Phase 3 / 演出' },
   { id: 'phase4', label: 'Phase 4 / BGM・出力' },
-  { id: 'picker', label: '🎨 デザインピッカー' },
+  { id: 'picker', label: '🎨 4種のピッカー' },
   { id: 'profile', label: '📝 プロファイル' },
+  { id: 'power-tools', label: '✨ 編集者向け強化機能' },
   { id: 'second', label: '2本目以降' },
   { id: 'support', label: 'サポート窓口' },
   { id: 'closing', label: 'クロージング' }
