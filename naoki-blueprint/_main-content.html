@@ -200,12 +200,12 @@
   <div style="margin-top:24px">
     <div style="display:inline-block;background:#dbeafe;color:#1e40af;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 1 / 素材準備</div>
     <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step01-context</code> 動画の目的・ターゲット・視聴者像を整理</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step02-assets</code> 素材確認（本編/物理挿入/オーバーレイ/OP/ハイライト）とFPS自動検出</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 本編を <strong style="color:#121212">Speechmatics standard</strong>（クラウド ASR）で文字起こし（word-level timestamps・無料 8 時間/月）</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step04-transcript-fix</code> 台本と照合して誤変換を修正（固有名詞・数字を重点チェック）</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step05-cut</code> 無音 + 言い直しを一括カット。 <strong style="color:#121212">N-gram 重複検出で複数回言い直しても最後の発話を残す</strong> (v2.5.3+)</li>
-      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step06-transcript</code> カット後の再文字起こし + 修正再適用</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step01-context</code> 「誰に向けた、 どんな動画か？」 を整理。 AI が質問してくれるので答えるだけ</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step02-assets</code> 動画ファイルを所定のフォルダに置く案内。 AI が「これは本編、 これは差し込み用」 と自動で仕分け</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 動画の話してる内容を <strong style="color:#121212">AI が文字起こし</strong>。 1単語ごとに「何秒のセリフか」 まで記録（テロップに使います）</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step04-transcript-fix</code> 文字起こしの誤字をチェック。 用意した台本があれば自動で照合してくれます（人名・数字を重点的に）</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step05-cut</code> <strong style="color:#121212">無音 + 「えーと」 + 言い直しを一括カット</strong>。 同じことを何度も言い直しても、 一番きれいに言えた最後の1回だけ残してくれます</li>
+      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step06-transcript</code> カット後の動画でもう一度文字起こし（次の工程で使う最新の状態に更新）</li>
     </ul>
   </div>
 
@@ -213,24 +213,24 @@
   <div style="margin-top:24px">
     <div style="display:inline-block;background:#ede9fe;color:#6d28d9;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 2 / 動画構築</div>
     <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step07-template</code> テンプレート設定。 <strong style="color:#121212">picker UI (v2.5+)</strong> で各テンプレのカラー・フォント・SE・アニメーションを GUI で選択 (localhost:5174)</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step08-telop</code> テロップデータ作成。 AI が 8 種のスタイル（normal/emphasis/negative等）から自動判定 + 字幕カバー率 90% ルール</li>
-      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step09-composition</code> MainComposition.tsx で動画 + テロップ + SE を統合。 <strong style="color:#121212">Remotion Studio がブラウザで起動</strong>（localhost:3000）+ メイン動画アニメ (zoom_in / zoom_out / blur) 適用</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step07-template</code> <strong style="color:#121212">ブラウザで好きなデザインを選ぶだけ</strong>。 テロップの色・フォント・効果音・アニメーションを画面上で確認しながらクリックで決定</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step08-telop</code> AI が話の内容に合わせて <strong style="color:#121212">テロップを自動配置</strong>。 強調したい部分・否定の部分・引用などを判断して、 8種類のスタイルから自動で振り分け</li>
+      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step09-composition</code> 動画 + テロップ + 効果音を組み立てて <strong style="color:#121212">ブラウザでプレビュー</strong>。 メイン動画にズームインや軽いボカシなどの動きも自動で適用</li>
     </ul>
   </div>
 
   <!-- Phase 3 -->
   <div style="margin-top:24px">
-    <div style="display:inline-block;background:#fce7f3;color:#be185d;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 3 / 素材・演出挿入（任意）</div>
+    <div style="display:inline-block;background:#fce7f3;color:#be185d;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 3 / 素材・演出挿入（必要なものだけ）</div>
     <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step10-greenback</code> <span style="color:#999;font-size:12px">任意</span> グリーンバック背景置換。chromakey + rembg + HSV despill の3段パイプライン</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step11-videos</code> <span style="color:#999;font-size:12px">任意</span> デモ動画挿入（物理挿入=Series分割 / オーバーレイ=上に重ね）</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step12-slides-gen</code> <span style="color:#999;font-size:12px">任意・横のみ</span> 台本からスライドHTMLを生成</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step13-slides</code> <span style="color:#999;font-size:12px">任意・横のみ</span> スライドキャプチャ + タイムライン配置</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step14-wipe</code> <span style="color:#999;font-size:12px">任意・横のみ</span> ワイプ（顔出し）位置をピクセル座標で調整</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step15-images</code> <span style="color:#999;font-size:12px">任意</span> 画像挿入 + AI 生成 (Gemini) を 1 step に統合 (v2.5.5+)。 顔アイコン (Phase 3) のみ別途確認</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step16-special-components</code> <span style="color:#999;font-size:12px">任意・横のみ</span> 箇条書き・見出しバナー・CTAコンポーネント</li>
-      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step17-op-ed</code> <span style="color:#999;font-size:12px">任意・横のみ</span> OP / ED 連結 + Composition "Final" 組み立て (Series 構造)</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step10-greenback</code> <span style="color:#999;font-size:12px">任意</span> グリーンバックで撮った動画の <strong style="color:#121212">背景を好きな画像・動画に差し替え</strong>。 緑の縁取りも自動でキレイに除去</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step11-videos</code> <span style="color:#999;font-size:12px">任意</span> デモ動画やスクショ動画を差し込み。 「本編に切り込む」 か「上に重ねる」 か選べます</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step12-slides-gen</code> <span style="color:#999;font-size:12px">任意・横のみ</span> 台本を渡すと AI が <strong style="color:#121212">スライドを自動生成</strong>。 構成・デザインも全部おまかせ</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step13-slides</code> <span style="color:#999;font-size:12px">任意・横のみ</span> step12 で作ったスライドを動画の該当箇所に自動で挿入</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step14-wipe</code> <span style="color:#999;font-size:12px">任意・横のみ</span> 顔出し小窓（ワイプ）の位置・大きさを調整。 「右下に少し小さめ」 など好みで</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step15-images</code> <span style="color:#999;font-size:12px">任意</span> 画像を差し込み。 手持ちの画像でも、 <strong style="color:#121212">AIに「○○の画像作って」 と頼んで生成</strong> もOK</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step16-special-components</code> <span style="color:#999;font-size:12px">任意・横のみ</span> 箇条書き・大きな見出し・最後のCTAボタンなど、 動画の中で目立たせたい部品を追加</li>
+      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step17-op-ed</code> <span style="color:#999;font-size:12px">任意・横のみ</span> OP（オープニング動画）と ED（エンディング動画）を本編にくっつけて、 1本につなげる</li>
     </ul>
   </div>
 
@@ -238,27 +238,27 @@
   <div style="margin-top:24px">
     <div style="display:inline-block;background:#dcfce7;color:#166534;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 4 / BGM・出力</div>
     <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step18-bgm</code> BGM挿入（フェードイン/アウト付き、区間・音量指定可、不足時は自動ループ）</li>
-      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step19-render</code> 本編レンダリング (Composition "Final" or MainComposition を MP4 書き出し)</li>
-      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step20-highlight-final</code> 本編からハイライト自動抽出 + <strong style="color:#121212">0.9 倍縮小 + 金縁 + 深紺額縁</strong> (v2.5.4+) + <strong style="color:#121212">ラウドネス正規化 -14 LUFS</strong> + 最終レンダリング → <strong style="color:#121212">完成 🎉</strong></li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step18-bgm</code> BGMを挿入。 動画の始まり・終わりは自動でフェード、 BGMが動画より短ければ自動でループ再生</li>
+      <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step19-render</code> 完成版の動画を <strong style="color:#121212">MP4ファイルとして書き出し</strong>。 待っている間にコーヒーでも</li>
+      <li style="padding:8px 0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step20-highlight-final</code> 本編から <strong style="color:#121212">ハイライト動画を自動抽出</strong>（金色の縁取り + 額縁デザイン付き）。 音量も YouTube 標準に自動調整 → <strong style="color:#121212">完成 🎉</strong></li>
     </ul>
   </div>
 
   <!-- ショート動画ワークフロー (縦 1080x1920・14 step) -->
   <div style="margin-top:36px;padding-top:24px;border-top:2px solid #f0f0f0">
-    <h3 style="font-size:18px;margin:0 0 8px;color:#121212">📱 ショート動画 (縦 1080×1920・全 14 step)</h3>
-    <p style="font-size:14px;color:#666;margin-bottom:16px">縦動画用テンプレート。 情報密度を優先し、 横動画よりシンプル構成。 スライド・ワイプ・特殊コンポ・OP/ED・ハイライトは含まれません。</p>
+    <h3 style="font-size:18px;margin:0 0 8px;color:#121212">📱 ショート動画（縦 1080×1920・全14ステップ）</h3>
+    <p style="font-size:14px;color:#666;margin-bottom:16px">縦長のショート動画用ワークフロー。 横動画と比べてシンプル構成で、 スライド・ワイプ・OP/ED・ハイライト機能はありません（必要ない演出を省略してサクッと作れるように）。</p>
 
     <!-- Phase 1 (ショート) -->
     <div style="margin-top:20px">
       <div style="display:inline-block;background:#dbeafe;color:#1e40af;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 1 / 素材準備</div>
       <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step01-context</code> 動画の目的・ターゲット・視聴者像を整理</li>
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step02-assets</code> 素材確認 (本編 / 物理挿入 / オーバーレイ) と FPS 自動検出</li>
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 本編を <strong style="color:#121212">Speechmatics standard</strong>（クラウド ASR）で文字起こし (word-level timestamps・無料 8 時間/月)</li>
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step04-transcript-fix</code> 台本と照合して誤変換を修正 (固有名詞・数字を重点チェック)</li>
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step05-cut</code> 無音 + 言い直しを一括カット。 <strong style="color:#121212">N-gram 重複検出で複数回言い直しても最後の発話を残す</strong></li>
-        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step06-transcript</code> カット後の再文字起こし + 修正再適用</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step01-context</code> 「誰に向けた、 どんな動画か？」 を整理。 AI が質問してくれるので答えるだけ</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step02-assets</code> 動画ファイルを所定のフォルダに置く案内。 AI が「これは本編、 これは差し込み用」 と自動で仕分け</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step03-transcript</code> 動画の話してる内容を <strong style="color:#121212">AI が文字起こし</strong>。 1単語ごとに「何秒のセリフか」 まで記録</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step04-transcript-fix</code> 文字起こしの誤字をチェック。 用意した台本があれば自動で照合してくれます</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step05-cut</code> <strong style="color:#121212">無音 + 「えーと」 + 言い直しを一括カット</strong>。 同じことを何度も言い直しても、 最後の1回だけ残してくれます</li>
+        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#2563EB;font-weight:700">/step06-transcript</code> カット後の動画でもう一度文字起こし（最新の状態に更新）</li>
       </ul>
     </div>
 
@@ -266,19 +266,19 @@
     <div style="margin-top:24px">
       <div style="display:inline-block;background:#ede9fe;color:#6d28d9;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 2 / 動画構築</div>
       <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step07-template</code> テンプレート設定 (picker UI でカラー・フォント・SE・アニメーションを選択)</li>
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step08-telop</code> テロップデータ作成 (8 種のスタイルから AI が自動判定)</li>
-        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step09-composition</code> MainComposition.tsx で動画 + テロップ + SE を統合 + メイン動画アニメ (zoom_in / zoom_out / blur) 適用</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step07-template</code> <strong style="color:#121212">ブラウザで好きなデザインを選ぶだけ</strong>。 テロップの色・フォント・効果音・アニメーションをクリックで決定</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step08-telop</code> AI が話の内容に合わせて <strong style="color:#121212">テロップを自動配置</strong>（8種類のスタイルから自動で振り分け）</li>
+        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#7c3aed;font-weight:700">/step09-composition</code> 動画 + テロップ + 効果音を組み立てて <strong style="color:#121212">ブラウザでプレビュー</strong>。 ズームインや軽いボカシも自動で適用</li>
       </ul>
     </div>
 
     <!-- Phase 3 (ショート) -->
     <div style="margin-top:24px">
-      <div style="display:inline-block;background:#fce7f3;color:#be185d;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 3 / 素材挿入 (任意)</div>
+      <div style="display:inline-block;background:#fce7f3;color:#be185d;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 3 / 素材挿入（必要なものだけ）</div>
       <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step10-greenback</code> <span style="color:#999;font-size:12px">任意</span> グリーンバック背景置換</li>
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step11-videos</code> <span style="color:#999;font-size:12px">任意</span> デモ動画挿入 (物理挿入 = Series 分割 / オーバーレイ = 上に重ね)</li>
-        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step12-images</code> <span style="color:#999;font-size:12px">任意</span> 画像挿入 + AI 生成 (Gemini)。 顔アイコン (Phase 3) も同 step で対応</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step10-greenback</code> <span style="color:#999;font-size:12px">任意</span> グリーンバックで撮った動画の <strong style="color:#121212">背景を好きな画像・動画に差し替え</strong></li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step11-videos</code> <span style="color:#999;font-size:12px">任意</span> デモ動画やスクショ動画を差し込み。 「本編に切り込む」 か「上に重ねる」 か選べます</li>
+        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#db2777;font-weight:700">/step12-images</code> <span style="color:#999;font-size:12px">任意</span> 画像を差し込み。 手持ちの画像でも、 <strong style="color:#121212">AIに「○○の画像作って」 と頼んで生成</strong> もOK</li>
       </ul>
     </div>
 
@@ -286,8 +286,8 @@
     <div style="margin-top:24px">
       <div style="display:inline-block;background:#dcfce7;color:#166534;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:10px">PHASE 4 / BGM・出力</div>
       <ul style="list-style:none;padding-left:0;margin:0;color:#444;font-size:14px;line-height:1.7">
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step13-bgm</code> BGM 挿入 (フェードイン/アウト付き、 区間・音量指定可、 不足時は自動ループ)</li>
-        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step14-final</code> 1080×1920 で最終レンダリング + <strong style="color:#121212">ラウドネス正規化 -14 LUFS</strong> → <strong style="color:#121212">完成 🎉</strong></li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step13-bgm</code> BGMを挿入。 動画の始まり・終わりは自動でフェード、 短ければ自動でループ再生</li>
+        <li style="padding:8px 0"><code style="background:#f0f0f0;color:#16a34a;font-weight:700">/step14-final</code> 縦長のショート動画として <strong style="color:#121212">MP4ファイルに書き出し</strong>。 音量も YouTube/TikTok 標準に自動調整 → <strong style="color:#121212">完成 🎉</strong></li>
       </ul>
     </div>
   </div>
