@@ -129,10 +129,72 @@
 
 </section>
 
-<!-- Step 06: ワークフロー詳細（全20ステップ / ショート14ステップ） -->
+<!-- Step 06: ワークフローの全体像 -->
 <section class="step-section" style="border-left:4px solid #3b82f6">
-  <h2><span class="num" style="background:#3b82f6">🎬</span>ワークフロー詳細（横動画 全20 step / ショート 全14 step）</h2>
-  <p>各ステップは Claude Code でスラッシュコマンド1つで実行できます。<strong style="color:#121212">任意</strong> とあるステップは必要な演出だけ使えばOK。基本は AI が次のコマンドを案内してくれるので、<strong style="color:#121212">順番通りに進めるだけ</strong>で完成します。</p>
+  <h2><span class="num" style="background:#3b82f6">🎬</span>ワークフローの全体像</h2>
+
+  <p>動画づくりは <strong style="color:#121212">4つのフェーズ</strong> で進みます。 最初に <code style="background:#f0f0f0;color:#2563EB;font-weight:700">/new-video</code> と打つだけで、 あとは AI が「次はこれをやります」 と1つずつ案内してくれます。 <strong style="color:#121212">基本は順番通りに Enter を押していくだけ</strong> で1本の動画が完成します。</p>
+
+  <!-- 4 PHASE 概要 -->
+  <div style="margin-top:24px;display:grid;grid-template-columns:1fr;gap:14px">
+
+    <!-- PHASE 1 概要 -->
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:5px solid #2563EB;border-radius:6px;padding:16px 20px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+        <span style="background:#dbeafe;color:#1e40af;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 10px;border-radius:4px">PHASE 1</span>
+        <strong style="color:#121212;font-size:16px">素材準備</strong>
+      </div>
+      <p style="margin:0;font-size:14px;color:#444;line-height:1.7">撮影した動画を AI に渡すと、 話している内容を <strong>自動で文字に書き起こし</strong> 。 「えーと」「あのー」 「言い直し」 「長い無音」 を <strong style="color:#121212">AI が一括カット</strong> してくれます。 ここまでで、 撮りっぱなしの動画が「編集前」 の状態に整います。</p>
+    </div>
+
+    <!-- PHASE 2 概要 -->
+    <div style="background:#faf5ff;border:1px solid #e9d5ff;border-left:5px solid #7c3aed;border-radius:6px;padding:16px 20px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+        <span style="background:#ede9fe;color:#6d28d9;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 10px;border-radius:4px">PHASE 2</span>
+        <strong style="color:#121212;font-size:16px">動画の土台づくり</strong>
+      </div>
+      <p style="margin:0;font-size:14px;color:#444;line-height:1.7">テロップのデザインを <strong>ブラウザでクリックして選ぶだけ</strong>。 AI が話の内容に合わせて<strong style="color:#121212">テロップを自動配置</strong>（重要な部分は強調スタイル、 否定は赤、 など8種類から自動判定）。 効果音もつけて、 動画の骨格が完成します。</p>
+    </div>
+
+    <!-- PHASE 3 概要 -->
+    <div style="background:#fdf2f8;border:1px solid #fbcfe8;border-left:5px solid #db2777;border-radius:6px;padding:16px 20px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+        <span style="background:#fce7f3;color:#be185d;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 10px;border-radius:4px">PHASE 3</span>
+        <strong style="color:#121212;font-size:16px">演出を足す</strong>
+        <span style="color:#999;font-size:12px">（必要なものだけ）</span>
+      </div>
+      <p style="margin:0;font-size:14px;color:#444;line-height:1.7">使いたい演出だけ追加できます: <strong>グリーンバック背景置換</strong> ・ <strong>デモ動画やスクショの差し込み</strong> ・ <strong>スライド挿入</strong> ・ <strong>ワイプ（顔出し小窓）</strong> ・ <strong>画像挿入（AI生成も可）</strong>。 <strong style="color:#121212">いらないものは飛ばしてOK</strong> 。 シンプルに行きたい人は丸ごとスキップもできます。</p>
+    </div>
+
+    <!-- PHASE 4 概要 -->
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-left:5px solid #16a34a;border-radius:6px;padding:16px 20px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+        <span style="background:#dcfce7;color:#166534;font-size:12px;font-weight:700;letter-spacing:0.14em;padding:4px 10px;border-radius:4px">PHASE 4</span>
+        <strong style="color:#121212;font-size:16px">BGMを入れて書き出し</strong>
+      </div>
+      <p style="margin:0;font-size:14px;color:#444;line-height:1.7">BGM を入れて（動画の長さに自動で合わせて、 フェードイン/アウトも自動）、 最後に <strong style="color:#121212">MP4 として書き出し</strong> → 完成 🎉。 横動画は「本編から ハイライト動画を自動でつくる」 おまけ機能つき。</p>
+    </div>
+  </div>
+
+  <!-- 横とショートの違い -->
+  <div style="background:#fefce8;border:1px solid #fde68a;border-left:4px solid #ca8a04;border-radius:6px;padding:14px 18px;margin-top:20px;font-size:14px;color:#713f12;line-height:1.7">
+    <strong style="color:#121212">📐 横動画 と ショート動画 の両方つくれます</strong><br>
+    <code style="background:#fde68a;color:#121212;padding:2px 6px;border-radius:4px;font-size:13px">/new-video</code> を打つと「横とショートどっち？」 と聞かれるので選ぶだけ。 ショート動画はスライド・ワイプ・OP/ED など一部演出を省略した <strong>シンプル構成</strong> です。
+  </div>
+
+  <!-- 便利コマンド -->
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #3b82f6;border-radius:6px;padding:16px 20px;margin-top:14px;font-size:14px;color:#1e40af;line-height:1.7">
+    <strong style="color:#121212">💡 途中で休憩したくなったら</strong>: <code style="background:#f0f0f0;color:#121212;padding:2px 6px;border-radius:4px;font-size:13px">/catchup</code> と打つと、 AI が「いまどこまで進んだか」 「次は何をすればいいか」 を教えてくれます。 気軽に休憩OK。
+  </div>
+
+  <!-- 詳細を見たい人向け折りたたみ -->
+  <details style="margin-top:20px;background:#fafafa;border:1px solid #e5e7eb;border-radius:8px;padding:16px 20px">
+    <summary style="cursor:pointer;font-weight:700;color:#121212;font-size:15px;list-style:none;display:flex;align-items:center;gap:10px">
+      <span style="color:#3b82f6">▼</span> 全ステップ（横20 / ショート14）の詳細を見る
+      <span style="color:#999;font-size:12px;font-weight:400">クリックで開閉</span>
+    </summary>
+    <div style="margin-top:18px">
+  <p style="font-size:13px;color:#666;line-height:1.7;margin-bottom:18px">⚙️ 慣れてきた方や、 各ステップの中身を確認したい方向け。 ふだんは AI が自動で次のコマンドを案内するので、 ここを読まなくても動画は完成します。</p>
 
   <!-- Phase 1 -->
   <div style="margin-top:24px">
@@ -229,12 +291,8 @@
       </ul>
     </div>
   </div>
-
-  <!-- 便利機能 -->
-  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #3b82f6;border-radius:6px;padding:16px 20px;margin-top:14px;font-size:14px;color:#1e40af">
-    <strong style="color:#121212">💡 便利コマンド</strong>:
-    <code style="background:#f0f0f0;color:#121212;padding:2px 6px;border-radius:4px;font-size:13px">/catchup</code> で現在の進捗を確認できます。中断しても AI がどのステップから再開すべきか教えてくれるので、気軽に休憩OK。
-  </div>
+    </div>
+  </details>
 </section>
 
 
