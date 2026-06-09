@@ -43,6 +43,25 @@ fetch('./_main-content.html')
     console.error(e);
   });
 
+function bookmarkPage() {
+  if (window.sidebar && window.sidebar.addPanel) {
+    window.sidebar.addPanel(document.title, window.location.href, '');
+    return;
+  }
+  if (window.external && ('AddFavorite' in window.external)) {
+    window.external.AddFavorite(window.location.href, document.title);
+    return;
+  }
+  const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
+  const hint = document.getElementById('bookmarkHint');
+  if (hint) {
+    hint.innerHTML = isMac
+      ? '📌 キーボードの <strong>⌘ Cmd + D</strong> を押してブックマークに追加してください'
+      : '📌 キーボードの <strong>Ctrl + D</strong> を押してブックマークに追加してください';
+    hint.style.display = 'block';
+  }
+}
+
 function setupCodeCopyButtons() {
   document.querySelectorAll('.code').forEach(code => {
     if (code.parentElement && code.parentElement.classList.contains('code-wrap')) return;

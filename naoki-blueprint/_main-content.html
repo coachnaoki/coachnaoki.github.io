@@ -4,26 +4,16 @@
   <a href="#second-onwards" class="primary" style="display:inline-block;background:#f97316;color:#fff;padding:10px 22px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px">🔁 2本目以降の動画を作る方はこちら →</a>
 </div>
 
-<!-- Step 01: 事前準備 (ブックマーク + Chatwork + GitHub 招待 Accept) -->
+<!-- Step 01: 事前準備 (ブックマーク) -->
 <section class="step-section" style="border-left:4px solid #22d3ee;background:#f0fdff">
-  <h2><span class="num" style="background:#22d3ee;color:#050506">01</span>事前準備（3つだけ）</h2>
+  <h2><span class="num" style="background:#22d3ee;color:#050506">01</span>事前準備</h2>
 
-  <p style="font-size:14px;color:#444;margin-bottom:18px">動画制作を始める前に、 以下の 3 つを済ませてください。 どれも 5 分以内で終わります。</p>
-
-  <p><strong style="color:#121212">① このページをブックマーク</strong></p>
-  <p style="font-size:14px;color:#444;margin-top:6px">ライセンスIDを忘れた時にいつでも再表示できます。 Mac は <code>Cmd + D</code>、 Windows は <code>Ctrl + D</code> でブックマーク追加。</p>
-
-  <p style="margin-top:24px"><strong style="color:#121212">② Chatwork で Naoki を追加</strong></p>
-  <p style="font-size:14px;color:#444;margin-top:6px">サポート・ご質問の窓口です。 困ったらいつでも Chatwork でメッセージしてください。</p>
-  <div class="cta" style="margin-top:10px">
-    <a href="https://www.chatwork.com/Coach_Naoki" target="_blank" class="primary">Chatwork で Naoki を追加</a>
+  <p><strong style="color:#121212">このページをブックマーク</strong></p>
+  <p style="font-size:14px;color:#444;margin-top:6px">ライセンスIDを忘れた時にいつでも再表示できます。 下のボタンからブックマークに追加してください。</p>
+  <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+    <button onclick="bookmarkPage()" style="display:inline-flex;align-items:center;gap:8px;background:#22d3ee;color:#050506;border:none;padding:12px 24px;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">⭐ ブックマークに追加</button>
   </div>
-
-  <p style="margin-top:24px"><strong style="color:#121212">③ GitHub からの招待メールを承認</strong></p>
-  <p style="font-size:14px;color:#444;margin-top:6px">同意書送信後に GitHub から「<strong>Invitation to coach-naoki/naoki-blueprint</strong>」 という件名のメール / GitHub 通知が届きます。 メール内の <strong style="color:#121212">「View invitation」 → 「Accept」</strong> をクリック。</p>
-  <div style="background:#fffbeb;border:1px solid #fcd34d;border-left:4px solid #f59e0b;border-radius:6px;padding:12px 16px;margin:10px 0 0;font-size:13px;color:#92400e;">
-    📌 招待 Accept をしないとリポジトリを取得 (Step 03) できません。 必ず最初に Accept してください。
-  </div>
+  <p id="bookmarkHint" style="display:none;margin-top:10px;font-size:13px;color:#0e7490;background:#ecfeff;border:1px solid #a5f3fc;border-radius:6px;padding:10px 14px;line-height:1.6"></p>
 </section>
 
 
