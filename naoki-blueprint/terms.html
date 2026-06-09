@@ -195,22 +195,6 @@
       text-align: center;
       display: none;
     }
-    .serial-input {
-      letter-spacing: 0.08em;
-      font-family: "SF Mono", monospace;
-    }
-    .serial-input.locked {
-      background: #f5f5f5;
-      color: #999;
-      cursor: not-allowed;
-    }
-    .serial-status {
-      font-size: 13px;
-      margin-top: 6px;
-      min-height: 18px;
-    }
-    .serial-status.error { color: #e53e3e; }
-    .serial-status.locked { color: #c53030; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -309,8 +293,13 @@
     </div>
 
     <div class="form-group">
+      <label>メールアドレス<span class="required">必須</span><span style="display:block;font-weight:400;color:#666;font-size:12px;margin-top:4px">受講申込時にご登録いただいたメールアドレスをご入力ください</span></label>
+      <input type="email" id="signEmail" placeholder="例: example@gmail.com" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+
+    <div class="form-group">
       <label>GitHub username<span class="required">必須</span><span style="display:block;font-weight:400;color:#666;font-size:12px;margin-top:4px">同意書を送信すると、 ご記入の username 宛にプライベートリポジトリの招待が自動送信されます</span></label>
-      <input type="text" id="signEmail" placeholder="例: coachnaoki" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="signGithub" placeholder="例: coachnaoki" autocapitalize="off" autocorrect="off" spellcheck="false">
       <div style="margin-top:8px;font-size:13px;color:#666;line-height:1.7">
         <strong style="color:#121212">📌 確認方法:</strong>
         <ul style="margin:6px 0 0 20px;padding:0;color:#666">
@@ -318,12 +307,6 @@
           <li><strong>未登録の方</strong>: <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a> で作成 (登録時に決めた英数字が username)</li>
         </ul>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label>シリアルコード<span class="required">必須</span></label>
-      <input type="password" id="signSerial" class="serial-input" placeholder="" autocomplete="new-password">
-      <div class="serial-status" id="serialStatus"></div>
     </div>
 
     <div class="checkbox-group">
@@ -353,36 +336,11 @@
 </div>
 
 <script>
-// ============= シリアルコード設定 =============
-// 値は当日の YYYYMMDD（毎日変わる）。
-// パスワードではなく「シリアルコード」という名目で同意フォーム内に統合。
-function getTodaySerial() {
-  const d = new Date();
-  return d.getFullYear().toString()
-       + String(d.getMonth()+1).padStart(2,'0')
-       + String(d.getDate()).padStart(2,'0');
-}
-
-const LOCK_KEY = "terms_serial_lock_v1";
-const MAX_TRIES = 3;
-const LOCK_MS = 10 * 60 * 1000; // 10分
-
-function readLockState() {
-  try {
-    return JSON.parse(localStorage.getItem(LOCK_KEY) || '{"count":0,"lockUntil":0}');
-  } catch { return { count: 0, lockUntil: 0 }; }
-}
-function writeLockState(s) {
-  localStorage.setItem(LOCK_KEY, JSON.stringify(s));
-}
-
-// ============= 同意書API =============
 const API_URL = "https://naoki-blueprint-license.vercel.app/exec";
 
 const nameInput = document.getElementById("signName");
 const emailInput = document.getElementById("signEmail");
-const serialInput = document.getElementById("signSerial");
-const serialStatus = document.getElementById("serialStatus");
+const githubInput = document.getElementById("signGithub");
 const agreeCheck = document.getElementById("agreeCheck");
 const submitBtn = document.getElementById("submitBtn");
 const errorMsg = document.getElementById("errorMsg");
@@ -390,53 +348,10 @@ const signForm = document.getElementById("signForm");
 const resultSection = document.getElementById("resultSection");
 const resultMsg = document.getElementById("resultMsg");
 
-let lockTimer = null;
-
-function applyLockUI(remainingMs) {
-  serialInput.classList.add("locked");
-  serialInput.disabled = true;
-  submitBtn.disabled = true;
-  submitBtn.classList.remove("active");
-  serialStatus.className = "serial-status locked";
-  function tick() {
-    const left = Math.max(0, remainingMs - (Date.now() - startedAt));
-    if (left <= 0) {
-      clearInterval(lockTimer);
-      lockTimer = null;
-      writeLockState({ count: 0, lockUntil: 0 });
-      serialInput.classList.remove("locked");
-      serialInput.disabled = false;
-      serialStatus.textContent = "";
-      serialStatus.className = "serial-status";
-      updateButton();
-      return;
-    }
-    const m = Math.floor(left / 60000);
-    const s = Math.floor((left % 60000) / 1000);
-    serialStatus.textContent = `ロック中: あと ${m}分${String(s).padStart(2,'0')}秒`;
-  }
-  const startedAt = Date.now();
-  tick();
-  lockTimer = setInterval(tick, 500);
-}
-
-function checkInitialLock() {
-  const st = readLockState();
-  if (st.lockUntil && st.lockUntil > Date.now()) {
-    applyLockUI(st.lockUntil - Date.now());
-    return true;
-  }
-  if (st.lockUntil && st.lockUntil <= Date.now()) {
-    writeLockState({ count: 0, lockUntil: 0 });
-  }
-  return false;
-}
-
 function updateButton() {
-  if (serialInput.disabled) return; // ロック中は触らない
   const valid = nameInput.value.trim()
              && emailInput.value.trim()
-             && serialInput.value.trim()
+             && githubInput.value.trim()
              && agreeCheck.checked;
   submitBtn.disabled = !valid;
   submitBtn.classList.toggle("active", valid);
@@ -444,57 +359,22 @@ function updateButton() {
 
 nameInput.addEventListener("input", updateButton);
 emailInput.addEventListener("input", updateButton);
-serialInput.addEventListener("input", () => {
-  // 入力中はステータス表示をリセット（前回のエラー文を消す）
-  if (serialStatus.classList.contains("error")) {
-    serialStatus.textContent = "";
-    serialStatus.className = "serial-status";
-  }
-  updateButton();
-});
+githubInput.addEventListener("input", updateButton);
 agreeCheck.addEventListener("change", updateButton);
 
 submitBtn.addEventListener("click", async () => {
   if (submitBtn.disabled) return;
-
-  // シリアルコード検証
-  const entered = serialInput.value.trim();
-  const expected = getTodaySerial();
-  if (entered !== expected) {
-    const st = readLockState();
-    st.count = (st.count || 0) + 1;
-    if (st.count >= MAX_TRIES) {
-      st.lockUntil = Date.now() + LOCK_MS;
-      st.count = 0;
-      writeLockState(st);
-      applyLockUI(LOCK_MS);
-      serialInput.value = "";
-      return;
-    }
-    writeLockState(st);
-    serialStatus.className = "serial-status error";
-    serialStatus.textContent = `シリアルコードが違います（残り ${MAX_TRIES - st.count} 回）`;
-    serialInput.value = "";
-    serialInput.focus();
-    updateButton();
-    return;
-  }
-
-  // 検証成功 → 失敗カウントリセット → 既存 API 送信
-  writeLockState({ count: 0, lockUntil: 0 });
-  serialStatus.textContent = "";
-  serialStatus.className = "serial-status";
 
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<span class="spinner"></span>送信中...';
   errorMsg.style.display = "none";
 
   try {
-    const githubUsername = emailInput.value.trim();
+    const githubUsername = githubInput.value.trim();
     const params = new URLSearchParams({
       action: "sign",
       name: nameInput.value.trim(),
-      // 後方互換: GAS 側は xId で受け取る (将来 githubUsername に統一予定)
+      email: emailInput.value.trim(),
       xId: githubUsername,
       githubUsername: githubUsername
     });
@@ -507,12 +387,10 @@ submitBtn.addEventListener("click", async () => {
       document.querySelector(".header").style.display = "none";
       resultSection.classList.add("success");
       resultMsg.textContent = data.name + " さんの署名を受け付けました。";
-      // ライセンス表示URLを設定
       const activateBtn = document.getElementById('activateBtn');
       if (data.activateUrl && activateBtn) {
         activateBtn.href = data.activateUrl;
       }
-      // GitHub 招待バナー (成功1パターンに統一)
       const inviteBox = document.getElementById('inviteStatus');
       if (inviteBox) {
         inviteBox.style.background = "#ecfdf5";
@@ -537,9 +415,6 @@ submitBtn.addEventListener("click", async () => {
     submitBtn.textContent = "同意して署名する";
   }
 });
-
-// 起動時にロック状態を反映
-checkInitialLock();
 </script>
 
 </body>
