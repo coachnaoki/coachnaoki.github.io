@@ -135,23 +135,21 @@ document.getElementById('copyBtn').addEventListener('click', () => {
   });
 });
 
-function bookmarkPage() {
-  if (window.sidebar && window.sidebar.addPanel) {
-    window.sidebar.addPanel(document.title, window.location.href, '');
-    return;
-  }
-  if (window.external && ('AddFavorite' in window.external)) {
-    window.external.AddFavorite(window.location.href, document.title);
-    return;
-  }
-  const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
-  const hint = document.getElementById('bookmarkHint');
-  if (hint) {
-    hint.innerHTML = isMac
-      ? '📌 キーボードの <strong>⌘ Cmd + D</strong> を押してブックマークに追加してください'
-      : '📌 キーボードの <strong>Ctrl + D</strong> を押してブックマークに追加してください';
-    hint.style.display = 'block';
-  }
+function bookmarkPage(btn) {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    if (btn) {
+      btn.textContent = '✓ コピーしました';
+      btn.style.background = '#16a34a';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = '🔗 このページのURLをコピー';
+        btn.style.background = '#22d3ee';
+        btn.style.color = '#050506';
+      }, 3000);
+    }
+    const hint = document.getElementById('bookmarkHint');
+    if (hint) hint.style.display = 'block';
+  });
 }
 
 function setupCodeCopyButtons() {
