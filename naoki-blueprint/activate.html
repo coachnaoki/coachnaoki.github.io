@@ -135,23 +135,6 @@ document.getElementById('copyBtn').addEventListener('click', () => {
   });
 });
 
-function bookmarkPage(btn) {
-  navigator.clipboard.writeText(window.location.href).then(() => {
-    if (btn) {
-      btn.textContent = '✓ コピーしました';
-      btn.style.background = '#16a34a';
-      btn.style.color = '#fff';
-      setTimeout(() => {
-        btn.textContent = '🔗 このページのURLをコピー';
-        btn.style.background = '#22d3ee';
-        btn.style.color = '#050506';
-      }, 3000);
-    }
-    const hint = document.getElementById('bookmarkHint');
-    if (hint) hint.style.display = 'block';
-  });
-}
-
 function setupCodeCopyButtons() {
   document.querySelectorAll('.code').forEach(code => {
     if (code.parentElement && code.parentElement.classList.contains('code-wrap')) return;
