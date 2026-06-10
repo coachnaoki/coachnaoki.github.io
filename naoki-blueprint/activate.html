@@ -18,6 +18,13 @@
   </div>
 
   <div id="result" style="display:none">
+    <!-- License ID (top) - ブックマーク案内より先に見えるように冒頭にも表示 -->
+    <div class="license-panel" style="margin-bottom:24px">
+      <div class="license-label">Your License ID</div>
+      <div class="license-id" id="licenseIdTop">NK-XXXX-XXXX-XXXX</div>
+      <button class="copy-btn" id="copyBtnTop">📋 ライセンスIDをコピー</button>
+    </div>
+
     <!-- 共通コンテンツ（_main-content.html から読み込み） -->
     <div id="main-content"></div>
 
@@ -99,6 +106,7 @@ async function fetchLicense() {
     const userNameEl = document.getElementById('userName');
     if (userNameEl) userNameEl.textContent = data.name || '';
     document.getElementById('licenseId').textContent = data.license_id;
+    document.getElementById('licenseIdTop').textContent = data.license_id;
     const licIdInCode = document.getElementById('licenseIdInCode');
     if (licIdInCode) licIdInCode.textContent = data.license_id;
 
@@ -122,16 +130,18 @@ function showError(msg) {
   document.getElementById('errorMsg').textContent = msg;
 }
 
-document.getElementById('copyBtn').addEventListener('click', () => {
-  const id = document.getElementById('licenseId').textContent;
-  navigator.clipboard.writeText(id).then(() => {
-    const b = document.getElementById('copyBtn');
-    b.textContent = '✓ コピー済み';
-    b.classList.add('copied');
-    setTimeout(() => {
-      b.textContent = '📋 ライセンスIDをコピー';
-      b.classList.remove('copied');
-    }, 2000);
+['copyBtn', 'copyBtnTop'].forEach(btnId => {
+  document.getElementById(btnId).addEventListener('click', () => {
+    const id = document.getElementById('licenseId').textContent;
+    navigator.clipboard.writeText(id).then(() => {
+      const b = document.getElementById(btnId);
+      b.textContent = '✓ コピー済み';
+      b.classList.add('copied');
+      setTimeout(() => {
+        b.textContent = '📋 ライセンスIDをコピー';
+        b.classList.remove('copied');
+      }, 2000);
+    });
   });
 });
 
