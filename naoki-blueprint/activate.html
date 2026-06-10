@@ -28,38 +28,6 @@
     <!-- 共通コンテンツ（_main-content.html から読み込み） -->
     <div id="main-content"></div>
 
-    <!-- ▼ activate 限定: アップデート・更新履歴（期限内のライセンス保持者のみ表示） ▼ -->
-
-    <section class="step-section" style="border-left:4px solid #fbbf24">
-      <h2><span class="num">UP</span>アップデート（v2.6+ Private リポ対応）</h2>
-      <p><strong style="color:#121212">基本は自動。 v2.6+ では初回 1 回だけ <code>gh auth login</code> が必要です。</strong></p>
-      <p style="margin-top:14px;font-size:14px">各 step 実行時に内部で <strong style="color:#121212">24時間に1回だけ</strong> 最新版チェックが走り、新しいバージョンがあれば自動でダウンロード・適用されます。作業中の素材（<code>public/</code>）・テロップデータ（<code>src/*.tsx</code>）・transcript は保護されるので、いつ自動更新が走っても作業は壊れません。</p>
-
-      <p style="margin-top:16px;font-size:14px">更新があると Claude Code のログに以下のようなメッセージが一瞬表示されます:</p>
-      <div class="code">📦 naoki-blueprint v2.6.0 → v2.6.1 に自動更新中...<br>✓ 更新完了</div>
-
-      <div style="background:#fef2f2;border:1px solid #fca5a5;border-left:4px solid #dc2626;border-radius:6px;padding:14px 18px;margin:18px 0 0;font-size:14px;color:#7f1d1d;">
-        🔒 <strong style="color:#121212">v2.6+ で本リポは Private 化されました。</strong> 初回 1 回だけ以下を実行:
-        <div class="code" style="margin-top:10px">gh auth login    <span class="cmt"># Mac/Win 共通・ブラウザ認証 1 分</span></div>
-        Naoki から届いた招待メール (<strong>「Invitation to coach-naoki/naoki-blueprint」</strong>) を Accept してから <code>gh auth login</code> を実行してください。
-      </div>
-
-      <p style="margin-top:20px;font-size:13px;color:#666"><strong style="color:#121212">※ どうしても今すぐ最新版にしたい場合</strong>: Claude Code を <strong style="color:#121212">Ctrl+C を 2回</strong> 押して終了し、通常ターミナルで以下を実行:</p>
-      <div class="code">cd ~/Desktop/Cursor/naoki-blueprint && bash アップデート.sh</div>
-      <p style="margin-top:8px;font-size:12px;color:#999">通常は自動更新に任せてOKです。</p>
-    </section>
-
-    <section class="step-section" style="border-left:4px solid #a78bfa">
-      <h2><span class="num">📋</span>更新履歴</h2>
-      <p>追加された機能・改善の一覧です。新しい動画を作るときは <code>bash 新規作成.sh</code> が自動で最新版を取得します。</p>
-
-      <p style="margin-top:20px">
-        <a href="changelog.html" style="display:inline-block;background:#CCFF00;color:#121212;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;font-size:15px">📋 すべての更新履歴を見る →</a>
-      </p>
-    </section>
-
-    <!-- ▲ activate 限定ここまで ▲ -->
-
     <!-- License ID (bottom) - activate.html 独自 -->
     <div class="license-panel" style="margin-top:24px">
       <div class="license-label">Your License ID</div>
