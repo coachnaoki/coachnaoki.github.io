@@ -229,7 +229,12 @@
 
       <p style="margin-top:14px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">Cursor 下部のターミナル (PowerShell) で以下のコマンドをコピペして Enter:</p>
-      <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode; winget install Python.Python.3.12 -e; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User")</div>
+      <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode; winget install Python.Python.3.12 -e; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); if (Test-Path "$env:ProgramFiles\Git\cmd") { $env:Path += ";$env:ProgramFiles\Git\cmd" }</div>
+
+      <div class="info-box">
+        <strong>💡 インストール後は Cursor を再起動してください。</strong><br>
+        全てのインストールが終わったら、 Cursor を一度完全に閉じて (<code>Alt+F4</code>) → 再度開いてください。 ツールの PATH (= コマンドの場所) が正しく反映されます。 再起動せずに ② に進むと git が見つからないエラーが出ることがあります。
+      </div>
 
       <p style="margin-top:24px"><strong style="color:#121212">② GitHub にログイン</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
@@ -247,6 +252,14 @@
       <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
       <div class="code">git --version; node --version; gh --version; claude --version; py -3.12 --version</div>
       <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号が表示されれば成功。</p>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ 「git : 用語 'git' は〜認識されません」 と出る場合</strong><br>
+        Git のインストールは完了していても、 PATH が反映されていない可能性があります。<br>
+        <strong>対処法:</strong> Cursor を完全に閉じて (<code>Alt+F4</code>) → 再起動してから ③ を再実行してください。<br>
+        それでもダメな場合は、 以下を実行してから再度確認してください:<br>
+        <code style="display:block;background:#fff;padding:6px 10px;margin-top:6px;border-radius:4px;font-size:12px;word-break:break-all">winget install --id Git.Git -e</code>
+      </div>
     </section>
 
 
