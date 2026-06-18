@@ -229,7 +229,7 @@
 
       <p style="margin-top:14px"><strong style="color:#121212">① 全ツールを 1 行でインストール</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">Cursor 下部のターミナル (PowerShell) で以下のコマンドをコピペして Enter:</p>
-      <div class="code">winget install --id Git.Git -e; winget install OpenJS.NodeJS.LTS; winget install Gyan.FFmpeg; winget install GitHub.cli; winget install Anthropic.ClaudeCode; winget install Python.Python.3.12 -e; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); if (Test-Path "$env:ProgramFiles\Git\cmd") { $env:Path += ";$env:ProgramFiles\Git\cmd" }</div>
+      <div class="code">winget install --id Git.Git -e --source winget; winget install OpenJS.NodeJS.LTS --source winget; winget install Gyan.FFmpeg --source winget; winget install GitHub.cli --source winget; winget install Anthropic.ClaudeCode --source winget; winget install Python.Python.3.12 -e --source winget; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); if (Test-Path "$env:ProgramFiles\Git\cmd") { $env:Path += ";$env:ProgramFiles\Git\cmd" }</div>
 
       <div class="info-box">
         <strong>💡 インストール後は Cursor を再起動してください。</strong><br>
@@ -258,7 +258,7 @@
         Git のインストールは完了していても、 PATH が反映されていない可能性があります。<br>
         <strong>対処法:</strong> Cursor を完全に閉じて (<code>Alt+F4</code>) → 再起動してから ③ を再実行してください。<br>
         それでもダメな場合は、 以下を実行してから再度確認してください:<br>
-        <code style="display:block;background:#fff;padding:6px 10px;margin-top:6px;border-radius:4px;font-size:12px;word-break:break-all">winget install --id Git.Git -e</code>
+        <code style="display:block;background:#fff;padding:6px 10px;margin-top:6px;border-radius:4px;font-size:12px;word-break:break-all">winget install --id Git.Git -e --source winget</code>
       </div>
     </section>
 
