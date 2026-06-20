@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code セットアップガイド | Naoki's Blueprint</title>
+  <link rel="stylesheet" href="common.css">
+  <style>
+    .os-tabs { display:flex; gap:8px; margin:24px 0 16px; justify-content:center; }
+    .os-tab { padding:10px 22px; border:1px solid #ddd; border-radius:8px; background:#fff; color:#666; font-weight:600; cursor:pointer; font-size:14px; text-decoration:none; }
+    .os-tab.active { background:#2563EB; color:#fff; border-color:#2563EB; }
+    .os-section { display:none; }
+    .os-section.active { display:block; }
+    .info-box { background:#ecfeff; border:1px solid #a5f3fc; border-left:4px solid #0891b2; border-radius:8px; padding:12px 16px; margin:12px 0; font-size:13px; color:#155e75; }
+    .warn-box { background:#fef2f2; border:1px solid #fca5a5; border-left:4px solid #dc2626; border-radius:8px; padding:12px 16px; margin:12px 0; font-size:13px; color:#7f1d1d; }
+    .step-meta { font-size:13px; color:#666; margin:6px 0 12px; }
+    .step-meta span { display:inline-block; margin-right:16px; }
+    .step-section ol, .step-section ul { padding-left:24px; margin:8px 0 12px; line-height:1.9; color:#444; font-size:14px; }
+    .back-link { display:inline-block; margin:20px 0; color:#2563EB; text-decoration:none; font-weight:600; }
+    .back-link:hover { text-decoration:underline; }
+    .test-banner { background:#fef3c7; border:2px solid #f59e0b; border-radius:8px; padding:12px 20px; margin-bottom:24px; text-align:center; font-size:14px; color:#92400e; font-weight:700; }
+    .comparison-box { background:#f0fdf4; border:1px solid #bbf7d0; border-left:4px solid #16a34a; border-radius:8px; padding:14px 18px; margin:16px 0; font-size:13px; color:#166534; }
+    .comparison-box strong { color:#121212; }
+    .comparison-box ul { margin:8px 0 0; padding-left:20px; }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="brand-tag">Naoki's Blueprint / Setup</div>
+  <h1>Claude Code セットアップガイド</h1>
+  <p class="lead">Claude Code デスクトップアプリを使った環境構築。セットアップ完了まで 15〜30 分。</p>
+
+  <div class="test-banner">
+    🧪 テスト版 — Cursor版セットアップガイドの代替案として検証中
+  </div>
+
+  <div class="comparison-box">
+    <strong>💡 Cursor版との違い</strong>
+    <ul>
+      <li>Cursorエディタの代わりに <strong>Claude Code デスクトップアプリ</strong>（シンプルなAIターミナル）を使います</li>
+      <li>複雑なエディタ画面がなく、<strong>AIとの会話だけ</strong>で動画が完成します</li>
+      <li>必要なツール（Git / Node.js 等）のインストールは同じです</li>
+      <li>料金: Claude Pro ($20/月) — Cursor Pro ($20/月) と同額</li>
+    </ul>
+  </div>
+
+  <!-- OS タブ -->
+  <div class="os-tabs">
+    <a href="#mac" class="os-tab active" id="tab-mac" onclick="showOS('mac');return false;">🍎 Mac 版</a>
+    <a href="#win" class="os-tab" id="tab-win" onclick="showOS('win');return false;">🪟 Windows 版</a>
+  </div>
+
+
+  <!-- ============================================== -->
+  <!-- 🍎 Mac 版 -->
+  <!-- ============================================== -->
+  <div class="os-section active" id="section-mac">
+
+    <section class="step-section">
+      <h2><span class="num">01</span>Anthropic アカウントを作成</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Claude Pro プランに加入した状態</span></p>
+      <p style="font-size:14px;color:#444">Claude Code を使うには Anthropic のアカウントと <strong style="color:#121212">Claude Pro プラン ($20/月)</strong> が必要です。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li><a href="https://claude.ai/" target="_blank" rel="noopener">https://claude.ai/</a> にアクセス</li>
+        <li>「Sign up」からアカウントを作成（Google アカウントでもメールアドレスでも OK）</li>
+        <li>ログイン後、左下の「Upgrade to Pro」をクリック → <strong>Pro プラン ($20/月)</strong> に加入</li>
+      </ol>
+
+      <div class="info-box">
+        <strong>💡 すでに Claude アカウントをお持ちの方</strong><br>
+        Pro プラン以上に加入済みであれば、このステップはスキップしてください。
+      </div>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">02</span>Claude Code をインストール</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Claude Code デスクトップアプリが起動した状態</span></p>
+      <p style="font-size:14px;color:#444">Claude Code は <strong>AI と会話しながら作業できるアプリ</strong> です。Cursor のような複雑なエディタ画面はありません。AI に「テロップを入れて」「BGMを追加して」と日本語で指示するだけです。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li><a href="https://claude.ai/download" target="_blank" rel="noopener">https://claude.ai/download</a> にアクセス</li>
+        <li>「Claude Code」のダウンロードボタンをクリック（Mac 版）</li>
+        <li>ダウンロードした .dmg ファイルをダブルクリック</li>
+        <li>「Claude Code」アイコンを「Applications」フォルダにドラッグ</li>
+        <li>Launchpad から Claude Code を起動</li>
+        <li>Anthropic アカウントでログイン</li>
+      </ol>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ エラー: 「"Claude Code" は開発元を検証できないため開けません」</strong><br>
+        通常は表示されませんが、もし出たら:<br>
+        システム設定 → プライバシーとセキュリティ → 下にスクロール → 「このまま開く」 をクリック。
+      </div>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">03</span>環境セットアップ（初回のみ）</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 5〜15分</span><span>🎯 ゴール: 動画制作に必要なツール (Git / Node.js / FFmpeg / GitHub CLI / Python) が全部入った状態</span></p>
+      <p style="font-size:14px;color:#444">動画を作るために必要な裏方のツールを入れます。1 行のコマンドで全部まとめてインストールできます。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">① ターミナルを開く</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">Mac の「ターミナル」アプリを開きます（Launchpad → 「その他」フォルダ、または Spotlight で「ターミナル」と検索）。</p>
+
+      <p style="margin-top:18px"><strong style="color:#121212">② 全ツールを 1 行でインストール</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下のコマンドをコピペして Enter:</p>
+      <div class="code">[ -x /opt/homebrew/bin/brew ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval "$(/opt/homebrew/bin/brew shellenv)" && brew install git node ffmpeg gh python@3.12</div>
+
+      <p style="margin-top:24px"><strong style="color:#121212">③ GitHub にログイン</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
+      <div class="code">gh auth login</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">プロンプトに従って:</p>
+      <ul style="font-size:13px">
+        <li>What account do you want to log into? → <strong>GitHub.com</strong></li>
+        <li>What is your preferred protocol? → <strong>HTTPS</strong></li>
+        <li>Authenticate Git with your GitHub credentials? → <strong>Y</strong></li>
+        <li>How would you like to authenticate? → <strong>Login with a web browser</strong></li>
+        <li>表示された 8 桁コードをブラウザに入力 → 認証完了 (1 分)</li>
+      </ul>
+
+      <p style="margin-top:24px"><strong style="color:#121212">④ インストール確認</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
+      <div class="code">git --version && node --version && gh --version && /opt/homebrew/bin/python3.12 --version</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">4 つのバージョン番号が表示されれば成功。</p>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">04</span>Claude Code でプロジェクトを開く</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Claude Code 内で naoki-blueprint が開いた状態</span></p>
+
+      <p><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>Claude Code デスクトップアプリを開く</li>
+        <li>「Code」タブを選択</li>
+        <li>プロジェクトフォルダとして、動画制作用のフォルダを選択<br>
+          <span style="font-size:13px;color:#666">→ まだ作っていない場合は、デスクトップに「video」フォルダを新規作成して選択</span>
+        </li>
+        <li>Claude Code のチャット欄に以下をコピペして送信:</li>
+      </ol>
+      <div class="code">git clone https://github.com/coach-naoki/naoki-blueprint.git && cd naoki-blueprint</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">Claude が自動でダウンロードとフォルダ移動をしてくれます。</p>
+
+      <div class="info-box">
+        <strong>💡 Permission（権限）の確認が出たら</strong><br>
+        Claude Code が「このコマンドを実行していいですか？」と聞いてくることがあります。「Allow（許可）」を押してください。信頼できるコマンドだけを実行しています。
+      </div>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">05</span>動画作成を開始</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 1 分</span><span>🎯 ゴール: /new-video が動いた状態</span></p>
+
+      <p><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>Claude Code のチャット欄に以下を入力して送信:</li>
+      </ol>
+      <div class="code">/new-video</div>
+      <ol start="2">
+        <li>初回はライセンスコード (例: <code>NK-XXXX-XXXX-XXXX</code>) の入力を求められます。<br>
+          <span style="font-size:13px;color:#0891b2"><strong>インストールガイドのページ下部に表示されているライセンスID</strong>をコピーして貼り付けてください。</span>
+        </li>
+        <li>あとは Claude の質問に答えていくだけで動画が完成します 🎉</li>
+      </ol>
+    </section>
+
+
+    <section class="step-section" style="border-left:4px solid #16a34a;background:#f0fdf4">
+      <h2><span class="num" style="background:#16a34a">✓</span>セットアップ完了!</h2>
+      <p>これで Claude Code + 環境ツールがすべて動く状態になりました。</p>
+      <p style="font-size:13px;color:#666;margin-top:8px">Cursor と違い、エディタの操作を覚える必要はありません。<br>Claude に日本語で指示するだけで動画が作れます。</p>
+    </section>
+  </div>
+
+
+  <!-- ============================================== -->
+  <!-- 🪟 Windows 版 -->
+  <!-- ============================================== -->
+  <div class="os-section" id="section-win">
+
+    <section class="step-section">
+      <h2><span class="num">01</span>Anthropic アカウントを作成</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Claude Pro プランに加入した状態</span></p>
+      <p style="font-size:14px;color:#444">Claude Code を使うには Anthropic のアカウントと <strong style="color:#121212">Claude Pro プラン ($20/月)</strong> が必要です。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li><a href="https://claude.ai/" target="_blank" rel="noopener">https://claude.ai/</a> にアクセス</li>
+        <li>「Sign up」からアカウントを作成（Google アカウントでもメールアドレスでも OK）</li>
+        <li>ログイン後、左下の「Upgrade to Pro」をクリック → <strong>Pro プラン ($20/月)</strong> に加入</li>
+      </ol>
+
+      <div class="info-box">
+        <strong>💡 すでに Claude アカウントをお持ちの方</strong><br>
+        Pro プラン以上に加入済みであれば、このステップはスキップしてください。
+      </div>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">02</span>Claude Code をインストール</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Claude Code デスクトップアプリが起動した状態</span></p>
+      <p style="font-size:14px;color:#444">Claude Code は <strong>AI と会話しながら作業できるアプリ</strong> です。Cursor のような複雑なエディタ画面はありません。AI に「テロップを入れて」「BGMを追加して」と日本語で指示するだけです。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li><a href="https://claude.ai/download" target="_blank" rel="noopener">https://claude.ai/download</a> にアクセス</li>
+        <li>「Claude Code」のダウンロードボタンをクリック（Windows 版）</li>
+        <li>ダウンロードした .exe ファイルをダブルクリック</li>
+        <li>インストール画面でデフォルト設定のまま「Next」→「Install」を進める</li>
+        <li>起動後、Anthropic アカウントでログイン</li>
+      </ol>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ エラー: 「Windows によって PC が保護されました」 (SmartScreen)</strong><br>
+        「詳細情報」 をクリック → 「実行」 ボタンを押す。これは Microsoft の新しいアプリへの警告で、Claude Code 自体は安全です。
+      </div>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">03</span>環境セットアップ（初回のみ）</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 5〜15分</span><span>🎯 ゴール: 動画制作に必要なツール (Git / Node.js / FFmpeg / GitHub CLI / Python) が全部入った状態</span></p>
+      <p style="font-size:14px;color:#444">動画を作るために必要な裏方のツールを入れます。1 行のコマンドで全部まとめてインストールできます。</p>
+
+      <p style="margin-top:14px"><strong style="color:#121212">① PowerShell を開く</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">スタートメニューで「PowerShell」と検索 → 「Windows PowerShell」を開きます。</p>
+
+      <p style="margin-top:18px"><strong style="color:#121212">② 全ツールを 1 行でインストール</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">PowerShell で以下のコマンドをコピペして Enter:</p>
+      <div class="code">winget install --id Git.Git -e --source winget; winget install OpenJS.NodeJS.LTS --source winget; winget install Gyan.FFmpeg --source winget; winget install GitHub.cli --source winget; winget install Python.Python.3.12 -e --source winget; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); if (Test-Path "$env:ProgramFiles\Git\cmd") { $env:Path += ";$env:ProgramFiles\Git\cmd" }</div>
+
+      <div class="info-box">
+        <strong>💡 インストール後は PowerShell を一度閉じて開き直してください。</strong><br>
+        ツールの PATH（= コマンドの場所）が正しく反映されます。
+      </div>
+
+      <p style="margin-top:24px"><strong style="color:#121212">③ GitHub にログイン</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">PowerShell で以下を実行:</p>
+      <div class="code">gh auth login</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">プロンプトに従って:</p>
+      <ul style="font-size:13px">
+        <li>What account do you want to log into? → <strong>GitHub.com</strong></li>
+        <li>What is your preferred protocol? → <strong>HTTPS</strong></li>
+        <li>Authenticate Git with your GitHub credentials? → <strong>Y</strong></li>
+        <li>How would you like to authenticate? → <strong>Login with a web browser</strong></li>
+        <li>表示された 8 桁コードをブラウザに入力 → 認証完了 (1 分)</li>
+      </ul>
+
+      <p style="margin-top:24px"><strong style="color:#121212">④ インストール確認</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">PowerShell で以下を実行:</p>
+      <div class="code">git --version; node --version; gh --version; py -3.12 --version</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">4 つのバージョン番号が表示されれば成功。</p>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ 「git : 用語 'git' は〜認識されません」 と出る場合</strong><br>
+        PATH が反映されていません。PowerShell を閉じて → 開き直してから ④ を再実行してください。<br>
+        それでもダメな場合は、以下を実行してから再度確認:<br>
+        <code style="display:block;background:#fff;padding:6px 10px;margin-top:6px;border-radius:4px;font-size:12px;word-break:break-all">winget install --id Git.Git -e --source winget</code>
+      </div>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">04</span>Claude Code でプロジェクトを開く</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Claude Code 内で naoki-blueprint が開いた状態</span></p>
+
+      <p><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>Claude Code デスクトップアプリを開く</li>
+        <li>「Code」タブを選択</li>
+        <li>プロジェクトフォルダとして、動画制作用のフォルダを選択<br>
+          <span style="font-size:13px;color:#666">→ まだ作っていない場合は、デスクトップに「video」フォルダを新規作成して選択</span>
+        </li>
+        <li>Claude Code のチャット欄に以下をコピペして送信:</li>
+      </ol>
+      <div class="code">git clone https://github.com/coach-naoki/naoki-blueprint.git && cd naoki-blueprint</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">Claude が自動でダウンロードとフォルダ移動をしてくれます。</p>
+
+      <div class="info-box">
+        <strong>💡 Permission（権限）の確認が出たら</strong><br>
+        Claude Code が「このコマンドを実行していいですか？」と聞いてくることがあります。「Allow（許可）」を押してください。信頼できるコマンドだけを実行しています。
+      </div>
+    </section>
+
+
+    <section class="step-section">
+      <h2><span class="num">05</span>動画作成を開始</h2>
+      <p class="step-meta"><span>⏱ 所要時間: 1 分</span><span>🎯 ゴール: /new-video が動いた状態</span></p>
+
+      <p><strong style="color:#121212">手順</strong></p>
+      <ol>
+        <li>Claude Code のチャット欄に以下を入力して送信:</li>
+      </ol>
+      <div class="code">/new-video</div>
+      <ol start="2">
+        <li>初回はライセンスコード (例: <code>NK-XXXX-XXXX-XXXX</code>) の入力を求められます。<br>
+          <span style="font-size:13px;color:#0891b2"><strong>インストールガイドのページ下部に表示されているライセンスID</strong>をコピーして貼り付けてください。</span>
+        </li>
+        <li>あとは Claude の質問に答えていくだけで動画が完成します 🎉</li>
+      </ol>
+    </section>
+
+
+    <section class="step-section" style="border-left:4px solid #16a34a;background:#f0fdf4">
+      <h2><span class="num" style="background:#16a34a">✓</span>セットアップ完了!</h2>
+      <p>これで Claude Code + 環境ツールがすべて動く状態になりました。</p>
+      <p style="font-size:13px;color:#666;margin-top:8px">Cursor と違い、エディタの操作を覚える必要はありません。<br>Claude に日本語で指示するだけで動画が作れます。</p>
+    </section>
+  </div>
+
+</div>
+
+<script>
+function showOS(os) {
+  document.getElementById('section-mac').classList.toggle('active', os === 'mac');
+  document.getElementById('section-win').classList.toggle('active', os === 'win');
+  document.getElementById('tab-mac').classList.toggle('active', os === 'mac');
+  document.getElementById('tab-win').classList.toggle('active', os === 'win');
+  history.replaceState(null, '', '#' + os);
+}
+(function() {
+  var hash = (location.hash || '').replace('#', '');
+  if (hash === 'win') showOS('win');
+})();
+
+function setupCodeCopyButtons() {
+  document.querySelectorAll('.code').forEach(code => {
+    if (code.parentElement && code.parentElement.classList.contains('code-wrap')) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'code-wrap';
+    code.parentNode.insertBefore(wrap, code);
+    wrap.appendChild(code);
+    const btn = document.createElement('button');
+    btn.className = 'code-copy';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', () => {
+      const text = code.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+      });
+    });
+    wrap.appendChild(btn);
+  });
+}
+setupCodeCopyButtons();
+</script>
+
+</body>
+</html>
