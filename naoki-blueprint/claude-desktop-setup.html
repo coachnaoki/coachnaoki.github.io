@@ -29,7 +29,7 @@
 <div class="wrap">
   <div class="brand-tag">Naoki's Blueprint / Setup</div>
   <h1>Claude Code セットアップガイド</h1>
-  <p class="lead">Claude Code デスクトップアプリを使った環境構築。セットアップ完了まで 15〜30 分。</p>
+  <p class="lead">Claude Code デスクトップアプリを使った環境構築。セットアップ完了まで 30〜60 分。</p>
 
   <div class="test-banner">
     🧪 テスト版 — Cursor版セットアップガイドの代替案として検証中
@@ -41,7 +41,7 @@
       <li>Cursorエディタの代わりに <strong>Claude Code デスクトップアプリ</strong>（シンプルなAIターミナル）を使います</li>
       <li>複雑なエディタ画面がなく、<strong>AIとの会話だけ</strong>で動画が完成します</li>
       <li>必要なツール（Git / Node.js 等）のインストールは同じです</li>
-      <li>料金: Claude Pro ($20/月) — Cursor Pro ($20/月) と同額</li>
+      <li>料金: Claude Pro ($20/月〜) — Cursor Pro ($20/月) と同額</li>
     </ul>
   </div>
 
@@ -60,13 +60,13 @@
     <section class="step-section">
       <h2><span class="num">01</span>Anthropic アカウントを作成</h2>
       <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Claude Pro プランに加入した状態</span></p>
-      <p style="font-size:14px;color:#444">Claude Code を使うには Anthropic のアカウントと <strong style="color:#121212">Claude Pro プラン ($20/月)</strong> が必要です。</p>
+      <p style="font-size:14px;color:#444">Claude Code を使うには Anthropic のアカウントと <strong style="color:#121212">Claude Pro プラン以上 ($20/月〜)</strong> が必要です。</p>
 
       <p style="margin-top:14px"><strong style="color:#121212">手順</strong></p>
       <ol>
         <li><a href="https://claude.ai/" target="_blank" rel="noopener">https://claude.ai/</a> にアクセス</li>
         <li>「Sign up」からアカウントを作成（Google アカウントでもメールアドレスでも OK）</li>
-        <li>ログイン後、左下の「Upgrade to Pro」をクリック → <strong>Pro プラン ($20/月)</strong> に加入</li>
+        <li>ログイン後、左下の「Upgrade to Pro」をクリック → <strong>Pro プラン以上 ($20/月〜)</strong> に加入</li>
       </ol>
 
       <div class="info-box">
@@ -125,8 +125,19 @@
 
       <p style="margin-top:24px"><strong style="color:#121212">④ インストール確認</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
-      <div class="code">git --version && node --version && gh --version && /opt/homebrew/bin/python3.12 --version</div>
-      <p style="font-size:13px;color:#666;margin-top:8px">4 つのバージョン番号が表示されれば成功。</p>
+      <div class="code">git --version && node --version && ffmpeg -version && gh --version && /opt/homebrew/bin/python3.12 --version</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号が表示されれば成功。</p>
+
+      <p style="margin-top:24px"><strong style="color:#121212">⑤ naoki-blueprint をダウンロード</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">ターミナルで以下を実行:</p>
+      <div class="code">cd ~/Desktop && git clone https://github.com/coach-naoki/naoki-blueprint.git</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">デスクトップに「naoki-blueprint」フォルダが作られます。</p>
+
+      <div class="info-box">
+        <strong>💡 Claude Code アプリの再起動</strong><br>
+        Step 02 で Claude Code を先に起動していた場合は、ここで<strong>アプリを完全に終了してから再起動</strong>してください。<br>
+        インストールしたツール（Git / Node.js 等）を Claude Code に認識させるために必要です。
+      </div>
     </section>
 
 
@@ -136,19 +147,17 @@
 
       <p><strong style="color:#121212">手順</strong></p>
       <ol>
-        <li>Claude Code デスクトップアプリを開く</li>
-        <li>「Code」タブを選択</li>
-        <li>プロジェクトフォルダとして、動画制作用のフォルダを選択<br>
-          <span style="font-size:13px;color:#666">→ まだ作っていない場合は、デスクトップに「video」フォルダを新規作成して選択</span>
-        </li>
-        <li>Claude Code のチャット欄に以下をコピペして送信:</li>
+        <li>Claude Code デスクトップアプリを起動（または再起動後に開く）</li>
+        <li>上部の「<strong>Code</strong>」タブをクリック</li>
+        <li>「<strong>Local</strong>」を選択</li>
+        <li>「<strong>Select folder</strong>」をクリック → デスクトップの <strong>naoki-blueprint</strong> フォルダを選択</li>
       </ol>
-      <div class="code">git clone https://github.com/coach-naoki/naoki-blueprint.git && cd naoki-blueprint</div>
-      <p style="font-size:13px;color:#666;margin-top:8px">Claude が自動でダウンロードとフォルダ移動をしてくれます。</p>
 
       <div class="info-box">
-        <strong>💡 Permission（権限）の確認が出たら</strong><br>
-        Claude Code が「このコマンドを実行していいですか？」と聞いてくることがあります。「Allow（許可）」を押してください。信頼できるコマンドだけを実行しています。
+        <strong>💡 Permission（権限モード）の設定</strong><br>
+        初回起動時に権限モードを聞かれたら「<strong>Auto accept edits</strong>」を選択してください。<br>
+        Claude がファイルの編集・コマンド実行を自動で行えるようになり、毎回の確認が不要になります。<br>
+        <span style="font-size:12px;color:#666">（後から Claude Code の設定画面で変更できます）</span>
       </div>
     </section>
 
@@ -187,13 +196,13 @@
     <section class="step-section">
       <h2><span class="num">01</span>Anthropic アカウントを作成</h2>
       <p class="step-meta"><span>⏱ 所要時間: 3〜5分</span><span>🎯 ゴール: Claude Pro プランに加入した状態</span></p>
-      <p style="font-size:14px;color:#444">Claude Code を使うには Anthropic のアカウントと <strong style="color:#121212">Claude Pro プラン ($20/月)</strong> が必要です。</p>
+      <p style="font-size:14px;color:#444">Claude Code を使うには Anthropic のアカウントと <strong style="color:#121212">Claude Pro プラン以上 ($20/月〜)</strong> が必要です。</p>
 
       <p style="margin-top:14px"><strong style="color:#121212">手順</strong></p>
       <ol>
         <li><a href="https://claude.ai/" target="_blank" rel="noopener">https://claude.ai/</a> にアクセス</li>
         <li>「Sign up」からアカウントを作成（Google アカウントでもメールアドレスでも OK）</li>
-        <li>ログイン後、左下の「Upgrade to Pro」をクリック → <strong>Pro プラン ($20/月)</strong> に加入</li>
+        <li>ログイン後、左下の「Upgrade to Pro」をクリック → <strong>Pro プラン以上 ($20/月〜)</strong> に加入</li>
       </ol>
 
       <div class="info-box">
@@ -255,14 +264,25 @@
 
       <p style="margin-top:24px"><strong style="color:#121212">④ インストール確認</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">PowerShell で以下を実行:</p>
-      <div class="code">git --version; node --version; gh --version; py -3.12 --version</div>
-      <p style="font-size:13px;color:#666;margin-top:8px">4 つのバージョン番号が表示されれば成功。</p>
+      <div class="code">git --version; node --version; ffmpeg -version; gh --version; py -3.12 --version</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号が表示されれば成功。</p>
 
       <div class="warn-box">
         <strong style="color:#121212">⚠ 「git : 用語 'git' は〜認識されません」 と出る場合</strong><br>
         PATH が反映されていません。PowerShell を閉じて → 開き直してから ④ を再実行してください。<br>
         それでもダメな場合は、以下を実行してから再度確認:<br>
         <code style="display:block;background:#fff;padding:6px 10px;margin-top:6px;border-radius:4px;font-size:12px;word-break:break-all">winget install --id Git.Git -e --source winget</code>
+      </div>
+
+      <p style="margin-top:24px"><strong style="color:#121212">⑤ naoki-blueprint をダウンロード</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">PowerShell で以下を実行:</p>
+      <div class="code">cd ~\Desktop; git clone https://github.com/coach-naoki/naoki-blueprint.git</div>
+      <p style="font-size:13px;color:#666;margin-top:8px">デスクトップに「naoki-blueprint」フォルダが作られます。</p>
+
+      <div class="info-box">
+        <strong>💡 Claude Code アプリの再起動</strong><br>
+        Step 02 で Claude Code を先に起動していた場合は、ここで<strong>アプリを完全に終了してから再起動</strong>してください。<br>
+        インストールしたツール（Git / Node.js 等）を Claude Code に認識させるために必要です。
       </div>
     </section>
 
@@ -273,19 +293,17 @@
 
       <p><strong style="color:#121212">手順</strong></p>
       <ol>
-        <li>Claude Code デスクトップアプリを開く</li>
-        <li>「Code」タブを選択</li>
-        <li>プロジェクトフォルダとして、動画制作用のフォルダを選択<br>
-          <span style="font-size:13px;color:#666">→ まだ作っていない場合は、デスクトップに「video」フォルダを新規作成して選択</span>
-        </li>
-        <li>Claude Code のチャット欄に以下をコピペして送信:</li>
+        <li>Claude Code デスクトップアプリを起動（または再起動後に開く）</li>
+        <li>上部の「<strong>Code</strong>」タブをクリック</li>
+        <li>「<strong>Local</strong>」を選択</li>
+        <li>「<strong>Select folder</strong>」をクリック → デスクトップの <strong>naoki-blueprint</strong> フォルダを選択</li>
       </ol>
-      <div class="code">git clone https://github.com/coach-naoki/naoki-blueprint.git && cd naoki-blueprint</div>
-      <p style="font-size:13px;color:#666;margin-top:8px">Claude が自動でダウンロードとフォルダ移動をしてくれます。</p>
 
       <div class="info-box">
-        <strong>💡 Permission（権限）の確認が出たら</strong><br>
-        Claude Code が「このコマンドを実行していいですか？」と聞いてくることがあります。「Allow（許可）」を押してください。信頼できるコマンドだけを実行しています。
+        <strong>💡 Permission（権限モード）の設定</strong><br>
+        初回起動時に権限モードを聞かれたら「<strong>Auto accept edits</strong>」を選択してください。<br>
+        Claude がファイルの編集・コマンド実行を自動で行えるようになり、毎回の確認が不要になります。<br>
+        <span style="font-size:12px;color:#666">（後から Claude Code の設定画面で変更できます）</span>
       </div>
     </section>
 
