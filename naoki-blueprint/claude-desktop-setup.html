@@ -322,10 +322,11 @@
   </div>
 
   <!-- ライセンスコード表示（テスト用） -->
-  <div style="margin-top:40px;padding:28px 32px;background:#121212;border-radius:12px;text-align:center;">
-    <p style="font-size:13px;color:#999;margin-bottom:8px;">あなたのライセンスID</p>
-    <p style="font-size:28px;font-weight:700;color:#CCFF00;letter-spacing:0.1em;font-family:monospace;margin-bottom:12px;">NK-TEST-0000-0001</p>
-    <p style="font-size:12px;color:#666;">Step 04 でこのコードを入力してください</p>
+  <div style="margin-top:40px;background:#fff;border:1px solid #ddd;border-radius:12px;padding:32px 40px;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.06);overflow:hidden;text-align:center;">
+    <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#3b82f6,#8b5cf6,#ec4899)"></div>
+    <div style="font-size:11px;letter-spacing:0.28em;color:#666;font-weight:700;text-transform:uppercase;margin-bottom:14px;">Your License ID</div>
+    <div id="testLicenseId" style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:32px;font-weight:700;color:#121212;letter-spacing:0.08em;margin-bottom:16px;word-break:break-all;">NK-TEST-0000-0001</div>
+    <button id="testCopyBtn" onclick="navigator.clipboard.writeText(document.getElementById('testLicenseId').textContent).then(function(){var b=document.getElementById('testCopyBtn');b.textContent='Copied!';b.style.background='#16a34a';setTimeout(function(){b.innerHTML='&#x1F4CB; ライセンスIDをコピー';b.style.background='#2563EB'},1500)})" style="display:inline-flex;align-items:center;gap:8px;background:#2563EB;color:#fff;border:none;padding:10px 20px;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:0.12em;cursor:pointer;font-family:inherit;">&#x1F4CB; ライセンスIDをコピー</button>
   </div>
 
 </div>
