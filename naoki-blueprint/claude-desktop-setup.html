@@ -121,7 +121,19 @@
       <div class="code">[ -x /opt/homebrew/bin/brew ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval "$(/opt/homebrew/bin/brew shellenv)" && brew install git node ffmpeg gh python@3.12</div>
       <p style="font-size:13px;color:#666;margin-top:8px">Mac のパスワードを聞かれたら入力してください（入力中は画面に何も表示されませんが、正常です）。</p>
 
-      <p style="margin-top:24px"><strong style="color:#121212">③ GitHub にログイン</strong></p>
+      <p style="margin-top:24px"><strong style="color:#121212">③ GitHub アカウントを作成</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">naoki-blueprint のダウンロードに GitHub アカウントが必要です。</p>
+      <ol style="font-size:13px">
+        <li><a href="https://github.com/signup" target="_blank" rel="noopener">https://github.com/signup</a> にアクセス</li>
+        <li>メールアドレス → パスワード → ユーザー名 を入力して登録</li>
+        <li>メールに届いた認証コードを入力して完了</li>
+      </ol>
+      <div class="info-box">
+        <strong>💡 すでに GitHub アカウントをお持ちの方</strong><br>
+        このステップはスキップしてください。
+      </div>
+
+      <p style="margin-top:24px"><strong style="color:#121212">④ GitHub にログイン</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">同じターミナルで以下を実行:</p>
       <div class="code">gh auth login</div>
       <p style="font-size:13px;color:#666;margin-top:8px">プロンプトに従って:</p>
@@ -133,12 +145,12 @@
         <li>表示された 8 桁コードをブラウザに入力 → 認証完了 (1 分)</li>
       </ul>
 
-      <p style="margin-top:24px"><strong style="color:#121212">④ インストール確認</strong></p>
+      <p style="margin-top:24px"><strong style="color:#121212">⑤ インストール確認</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">同じターミナルで以下を実行:</p>
       <div class="code">git --version && node --version && ffmpeg -version && gh --version && /opt/homebrew/bin/python3.12 --version</div>
       <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号が表示されれば成功。</p>
 
-      <p style="margin-top:24px"><strong style="color:#121212">⑤ naoki-blueprint をダウンロード</strong></p>
+      <p style="margin-top:24px"><strong style="color:#121212">⑥ naoki-blueprint をダウンロード</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">同じターミナルで以下を実行:</p>
       <div class="code">git clone https://github.com/coach-naoki/naoki-blueprint.git</div>
       <p style="font-size:13px;color:#666;margin-top:8px">デスクトップに「naoki-blueprint」フォルダが作られます。</p>
@@ -264,7 +276,19 @@
       <p style="font-size:13px;color:#666;margin:6px 0 4px">右側のターミナルに以下のコマンドをコピペして Enter:</p>
       <div class="code">winget install --id Git.Git -e --source winget; winget install OpenJS.NodeJS.LTS --source winget; winget install Gyan.FFmpeg --source winget; winget install GitHub.cli --source winget; winget install Python.Python.3.12 -e --source winget; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); if (Test-Path "$env:ProgramFiles\Git\cmd") { $env:Path += ";$env:ProgramFiles\Git\cmd" }</div>
 
-      <p style="margin-top:24px"><strong style="color:#121212">③ GitHub にログイン</strong></p>
+      <p style="margin-top:24px"><strong style="color:#121212">③ GitHub アカウントを作成</strong></p>
+      <p style="font-size:13px;color:#666;margin:6px 0 4px">naoki-blueprint のダウンロードに GitHub アカウントが必要です。</p>
+      <ol style="font-size:13px">
+        <li><a href="https://github.com/signup" target="_blank" rel="noopener">https://github.com/signup</a> にアクセス</li>
+        <li>メールアドレス → パスワード → ユーザー名 を入力して登録</li>
+        <li>メールに届いた認証コードを入力して完了</li>
+      </ol>
+      <div class="info-box">
+        <strong>💡 すでに GitHub アカウントをお持ちの方</strong><br>
+        このステップはスキップしてください。
+      </div>
+
+      <p style="margin-top:24px"><strong style="color:#121212">④ GitHub にログイン</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">同じターミナルで以下を実行:</p>
       <div class="code">gh auth login</div>
       <p style="font-size:13px;color:#666;margin-top:8px">プロンプトに従って:</p>
@@ -276,19 +300,19 @@
         <li>表示された 8 桁コードをブラウザに入力 → 認証完了 (1 分)</li>
       </ul>
 
-      <p style="margin-top:24px"><strong style="color:#121212">④ インストール確認</strong></p>
+      <p style="margin-top:24px"><strong style="color:#121212">⑤ インストール確認</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">同じターミナルで以下を実行:</p>
       <div class="code">git --version; node --version; ffmpeg -version; gh --version; py -3.12 --version</div>
       <p style="font-size:13px;color:#666;margin-top:8px">5 つのバージョン番号が表示されれば成功。</p>
 
       <div class="warn-box">
         <strong style="color:#121212">⚠ 「git : 用語 'git' は〜認識されません」 と出る場合</strong><br>
-        ターミナルのタブを閉じて「ターミナル +」から開き直してから ④ を再実行してください。<br>
+        ターミナルのタブを閉じて「ターミナル +」から開き直してから ⑤ を再実行してください。<br>
         それでもダメな場合は、以下を実行してから再度確認:<br>
         <code style="display:block;background:#fff;padding:6px 10px;margin-top:6px;border-radius:4px;font-size:12px;word-break:break-all">winget install --id Git.Git -e --source winget</code>
       </div>
 
-      <p style="margin-top:24px"><strong style="color:#121212">⑤ naoki-blueprint をダウンロード</strong></p>
+      <p style="margin-top:24px"><strong style="color:#121212">⑥ naoki-blueprint をダウンロード</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">同じターミナルで以下を実行:</p>
       <div class="code">git clone https://github.com/coach-naoki/naoki-blueprint.git</div>
       <p style="font-size:13px;color:#666;margin-top:8px">デスクトップに「naoki-blueprint」フォルダが作られます。</p>
