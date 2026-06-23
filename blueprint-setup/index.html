@@ -399,40 +399,23 @@ function showOS(os) {
   });
 });
 
-function detectBrowser() {
-  var ua = navigator.userAgent;
-  if (/Edg\//.test(ua)) return 'edge';
-  if (/Firefox\//.test(ua)) return 'firefox';
-  if (/Chrome\//.test(ua) && !/Edg\//.test(ua)) return 'chrome';
-  if (/Safari\//.test(ua) && !/Chrome\//.test(ua)) return 'safari';
-  return 'other';
-}
-
 function showBookmarkHint() {
   if (localStorage.getItem('blueprint-bookmarked')) return;
   var hint = document.getElementById('bookmark-hint');
   var sc = document.getElementById('bookmark-shortcut');
   var alt = document.getElementById('bookmark-alt');
   var isMac = /Mac|iPhone|iPad/.test(navigator.userAgent);
-  var browser = detectBrowser();
-  var k = 'display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;background:#121212;color:#fff;font-weight:700;font-size:18px;border-radius:8px;box-shadow:0 4px 0 #555;font-family:"SF Mono","Menlo","Consolas",monospace';
+  var k = 'display:inline-flex;align-items:center;justify-content:center;height:48px;background:#121212;color:#fff;font-weight:700;font-size:18px;border-radius:8px;box-shadow:0 4px 0 #555;font-family:"SF Mono","Menlo","Consolas",monospace;padding:0 14px';
   if (isMac) {
     sc.innerHTML = '<kbd style="' + k + '">⌘</kbd>'
       + '<span style="font-size:20px;font-weight:700;color:#999">+</span>'
       + '<kbd style="' + k + '">D</kbd>';
   } else {
-    sc.innerHTML = '<kbd style="' + k + ';width:auto;padding:0 14px">Ctrl</kbd>'
+    sc.innerHTML = '<kbd style="' + k + '">Ctrl</kbd>'
       + '<span style="font-size:20px;font-weight:700;color:#999">+</span>'
       + '<kbd style="' + k + '">D</kbd>';
   }
-  var altText = {
-    chrome: 'または、アドレスバー右端の <strong style="color:#121212">★</strong> アイコンをクリック',
-    safari: 'または、アドレスバー左の <strong style="color:#121212">共有ボタン（□↑）</strong>→「ブックマークに追加」',
-    firefox: 'または、アドレスバー右端の <strong style="color:#121212">★</strong> アイコンをクリック',
-    edge: 'または、アドレスバー右端の <strong style="color:#121212">☆</strong> アイコンをクリック',
-    other: 'または、ブラウザのブックマーク機能から追加してください'
-  };
-  alt.innerHTML = altText[browser];
+  alt.innerHTML = 'または、ブラウザのメニューから「ブックマークに追加」を選択';
   hint.style.display = 'block';
   document.getElementById('bookmark-close').addEventListener('click', function() {
     hint.style.display = 'none';
