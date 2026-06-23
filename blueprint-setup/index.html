@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <title>セットアップガイド | Naoki's Blueprint</title>
+  <link rel="stylesheet" href="../naoki-blueprint/common.css">
+</head>
+<body>
+
+<div class="wrap">
+  <div class="brand-tag">Naoki's Blueprint / Setup Guide</div>
+  <h1>セットアップガイド</h1>
+  <p class="lead">あなた専用のライセンスIDとインストール手順です。</p>
+
+  <div id="loading" class="loading">
+    <span class="spinner"></span>読み込み中...
+  </div>
+
+  <div id="result" style="display:none">
+    <div class="license-panel" style="margin-bottom:24px">
+      <div class="license-label">Your License ID</div>
+      <div class="license-id" id="licenseIdTop">NK-XXXX-XXXX-XXXX</div>
+      <button class="copy-btn" id="copyBtnTop">コピー</button>
+    </div>
+
+    <div id="main-content"></div>
+
+    <div class="license-panel" style="margin-top:24px">
+      <div class="license-label">Your License ID</div>
+      <div class="license-id" id="licenseId">NK-XXXX-XXXX-XXXX</div>
+      <button class="copy-btn" id="copyBtn">コピー</button>
+    </div>
+  </div>
+
+  <div id="error" style="display:none" class="error-panel">
+    <h2>エラー</h2>
+    <p id="errorMsg"></p>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://naoki-blueprint-license.vercel.app/exec";
+const params = new URLSearchParams(window.location.search);
+const token = params.get('t');
+
+if (!token) {
+  showError('トークンが指定されていません。同意書の完了画面から開き直してください。');
+} else {
+  history.replaceState(null, '', window.location.pathname);
+  fetchLicense();
+}
+
+async function fetchLicense() {
+  try {
+    const res = await fetch(API_URL + "?action=get&t=" + encodeURIComponent(token));
+    const data = await res.json();
+    if (!data.success) {
+      showError(data.error || 'ライセンスの取得に失敗しました');
+      return;
+    }
+
+    const mainRes = await fetch('../naoki-blueprint/_main-content.html');
+    const mainHtml = await mainRes.text();
+    document.getElementById('main-content').innerHTML = mainHtml;
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('result').style.display = 'block';
+    const userNameEl = document.getElementById('userName');
+    if (userNameEl) userNameEl.textContent = data.name || '';
+    document.getElementById('licenseId').textContent = data.license_id;
+    document.getElementById('licenseIdTop').textContent = data.license_id;
+    const licIdInCode = document.getElementById('licenseIdInCode');
+    if (licIdInCode) licIdInCode.textContent = data.license_id;
+
+    const d = new Date();
+    const todayStr = d.getFullYear() + '-'
+                   + String(d.getMonth()+1).padStart(2,'0') + '-'
+                   + String(d.getDate()).padStart(2,'0');
+    document.querySelectorAll('.today-date').forEach(el => { el.textContent = todayStr; });
+
+    setupCodeCopyButtons();
+  } catch (e) {
+    showError('通信エラーが発生しました。しばらくしてから再度お試しください。');
+    console.error(e);
+  }
+}
+
+function showError(msg) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('error').style.display = 'block';
+  document.getElementById('errorMsg').textContent = msg;
+}
+
+['copyBtn', 'copyBtnTop'].forEach(btnId => {
+  document.getElementById(btnId).addEventListener('click', () => {
+    const id = document.getElementById('licenseId').textContent;
+    navigator.clipboard.writeText(id).then(() => {
+      const b = document.getElementById(btnId);
+      b.textContent = 'コピー済み';
+      b.classList.add('copied');
+      setTimeout(() => {
+        b.textContent = 'コピー';
+        b.classList.remove('copied');
+      }, 2000);
+    });
+  });
+});
+
+function setupCodeCopyButtons() {
+  document.querySelectorAll('.code').forEach(code => {
+    if (code.parentElement && code.parentElement.classList.contains('code-wrap')) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'code-wrap';
+    code.parentNode.insertBefore(wrap, code);
+    wrap.appendChild(code);
+    const btn = document.createElement('button');
+    btn.className = 'code-copy';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', () => {
+      const text = code.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+      });
+    });
+    wrap.appendChild(btn);
+  });
+}
+</script>
+
+</body>
+</html>
