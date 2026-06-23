@@ -40,6 +40,15 @@
       </div>
     </div>
 
+    <!-- ブックマーク促進バナー（初回のみ表示） -->
+    <div id="bookmark-hint" style="display:none;background:#fef2f2;border:2px solid #dc2626;border-radius:12px;padding:24px 28px;margin-bottom:24px;position:relative">
+      <button id="bookmark-close" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:20px;color:#999;cursor:pointer;line-height:1" aria-label="閉じる">&times;</button>
+      <p style="font-size:15px;color:#121212;font-weight:700;margin-bottom:6px;text-align:center">このページをブックマークしてください</p>
+      <p style="font-size:13px;color:#444;margin-bottom:18px;text-align:center">ライセンスIDはこのページにしか表示されません。ブックマークしないと次回確認できなくなります。</p>
+      <div id="bookmark-shortcut" style="display:flex;justify-content:center;align-items:center;gap:10px"></div>
+      <p style="margin-top:14px;text-align:center;font-size:12px;color:#666">または、アドレスバーの <strong style="color:#121212;font-size:15px">☆</strong> マークをクリック</p>
+    </div>
+
     <p class="lead">Claude Code デスクトップアプリを使った環境構築。セットアップ完了まで 30〜60 分。</p>
 
     <!-- OS タブ -->
@@ -355,6 +364,7 @@ async function fetchLicense() {
     document.getElementById('result').style.display = 'block';
     document.getElementById('licenseId').textContent = data.license_id;
     document.getElementById('licenseIdTop').textContent = data.license_id;
+    showBookmarkHint();
   } catch (e) {
     showError('通信エラーが発生しました。しばらくしてから再度お試しください。');
     console.error(e);
@@ -388,6 +398,28 @@ function showOS(os) {
     });
   });
 });
+
+function showBookmarkHint() {
+  if (localStorage.getItem('blueprint-bookmarked')) return;
+  const hint = document.getElementById('bookmark-hint');
+  const sc = document.getElementById('bookmark-shortcut');
+  const isMac = /Mac|iPhone|iPad/.test(navigator.userAgent);
+  const kbd = 'display:inline-block;background:#121212;color:#fff;font-weight:700;padding:10px 14px;border-radius:8px;box-shadow:0 4px 0 #555;font-family:"SF Mono","Menlo","Consolas",monospace';
+  if (isMac) {
+    sc.innerHTML = '<kbd style="' + kbd + ';font-size:16px;line-height:1.2"><span style="font-size:20px">⌘</span><br><span style="font-size:11px;opacity:0.7">Command</span></kbd>'
+      + '<span style="font-size:20px;font-weight:700;color:#999">+</span>'
+      + '<kbd style="' + kbd + ';font-size:20px">D</kbd>';
+  } else {
+    sc.innerHTML = '<kbd style="' + kbd + ';font-size:20px">Ctrl</kbd>'
+      + '<span style="font-size:20px;font-weight:700;color:#999">+</span>'
+      + '<kbd style="' + kbd + ';font-size:20px">D</kbd>';
+  }
+  hint.style.display = 'block';
+  document.getElementById('bookmark-close').addEventListener('click', () => {
+    hint.style.display = 'none';
+    localStorage.setItem('blueprint-bookmarked', '1');
+  });
+}
 
 function setupCodeCopyButtons() {
   document.querySelectorAll('.code').forEach(code => {
