@@ -34,8 +34,10 @@
     <!-- ライセンスID (上部) -->
     <div class="license-panel" style="margin-bottom:24px">
       <div class="license-label">Your License ID</div>
-      <div class="license-id" id="licenseIdTop">NK-XXXX-XXXX-XXXX</div>
-      <button class="copy-btn" id="copyBtnTop">コピー</button>
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+        <div class="license-id" id="licenseIdTop" style="margin:0">NK-XXXX-XXXX-XXXX</div>
+        <button class="copy-btn" id="copyBtnTop" style="margin:0">コピー</button>
+      </div>
     </div>
 
     <p class="lead">Claude Code デスクトップアプリを使った環境構築。セットアップ完了まで 30〜60 分。</p>
@@ -315,8 +317,10 @@
     <!-- ライセンスID (下部) -->
     <div class="license-panel" style="margin-top:24px">
       <div class="license-label">Your License ID</div>
-      <div class="license-id" id="licenseId">NK-XXXX-XXXX-XXXX</div>
-      <button class="copy-btn" id="copyBtn">コピー</button>
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+        <div class="license-id" id="licenseId" style="margin:0">NK-XXXX-XXXX-XXXX</div>
+        <button class="copy-btn" id="copyBtn" style="margin:0">コピー</button>
+      </div>
     </div>
 
   </div>
@@ -335,7 +339,6 @@ const token = params.get('t');
 if (!token) {
   showError('トークンが指定されていません。同意書の完了画面から開き直してください。');
 } else {
-  history.replaceState(null, '', window.location.pathname);
   fetchLicense();
 }
 
