@@ -46,7 +46,7 @@
       <p style="font-size:15px;color:#121212;font-weight:700;margin-bottom:6px;text-align:center">このページをブックマークしてください</p>
       <p style="font-size:13px;color:#444;margin-bottom:18px;text-align:center">ライセンスIDはこのページにしか表示されません。ブックマークしないと次回確認できなくなります。</p>
       <div id="bookmark-shortcut" style="display:flex;justify-content:center;align-items:center;gap:10px"></div>
-      <p style="margin-top:14px;text-align:center;font-size:12px;color:#666">または、アドレスバーの <strong style="color:#121212;font-size:15px">☆</strong> マークをクリック</p>
+      <p id="bookmark-alt" style="margin-top:14px;text-align:center;font-size:12px;color:#666"></p>
     </div>
 
     <p class="lead">Claude Code デスクトップアプリを使った環境構築。セットアップ完了まで 30〜60 分。</p>
@@ -399,23 +399,42 @@ function showOS(os) {
   });
 });
 
+function detectBrowser() {
+  var ua = navigator.userAgent;
+  if (/Edg\//.test(ua)) return 'edge';
+  if (/Firefox\//.test(ua)) return 'firefox';
+  if (/Chrome\//.test(ua) && !/Edg\//.test(ua)) return 'chrome';
+  if (/Safari\//.test(ua) && !/Chrome\//.test(ua)) return 'safari';
+  return 'other';
+}
+
 function showBookmarkHint() {
   if (localStorage.getItem('blueprint-bookmarked')) return;
-  const hint = document.getElementById('bookmark-hint');
-  const sc = document.getElementById('bookmark-shortcut');
-  const isMac = /Mac|iPhone|iPad/.test(navigator.userAgent);
-  const kbd = 'display:inline-block;background:#121212;color:#fff;font-weight:700;padding:10px 14px;border-radius:8px;box-shadow:0 4px 0 #555;font-family:"SF Mono","Menlo","Consolas",monospace';
+  var hint = document.getElementById('bookmark-hint');
+  var sc = document.getElementById('bookmark-shortcut');
+  var alt = document.getElementById('bookmark-alt');
+  var isMac = /Mac|iPhone|iPad/.test(navigator.userAgent);
+  var browser = detectBrowser();
+  var k = 'display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;background:#121212;color:#fff;font-weight:700;font-size:18px;border-radius:8px;box-shadow:0 4px 0 #555;font-family:"SF Mono","Menlo","Consolas",monospace';
   if (isMac) {
-    sc.innerHTML = '<kbd style="' + kbd + ';font-size:16px;line-height:1.2"><span style="font-size:20px">⌘</span><br><span style="font-size:11px;opacity:0.7">Command</span></kbd>'
+    sc.innerHTML = '<kbd style="' + k + '">⌘</kbd>'
       + '<span style="font-size:20px;font-weight:700;color:#999">+</span>'
-      + '<kbd style="' + kbd + ';font-size:20px">D</kbd>';
+      + '<kbd style="' + k + '">D</kbd>';
   } else {
-    sc.innerHTML = '<kbd style="' + kbd + ';font-size:20px">Ctrl</kbd>'
+    sc.innerHTML = '<kbd style="' + k + ';width:auto;padding:0 14px">Ctrl</kbd>'
       + '<span style="font-size:20px;font-weight:700;color:#999">+</span>'
-      + '<kbd style="' + kbd + ';font-size:20px">D</kbd>';
+      + '<kbd style="' + k + '">D</kbd>';
   }
+  var altText = {
+    chrome: 'または、アドレスバー右端の <strong style="color:#121212">★</strong> アイコンをクリック',
+    safari: 'または、アドレスバー左の <strong style="color:#121212">共有ボタン（□↑）</strong>→「ブックマークに追加」',
+    firefox: 'または、アドレスバー右端の <strong style="color:#121212">★</strong> アイコンをクリック',
+    edge: 'または、アドレスバー右端の <strong style="color:#121212">☆</strong> アイコンをクリック',
+    other: 'または、ブラウザのブックマーク機能から追加してください'
+  };
+  alt.innerHTML = altText[browser];
   hint.style.display = 'block';
-  document.getElementById('bookmark-close').addEventListener('click', () => {
+  document.getElementById('bookmark-close').addEventListener('click', function() {
     hint.style.display = 'none';
     localStorage.setItem('blueprint-bookmarked', '1');
   });
