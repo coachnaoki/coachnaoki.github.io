@@ -217,7 +217,7 @@ function slide07WorkflowLong() {
           <div class="step-item">13. スライドキャプチャ＋タイムライン</div>
           <div class="step-item">14. ワイプ位置自動調整</div>
           <div class="step-item">15. 画像挿入（Gemini API対応）</div>
-          <div class="step-item">16. 特殊コンポ（CTA / 箇条書き等）</div>
+          <div class="step-item">16. 表示パネル（CTA / 箇条書き等）</div>
           <div class="step-item">17. OP・エンドスクリーン連結</div>
           <div class="step-item">18. BGM挿入（区間切替対応）</div>
           <div class="step-item">19. 本編レンダリング</div>
