@@ -121,7 +121,7 @@
 <div class="header">
   <h1>更新履歴</h1>
   <p>naoki-blueprint のバージョンアップ履歴（Semantic Versioning）</p>
-  <p style="margin-top:6px"><strong style="color:#121212">最新版: v2.18.5</strong> (2026-05-15)</p>
+  <p style="margin-top:6px"><strong style="color:#121212">最新版: v2.90.0</strong> (2026-07-07)</p>
 </div>
 
 <div class="card">
@@ -130,10 +130,80 @@
 
 <div class="card">
 
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge latest">v2.90.0</span>
+    <span class="version-date">2026-07-07</span>
+    <span style="background:#a855f7;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">スライド刷新</span>
+  </div>
+
+  <div class="section-label">🎨 スライドの全面刷新 (10テイスト + レイアウト15種 + アニメーション)</div>
+  <ul>
+    <li><strong>デザインテイスト 10 種</strong>: スライド生成 (step12) の最初に、動画の雰囲気に合わせて選べます — やさしい / 信頼感 / ミニマル / 爽やか / スタイリッシュ / ダイナミック / 高級感 / 近未来 / かわいい / ポップ。従来の暗い紺系 1 パターンから脱却しました</li>
+    <li><strong>レイアウト 8 種 → 15 種</strong>: サイクル図・ピラミッド・2×2 マトリクス・ランキング・Before/After 比較・写真レイアウト等が追加。内容に合った見せ方を AI が自動選択します</li>
+    <li><strong>ボックスの境界がはっきり</strong>: カード類に明るいテイストはドロップシャドウ、暗いテイストは縁の光 (リムライト) が付き、背景と近い色でも判別できます</li>
+    <li><strong>スライドアニメーション (オプション)</strong>: 表紙などを「タイトルがせり上がる」「数字がカウントアップする」等のアニメ付き動画クリップとして本編に挿入できます (step13)。使わなければ従来どおりの静止スライドです</li>
+  </ul>
+</div>
+
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.89.0</span>
+    <span class="version-date">2026-07-07</span>
+  </div>
+
+  <div class="section-label">📱 縦切り抜きに「ハイライトフック」 + Clips Picker 大幅改善</div>
+  <ul>
+    <li><strong>ハイライトフック</strong>: 縦切り抜きクリップの冒頭に、一番の見せ場 (3〜7秒) を先出しできます。冒頭離脱を防ぐショート動画の定番テクニック。切替効果は暗転 / 白フラッシュ / なしから選択</li>
+    <li><strong>Clips Picker 改善</strong>: 音声つきプレビュー再生・タイムライン追従スクロール・フックの金色帯ドラッグ調整・テンプレ/見出し色のホバープレビュー等、操作性を大幅改善</li>
+  </ul>
+</div>
+
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.19.0〜v2.88.0</span>
+    <span class="version-date">2026-05-16 〜 2026-07-07</span>
+    <span style="background:#0ea5e9;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">ダイジェスト</span>
+  </div>
+
+  <p class="version-desc">この期間は改善ペースが速かったため、主要な機能追加をカテゴリ別のダイジェストでまとめています。個別の詳細は配布リポジトリの <code>CHANGELOG.md</code> を参照してください。</p>
+
+  <div class="section-label">🖥️ 編集 UI (ピッカー / ダッシュボード)</div>
+  <ul>
+    <li><strong>ダッシュボード</strong> (<code>npm run dashboard</code>): 全工程の進行状況・停止ポイント・オプション ON/OFF を 1 画面で管理 (v2.48〜v2.61)</li>
+    <li><strong>picker-telop 大幅強化</strong>: BGM/SE トラック編集・音声つきプレビュー・実 SVG テロッププレビュー・スライド/画像/動画/ワイプのフル編集・素材タイムライン表示 (v2.41〜v2.46, v2.72〜v2.73, v2.80)</li>
+    <li><strong>スライドピッカー</strong>: step12 に統合。プリセット 10 種 + カラー / テロップ / フォント調整 (v2.24)</li>
+    <li><strong>マルチプロジェクト対応</strong>: 2 プロジェクト同時編集時のポート衝突を自動解決 + プロジェクト切替の残留を根治 (v2.68〜v2.69)</li>
+  </ul>
+
+  <div class="section-label">💬 テロップ</div>
+  <ul>
+    <li><strong>横版 2 行表示</strong>: 1 行 = 1 SVG 方式 + 助詞境界優先の自動分割 (v2.25〜v2.26, v2.71)</li>
+    <li><strong>新テンプレ「衝撃」「無感情」</strong> + タブ名整理 (強調→ポジティブ等) (v2.57〜v2.58)</li>
+    <li><strong>テロップアニメ 4 種</strong> (右 / 上 / ぼかし / フレア) + 3 軸デザイン (テンプレ × デザイン × 色) (v2.52, v2.79)</li>
+    <li><strong>4K / 720p でもテロップサイズが正しく</strong>: 解像度スケール対応 (v2.66)</li>
+  </ul>
+
+  <div class="section-label">🎬 映像処理</div>
+  <ul>
+    <li><strong>2 カメ切替ワークフロー</strong>: 波形相関による自動同期 (カチンコ不要) + step11 オーバーレイ (v2.44, v2.88)</li>
+    <li><strong>ワイプ位置の自動キャリブレーション</strong> (v2.86) / <strong>顔アイコン追従の全面刷新</strong> (v2.64, v2.83)</li>
+    <li><strong>HW エンコード</strong>: 速度変更・loudnorm を GPU 支援で高速化 (v2.50, v2.56) + <strong>4K 素材の自動軽量化</strong> (v2.88)</li>
+    <li><strong>縦切り抜きクリップ生成</strong>: 完成した横動画から 1080×1920 のショートを量産 (v2.87)</li>
+  </ul>
+
+  <div class="section-label">⚙️ 基盤・安定性</div>
+  <ul>
+    <li><strong>Remotion 4.0.484 アップグレード</strong> + Windows 高速レンダリング (veryfast / NVENC 自動検出) (v2.85)</li>
+    <li><strong>ライセンス API を Vercel 移行</strong> (v2.28 相当) / <strong>エラーレポート自動送信</strong> (v2.62〜v2.63)</li>
+    <li><strong>Chrome 未導入でも動くブラウザ自動検出</strong> (Edge 対応) (v2.67) / Windows の各種安定化 (v2.35〜v2.46)</li>
+  </ul>
+</div>
+
 <!-- v2.14.1 〜 v2.18.5 (プロファイル機能本格運用) -->
 <div class="version-entry">
   <div class="version-header">
-    <span class="version-badge latest">v2.14.1〜v2.18.5</span>
+    <span class="version-badge">v2.14.1〜v2.18.5</span>
     <span class="version-date">2026-05-15</span>
     <span style="background:#a855f7;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">プロファイル機能</span>
   </div>
