@@ -229,7 +229,7 @@ function slide07Chapter2() {
 // 08. 言い直しカット精度向上 (Speechmatics)
 function slide08AsrUpgrade() {
   return `<section class="slide" data-section="asr"
-    data-notes="文字起こしエンジンを Whisper から Speechmatics に完全移行しました。理由はシンプルです。Whisper は smoothing といって、明確に言い直した発話を、smooth に綺麗な文章として整形してしまうクセがあります。たとえば 「テロップを、 あ、 テロップを設置します」 と言い直した時に、 Whisper は 「テロップを設置します」 とだけ書き起こす。 これだと言い直しカット機能が動きません。 Speechmatics は verbatim で 「テロップを、 あ、 テロップを設置します」 とそのまま残してくれるので、 言い直しカットがちゃんと機能するようになりました。 利用には Speechmatics API キーの取得をお願いします。 無料枠が月 8 時間ぶん永続でついてくるので、 普通の使い方なら追加費用はかかりません。">
+    data-notes="文字起こしエンジンを Whisper から Speechmatics に完全移行しました。理由はシンプルです。Whisper は smoothing といって、明確に言い直した発話を、smooth に綺麗な文章として整形してしまうクセがあります。たとえば 「テロップを、 あ、 テロップを設置します」 と言い直した時に、 Whisper は 「テロップを設置します」 とだけ書き起こす。 これだと言い直しカット機能が動きません。 Speechmatics は verbatim で 「テロップを、 あ、 テロップを設置します」 とそのまま残してくれるので、 言い直しカットがちゃんと機能するようになりました。 利用には Speechmatics API キーの取得をお願いします。 新規登録で 25 ドル分のクレジットが付与されるので (2026年8月〜の新体系・約62時間分)、 普通の使い方なら数年単位で追加費用はかかりません。">
     ${ph(8, '#04 ASR Upgrade')}
     <div class="slide-content">
       <div class="pill pill--cool">v2.13.0</div>
@@ -259,7 +259,7 @@ function slide08AsrUpgrade() {
           </div>
         </div>
       </div>
-      <p class="lead mt-32 text-white" style="text-align:center">利用には <span class="hl">Speechmatics API キーの取得</span> をお願いします<br/><span style="color:var(--ink-600);font-size:24px">無料枠 8h/月 (永続) ・ 超過分は $0.204/h ≈ 約 30 円/h</span></p>
+      <p class="lead mt-32 text-white" style="text-align:center">利用には <span class="hl">Speechmatics API キーの取得</span> をお願いします<br/><span style="color:var(--ink-600);font-size:24px">新規登録で $25 分のクレジット付与 (2026年8月〜・約62時間分) ・ 消費後は従量課金</span></p>
     </div>
   </section>`;
 }

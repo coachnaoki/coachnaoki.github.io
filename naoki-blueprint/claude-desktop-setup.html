@@ -90,6 +90,8 @@
       <ol style="font-size:13px">
         <li>Claude Desktop の上部にある「<strong>Code</strong>」タブをクリック</li>
         <li>「<strong>Local</strong>」→「<strong>Select folder</strong>」→ <strong>デスクトップ</strong>フォルダを選択</li>
+        <li>チャット欄に「<strong>テスト</strong>」と入力して送信<br>
+          <span style="font-size:12px;color:#0891b2">※ 一度チャットを送らないと、次のターミナルのアイコンが表示されません</span></li>
         <li>画面右上の「<strong>&gt;_</strong>」アイコンをクリック → 右側にターミナルが開きます</li>
       </ol>
 
@@ -102,6 +104,12 @@
       <p style="font-size:13px;color:#666;margin:6px 0 4px">右側のターミナルに以下のコマンドをコピペして Enter:</p>
       <div class="code">[ -x /opt/homebrew/bin/brew ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval "$(/opt/homebrew/bin/brew shellenv)" && brew install git node ffmpeg gh python@3.12</div>
       <p style="font-size:13px;color:#666;margin-top:8px">Mac のパスワードを聞かれたら入力してください（入力中は画面に何も表示されませんが、正常です）。</p>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ ② が終わったら Claude Desktop を再起動してください</strong><br>
+        インストールしたツールを Claude Desktop に認識させるための再起動です。これをしないと、次の <code>gh auth login</code> が動かないことがあります。<br>
+        <span style="font-size:13px">メニューバー → Claude →「<strong>Quit Claude</strong>」で完全に終了 → もう一度起動 →「<strong>Code</strong>」タブ →「<strong>Local</strong>」→ <strong>デスクトップ</strong>フォルダを選択 → チャットに「テスト」と送信 →「<strong>&gt;_</strong>」でターミナルを開き直してから ③ に進みます。</span>
+      </div>
 
       <p style="margin-top:24px"><strong style="color:#121212">③ GitHub にログイン</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">同じターミナルで以下を実行:</p>
@@ -224,6 +232,8 @@
       <ol style="font-size:13px">
         <li>Claude Desktop の上部にある「<strong>Code</strong>」タブをクリック</li>
         <li>「<strong>Local</strong>」→「<strong>Select folder</strong>」→ <strong>デスクトップ</strong>フォルダを選択</li>
+        <li>チャット欄に「<strong>テスト</strong>」と入力して送信<br>
+          <span style="font-size:12px;color:#0891b2">※ 一度チャットを送らないと、次のターミナルのアイコンが表示されません</span></li>
         <li>画面右上の「<strong>&gt;_</strong>」アイコンをクリック → 右側にターミナルが開きます</li>
       </ol>
 
@@ -235,6 +245,12 @@
       <p style="margin-top:18px"><strong style="color:#121212">② 全ツールを 1 行でインストール</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">右側のターミナルに以下のコマンドをコピペして Enter:</p>
       <div class="code">winget install --id Git.Git -e --source winget; winget install OpenJS.NodeJS.LTS --source winget; winget install Gyan.FFmpeg --source winget; winget install GitHub.cli --source winget; winget install Python.Python.3.12 -e --source winget; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); if (Test-Path "$env:ProgramFiles\Git\cmd") { $env:Path += ";$env:ProgramFiles\Git\cmd" }</div>
+
+      <div class="warn-box">
+        <strong style="color:#121212">⚠ ② が終わったら Claude Desktop を再起動してください</strong><br>
+        インストールしたツールを Claude Desktop に認識させるための再起動です。これをしないと、次の <code>gh auth login</code> が動かないことがあります。<br>
+        <span style="font-size:13px">タスクバーの Claude アイコンを右クリック →「<strong>終了</strong>」で完全に終了 → もう一度起動 →「<strong>Code</strong>」タブ →「<strong>Local</strong>」→ <strong>デスクトップ</strong>フォルダを選択 → チャットに「テスト」と送信 →「<strong>&gt;_</strong>」でターミナルを開き直してから ③ に進みます。</span>
+      </div>
 
       <p style="margin-top:24px"><strong style="color:#121212">③ GitHub にログイン</strong></p>
       <p style="font-size:13px;color:#666;margin:6px 0 4px">同じターミナルで以下を実行:</p>
