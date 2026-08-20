@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>テロップフォント アンケート | Naoki式 動画編集 BLUEPRINT</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;
+  --good:#2563eb;--good-bg:#eff6ff;--bad:#dc2626;--bad-bg:#fef2f2;--accent:#111827}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;font-size:15px;line-height:1.7}
+header{background:#111827;color:#fff;padding:22px 20px}
+.wrap{max-width:1280px;margin:0 auto}
+header h1{margin:0 0 6px;font-size:20px;font-weight:900}
+header p{margin:0;font-size:13px;color:#9ca3af;line-height:1.6}
+
+main{max-width:1280px;margin:0 auto;padding:18px 20px 72px}
+
+.intro{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px 18px;margin-bottom:16px}
+.intro h2{margin:0 0 8px;font-size:15px;font-weight:900}
+.intro ol{margin:0;padding-left:1.3em;font-size:14px;color:#374151}
+.intro li{margin-bottom:3px}
+
+.namebox{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px;
+  padding-top:14px;border-top:1px dashed var(--line)}
+.namebox label{font-size:13px;font-weight:900}
+.namebox input{flex:1;min-width:200px;padding:9px 12px;border:1px solid #d1d5db;
+  border-radius:8px;font-size:15px;font-family:inherit}
+.namebox .st{font-size:12px;color:var(--sub)}
+
+.bar{position:sticky;top:0;z-index:30;background:rgba(245,246,248,.95);
+  backdrop-filter:blur(8px);padding:12px 0;border-bottom:1px solid var(--line);margin-bottom:16px}
+.bar .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.bar label{font-size:12px;font-weight:900;color:var(--sub)}
+select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;
+  font-size:14px;font-family:inherit;background:#fff}
+.chip{padding:6px 13px;border:1px solid #d1d5db;border-radius:999px;background:#fff;
+  cursor:pointer;font-size:12.5px;font-weight:900;color:var(--sub);font-family:inherit;user-select:none}
+.chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:13px 15px 14px}
+.card.g{border-color:var(--good);background:var(--good-bg)}
+.card.b{border-color:var(--bad);background:var(--bad-bg);opacity:.72}
+.chead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:9px}
+.cname{font-weight:900;font-size:14px;line-height:1.35}
+.cname small{display:block;font-weight:400;color:var(--sub);font-size:11px;
+  font-family:ui-monospace,monospace}
+.tags{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.t{font-size:10px;font-weight:900;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.t-now{background:#111827;color:#fff}
+.t-cat{background:#f3f4f6;color:#4b5563}
+
+.sample{border:1px dashed var(--line);border-radius:8px;background:#fafafa;
+  padding:12px 10px;min-height:88px;display:grid;place-items:center;overflow:hidden}
+.sample.dark{background:#1f2937;border-color:#374151}
+.sample .plain{font-size:34px;font-weight:900;line-height:1.35;word-break:keep-all;text-align:center}
+.sample svg{max-width:100%;height:auto;overflow:visible}
+
+.vote{display:flex;gap:8px;margin-top:11px}
+.vote button{flex:1;padding:10px;border:1.5px solid #d1d5db;background:#fff;border-radius:9px;
+  cursor:pointer;font-size:14px;font-weight:900;font-family:inherit;color:var(--sub);
+  transition:.12s}
+.vote button:active{transform:scale(.97)}
+.vote button.on-g{background:var(--good);color:#fff;border-color:var(--good)}
+.vote button.on-b{background:var(--bad);color:#fff;border-color:var(--bad)}
+
+.freebox{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px 18px;margin-top:22px}
+.freebox h2{margin:0 0 6px;font-size:15px;font-weight:900}
+.freebox p{margin:0 0 10px;font-size:13px;color:var(--sub)}
+.freebox textarea{width:100%;min-height:92px;padding:11px 12px;border:1px solid #d1d5db;
+  border-radius:9px;font-size:15px;font-family:inherit;resize:vertical}
+.freebox button{margin-top:9px;padding:10px 22px;background:var(--accent);color:#fff;border:0;
+  border-radius:9px;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit}
+
+.status{margin-left:auto;display:flex;gap:12px;align-items:center;font-size:13px;
+  background:#111827;color:#fff;border-radius:999px;padding:6px 14px;white-space:nowrap}
+.status b{font-size:16px}
+.status .g{color:#93c5fd}.status .b{color:#fca5a5}
+.status .save{font-size:11.5px;color:#9ca3af}
+.status .save.ok{color:#6ee7b7}
+.status .save.ng{color:#fca5a5}
+@media(max-width:520px){
+  .grid{grid-template-columns:1fr}
+  .status{font-size:12px;padding:5px 11px;gap:9px;margin-left:0;width:100%;justify-content:center}
+  /* スマホでは sticky を解除 (バーだけで画面の35%を占有し、カードが1枚しか見えなくなるため)。
+     代わりに 👍/👎 の数だけを画面下に小さく固定する */
+  .bar{position:static;backdrop-filter:none;background:transparent}
+  /* pointer-events:none が必須 — 固定ピルは 1 カラムのカードに必ず重なるので、
+     これが無いと下にある 👍/👎 ボタンのタップを奪う */
+  .bar .status{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);
+    width:auto;z-index:60;box-shadow:0 6px 20px rgba(0,0,0,.28);padding:7px 15px;
+    pointer-events:none;opacity:.94}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>テロップフォント アンケート</h1>
+  <p>BLUEPRINT のテロップで使えるフォントを増やす／減らすための投票です。<br>
+     「これ使いたい」＝ 👍 いる、「一生使わない」＝ 👎 いらない。直感で大丈夫です。</p>
+</div></header>
+
+<main>
+  <div class="intro">
+    <h2>やること</h2>
+    <ol>
+      <li>下のお名前だけ入れてください（誰の投票か分かるようにするためです）</li>
+      <li>フォントを見て 👍 か 👎 を押す（押した瞬間に自動で保存されます）</li>
+      <li>全部押さなくてOK。気になったものだけで十分です</li>
+      <li>最後に「他に入れてほしいフォント」があれば書いてください</li>
+    </ol>
+    <div class="namebox">
+      <label for="who">お名前</label>
+      <input type="text" id="who" placeholder="例: 山田太郎" autocomplete="name">
+      <span class="st" id="whost">名前を入れると投票できます</span>
+    </div>
+  </div>
+
+  <div class="bar"><div class="wrap">
+    <div class="row">
+      <label>見え方</label>
+      <select id="mode">
+        <option value="normal" selected>通常テロップ（紺＋白フチ）</option>
+        <option value="emph">強調テロップ（赤＋クリーム縁）</option>
+        <option value="neg">危機感テロップ（白抜き＋黒フチ）</option>
+        <option value="plain">文字だけ</option>
+      </select>
+      <label>文字</label>
+      <input type="text" class="s" id="txt" value="圧倒的に伸びる" size="12">
+      <span class="status">
+        <span>👍 <b class="g" id="ng">0</b></span>
+        <span>👎 <b class="b" id="nb">0</b></span>
+        <span class="save" id="save">名前待ち</span>
+      </span>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <span class="chip on" data-cat="all">すべて</span>
+      <span class="chip" data-cat="now">今使えるもの</span>
+      <span class="chip" data-cat="gothic">ゴシック</span>
+      <span class="chip" data-cat="mincho">明朝</span>
+      <span class="chip" data-cat="round">丸ゴシック</span>
+      <span class="chip" data-cat="display">デザイン・装飾</span>
+      <span class="chip" data-cat="hand">手書き</span>
+      <span class="chip" data-cat="todo">まだ押してない</span>
+    </div>
+  </div></div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="freebox">
+    <h2>他に入れてほしいフォントがあれば</h2>
+    <p>フォント名か、配布サイトのURLを書いてください（例: 零ゴシック、源界明朝 など）。<br>
+       テロップの要望・使いにくいところも一緒に書いてOKです。</p>
+    <textarea id="free" placeholder="例: 零ゴシック を入れてほしいです。https://booth.pm/ja/items/2658538"></textarea>
+    <button id="sendfree">送信する</button>
+    <button id="copyall" style="background:#fff;color:#111827;border:1.5px solid #d1d5db;margin-left:8px">結果をコピー</button>
+    <p style="margin:10px 0 0;font-size:12px;color:#6b7280">
+      ※ 押した内容はこの端末にも残ります。うまく送れていないかも、と思ったら
+      「結果をコピー」で LINE に貼って送ってください。</p>
+  </div>
+</main>
+
+
+<script>
+// ===== 設定 =====
+// GAS Web App の URL。 空のままだと保存は端末内 (localStorage) のみになる。
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbxhZ7r_6FSGlvs0y2omZv9Bbl2H8U1ksoHNdqJLVwqIHMwO1XvrYX2-EIkegO-FAUO4/exec";
+
+const FONTS=[{"f":"Noto Sans JP","c":"gothic","w":["100","200","300","400","500","600","700","800","900"],"r":0,"slot":"base","jp":"角ゴシック"},{"f":"Noto Serif JP","c":"mincho","w":["200","300","400","500","600","700","800","900"],"r":0,"slot":"","jp":""},{"f":"M PLUS Rounded 1c","c":"gothic","w":["100","300","400","500","700","800","900"],"r":1,"slot":"add","jp":"M+ 丸ゴシック"},{"f":"M PLUS 1p","c":"gothic","w":["100","300","400","500","700","800","900"],"r":0,"slot":"","jp":""},{"f":"Zen Kaku Gothic New","c":"gothic","w":["300","400","500","700","900"],"r":0,"slot":"","jp":""},{"f":"Zen Maru Gothic","c":"gothic","w":["300","400","500","700","900"],"r":1,"slot":"add","jp":"Zen 丸ゴシック"},{"f":"Shippori Mincho","c":"mincho","w":["400","500","600","700","800"],"r":0,"slot":"base","jp":"明朝体"},{"f":"LINE Seed JP","c":"gothic","w":["100","400","700","800"],"r":0,"slot":"","jp":""},{"f":"Sawarabi Mincho","c":"mincho","w":["400"],"r":0,"slot":"","jp":""},{"f":"BIZ UDPGothic","c":"gothic","w":["400","700"],"r":0,"slot":"","jp":""},{"f":"Sawarabi Gothic","c":"gothic","w":["400"],"r":0,"slot":"","jp":""},{"f":"Zen Old Mincho","c":"mincho","w":["400","500","600","700","900"],"r":0,"slot":"","jp":""},{"f":"Kosugi Maru","c":"gothic","w":["400"],"r":1,"slot":"","jp":""},{"f":"M PLUS 1","c":"gothic","w":["100","200","300","400","500","600","700","800","900"],"r":0,"slot":"","jp":""},{"f":"Dela Gothic One","c":"display","w":["400"],"r":0,"slot":"add","jp":"デラゴシック"},{"f":"Kaisei Decol","c":"mincho","w":["400","500","700"],"r":1,"slot":"add","jp":"解星デコール"},{"f":"Zen Kaku Gothic Antique","c":"gothic","w":["300","400","500","700","900"],"r":0,"slot":"","jp":""},{"f":"Shippori Mincho B1","c":"mincho","w":["400","500","600","700","800"],"r":0,"slot":"","jp":""},{"f":"Hachi Maru Pop","c":"hand","w":["400"],"r":0,"slot":"add","jp":"はちまるポップ"},{"f":"Potta One","c":"display","w":["400"],"r":1,"slot":"add","jp":"ポッタ"},{"f":"Yuji Mai","c":"mincho","w":["400"],"r":0,"slot":"","jp":""},{"f":"IBM Plex Sans JP","c":"gothic","w":["100","200","300","400","500","600","700"],"r":0,"slot":"","jp":""},{"f":"BIZ UDGothic","c":"gothic","w":["400","700"],"r":0,"slot":"","jp":""},{"f":"Murecho","c":"gothic","w":["100","200","300","400","500","600","700","800","900"],"r":0,"slot":"","jp":""},{"f":"Mochiy Pop One","c":"gothic","w":["400"],"r":1,"slot":"add","jp":"モッチーポップ"},{"f":"Kiwi Maru","c":"mincho","w":["300","400","500"],"r":1,"slot":"add","jp":"キウイ丸"},{"f":"M PLUS 2","c":"gothic","w":["100","200","300","400","500","600","700","800","900"],"r":0,"slot":"","jp":""},{"f":"DotGothic16","c":"gothic","w":["400"],"r":0,"slot":"add","jp":"ドットゴシック"},{"f":"Klee One","c":"hand","w":["400","600"],"r":0,"slot":"base","jp":"教科書体"},{"f":"Kosugi","c":"gothic","w":["400"],"r":0,"slot":"","jp":""},{"f":"BIZ UDPMincho","c":"mincho","w":["400","700"],"r":0,"slot":"","jp":""},{"f":"Hina Mincho","c":"mincho","w":["400"],"r":0,"slot":"","jp":""},{"f":"Yusei Magic","c":"gothic","w":["400"],"r":0,"slot":"add","jp":"游星マジック"},{"f":"Rampart One","c":"display","w":["400"],"r":0,"slot":"add","jp":"ランパート"},{"f":"RocknRoll One","c":"gothic","w":["400"],"r":0,"slot":"add","jp":"ロックンロール"},{"f":"Monomaniac One","c":"gothic","w":["400"],"r":0,"slot":"","jp":""},{"f":"Zen Antique","c":"mincho","w":["400"],"r":0,"slot":"add","jp":"Zen アンティーク"},{"f":"Yuji Syuku","c":"mincho","w":["400"],"r":0,"slot":"add","jp":"佑字 肅"},{"f":"Zen Kurenaido","c":"gothic","w":["400"],"r":0,"slot":"","jp":""},{"f":"Kaisei Opti","c":"mincho","w":["400","500","700"],"r":0,"slot":"","jp":""},{"f":"Train One","c":"display","w":["400"],"r":0,"slot":"","jp":""},{"f":"Zen Antique Soft","c":"mincho","w":["400"],"r":1,"slot":"","jp":""},{"f":"Cherry Bomb One","c":"display","w":["400"],"r":0,"slot":"","jp":""},{"f":"Shippori Antique","c":"gothic","w":["400"],"r":0,"slot":"","jp":""},{"f":"Kaisei Tokumin","c":"mincho","w":["400","500","700","800"],"r":0,"slot":"","jp":""},{"f":"Aoboshi One","c":"mincho","w":["400"],"r":0,"slot":"","jp":""},{"f":"Mochiy Pop P One","c":"gothic","w":["400"],"r":1,"slot":"","jp":""},{"f":"Reggae One","c":"display","w":["400"],"r":0,"slot":"base","jp":"極太"},{"f":"M PLUS 1 Code","c":"mono","w":["100","200","300","400","500","600","700"],"r":0,"slot":"","jp":""},{"f":"Yomogi","c":"hand","w":["400"],"r":0,"slot":"","jp":""},{"f":"BIZ UDMincho","c":"mincho","w":["400","700"],"r":0,"slot":"","jp":""},{"f":"Stick","c":"gothic","w":["400"],"r":0,"slot":"","jp":""},{"f":"Darumadrop One","c":"display","w":["400"],"r":1,"slot":"","jp":""},{"f":"New Tegomin","c":"mincho","w":["400"],"r":0,"slot":"","jp":""},{"f":"Kapakana","c":"hand","w":["300","400"],"r":0,"slot":"","jp":""},{"f":"Shippori Antique B1","c":"gothic","w":["400"],"r":0,"slot":"","jp":""},{"f":"Yuji Boku","c":"mincho","w":["400"],"r":0,"slot":"","jp":""},{"f":"Kaisei HarunoUmi","c":"mincho","w":["400","500","700"],"r":0,"slot":"","jp":""},{"f":"WDXL Lubrifont JP N","c":"gothic","w":["400"],"r":0,"slot":"","jp":""},{"f":"Slackside One","c":"hand","w":["400"],"r":0,"slot":"","jp":""},{"f":"Tsukimi Rounded","c":"gothic","w":["300","400","500","600","700"],"r":1,"slot":"","jp":""},{"f":"Shizuru","c":"display","w":["400"],"r":0,"slot":"","jp":""},{"f":"Palette Mosaic","c":"display","w":["400"],"r":0,"slot":"","jp":""},{"f":"Rock 3D","c":"display","w":["400"],"r":0,"slot":"","jp":""},{"f":"Chokokutai","c":"display","w":["400"],"r":0,"slot":"","jp":""},{"f":"M PLUS U","c":"gothic","w":["100","200","300","400","500","600","700","800","900"],"r":0,"slot":"","jp":""},{"f":"Yuji Hentaigana Akari","c":"hand","w":["400"],"r":0,"slot":"","jp":""},{"f":"Yuji Hentaigana Akebono","c":"hand","w":["400"],"r":0,"slot":"","jp":""}];
+const CATJP={gothic:'ゴシック',mincho:'明朝',display:'デザイン',hand:'手書き',mono:'等幅'};
+const LS_V='nbFontVotes', LS_N='nbFontName';
+
+// ===== フォント遅延ロード =====
+const loaded=new Set();
+function loadFont(fam,weights){
+  if(loaded.has(fam))return; loaded.add(fam);
+  const w=weights.filter(x=>['400','700','800','900'].includes(x));
+  const l=document.createElement('link'); l.rel='stylesheet';
+  l.href='https://fonts.googleapis.com/css2?family='+fam.replace(/ /g,'+')+
+    (w.length?':wght@'+w.join(';'):'')+'&display=swap';
+  document.head.appendChild(l);
+}
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){loadFont(e.target.dataset.family,JSON.parse(e.target.dataset.weights));io.unobserve(e.target)}
+}),{rootMargin:'400px'});
+
+// ===== テロップ風プレビュー =====
+const charW=ch=>/[\x00-\x7F]/.test(ch)?0.6:1.0;
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function svgTelop(text,ff,mode){
+  const fs=90,w=Math.max(300,[...text].reduce((s,c)=>s+charW(c),0)*fs+140),h=fs*1.7;
+  const id='x'+Math.random().toString(36).slice(2,8);
+  const T=a=>'<text x="'+(w/2)+'" y="'+(h/2)+'" text-anchor="middle" dominant-baseline="central" '+
+    'font-family="'+esc(ff)+'" font-size="'+fs+'" font-weight="900" '+a+'>'+esc(text)+'</text>';
+  if(mode==='normal') return '<svg width="100%" viewBox="0 0 '+w+' '+h+'" style="filter:drop-shadow(0 6px 5px rgba(0,0,0,.2))">'+
+    T('fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linejoin="round"')+T('fill="#10458B"')+'</svg>';
+  if(mode==='emph') return '<svg width="100%" viewBox="0 0 '+w+' '+h+'"><defs>'+
+    '<linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8d0000"/>'+
+    '<stop offset="25%" stop-color="#c70000"/><stop offset="50%" stop-color="#ff3b25"/>'+
+    '<stop offset="75%" stop-color="#c70000"/><stop offset="100%" stop-color="#8d0000"/></linearGradient></defs>'+
+    T('fill="none" stroke="#7f280e" stroke-width="26" stroke-linejoin="round"')+
+    T('fill="none" stroke="#fff3bf" stroke-width="13" stroke-linejoin="round"')+T('fill="url(#'+id+')"')+'</svg>';
+  if(mode==='neg') return '<svg width="100%" viewBox="0 0 '+w+' '+h+'"><defs>'+
+    '<filter id="'+id+'" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDev="12"/></filter></defs>'+
+    T('fill="none" stroke="#000" stroke-width="26" stroke-linejoin="round" filter="url(#'+id+')" opacity="0.9"')+
+    T('fill="#FFFFFF"')+'</svg>';
+  return '';
+}
+
+// ===== 保存 (押した瞬間) =====
+let votes={}, who='';
+try{votes=JSON.parse(localStorage.getItem(LS_V)||'{}')}catch(e){votes={}}
+try{who=localStorage.getItem(LS_N)||''}catch(e){who=''}
+
+const queue=[];
+let flushing=false, lastErr=false;
+function setSave(text,cls){
+  const el=document.getElementById('save');
+  el.textContent=text; el.className='save'+(cls?' '+cls:'');
+}
+function enqueue(payload){
+  queue.push(payload);
+  try{localStorage.setItem('nbFontQueue',JSON.stringify(queue))}catch(e){}
+  flush();
+}
+async function flush(){
+  if(flushing||!queue.length)return;
+  if(!ENDPOINT||ENDPOINT.indexOf('http')!==0){ // 未設定 = 端末内保存のみ
+    queue.length=0; setSave('この端末に保存しました','ok'); return;
+  }
+  flushing=true; setSave('保存中…');
+  while(queue.length){
+    const p=queue[0];
+    try{
+      await fetch(ENDPOINT,{method:'POST',mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(p)});
+      queue.shift();
+      try{localStorage.setItem('nbFontQueue',JSON.stringify(queue))}catch(e){}
+      lastErr=false;
+    }catch(e){
+      lastErr=true; setSave('通信エラー（あとで自動再送します）','ng');
+      flushing=false; setTimeout(flush,8000); return;
+    }
+  }
+  flushing=false; setSave('送信しました','ok');
+}
+try{ const q=JSON.parse(localStorage.getItem('nbFontQueue')||'[]'); if(q.length){queue.push(...q); } }catch(e){}
+
+// ===== 描画 =====
+function ffOf(f){return f.f+(f.c==='mincho'?', serif':f.c==='hand'?', cursive':', sans-serif')}
+function makeCard(f){
+  const el=document.createElement('div');
+  el.className='card'; el.dataset.family=f.f; el.dataset.weights=JSON.stringify(f.w);
+  el.dataset.cat=f.c; el.dataset.round=f.r; el.dataset.now=f.slot?1:0;
+  const tags=[];
+  if(f.slot) tags.push('<span class="t t-now">今使える</span>');
+  tags.push('<span class="t t-cat">'+(f.r?'丸ゴシック':CATJP[f.c])+'</span>');
+  el.innerHTML='<div class="chead"><div class="cname">'+(f.jp||f.f)+'<small>'+f.f+'</small></div>'+
+    '<div class="tags">'+tags.join('')+'</div></div>'+
+    '<div class="sample"></div>'+
+    '<div class="vote"><button data-v="g">👍 いる</button><button data-v="b">👎 いらない</button></div>';
+  el.querySelectorAll('.vote button').forEach(btn=>btn.onclick=()=>{
+    if(!who){ document.getElementById('who').focus();
+      setSave('先にお名前を入れてください','ng'); return; }
+    const v=btn.dataset.v;
+    votes[f.f]=votes[f.f]===v?null:v;
+    if(!votes[f.f]) delete votes[f.f];
+    try{localStorage.setItem(LS_V,JSON.stringify(votes))}catch(e){}
+    applyVote(el,f.f); tally();
+    enqueue({type:'vote',name:who,font:f.f,vote:votes[f.f]||'clear',ua:navigator.userAgent.slice(0,120)});
+  });
+  io.observe(el);
+  return el;
+}
+function applyVote(el,fam){
+  const v=votes[fam];
+  el.classList.toggle('g',v==='g'); el.classList.toggle('b',v==='b');
+  el.querySelectorAll('.vote button').forEach(b=>{
+    b.className = (v==='g'&&b.dataset.v==='g') ? 'on-g'
+                : (v==='b'&&b.dataset.v==='b') ? 'on-b' : '';
+  });
+}
+function paint(){
+  const t=document.getElementById('txt').value||'あ';
+  const m=document.getElementById('mode').value;
+  document.querySelectorAll('.card').forEach(c=>{
+    const f=FONTS.find(x=>x.f===c.dataset.family); if(!f)return;
+    const s=c.querySelector('.sample');
+    s.classList.toggle('dark',m==='neg');
+    s.innerHTML = m==='plain'
+      ? '<div class="plain" style="font-family:'+"'"+f.f+"'"+','+(f.c==='mincho'?'serif':'sans-serif')+'">'+esc(t)+'</div>'
+      : svgTelop(t,ffOf(f),m);
+  });
+}
+let cat='all';
+function filter(){
+  document.querySelectorAll('.card').forEach(c=>{
+    let ok=true;
+    if(cat==='now') ok=c.dataset.now==='1';
+    else if(cat==='round') ok=c.dataset.round==='1';
+    else if(cat==='todo') ok=!votes[c.dataset.family];
+    else if(cat!=='all') ok=c.dataset.cat===cat;
+    c.style.display=ok?'':'none';
+  });
+}
+function tally(){
+  const v=Object.values(votes);
+  document.getElementById('ng').textContent=v.filter(x=>x==='g').length;
+  document.getElementById('nb').textContent=v.filter(x=>x==='b').length;
+}
+
+const grid=document.getElementById('grid');
+FONTS.forEach(f=>{const el=makeCard(f); grid.appendChild(el); applyVote(el,f.f)});
+paint(); filter(); tally();
+
+// 名前
+const whoEl=document.getElementById('who');
+whoEl.value=who;
+if(who) document.getElementById('whost').textContent='投票できます';
+whoEl.oninput=()=>{
+  who=whoEl.value.trim();
+  try{localStorage.setItem(LS_N,who)}catch(e){}
+  document.getElementById('whost').textContent = who?'投票できます':'名前を入れると投票できます';
+  if(who) setSave(queue.length?'未送信あり':'準備OK');
+};
+document.getElementById('txt').oninput=paint;
+document.getElementById('mode').onchange=paint;
+document.querySelectorAll('.chip').forEach(ch=>ch.onclick=()=>{
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+  ch.classList.add('on'); cat=ch.dataset.cat; filter();
+});
+document.getElementById('copyall').onclick=()=>{
+  const g=Object.entries(votes).filter(([,v])=>v==='g').map(([f])=>f);
+  const b=Object.entries(votes).filter(([,v])=>v==='b').map(([f])=>f);
+  const out='【フォントアンケート】'+(who||'(名前未入力)')+'\n\n'+
+    '■ いる ('+g.length+')\n'+(g.length?g.map(x=>'・'+x).join('\n'):'・(なし)')+'\n\n'+
+    '■ いらない ('+b.length+')\n'+(b.length?b.map(x=>'・'+x).join('\n'):'・(なし)')+'\n\n'+
+    '■ 他に入れてほしいフォント\n'+(document.getElementById('free').value.trim()||'(なし)');
+  navigator.clipboard.writeText(out).then(()=>{
+    const el=document.getElementById('copyall'); el.textContent='コピーしました';
+    setTimeout(()=>el.textContent='結果をコピー',2000);
+  }).catch(()=>{ window.prompt('コピーしてください', out); });
+};
+document.getElementById('sendfree').onclick=()=>{
+  const t=document.getElementById('free').value.trim();
+  if(!t){document.getElementById('free').focus();return}
+  if(!who){whoEl.focus(); setSave('先にお名前を入れてください','ng'); return}
+  enqueue({type:'note',name:who,text:t});
+  const b=document.getElementById('sendfree'); b.textContent='送信しました'; b.disabled=true;
+  setTimeout(()=>{b.textContent='送信する';b.disabled=false},2500);
+};
+if(queue.length) flush();
+</script>
+</body>
+</html>
