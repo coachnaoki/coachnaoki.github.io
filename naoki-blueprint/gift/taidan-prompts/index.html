@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>対談動画プロンプト集（10本）｜Naoki式 AI動画編集 BLUEPRINT</title>
+<meta name="description" content="企画・出演依頼から編集・切り抜き・記事化まで、対談動画に必要なプロンプトを10本まとめました。">
+<meta property="og:title" content="対談動画プロンプト集（10本）">
+<meta property="og:description" content="外注で2週間かかってた動画が、AIで1時間でできるようになった話">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b1524; --sub:#5a6b7d; --faint:#8896a5;
+  --line:#e3e8ee; --bg:#eef2f7; --card:#ffffff; --panel:#f5f8fc;
+  --brand:#2563eb; --brand-dark:#1d4ed8; --brand-bg:#eff6ff; --on-brand:#ffffff;
+  --code:#0f1b2d; --code-ink:#dbe6f5; --code-line:#22334d;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',Meiryo,system-ui,sans-serif;
+  font-size:16px;line-height:1.85;-webkit-text-size-adjust:100%}
+.shell{width:min(100%,760px);margin:0 auto;background:var(--card);
+  box-shadow:0 0 50px rgba(11,21,36,.10);min-height:100vh}
+
+/* ── ヒーロー ── */
+.hero{background:linear-gradient(160deg,#0b1524 0%,#132betc 60%,#1b3companion 100%);}
+.hero{background:linear-gradient(155deg,#0b1524 0%,#16294a 55%,#1d4ed8 160%);
+  color:#fff;padding:34px 22px 30px}
+.kicker{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:900;
+  letter-spacing:.08em;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);
+  padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.hero h1{margin:0 0 10px;font-size:clamp(20px,5.2vw,27px);line-height:1.5;font-weight:900;
+  letter-spacing:.01em}
+.hero .sub{margin:0;color:#a9c2e8;font-size:13.5px;line-height:1.75}
+.herostats{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.stat{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;padding:8px 13px;font-size:12px;color:#cfe0f7}
+.stat b{display:block;font-size:19px;color:#fff;line-height:1.3}
+
+/* ── 導入 ── */
+.intro{padding:24px 22px 4px}
+.intro p{margin:0 0 12px;font-size:15px}
+.howto{background:var(--brand-bg);border:1px solid #cfe0fb;border-radius:var(--radius);
+  padding:16px 18px;margin:18px 0 4px}
+.howto h2{margin:0 0 10px;font-size:14px;font-weight:900;border:0;padding:0;color:var(--brand-dark)}
+.howto ol{margin:0;padding-left:1.25em;font-size:14px;color:#26405f}
+.howto li{margin-bottom:4px}
+.howto li:last-child{margin-bottom:0}
+
+/* ── 目次 ── */
+.tocwrap{padding:22px}
+.tocwrap>h2{margin:0 0 12px;font-size:14px;font-weight:900;color:var(--sub);
+  letter-spacing:.06em;border:0;padding:0}
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(216px,1fr));gap:8px}
+.toc a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:10px 12px;font-size:14px;font-weight:700;transition:.14s}
+.toc a:hover{border-color:var(--brand);background:var(--brand-bg);transform:translateX(2px)}
+.tnum{font-size:11px;font-weight:900;color:#fff;background:var(--brand);
+  width:24px;height:24px;border-radius:7px;display:grid;place-items:center;flex:none}
+.ttxt{flex:1;min-width:0}
+.tphase{font-size:10px;font-weight:900;color:var(--faint);flex:none}
+.toc a.copied .tnum{background:#16a34a}
+.toc a.copied .tnum::after{content:"✓";font-size:13px}
+.toc a.copied .tnum span{display:none}
+
+/* ── 各プロンプト ── */
+.prompt{padding:26px 22px;border-top:1px solid var(--line)}
+.phead{display:flex;gap:13px;align-items:flex-start;margin-bottom:6px}
+.pnum{flex:none;width:36px;height:36px;border-radius:10px;background:var(--brand);
+  color:#fff;font-weight:900;font-size:15px;display:grid;place-items:center;margin-top:2px}
+.phase{display:inline-block;font-size:10.5px;font-weight:900;color:var(--brand-dark);
+  background:var(--brand-bg);border:1px solid #cfe0fb;border-radius:999px;padding:1px 9px;
+  margin-bottom:3px}
+.prompt h2{margin:0;font-size:17px;line-height:1.5;font-weight:900;border:0;padding:0}
+.prompt h3{margin:20px 0 6px;font-size:13.5px;font-weight:900;color:var(--sub)}
+.lead{margin:0 0 14px;font-size:14px;color:var(--sub);line-height:1.8}
+.lead .note{font-size:13px}
+
+.block{margin:10px 0 0;border:1px solid var(--code-line);border-radius:var(--radius);overflow:hidden}
+.btop{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:#16243a;padding:8px 10px 8px 14px}
+.blabel{font-size:11px;font-weight:900;color:#7f96b5;letter-spacing:.08em}
+.copy{border:0;border-radius:8px;background:var(--brand);color:var(--on-brand);
+  font-size:13px;font-weight:900;padding:8px 18px;cursor:pointer;font-family:inherit;
+  min-height:38px;transition:.14s}
+.copy:hover{background:#3b82f6}
+.copy:active{transform:scale(.97)}
+.copy.done{background:#16a34a}
+pre{background:var(--code);color:var(--code-ink);margin:0;padding:15px 14px;
+  white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:13px;line-height:1.85}
+.ph{background:rgba(96,165,250,.19);color:#93c5fd;border-radius:4px;padding:0 3px;
+  box-shadow:inset 0 -1px 0 rgba(147,197,253,.45)}
+
+/* ── CTA ── */
+.cta{margin:0;padding:30px 22px 34px;background:linear-gradient(165deg,#0b1524,#16294a);color:#fff}
+.cta h2{margin:0 0 10px;font-size:18px;font-weight:900;border:0;padding:0;line-height:1.55}
+.cta p{margin:0 0 10px;font-size:14.5px;color:#c3d5ef;line-height:1.85}
+.cta .sign{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);
+  font-size:13px;color:#8ea9cd}
+
+/* ── トップへ ── */
+/* プロンプト本文の上に浮くので、小さめ + 半透明 + ホバーで実体化。
+   読む邪魔をしないこと優先 (押したい時は必ず見えている) */
+.top{position:fixed;right:12px;bottom:12px;z-index:50;width:40px;height:40px;border-radius:50%;
+  background:rgba(11,21,36,.62);color:#fff;border:1px solid rgba(255,255,255,.18);
+  font-size:15px;cursor:pointer;backdrop-filter:blur(3px);
+  box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s,background .2s}
+.top:hover{background:rgba(11,21,36,.95)}
+.top.on{opacity:.72;pointer-events:auto}
+.top.on:hover{opacity:1}
+
+@media(max-width:520px){
+  body{font-size:15.5px}
+  .hero{padding:26px 17px 24px}
+  .intro,.tocwrap,.prompt,.cta{padding-left:17px;padding-right:17px}
+  .toc{grid-template-columns:1fr}
+  pre{font-size:12.5px;padding:13px 12px}
+  .copy{padding:8px 15px}
+}
+
+@media print{
+  body{background:#fff}
+  .shell{box-shadow:none;width:100%}
+  .copy,.top,.toc{display:none}
+  .hero,.cta{background:#0b1524 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  pre{background:#f4f6f8;color:#1f2a33;border:1px solid #d7dde3}
+  .ph{background:#e5edfb;color:#1d4ed8}
+  .prompt{page-break-inside:avoid}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none !important}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header class="hero">
+  <span class="kicker">LINE 登録特典</span>
+  <h1>外注で2週間かかってた動画が、<br>AIで1時間でできるようになった話</h1>
+  <p class="sub">対談動画プロンプト集（10本）<br>
+    Naoki｜AI動画編集『BLUEPRINT』（@ai_skill_naoki）／2026年8月発行</p>
+  <div class="herostats">
+    <div class="stat"><b>10</b>本のプロンプト</div>
+    <div class="stat"><b>5</b>工程をカバー</div>
+    <div class="stat"><b>1</b>クリックでコピー</div>
+  </div>
+</header>
+
+<div class="intro">
+  <p>対談動画のためのプロンプトを10本まとめました。<br>
+  企画・出演依頼から、編集、切り抜き、記事化まで、対談に必要なものだけです。</p>
+
+  <div class="howto">
+    <h2>使い方</h2>
+    <ol>
+      <li>目次から、いま必要な工程を選ぶ</li>
+      <li>「コピー」を押して、Claude / ChatGPT / Codex など普段使っているAIに貼る</li>
+      <li><span style="background:rgba(37,99,235,.13);border-radius:4px;padding:0 4px">{ }</span> と（　）の部分を、自分の情報に差し替える</li>
+    </ol>
+  </div>
+</div>
+
+<nav class="tocwrap">
+  <h2>目次</h2>
+  <div class="toc">
+<a href="#p01"><span class="tnum">01</span><span class="ttxt">質問リスト</span><span class="tphase">収録前</span></a>
+<a href="#p02"><span class="tnum">02</span><span class="ttxt">依頼・確認テンプレ</span><span class="tphase">収録前</span></a>
+<a href="#p03"><span class="tnum">03</span><span class="ttxt">進行台本</span><span class="tphase">収録前</span></a>
+<a href="#p04"><span class="tnum">04</span><span class="ttxt">話者振り分け</span><span class="tphase">編集</span></a>
+<a href="#p05"><span class="tnum">05</span><span class="ttxt">対談のフィラー</span><span class="tphase">編集</span></a>
+<a href="#p06"><span class="tnum">06</span><span class="ttxt">切り抜き選定</span><span class="tphase">切り抜き</span></a>
+<a href="#p07"><span class="tnum">07</span><span class="ttxt">2段見出し</span><span class="tphase">切り抜き</span></a>
+<a href="#p08"><span class="tnum">08</span><span class="ttxt">タイトルと目次</span><span class="tphase">公開</span></a>
+<a href="#p09"><span class="tnum">09</span><span class="ttxt">X投稿文</span><span class="tphase">公開</span></a>
+<a href="#p10"><span class="tnum">10</span><span class="ttxt">記事に変える</span><span class="tphase">二次利用</span></a>
+  </div>
+</nav>
+
+<section class="prompt" id="p01">
+  <div class="phead">
+    <span class="pnum">01</span>
+    <div>
+      <span class="phase">収録前</span>
+      <h2>ゲストに聞く質問リストを作る</h2>
+    </div>
+  </div>
+  <p class="lead">対談の質は収録前の質問で決まります。ゲストのプロフィールを渡して、質問を作らせます。</p>
+  <div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c1">コピー</button></div>
+  <pre>対談動画の質問リストを作ってください。
+
+【ゲストの情報】
+（プロフィール・実績・最近の活動を貼る。XのプロフィールのコピペでもOK）
+
+【この対談で視聴者に届けたいこと】
+（1〜2行。例：外注に疲れた事業者に、別のやり方があると知ってほしい）
+
+【条件】
+- 質問は20個。「アイスブレイク3 → 本題10 → 深掘り5 → 締め2」の順に並べる
+- はい/いいえで終わる質問にしない。「どうやって」「なぜ」「具体的には」で聞く
+- 数字を引き出す質問を最低3つ入れる（期間・金額・回数など）
+- ゲストが一番話したいであろうことを、序盤に置く
+- 各質問に「この質問で引き出したいもの」を1行つける</pre>
+</div>
+</section>
+
+<section class="prompt" id="p02">
+  <div class="phead">
+    <span class="pnum">02</span>
+    <div>
+      <span class="phase">収録前</span>
+      <h2>出演依頼と公開前確認のメッセージテンプレ</h2>
+    </div>
+  </div>
+  <p class="lead">対談は相手あってのもの。依頼と確認の文面をテンプレ化しておくと、運営が止まりません。</p>
+  <h3>出演依頼</h3><div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c2">コピー</button></div>
+  <pre><span class="ph">{名前}</span>さん、いつもお世話になっております。
+
+<span class="ph">{自分の名前}</span>と申します。<span class="ph">{媒体名}</span>で対談動画を配信しており、
+ぜひ<span class="ph">{名前}</span>さんの<span class="ph">{具体的にすごいと思っている点}</span>についてお話を伺いたく、ご連絡しました。
+
+・所要時間：<span class="ph">{60}</span>分程度（オンライン／対面）
+・テーマ案：<span class="ph">{テーマを1行}</span>
+・公開先：<span class="ph">{YouTube / X}</span>
+・編集後、公開前に必ずご確認いただきます（NG箇所はカットします）
+
+ご都合いかがでしょうか。候補日をいくつかいただけたら調整します。</pre>
+</div>
+<h3>公開前確認</h3><div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c3">コピー</button></div>
+  <pre><span class="ph">{名前}</span>さん、先日はありがとうございました！
+
+対談動画の編集が完了しました。公開前にご確認をお願いします。
+<span class="ph">{動画のリンク}</span>
+
+・カットしてほしい箇所があれば「何分何秒あたり」で教えてください
+・テロップの誤字、肩書きの表記もあわせてご確認ください
+・公開予定日：<span class="ph">{日付}</span>（修正があれば調整します）
+
+よろしくお願いします。</pre>
+</div>
+</section>
+
+<section class="prompt" id="p03">
+  <div class="phead">
+    <span class="pnum">03</span>
+    <div>
+      <span class="phase">収録前</span>
+      <h2>対談の進行台本を作る</h2>
+    </div>
+  </div>
+  <p class="lead">台本ゼロの対談は、編集も大変になります。ゆるい進行表があるだけで収録も編集も楽になります。</p>
+  <div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c4">コピー</button></div>
+  <pre>対談動画の進行台本を作ってください。読み上げる台本ではなく、進行の道しるべです。
+
+【テーマ】（1行）
+【ゲスト】（名前と一言プロフィール）
+【質問リスト】（01で作ったものを貼る）
+【尺の目安】<span class="ph">{30}</span>分
+
+【出力してほしいもの】
+1. オープニングの挨拶とゲスト紹介（30秒ぶん・そのまま話せる文で）
+2. トピックの区切りごとの「つなぎの一言」（例：「ここからは◯◯の話を聞かせてください」）
+3. 締めのまとめとお知らせ（CTA）の言い回し（30秒ぶん）
+4. 時間配分の目安（トピックごとに何分）
+
+ゲストの発言部分は書かないでください。ホスト側の進行だけでOKです。</pre>
+</div>
+</section>
+
+<section class="prompt" id="p04">
+  <div class="phead">
+    <span class="pnum">04</span>
+    <div>
+      <span class="phase">編集</span>
+      <h2>対談の話者を振り分ける</h2>
+    </div>
+  </div>
+  <p class="lead">編集で「今どっちが喋っているか」が崩れると、テロップが全部破綻します。音ではなく文脈で判定させます。<br>
+<span class="note">（実測で、音響ベース33%→文脈ベース74%→この出力形式で98%まで精度が上がりました）</span></p>
+  <div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c5">コピー</button></div>
+  <pre>2人の対談の文字起こしを渡します。全文を読んで、各発言がAとBのどちらかを判定してください。
+
+【判定ルール】
+1. 呼びかけを手がかりにする（「◯◯さん」と呼んだ側が相手ではない方）
+2. 質問形（〜ですか？ 〜どうでしょう）はホスト側（A）の可能性が高い
+3. 5秒未満の短い相槌は、直前の話者と逆の人に割り当てる
+4. 長い回答の途中に、短い質問や相槌が挟まっていないか探す
+　（ゲストが長く話している最中のホストの相槌を、ゲストの発言に含めてしまう間違いが一番多い）
+
+【出力形式】
+| 開始秒 | 終了秒 | 話者(A/B) | 発言 | 自信度(高/中/低) |
+
+自信度が「低」のものは最後にまとめて一覧にしてください。そこだけ人が確認します。</pre>
+</div>
+</section>
+
+<section class="prompt" id="p05">
+  <div class="phead">
+    <span class="pnum">05</span>
+    <div>
+      <span class="phase">編集</span>
+      <h2>対談専用：消していい「えー・あのー」を選ばせる</h2>
+    </div>
+  </div>
+  <p class="lead">1人語りと同じ基準で消すと、対談は会話が不自然になります。対談専用の基準を最初から埋め込んだ版です。</p>
+  <div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c6">コピー</button></div>
+  <pre>対談動画の文字起こしから、カットしてよいフィラー（意味を持たない繋ぎの声）を抽出してください。
+
+【消してよいもの】
+- 「はい」の連発（文頭の返事として意味を持たないもの）
+- 「あ」「え」など1文字の感嘆
+- 単独の「ね」
+
+【消してはいけないもの（対談の生命線）】
+- 「うん」「なるほど」「たしかに」などの相槌（会話のリズムなので残す）
+- 「まあ」が譲歩の意味で使われている場合（例：「まあ、それも一理あります」）
+- ゲストが考えている間の沈黙前の「そうですね…」（考えている感じが伝わる）
+
+【出力形式】
+| 時刻 | 話者 | 消す文字列 | 判断理由 |
+
+迷ったら「残す」に倒してください。消しすぎると、聞き手がいないみたいになります。</pre>
+</div>
+</section>
+
+<section class="prompt" id="p06">
+  <div class="phead">
+    <span class="pnum">06</span>
+    <div>
+      <span class="phase">切り抜き</span>
+      <h2>対談から切り抜く場所を選ばせる</h2>
+    </div>
+  </div>
+  <p class="lead">対談1本から、Xに貼る30〜60秒の見どころを選ばせます。</p>
+  <div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c7">コピー</button></div>
+  <pre>対談動画の文字起こし（時刻つき）を渡します。
+切り抜き動画として切り出すのに向いた区間を5つ提案してください。
+
+【選ぶ基準】
+1. その区間だけを見ても意味が通じる（前提説明がいらない）
+2. 30〜60秒に収まる（伸ばすなら最大90秒）
+3. ゲストが「実体験・数字・失敗談」を語っている区間を最優先する
+4. 冒頭の挨拶と末尾の締めからは選ばない
+
+【出力形式】
+| No | 開始秒 | 終了秒 | 尺 | この区間の主張を1文で | なぜ切り抜き向きか |
+
+区間の切れ目は必ず文の終わりに合わせてください。単語の途中で切らないこと。</pre>
+</div>
+</section>
+
+<section class="prompt" id="p07">
+  <div class="phead">
+    <span class="pnum">07</span>
+    <div>
+      <span class="phase">切り抜き</span>
+      <h2>切り抜きに載せる「2段の見出し」を作る</h2>
+    </div>
+  </div>
+  <p class="lead">切り抜きが伸びるかは見出しでほぼ決まります。</p>
+  <div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c8">コピー</button></div>
+  <pre>切り抜き区間の内容を渡します。縦動画の上下に載せる「2段の見出し」を作ってください。
+
+【上段：衝撃の一言】
+- 7文字以内を最優先。長くても10文字
+- 例：「9割が勘違い」「それ、逆効果です」
+
+【下段：ベネフィット断言】
+- 12文字以内
+- 例：「編集は外に出すな」
+
+【絶対に守るルール】
+- 説明調は禁止。「〜について解説」「〜のポイントとは」は全部NG
+- 上段と下段で同じことを言い換えない。上段は引っかけ、下段は結論
+- ゲストの発言にない内容を見出しにしない（釣りは逆効果）
+
+【出力】
+1区間につき3案。それぞれ「なぜこの言葉を選んだか」を1行で。</pre>
+</div>
+</section>
+
+<section class="prompt" id="p08">
+  <div class="phead">
+    <span class="pnum">08</span>
+    <div>
+      <span class="phase">公開</span>
+      <h2>対談タイトルとチャプター（目次）を作る</h2>
+    </div>
+  </div>
+  <p class="lead">公開時のタイトルと、YouTubeの概要欄に貼るチャプターを一度に作らせます。</p>
+  <div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c9">コピー</button></div>
+  <pre>対談動画の文字起こし（時刻つき）を渡します。以下の2つを作ってください。
+
+【1. タイトル案 5つ】
+- ゲスト名＋視聴者が得られるものが入っている形
+- 「対談しました」「お話を伺いました」は使わない（中身が想像できないため）
+- 一番強い発言・数字をタイトルに使ってよい（ただし発言にないことは書かない）
+
+【2. チャプター（YouTube概要欄用）】
+- 話題が切り替わる時刻を見つけて「00:00 見出し」の形式で
+- 見出しは15文字以内。「〜について」は使わない
+- 最初のチャプターは必ず 00:00 から
+
+そのままコピペできる形で出力してください。</pre>
+</div>
+</section>
+
+<section class="prompt" id="p09">
+  <div class="phead">
+    <span class="pnum">09</span>
+    <div>
+      <span class="phase">公開</span>
+      <h2>対談の投稿文（X用）を作る</h2>
+    </div>
+  </div>
+  <p class="lead">動画をXに出すときの投稿文です。動画をそのまま添付する前提で作らせます。</p>
+  <div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c10">コピー</button></div>
+  <pre>対談動画の内容を渡します。X投稿用の文章を3案作ってください。
+
+【条件】
+- 140〜280字。動画を添付する前提（動画の内容を全部書かない。見たくなる入口だけ）
+- 1案目：ゲストの一番強い発言・数字で始める
+- 2案目：視聴者の悩みへの問いかけで始める
+- 3案目：ホストとして一番驚いたことで始める
+- ゲストの名前（@ハンドル）への感謝を1行入れる
+- ハッシュタグは付けない
+
+【対談の内容】
+（文字起こし、または要約を貼る）</pre>
+</div>
+</section>
+
+<section class="prompt" id="p10">
+  <div class="phead">
+    <span class="pnum">10</span>
+    <div>
+      <span class="phase">二次利用</span>
+      <h2>対談を記事に変える（二次利用）</h2>
+    </div>
+  </div>
+  <p class="lead">対談は1回撮って何度も使えます。文字起こしから記事の下書きを作らせます。</p>
+  <div class="block">
+  <div class="btop"><span class="blabel">プロンプト</span>
+    <button class="copy" type="button" data-id="c11">コピー</button></div>
+  <pre>対談動画の文字起こしを渡します。X長文（またはnote）用の記事下書きに変換してください。
+
+【条件】
+- 構成：導入（誰との対談か・何が学べるか）→ 本編3トピック → まとめ
+- ゲストの発言を引用するときは「」でくくり、一字一句変えない（要約する場合は引用にしない）
+- 発言していないことを補って書かない
+- 会話のままでは読みにくい部分は、地の文で背景を説明してつなぐ
+- 文字数：<span class="ph">{3,000}</span>字前後
+- 最後に、記事に使った発言の「元の時刻」の一覧をつける（動画への導線に使うため）</pre>
+</div>
+</section>
+
+<div class="cta">
+  <h2>この編集を「選ぶだけ」で仕上げる形を、1日でお渡ししています</h2>
+  <p>この対談の編集（カット・テロップ・話者の振り分け）を「ステップごとに選ぶだけ」で仕上げる形は、1DAYワークショップ（東京・大阪・名古屋）でそのままお渡ししています。</p>
+  <p>当日中に、ご自身の動画で1本仕上げて帰っていただく会です。</p>
+  <div class="sign">Naoki｜@ai_skill_naoki</div>
+</div>
+
+</div>
+
+<button class="top" id="top" type="button" aria-label="ページ上部へ戻る">↑</button>
+
+<script>
+(function(){
+  // ── コピー ──
+  // LINE / X のアプリ内ブラウザは navigator.clipboard が使えないことがあるので、
+  // execCommand へのフォールバックを必ず残す。
+  var copied={};
+  try{ copied=JSON.parse(localStorage.getItem("giftCopied")||"{}") }catch(e){ copied={} }
+
+  function markToc(){
+    document.querySelectorAll(".toc a").forEach(function(a){
+      var sec=document.querySelector(a.getAttribute("href"));
+      if(!sec) return;
+      var ids=[].map.call(sec.querySelectorAll(".copy"),function(b){return b.dataset.id});
+      var all=ids.length>0 && ids.every(function(i){return copied[i]});
+      a.classList.toggle("copied",all);
+    });
+  }
+  markToc();
+
+  document.querySelectorAll(".copy").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var text=btn.closest(".block").querySelector("pre").innerText;
+      function done(){
+        btn.textContent="コピーしました"; btn.classList.add("done");
+        copied[btn.dataset.id]=1;
+        try{ localStorage.setItem("giftCopied",JSON.stringify(copied)) }catch(e){}
+        markToc();
+        setTimeout(function(){ btn.textContent="コピー"; btn.classList.remove("done") },1600);
+      }
+      function fallback(){
+        var ta=document.createElement("textarea");
+        ta.value=text; ta.style.position="fixed"; ta.style.opacity="0";
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        try{ document.execCommand("copy"); done() }
+        catch(e){ alert("コピーできませんでした。長押しで選択してコピーしてください。") }
+        document.body.removeChild(ta);
+      }
+      if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(text).then(done,fallback);
+      } else { fallback() }
+    });
+  });
+
+  // ── トップへ戻る ──
+  var top=document.getElementById("top");
+  addEventListener("scroll",function(){ top.classList.toggle("on",scrollY>700) },{passive:true});
+  top.addEventListener("click",function(){ scrollTo({top:0,behavior:"smooth"}) });
+})();
+</script>
+</body>
+</html>
