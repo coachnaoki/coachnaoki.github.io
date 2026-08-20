@@ -45,7 +45,13 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
 .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
-.bucket{margin-bottom:26px}
+/* 採用列 | ボタン | 不採用列 に見えるレイアウト。
+   ボタンは各カードの「相手の列に近い側」に寄せてあるので、
+   2 列の間に上から下までボタンの帯が通って見える。 */
+.buckets{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.bucket{margin-bottom:26px;min-width:0}
+.bucket .grid{grid-template-columns:1fr}
+.bucket .bhead{position:sticky;top:0;z-index:10}
 .bhead{display:flex;flex-direction:column;gap:2px;margin:0 0 12px;padding:10px 14px;
   border-radius:10px;border:1px solid var(--line);background:var(--card)}
 .bhead h2{margin:0;font-size:16px;font-weight:900;display:flex;align-items:center;gap:9px}
@@ -61,7 +67,14 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
   to{transform:none;box-shadow:none}}
 .card.moved{animation:moved .34s ease-out}
 @media(prefers-reduced-motion:reduce){.card.moved{animation:none}}
-.card{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:13px 15px 14px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:13px 15px 14px;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"head head" "sample vote";
+  column-gap:12px;align-items:center}
+.card .chead{grid-area:head}
+.card .sample{grid-area:sample;min-width:0}
+.card .vote{grid-area:vote}
+/* 不採用列は左右を反転 = ボタンが中央の帯に向く */
+.b-drop .card{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"head head" "vote sample"}
 .card.g{border-color:var(--good);background:var(--good-bg)}
 .card.b{border-color:var(--bad);background:var(--bad-bg);opacity:.72}
 .chead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:9px}
@@ -79,13 +92,16 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
 .sample .plain{font-size:34px;font-weight:900;line-height:1.35;word-break:keep-all;text-align:center}
 .sample svg{max-width:100%;height:auto;overflow:visible}
 
-.vote{display:flex;gap:8px;margin-top:11px}
+.vote{display:flex;gap:8px;margin-top:0}
+.vote button{white-space:nowrap;min-height:74px;width:104px;line-height:1.35}
 .vote button{flex:1;padding:10px;border:1.5px solid #d1d5db;background:#fff;border-radius:9px;
   cursor:pointer;font-size:14px;font-weight:900;font-family:inherit;color:var(--sub);
   transition:.12s}
 .vote button:active{transform:scale(.97)}
-.vote button.on-g{background:var(--good);color:#fff;border-color:var(--good)}
-.vote button.on-b{background:var(--bad);color:#fff;border-color:var(--bad)}
+.vote button.to-keep{color:var(--good);border-color:#bfdbfe;background:var(--good-bg)}
+.vote button.to-keep:hover{background:var(--good);color:#fff;border-color:var(--good)}
+.vote button.to-drop{color:var(--bad);border-color:#fecaca;background:var(--bad-bg)}
+.vote button.to-drop:hover{background:var(--bad);color:#fff;border-color:var(--bad)}
 
 .freebox{background:var(--card);border:1px solid var(--line);border-radius:12px;
   padding:16px 18px;margin-top:22px}
@@ -105,6 +121,19 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
 .status .save{font-size:11.5px;color:#9ca3af}
 .status .save.ok{color:#6ee7b7}
 .status .save.ng{color:#fca5a5}
+/* 2 列を横に並べるには最低でもこれくらい要る。狭ければ上下に積む */
+@media(max-width:1000px){
+  .buckets{grid-template-columns:1fr}
+  .bucket .bhead{position:static}
+}
+@media(max-width:560px){
+  /* カード内の横並びも解除して、ボタンはプレビューの下に全幅で置く */
+  .card,.b-drop .card{grid-template-columns:1fr;grid-template-areas:"head" "sample" "vote"}
+  .card .vote{margin-top:11px}
+  /* 横並びのときの 3 行組みは、全幅ボタンでは間延びするので 1 行に畳む */
+  .vote button br{display:none}
+  .vote button{min-height:46px;width:auto;flex:1}
+}
 @media(max-width:520px){
   .grid{grid-template-columns:1fr}
   .status{font-size:12px;padding:5px 11px;gap:9px;margin-left:0;width:100%;justify-content:center}
@@ -123,7 +152,7 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
 <header><div class="wrap">
   <h1>テロップフォント アンケート</h1>
   <p>BLUEPRINT のテロップで使えるフォントを増やす／減らすための投票です。<br>
-     「これ使いたい」＝ 👍採用、「一生使わない」＝ 👎不採用。直感で大丈夫です。</p>
+     左が「使いたい」、右が「要らない」。ボタンで左右に振り分けてください。直感で大丈夫です。</p>
 </div></header>
 
 <main>
@@ -131,7 +160,7 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
     <h2>やること</h2>
     <ol>
       <li>下のお名前だけ入れてください（誰の投票か分かるようにするためです）</li>
-      <li>フォントを見て 👍採用 か 👎不採用 を押す（押すとカードが上下の欄を移動します。押した瞬間に自動保存）</li>
+      <li>使いたいフォントは「← 👍採用へ」、要らないものは「👎不採用へ →」を押す（カードが左右に移動します。押した瞬間に自動保存）</li>
       <li>全部押さなくてOK。気になったものだけで十分です</li>
       <li>最後に「他に入れてほしいフォント」があれば書いてください（任意）</li>
     </ol>
@@ -171,10 +200,11 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
     </div>
   </div></div>
 
+  <div class="buckets">
   <section class="bucket b-keep">
     <div class="bhead">
       <h2>✅ 採用フォント <span class="cnt" id="cnt-keep">0</span></h2>
-      <p>使いたいフォント。<b>いま BLUEPRINT に入っている分</b>が最初から並んでいます。</p>
+      <p>使いたいフォント。<b>いま入っている分</b>が最初から並んでいます</p>
     </div>
     <div class="grid" id="grid-keep"></div>
     <p class="empty" id="empty-keep">まだ1つもありません</p>
@@ -183,11 +213,12 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
   <section class="bucket b-drop">
     <div class="bhead">
       <h2>🗂 不採用フォント <span class="cnt" id="cnt-drop">0</span></h2>
-      <p>まだ入っていないフォントです。使いたいものがあれば 👍 を押して上の欄に移してください。</p>
+      <p>まだ入っていないフォント。使いたいものは左へ送ってください</p>
     </div>
     <div class="grid" id="grid-drop"></div>
     <p class="empty" id="empty-drop">まだ1つもありません</p>
   </section>
+  </div>
 
   <div class="freebox">
     <h2>他に入れてほしいフォント <span class="opt">任意</span></h2>
@@ -300,27 +331,34 @@ function makeCard(f){
   el.innerHTML='<div class="chead"><div class="cname">'+(f.jp||f.f)+'<small>'+f.f+'</small></div>'+
     '<div class="tags">'+tags.join('')+'</div></div>'+
     '<div class="sample"></div>'+
-    '<div class="vote"><button data-v="g">👍 採用</button><button data-v="b">👎 不採用</button></div>';
-  el.querySelectorAll('.vote button').forEach(btn=>btn.onclick=()=>{
+    '<div class="vote"></div>';
+  el.querySelector('.vote').onclick=(ev)=>{
+    const btn=ev.target.closest('button'); if(!btn) return;
     if(!who){ document.getElementById('who').focus();
       setSave('先にお名前を入れてください','ng'); return; }
-    const v=btn.dataset.v;
-    votes[f.f]=votes[f.f]===v?null:v;
-    if(!votes[f.f]) delete votes[f.f];
+    votes[f.f]=btn.dataset.v;                    // 送り先がそのまま投票内容
     try{localStorage.setItem(LS_V,JSON.stringify(votes))}catch(e){}
     applyVote(el,f.f); place(el,f.f,true); tally();
-    enqueue({type:'vote',name:who,font:f.f,vote:votes[f.f]||'clear',ua:navigator.userAgent.slice(0,120)});
-  });
+    enqueue({type:'vote',name:who,font:f.f,vote:votes[f.f],ua:navigator.userAgent.slice(0,120)});
+  };
   io.observe(el);
   return el;
 }
 function applyVote(el,fam){
   const v=votes[fam];
   el.classList.toggle('g',v==='g'); el.classList.toggle('b',v==='b');
-  el.querySelectorAll('.vote button').forEach(b=>{
-    b.className = (v==='g'&&b.dataset.v==='g') ? 'on-g'
-                : (v==='b'&&b.dataset.v==='b') ? 'on-b' : '';
-  });
+  renderVote(el,fam);
+}
+/**
+ * ボタンは 1 枚につき 1 つだけ置き、「今いる列の反対側へ送る」 だけをさせる。
+ * 2 つ並べると「今どっちなのか」と「押すとどうなるか」が混ざって分かりにくいため。
+ */
+function renderVote(el,fam){
+  const inKeep = el.parentElement && el.parentElement.id==='grid-keep';
+  const box=el.querySelector('.vote');
+  box.innerHTML = inKeep
+    ? '<button data-v="b" class="to-drop">👎<br>不採用<br>へ →</button>'
+    : '<button data-v="g" class="to-keep">← 👍<br>採用<br>へ</button>';
 }
 /**
  * カードを「採用欄」「不採用欄」のどちらかに置く。
@@ -334,6 +372,7 @@ function place(el,fam,animate){
   const target=document.getElementById(toKeep?'grid-keep':'grid-drop');
   if(el.parentElement!==target){
     target.appendChild(el);
+    renderVote(el,fam);   // 列が変わったらボタンの向きも変える
     if(animate){
       el.classList.remove('moved'); void el.offsetWidth; el.classList.add('moved');
       el.scrollIntoView({block:'nearest',behavior:'smooth'});
@@ -383,8 +422,8 @@ function tally(){
 FONTS.forEach(f=>{
   const el=makeCard(f);
   document.getElementById('grid-drop').appendChild(el); // いったん置いてから place() が振り分ける
-  applyVote(el,f.f);
   place(el,f.f,false);
+  applyVote(el,f.f);
 });
 paint(); filter(); tally();
 
