@@ -104,6 +104,17 @@ pre{background:var(--code);color:var(--code-ink);margin:0;padding:15px 14px;
 .cta{margin:0;padding:30px 22px 34px;background:linear-gradient(165deg,#0b1524,#16294a);color:#fff}
 .cta h2{margin:0 0 10px;font-size:18px;font-weight:900;border:0;padding:0;line-height:1.55}
 .cta p{margin:0 0 10px;font-size:14.5px;color:#c3d5ef;line-height:1.85}
+/* LINE のアプリ内ブラウザで押される想定。 指で押せる高さ (56px) を確保し、
+   target="_blank" は付けない (アプリ内ブラウザだと戻れなくなることがあるため) */
+.ctabtn{display:flex;align-items:center;justify-content:center;gap:8px;
+  margin:20px 0 0;padding:17px 22px;border-radius:12px;
+  background:var(--brand);color:#fff;text-decoration:none;
+  font-size:16px;font-weight:900;line-height:1.4;text-align:center;min-height:56px;
+  box-shadow:0 6px 20px rgba(37,99,235,.38);transition:.15s}
+.ctabtn:hover{background:#3b82f6;box-shadow:0 8px 26px rgba(37,99,235,.5);transform:translateY(-1px)}
+.ctabtn:active{transform:translateY(0) scale(.99)}
+.ctabtn .arw{font-size:17px}
+@media(max-width:520px){.ctabtn{font-size:15px;padding:16px 16px}}
 .cta .sign{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);
   font-size:13px;color:#8ea9cd}
 
@@ -131,6 +142,8 @@ pre{background:var(--code);color:var(--code-ink);margin:0;padding:15px 14px;
   body{background:#fff}
   .shell{box-shadow:none;width:100%}
   .copy,.top,.toc{display:none}
+  .ctabtn{background:#2563eb !important;box-shadow:none}
+  .ctabtn::after{content:" (" attr(href) ")";font-weight:400;font-size:11px}
   .hero,.cta{background:#0b1524 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   pre{background:#f4f6f8;color:#1f2a33;border:1px solid #d7dde3}
   .ph{background:#e5edfb;color:#1d4ed8}
@@ -485,6 +498,10 @@ pre{background:var(--code);color:var(--code-ink);margin:0;padding:15px 14px;
   <h2>この編集を「選ぶだけ」で仕上げる形を、1日でお渡ししています</h2>
   <p>この対談の編集（カット・テロップ・話者の振り分け）を「ステップごとに選ぶだけ」で仕上げる形は、1DAYワークショップ（東京・大阪・名古屋）でそのままお渡ししています。</p>
   <p>当日中に、ご自身の動画で1本仕上げて帰っていただく会です。</p>
+  <a class="ctabtn" href="https://utage-system.com/p/n25CPc3HPeaD">
+    1DAYワークショップの詳細を見る
+    <span class="arw" aria-hidden="true">→</span>
+  </a>
   <div class="sign">Naoki｜@ai_skill_naoki</div>
 </div>
 
