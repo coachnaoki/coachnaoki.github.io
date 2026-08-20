@@ -45,6 +45,22 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
 .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.bucket{margin-bottom:26px}
+.bhead{display:flex;flex-direction:column;gap:2px;margin:0 0 12px;padding:10px 14px;
+  border-radius:10px;border:1px solid var(--line);background:var(--card)}
+.bhead h2{margin:0;font-size:16px;font-weight:900;display:flex;align-items:center;gap:9px}
+.bhead p{margin:0;font-size:12.5px;color:var(--sub)}
+.b-keep .bhead{border-color:#bfdbfe;background:var(--good-bg)}
+.cnt{font-size:12px;font-weight:900;padding:2px 10px;border-radius:999px;
+  background:#111827;color:#fff;min-width:30px;text-align:center}
+.b-keep .cnt{background:var(--good)}
+.empty{margin:0;padding:22px;text-align:center;color:#9ca3af;font-size:13px;
+  border:1px dashed var(--line);border-radius:10px}
+/* 移動したことが分かるように一瞬だけ光らせる */
+@keyframes moved{from{transform:scale(.96);box-shadow:0 0 0 4px rgba(37,99,235,.28)}
+  to{transform:none;box-shadow:none}}
+.card.moved{animation:moved .34s ease-out}
+@media(prefers-reduced-motion:reduce){.card.moved{animation:none}}
 .card{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:13px 15px 14px}
 .card.g{border-color:var(--good);background:var(--good-bg)}
 .card.b{border-color:var(--bad);background:var(--bad-bg);opacity:.72}
@@ -107,7 +123,7 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
 <header><div class="wrap">
   <h1>テロップフォント アンケート</h1>
   <p>BLUEPRINT のテロップで使えるフォントを増やす／減らすための投票です。<br>
-     「これ使いたい」＝ 👍 いる、「一生使わない」＝ 👎 いらない。直感で大丈夫です。</p>
+     「これ使いたい」＝ 👍採用、「一生使わない」＝ 👎不採用。直感で大丈夫です。</p>
 </div></header>
 
 <main>
@@ -115,7 +131,7 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
     <h2>やること</h2>
     <ol>
       <li>下のお名前だけ入れてください（誰の投票か分かるようにするためです）</li>
-      <li>フォントを見て 👍 か 👎 を押す（押した瞬間に自動で保存されます）</li>
+      <li>フォントを見て 👍採用 か 👎不採用 を押す（押すとカードが上下の欄を移動します。押した瞬間に自動保存）</li>
       <li>全部押さなくてOK。気になったものだけで十分です</li>
       <li>最後に「他に入れてほしいフォント」があれば書いてください（任意）</li>
     </ol>
@@ -155,7 +171,23 @@ select,input[type=text].s{padding:8px 10px;border:1px solid #d1d5db;border-radiu
     </div>
   </div></div>
 
-  <div class="grid" id="grid"></div>
+  <section class="bucket b-keep">
+    <div class="bhead">
+      <h2>✅ 採用フォント <span class="cnt" id="cnt-keep">0</span></h2>
+      <p>使いたいフォント。<b>いま BLUEPRINT に入っている分</b>が最初から並んでいます。</p>
+    </div>
+    <div class="grid" id="grid-keep"></div>
+    <p class="empty" id="empty-keep">まだ1つもありません</p>
+  </section>
+
+  <section class="bucket b-drop">
+    <div class="bhead">
+      <h2>🗂 不採用フォント <span class="cnt" id="cnt-drop">0</span></h2>
+      <p>まだ入っていないフォントです。使いたいものがあれば 👍 を押して上の欄に移してください。</p>
+    </div>
+    <div class="grid" id="grid-drop"></div>
+    <p class="empty" id="empty-drop">まだ1つもありません</p>
+  </section>
 
   <div class="freebox">
     <h2>他に入れてほしいフォント <span class="opt">任意</span></h2>
@@ -268,7 +300,7 @@ function makeCard(f){
   el.innerHTML='<div class="chead"><div class="cname">'+(f.jp||f.f)+'<small>'+f.f+'</small></div>'+
     '<div class="tags">'+tags.join('')+'</div></div>'+
     '<div class="sample"></div>'+
-    '<div class="vote"><button data-v="g">👍 いる</button><button data-v="b">👎 いらない</button></div>';
+    '<div class="vote"><button data-v="g">👍 採用</button><button data-v="b">👎 不採用</button></div>';
   el.querySelectorAll('.vote button').forEach(btn=>btn.onclick=()=>{
     if(!who){ document.getElementById('who').focus();
       setSave('先にお名前を入れてください','ng'); return; }
@@ -276,7 +308,7 @@ function makeCard(f){
     votes[f.f]=votes[f.f]===v?null:v;
     if(!votes[f.f]) delete votes[f.f];
     try{localStorage.setItem(LS_V,JSON.stringify(votes))}catch(e){}
-    applyVote(el,f.f); tally();
+    applyVote(el,f.f); place(el,f.f,true); tally();
     enqueue({type:'vote',name:who,font:f.f,vote:votes[f.f]||'clear',ua:navigator.userAgent.slice(0,120)});
   });
   io.observe(el);
@@ -289,6 +321,24 @@ function applyVote(el,fam){
     b.className = (v==='g'&&b.dataset.v==='g') ? 'on-g'
                 : (v==='b'&&b.dataset.v==='b') ? 'on-b' : '';
   });
+}
+/**
+ * カードを「採用欄」「不採用欄」のどちらかに置く。
+ *  - 投票済み → その投票どおり (g=採用 / b=不採用)
+ *  - 未投票   → いま BLUEPRINT に入っているかどうか (slot) で決める
+ * animate=true のときだけ、移動したカードを一瞬光らせる。
+ */
+function place(el,fam,animate){
+  const v=votes[fam];
+  const toKeep = v ? v==='g' : el.dataset.now==='1';
+  const target=document.getElementById(toKeep?'grid-keep':'grid-drop');
+  if(el.parentElement!==target){
+    target.appendChild(el);
+    if(animate){
+      el.classList.remove('moved'); void el.offsetWidth; el.classList.add('moved');
+      el.scrollIntoView({block:'nearest',behavior:'smooth'});
+    }
+  }
 }
 function paint(){
   const t=document.getElementById('txt').value||'あ';
@@ -312,15 +362,30 @@ function filter(){
     else if(cat!=='all') ok=c.dataset.cat===cat;
     c.style.display=ok?'':'none';
   });
+  counts();
+}
+// 各欄の件数と「まだ1つもありません」の出し分け。
+// フィルタで隠れているカードは数に入れない (見えている数と一致させるため)。
+function counts(){
+  [['keep','grid-keep'],['drop','grid-drop']].forEach(([k,id])=>{
+    const shown=[...document.getElementById(id).children].filter(c=>c.style.display!=='none');
+    document.getElementById('cnt-'+k).textContent=shown.length;
+    document.getElementById('empty-'+k).style.display=shown.length?'none':'';
+  });
 }
 function tally(){
   const v=Object.values(votes);
   document.getElementById('ng').textContent=v.filter(x=>x==='g').length;
   document.getElementById('nb').textContent=v.filter(x=>x==='b').length;
+  counts();
 }
 
-const grid=document.getElementById('grid');
-FONTS.forEach(f=>{const el=makeCard(f); grid.appendChild(el); applyVote(el,f.f)});
+FONTS.forEach(f=>{
+  const el=makeCard(f);
+  document.getElementById('grid-drop').appendChild(el); // いったん置いてから place() が振り分ける
+  applyVote(el,f.f);
+  place(el,f.f,false);
+});
 paint(); filter(); tally();
 
 // 名前
