@@ -3,15 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>v2.116 → v2.119 アップデートまとめ | Naoki式 丸投げビジネス動画編集</title>
-<meta name="description" content="naoki-blueprint の最新アップデート内容です。新機能・不具合修正・注意点をまとめています。">
+<title>naoki-blueprint アップデート全履歴 | Naoki式 丸投げビジネス動画編集</title>
+<meta name="description" content="naoki-blueprint のアップデート内容をすべて1ページに集約。新機能・不具合修正・注意点を新しい順に掲載しています。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="v2.116 → v2.119 アップデートまとめ | Naoki式 丸投げビジネス動画編集">
-<meta property="og:description" content="naoki-blueprint の最新アップデート内容です。新機能・不具合修正・注意点をまとめています。">
+<meta property="og:title" content="naoki-blueprint アップデート全履歴 | Naoki式 丸投げビジネス動画編集">
+<meta property="og:description" content="naoki-blueprint のアップデート内容をすべて1ページに集約。新機能・不具合修正・注意点を新しい順に掲載しています。">
 <meta property="og:url" content="https://coachnaoki.github.io/naoki-blueprint/whats-new.html">
 <meta name="twitter:card" content="summary">
-</head>
-<body>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -126,29 +124,127 @@
   @media (max-width: 480px) {
     .card, .lead-card { padding: 22px 20px; }
   }
+
+  /* ── 目次 ── */
+  .toc { background:#fff; border:1px solid #ddd; border-radius:12px; padding:22px 26px;
+         margin-bottom:28px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+  .toc h2 { font-size:13px; letter-spacing:0.14em; color:#999; font-weight:700;
+            text-transform:uppercase; margin-bottom:12px; }
+  .toc ol { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .toc a { color:#2563EB; text-decoration:none; font-size:14px; font-weight:700; }
+  .toc a:hover, .toc a:focus-visible { text-decoration:underline; }
+  .toc .range { font-family:'SF Mono','Menlo',monospace; font-size:11px; color:#888;
+                margin-left:6px; font-weight:400; font-variant-numeric:tabular-nums; }
+
+  /* ── 折りたたみアーカイブ ── */
+  .archive { background:#fff; border:1px solid #ddd; border-radius:12px;
+             margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); overflow:hidden; }
+  .archive > summary { cursor:pointer; padding:20px 26px; font-size:16px; font-weight:700;
+                       color:#121212; list-style:none; display:flex; align-items:center;
+                       gap:10px; flex-wrap:wrap; }
+  .archive > summary::-webkit-details-marker { display:none; }
+  .archive > summary::before { content:"\25B6"; color:#2563EB; font-size:11px; }
+  .archive[open] > summary::before { content:"\25BC"; }
+  .archive > summary:hover { background:#fafafa; }
+  .archive > summary:focus-visible { outline:2px solid #2563EB; outline-offset:-2px; }
+  .archive .sum-note { font-size:12px; color:#888; font-weight:400; }
+  .archive-body { padding:4px 26px 26px; border-top:1px solid #f0f0f0; }
+  .archive-body .card, .archive-body .lead-card { box-shadow:none; }
+  .archive-body .section-label:first-of-type { margin-top:14px; }
+  @media (max-width:480px){ .archive > summary{padding:18px 20px;} .archive-body{padding:4px 16px 20px;} }
+
+  /* ── 旧 changelog 由来 ── */
+  .version-entry {
+      margin-bottom: 36px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #eee;
+    }
+  
+    .version-entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  
+    .version-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+  
+    .version-badge {
+      background: #f0f0f0;
+      color: #444;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'SF Mono', 'Menlo', monospace;
+    }
+  
+    .version-badge.latest {
+      background: #CCFF00;
+      color: #121212;
+    }
+  
+    .version-date { font-size: 14px; color: #666; }
+  
+    .version-desc {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 14px;
+      padding-left: 4px;
+      border-left: 3px solid #f0f0f0;
+      padding-left: 12px;
+    }
+  
+    .version-entry ul {
+      margin: 10px 0 10px 20px;
+      color: #444;
+      font-size: 14px;
+      line-height: 1.85;
+    }
+  
+    .version-entry ul li { margin-bottom: 8px; }
+  
+    .version-entry ul ul {
+      margin-top: 6px;
+      margin-left: 20px;
+      font-size: 13px;
+      color: #555;
+    }
 </style>
-
+</head>
+<body>
 <div class="container">
-
   <div class="header">
     <div class="kicker">Update Notice</div>
     <h1>naoki-blueprint アップデートまとめ</h1>
-    <p class="sub">前回のまとめ (v2.115) 以降の4回のアップデートをご紹介します</p>
+    <p class="sub">これまでのアップデートを1ページに集約しました</p>
     <div class="hero-badge">
-      <span class="v">v2.116.0</span>
-      <span class="arrow">→</span>
-      <span class="v">v2.119.0</span>
-      <span class="d">2026-08-14 〜 2026-08-25</span>
+      <span class="v">v2.14</span>
+      <span class="arrow">&rarr;</span>
+      <span class="v">v2.119</span>
+      <span class="d">2026-04 〜 2026-08</span>
     </div>
   </div>
 
   <div class="lead-card">
-    <p>今回は新機能が中心です。目玉は<strong>「書き出すだけで背景ノイズが消えるように」「タイムラインエディタの操作感アップ」「話者アイコンのサイズ自動化」「手持ちフォント対応」</strong>の4つです。</p>
-    <p>あわせて <strong>v2.119 でショート動画版の不具合を3件修正</strong>しました。ショート動画を作られている方は下の「最新の変更」をご確認ください。</p>
+    <p><strong>最新は v2.119.0 です。</strong>直近の変更はこの下に、それより前は年代順にたたんであります。見出しをクリックすると開きます。</p>
     <p>自動更新が有効なので、次に編集を始めるときに自動で反映されます。手動更新したい場合は <code>bash アップデート.sh</code> でOKです。</p>
   </div>
 
-  <div class="section-label">最新の変更 (v2.119)</div>
+  <nav class="toc" aria-label="目次">
+    <h2>もくじ</h2>
+    <ol>
+      <li><a href="#latest">最新の変更<span class="range">v2.119</span></a></li>
+      <li><a href="#v2116">ノイズ除去・タイムラインエディタ・手持ちフォント<span class="range">v2.116 → v2.118</span></a></li>
+      <li><a href="#v2104">タイムラインエディタ登場・カットピッカー刷新<span class="range">v2.104 → v2.115</span></a></li>
+      <li><a href="#v2100">ハイライトピッカー・Codex 連携<span class="range">v2.100 → v2.103</span></a></li>
+      <li><a href="#older">それ以前の履歴<span class="range">v2.14 → v2.18</span></a></li>
+    </ol>
+  </nav>
+
+  <div id="latest"></div>
+<div class="section-label">最新の変更 (v2.119)</div>
 
   <div class="card">
     <div class="card-head">
@@ -323,6 +419,1235 @@
     </div>
   </div>
 
+  
+  <details class="archive" id="v2116">
+    <summary>🔇 ノイズ除去・タイムラインエディタ・手持ちフォント <span class="vpill">v2.116 → v2.118</span> <span class="sum-note">2026-08-14 〜 08-25</span></summary>
+    <div class="archive-body">
+      <div class="lead-card" style="margin-top:16px;">
+        <p>目玉は<strong>「書き出すだけで背景ノイズが消えるように」「タイムラインエディタの操作感アップ」「話者アイコンのサイズ自動化」「手持ちフォント対応」</strong>の4つです。</p>
+      </div>
+<div class="section-label">大きな進化</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🔇 書き出すだけで背景ノイズが消えるように</span>
+      <span class="vpill">v2.118</span>
+    </div>
+    <p class="desc">「エアコンや外の音がうるさくて声が聞き取りにくい」問題に、<strong>AIノイズ除去 (RNNoise)</strong> で答えました。カットピッカーの <strong>[書き出し] を押すだけで自動で判定・適用</strong>されます。操作は一切不要です。</p>
+    <ul>
+      <li><strong>効果を実測してから採用します。</strong>実際に処理してみて「ノイズが十分減り、かつ音が荒れない」場合だけ適用。効果が薄い素材や元から静かな素材は自動で原音のままです（結果は書き出し完了メッセージに表示されます）</li>
+      <li><strong>拍手や笑い声はちゃんと残ります。</strong>原音を2割ブレンドする設計で、対談のリアクションが消えません</li>
+      <li><strong>映像の画質には一切影響しません</strong>（音声だけを差し替えます）。13分の動画で追加約40秒です</li>
+      <li>気に入らなければ Claude に<strong>「ノイズカットを外して」</strong>と言うだけで完全に元へ戻ります。以降その動画では適用されなくなり、「ノイズ除去を戻して」でいつでも再開できます</li>
+      <li>文字起こしへの影響も実素材で検証済み。精度はそのままで、固有名詞の認識はむしろ良くなる傾向でした</li>
+    </ul>
+    <div class="note-box">
+      <p><strong>💡 使い方は今まで通りです。</strong>step05 のカット → [書き出し] を押す → 完了メッセージに「🔇 背景ノイズを ◯dB 削減しました」と出ていれば適用されています。別タブで再生される動画がすでにノイズ除去済みなので、いつもの聴感確認がそのまま検品になります。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🎬 タイムラインエディタの操作感アップ</span>
+      <span class="vpill">v2.117</span>
+    </div>
+    <p class="desc">前回登場したタイムラインエディタに、使い込んでこそ効く改善が入りました。</p>
+    <ul>
+      <li><strong>再生中の画面が常にセンタリング追従</strong>するようになりました（これまでの「静止→ワープ→静止」の繰り返しがなくなり、目で追いやすくなっています）</li>
+      <li>テロップ本文は <strong>Enter = 確定 / Shift+Enter = 改行</strong> に（Slack と同じ規約）。日本語変換の確定 Enter で編集が終了してしまうこともありません</li>
+      <li><strong>「選択部分を強調」ボタン</strong>を追加。本文で語をなぞって押すだけで強調ワードに設定されます（同じ語を2回打つ必要がなくなりました）</li>
+      <li>素材の音声は<strong>「▶ この素材だけ試聴」</strong>方式に。選んだ素材1つだけを確認できます</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">👤 話者アイコンのサイズが自動に・動きもなめらかに</span>
+      <span class="vpill">v2.117-118</span>
+    </div>
+    <p class="desc">対談動画の話者アイコン（顔検出で話者に追従するアイコン）が進化しました。</p>
+    <ul>
+      <li><strong>顔検出ベースのサイズ提案</strong>が入り、素材ごとにちょうどいい大きさを自動で決められるようになりました</li>
+      <li>顔サイズに連動させたとき、追従区間の切り替わりで出ていた<strong>「段差」がなめらかに繋がる</strong>ようになりました（寄り引きの変化も自然に）</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🔤 手持ちフォントが使えるように</span>
+      <span class="vpill">v2.118</span>
+    </div>
+    <p class="desc">みなさんに答えていただいた<strong>フォントアンケートの結果を反映</strong>しました。ありがとうございました！</p>
+    <ul>
+      <li>BOOTH 等で購入した<strong>手持ちのフォントファイルをテロップに使える</strong>ようになりました（零ゴシック・源界明朝のリクエストに応えるものです）</li>
+      <li>アンケート上位の <strong>Noto 明朝 / M+ 1p</strong> を標準の選択肢に追加しました</li>
+      <li>フォント設定の経路も一本化し、ピッカーで選んだものがプレビューでも完成品でも同じ字形で出るようになっています</li>
+    </ul>
+    <div class="note-box">
+      <p><strong>💡 手持ちフォントの使い方（3ステップ）</strong></p>
+      <p>① フォントファイル（.woff2 / .ttf / .otf）をプロジェクトの <code>public/fonts/</code> フォルダに入れる（ダッシュボードの「🔤 手持ちフォント」ボタンからワンクリックで開けます）<br>
+      ② テンプレピッカーを起動し直す<br>
+      ③ フォントの選択肢に「◯◯ (手持ち)」として出てくるので、選ぶだけ</p>
+      <p style="margin-top: 10px;"><strong>⚠️ 2つだけ注意</strong><br>
+      ・ファイル名は<strong>半角英数字</strong>にしてください（例: <code>ZeroGothic.otf</code>）。日本語やスペース入りの名前は認識されません<br>
+      ・フォントのライセンス（動画への利用可否）は各自でご確認ください。フォントファイル自体は Blueprint からは配布されません</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">📋 「次回もこうして」を Claude が提案してくれるように</span>
+      <span class="vpill">v2.116</span>
+    </div>
+    <p class="desc">動画完成時に、今回の制作で決めたことの中から<strong>次回に引き継げそうなものを Claude が一覧で提示</strong>し、選ぶだけで保存できるようになりました。</p>
+    <ul>
+      <li>これまでは「次回もこうして」と明言したものだけが対象で、言いそびれると何も引き継がれませんでした</li>
+      <li>候補になるのはあなたの発言・承認した選択だけ。Claude の推測では保存しません</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">⌨️ ハイライトピッカーにもショートカット</span>
+      <span class="vpill">v2.116</span>
+    </div>
+    <ul style="margin-top: 0;">
+      <li><strong>J / K / L</strong> = 逆再生・停止・早送り（連打で 2x→4x→8x）</li>
+      <li><strong>Q / E</strong> = 選択中クリップの開始・終了を今の再生位置に合わせる</li>
+      <li><code>?</code> キーでショートカット一覧が開きます</li>
+    </ul>
+  </div>
+
+  <div class="section-label">そのほかの新機能・改善</div>
+
+  <div class="card">
+    <ul style="margin-top: 0;">
+      <li><strong>new-youtube の①分析が自動に。</strong>YouTube Analytics API から前回動画の数値を自動取得できます（任意・CSV アップロードも今まで通り使えます） <span class="vpill">v2.118</span></li>
+      <li><strong>対談動画は言い直し検出が既定 OFF</strong> になりました（台本が無い対談では誤検出の実害が大きいため。必要ならスライダーで ON にできます） <span class="vpill">v2.116</span></li>
+      <li>ダッシュボードの登場人物の欄が「進行役 (聞き手)」「ゲスト (話し手)」表記になりました <span class="vpill">v2.116</span></li>
+    </ul>
+  </div>
+
+  <div class="section-label">不具合の修正</div>
+
+  <div class="card">
+    <div class="fix-list">
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">プロファイル適用が毎回「失敗」と表示されていた</span><span class="vpill">v2.116</span></div>
+        <p>実際には<strong>適用は成功していた</strong>ので、設定はご安心ください。表示だけの問題を修正しました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">カットピッカーの境界ズレを根治</span><span class="vpill">v2.116</span></div>
+        <p>「灰色に見えるのに残ってしまう」ズレが構造的に起きなくなりました。カットの余韻バッファも語尾側だけになり、境界が見やすくなっています。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">そのほか</span><span class="vpill">v2.116-117</span></div>
+        <p>強調ワードの文字が一部テンプレで表示されない問題 / 箇条書きの項目タイミングがパネル移動に取り残される問題 / レンダリングの誤起動・中断後の二重実行、などを修正しました。</p>
+      </div>
+    </div>
+  </div>
+    </div>
+  </details>
+
+  <details class="archive" id="v2104">
+    <summary>🎬 タイムラインエディタ登場・カットピッカー刷新 <span class="vpill">v2.104 → v2.115</span> <span class="sum-note">2026-07-25 〜 08-12・13回</span></summary>
+    <div class="archive-body">
+<div class="lead-card">
+    <p>この約3週間で13回のアップデートがありました。目玉は<strong>「テロップピッカーがタイムラインエディタに生まれ変わりました」「カットピッカーが動画編集ソフト並みの操作感に」「書き出さずに通し再生で確認できるように」「テロップの選び分けが作り直されました」「編集内容が1分ごとに自動保存されるように」「書き出した動画のちらつき対策」</strong>の6つです。</p>
+    <p>自動更新が有効なので、次に編集を始めるときに自動で反映されます。手動更新したい場合は <code>bash アップデート.sh</code> でOKです。</p>
+    <div class="alert-box">
+      <p><strong>⚠️ v2.112.0 でアップデートが止まっている方へ</strong></p>
+      <p>v2.112.0 だけ中身が一部欠けた状態で配布されてしまいました。<code>bash アップデート.sh</code> をもう一度実行して最新版（v2.115.0）にしてください。</p>
+    </div>
+  </div>
+
+  <div class="section-label">大きな進化</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🎬 タイムラインエディタ — テロップピッカーが生まれ変わりました</span>
+    </div>
+    <p class="desc">テロップを1つずつ直す画面だった「テロップピッカー」が、<strong>動画編集ソフトのような9レーンのタイムライン</strong>になりました。テロップ・画像/動画素材・スライド・ワイプ・表示パネル・SE・BGM を、1つの画面でまとめて確認・編集できます。<strong>横版・ショート版どちらにも入っています。</strong></p>
+    <div class="shot">
+      <img src="whats-new-assets/v2104-1.jpg" alt="タイムラインエディタの画面">
+      <div class="shot-cap">実際のタイムラインエディタ画面 — 左が素材フォルダ、中央がプレビュー、下が9レーンのタイムライン</div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">素材フォルダ・JKLシャトル・配色刷新</span><span class="vpill">v2.105</span></div>
+          <p>画像や動画がフォルダ別のサムネイル一覧に並び、プレビューしてからタイムラインへドラッグ&amp;ドロップで投入できるように。J=逆再生 / K=停止 / L=早送り の「JKLシャトル」に対応し、レーンとバーの見分けがつく配色に刷新しました。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">9レーンのタイムラインへ全面刷新</span><span class="vpill">v2.107</span></div>
+          <p>プレビュー画面の上で素材の移動・リサイズ、ワイプや見出しの位置調整、メイン動画の拡大中心点の指定が<strong>マウスで直接</strong>できるようになりました。テンプレのホバープレビュー、ワイプの枠線（色・太さ）、グリーンバック背景の差し替えにも対応。保存は「原本を残して必要な箇所だけ書き換える」方式です。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">BGM・SE・完成スライドも素材フォルダに</span><span class="vpill">v2.112</span></div>
+          <p>BGMはBGMレーンへドラッグで配置、SEはテロップのバーへドロップするとそのテロップの個別SEに、完成スライドは全画面で配置。音源はクリックでプレビュー再生できます。OP動画も素材フォルダに並ぶようになりました。テロップの分割・カットに <strong>W / Q / E</strong>（カットピッカーと同じ体系）を追加しています。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">2行編集・自動保存・SEの自由配置</span><span class="vpill">v2.113</span></div>
+          <p>本文欄で <strong>Enter を押すと改行</strong>できるようになりました（2行まで・確定は Cmd/Ctrl + Enter）。<strong>1分ごとの自動保存</strong>も追加。手が止まって10秒経過し、ドラッグ中でも入力中でもない時だけ動くので作業の邪魔になりません。<strong>SEを好きな位置にドラッグ配置</strong>できるようにもなりました（移動・長さ変更・音量調整つき）。</p>
+        </div>
+      </div>
+    </div>
+    <div class="note-box">
+      <strong>保存し忘れても消えません。</strong>編集内容はブラウザ内にも随時退避されるので、閉じてしまっても次に開いたときに「未保存の編集が残っています。復元しますか？」と確認します。
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">✂️ カットピッカー — 動画編集ソフト並みの操作感に</span>
+    </div>
+    <p class="desc">毎回必ず通るカット工程が、<strong>キーボードだけでサクサク進められる</strong>ようになりました。作業時間がいちばん直接的に縮む部分です。</p>
+    <div class="shot">
+      <img src="whats-new-assets/v2104-2.jpg" alt="カットピッカーの画面">
+      <div class="shot-cap">実際のカットピッカー画面 — 上下の境界をドラッグして波形を大きくできる。右上の「ショートカット」ボタン（または ? キー）で全操作の一覧が開く</div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">J/K/L シャトルと Q/W/E トリム</span><span class="vpill">v2.110</span></div>
+          <p>L=順再生 1x→2x→4x→8x / J=逆再生 / K=停止。逆再生でも削除区間はきちんと飛ばします。<strong>W=カット点を追加</strong>、<strong>Q=現在地から前のカット点まで</strong>、<strong>E=現在地から次のカット点まで</strong>を一気にカット。Cmd+Z で取り消せます。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">ピンチでシームレスにズーム・波形が精細に</span><span class="vpill">v2.110</span></div>
+          <p>Ctrl/⌘+ホイールでなめらかに拡大縮小。停止中はカーソル直下の時刻を固定したまま寄れます。高倍率でも波形が粗くならなくなり、同時に再生中の描画も軽くなりました。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">ショートカット一覧・レイアウト調整</span><span class="vpill">v2.111</span></div>
+          <p>「ショートカット」ボタン（または <strong>?</strong> キー）で全操作の一覧が開くようになりました。プレビューと波形の境界、動画と設定パネルの境界を<strong>ドラッグで調整</strong>でき、位置は次回起動時も復元されます。波形を大きくして拡大ズームと組み合わせると細かい調整がしやすくなります。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">▶️ 書き出さずに「通し再生」で確認できます</span>
+    </div>
+    <p class="desc">これまで完成形を確認するには一度レンダリングする必要がありましたが、<strong>タイムラインエディタの中で OP → 本編 → 挿入 → ED を通しで再生</strong>できるようになりました。確認のたびに待つ時間がなくなります。</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">音声込みで通し再生 / ステージが実動画に</span><span class="vpill">v2.108</span></div>
+          <p>再生ヘッドが OP・物理挿入・ED の区間にも入れるようになりました。V2オーバーレイ動画・2カメ・アニメMP4スライドは静止サムネから<strong>実際に動く映像</strong>に変わり、スライドの Ken Burns（ズーム・パン）やパネルの入退場アニメもプレビューで再現されます。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">可変速の通し再生 / 素材音声プレビュー</span><span class="vpill">v2.109</span></div>
+          <p>再生中に速度を変えても即反映。挿入やOP/EDを跨いで倍速シャトルが効きます。ツールバーの「素材音声」トグルをONにすると、<strong>音声オンにした素材動画（V2・2カメ）の音が完成品と同じ音量で鳴る</strong>ようになりました（既定はOFF）。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">💬 テロップの選び分けを作り直しました</span>
+      <span class="vpill">v2.114</span>
+    </div>
+    <p class="desc">テロップの種類を選ぶ基準を、言葉の印象から<strong>「話し手が視聴者に何をしているか」</strong>に変えました。これまで定義があるのに<strong>1本も使われていなかった3種類</strong>が、実際に出るようになります。</p>
+    <ul>
+      <li><strong>無感情</strong> — 常識・思い込みの否定（「才能ではありません」「どれも違います」）を淡々と切るとき</li>
+      <li><strong>衝撃</strong> — 前提がひっくり返る事実（「実は逆でした」）</li>
+      <li><strong>ネガティブ2</strong> — 強い危機感・当事者化（「このままだと手遅れです」）</li>
+    </ul>
+    <p class="desc" style="margin-top:14px">あわせて<strong>「無感情」を配布物で有効化</strong>しました（濃紺の座布団に白の明朝・文字サイズ108）。これまでは設定上オフになっていて、テンプレピッカーからも選べませんでした。ピッカーの説明文も新しい定義に更新しています。</p>
+  </div>
+
+  <div class="section-label">その他の新機能</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🪄 テロップの仕上げと表記統一が自動になりました</span>
+      <span class="vpill">v2.114</span>
+    </div>
+    <p class="desc">これまで手作業で直していた整形を、step08 が自動でやるようになりました。<strong>意味の判定には一切触れず、機械で決まることだけ</strong>を直します。対談1本で<strong>13箇所</strong>が手作業なしで片付きました。何度実行しても同じ結果になります。</p>
+    <ul>
+      <li>字幕の抜け・重複の検査（重なりが見つかったら止まります）</li>
+      <li>同じセリフでテンプレの判定が割れていたら統一</li>
+      <li>対談で話者とテンプレが食い違っていたら修正（ゲストの発言がホストの色で出る事故を防ぎます）</li>
+      <li>相槌（「そうですね」）が本題とつながった1枚を2枚に分割</li>
+      <li>文末の後ろに次の文が続いた1枚を分割</li>
+    </ul>
+    <p class="desc" style="margin-top:14px"><strong>表記ゆれの統一も自動</strong>になりました。<code>transcript-fixes.json</code> に「誤変換 → 正しい表記」を書いておくと、テロップ生成後にもう一度当て直します。台本が無い動画や、カット後の再文字起こしで同じ化け方が復活したときの取りこぼしを防げます。</p>
+    <div class="note-box">
+      安全のため、迷いが出る指定は<strong>実行せずに止まります</strong>。「別の語の一部を書き換えてしまう疑いがあるもの（「エックス」→「X」が「エックス線」に当たる等）」「2回実行すると結果が変わるもの」「置換するとデータが壊れる文字」の3つが対象です。
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🖼️ 画像まわり — アイキャッチも作れます</span>
+      <span class="vpill">v2.113 / v2.115</span>
+    </div>
+    <p class="desc">AI画像生成に入る前に、<strong>何を作るか選べる</strong>ようになりました。これまでは「本編に挿す画像」しか作れませんでした。</p>
+    <ul>
+      <li><strong>本編インサート</strong>（これまで通り）— 発話内容・感情に合う挿絵。話者の横に並べて表示します</li>
+      <li><strong>アイキャッチ</strong>（新）— 章の区切りに入れる全画面の1枚。章題を視覚化したビジュアルを作ります</li>
+    </ul>
+    <p class="desc" style="margin-top:10px">手持ちの画像を用意した場合は、<strong>置き場所をAIが決める</strong>ようになりました。ファイル名で分からない画像は中身を見て判断し、台本と照らして配置します。合う場所が無い画像は無理に使わず報告します。</p>
+    <p class="desc" style="margin-top:10px">インサート画像にも<strong>アニメーション</strong>（ズーム・パン）が付くようになりました。話者と反対方向へ動くので、画面が単調になりません。</p>
+    <p class="desc" style="margin-top:10px">なお v2.115 で、章の区切りに入れる画像の呼び名を<strong>「アイキャッチ」に統一</strong>しました（これまで内部で「見出し」と呼んでいて紛らわしかったためです）。あわせて、選んでも動画に入らなかった「YouTubeサムネイル生成」の選択肢を削除しました。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🧠 次の動画に「あなたのやり方」を引き継げます</span>
+      <span class="vpill">v2.113 / v2.115</span>
+    </div>
+    <p class="desc">これまでプロファイルはフォントや色といった<strong>設定値</strong>だけを保存していましたが、動画の完成時に「次回もこうして」と伝えた内容を<strong>そのまま次の動画に引き継げる</strong>ようになりました。</p>
+    <p class="desc" style="margin-top:10px">引き継げるのはデザインの話だけではありません。</p>
+    <ul>
+      <li><strong>判断のルール</strong> —「相手の発話は積極的に1語強調して」</li>
+      <li><strong>技法・手順</strong> —「無音が残ったら fa.mp3 を挟んで埋めて」</li>
+      <li><strong>例外</strong> —「この人の名前だけは漢字のままで」</li>
+    </ul>
+    <p class="desc" style="margin-top:14px">また、<strong>デザインの保存と、指示の保存を別々に聞く</strong>ようになりました。これまでは4択から1つしか選べず、デザインを保存すると指示が保存できませんでした。今は片方だけ・両方・どちらもしない、が選べます。</p>
+    <div class="note-box">
+      <p><strong>完成した動画からAIが「癖」を自動学習する仕組みは取りやめました。</strong></p>
+      <p>実際の動画9本で調べたところ、差分の95%は表記統一や2行化など<strong>すでに自動でやっている作業</strong>か、<strong>その後ルール自体が変わった箇所</strong>でした。そのまま覚えさせると、やめたはずの古いルールが次の動画で復活してしまいます。今は<strong>あなたが「次回もこうして」と言ったことだけ</strong>を記録します。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🗂️ ダッシュボードが使いやすくなりました</span>
+      <span class="vpill">v2.107 / v2.115</span>
+    </div>
+    <p class="desc">ハイライトピッカーがツールに追加され、名称も分かりやすく整理しました（テロップ → <strong>タイムライン</strong> / プレビュー → <strong>最終確認</strong>）。</p>
+    <div class="shot">
+      <img src="whats-new-assets/v2104-3.jpg" alt="ダッシュボードの画面">
+      <div class="shot-cap">ダッシュボードのツール欄 — カット / テンプレート / タイムライン / スライド / ハイライト / 最終確認</div>
+    </div>
+    <p class="desc" style="margin-top:14px">スライド用フォルダの導線も用途別に整理しました。Step12 に「参考スライド」（Codexに真似させる見本）と「完成スライド」（Canva・PowerPointの完成品を入れる場所）、Step13 に「生成スライド」（最終成果物）です。</p>
+    <p class="desc" style="margin-top:10px"><strong>v2.115 で入力欄も広げました。</strong>「カスタム指示」は<strong>「今回の進め方」</strong>に改名し（プロファイル側の「カスタム指示」と紛らわしかったため）、1行しかなかった入力欄を4行に。<strong>台本の入力欄も2行から8行</strong>にしたので、貼り付けた中身が見えるようになりました。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🎨 スライド生成まわり</span>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">参考画像スライドの「空けゾーン」を選べるように</span><span class="vpill">v2.104</span></div>
+          <p>これまで常に確保していた「右上ワイプ用の円形ゾーン」「下部テロップ用の帯ゾーン」を、生成前に1回だけ選べるようになりました（①両方空ける（推奨）／②テロップ帯のみ／③どちらも空けない）。②③を選んでもワイプの表示自体は止まりません（既定で表示されます）。本当に非表示にしたい場合は step14 で別途オフにしてください。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">Codex生成が並行実行に — 待ち時間が大幅短縮</span><span class="vpill">v2.112</span></div>
+          <p>AI画像・スライドをCodexで複数枚生成するとき、1枚ずつ順番に作っていたのを並行実行に変更しました。<strong>「枚数 × 5分」だったのが、ほぼ1枚分の時間</strong>で終わります。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">重要な修正</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag must">重要</span>
+      <span class="card-title">⚫ 書き出した動画に「1フレームだけ真っ黒」が入る症状への対策</span>
+      <span class="vpill">v2.113</span>
+    </div>
+    <p class="desc">ワークショップでご報告いただいた「動画がちらつく」症状の対策として、<strong>GPU合成を既定OFFに戻しました</strong>。発生時期がGPU合成を有効にした時期と一致しており、Remotion公式も「angleには既知のメモリリークがあり、長いレンダリングは分割を推奨」と明記しています。</p>
+    <p class="desc" style="margin-top:10px"><strong>アップデートすれば自動的に無効化されるので、操作は不要です</strong>（以前 <code>setup-remotion-gl.mjs</code> を実行した方も含みます）。レンダリングは1.2倍ほど遅くなりますが、ちらつく動画を速く作っても意味がないための判断です。</p>
+    <div class="note-box">
+      <strong>アップデート後にちらつきが消えたかどうか、Naokiまで教えてください。</strong>原因を確定させたいので、ご協力いただけると助かります。（どうしても速度が必要な場合のみ、環境変数 <code>NAOKI_BP_GL=1</code> で有効化できます）
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag fix">FIX</span>
+      <span class="card-title">テロップ・プレビューの見た目のズレ</span>
+    </div>
+    <div class="fix-list">
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">テンプレピッカーの説明文が古いままだった</span><span class="vpill">v2.115</span></div>
+        <p>テロップの選び方を作り直した（v2.114）のに、テンプレピッカーに出る説明文が古い定義のままでした。特に「危機感」は例が逆になっていました。横動画・ショート動画の両方を直しています。</p>
+        <ul>
+          <li><strong>危機感</strong> — 「もったいない / 損してる」→「頭が真っ白になる / もう終わります」</li>
+          <li><strong>衝撃</strong> — 「まさか / ありえない」→「それ今日でやめてください / 楽な道はない」</li>
+          <li><strong>ネガティブ</strong> — 「ダメ / 危険」→「2時間以上かかる / この悪循環」</li>
+          <li><strong>代弁</strong> — 「〜と思いませんか?」→「話者が別人になりきって喋っている時」</li>
+        </ul>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">次回に引き継いだ指示が読まれていなかった</span><span class="vpill">v2.115</span></div>
+        <p>動画完成時に「次回もこうして」と伝えた指示を保存しても、<strong>プロファイルを作ったあとは一度も読まれていませんでした</strong>。保存先がプロファイルのある時は参照されない場所だったためです。保存先をプロファイルの中に変更しました。すでに古い場所に溜まっている場合は、次の動画の完成時に一度だけ中身を出して、移すかどうか確認します（勝手には動かしません）。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">座布団の位置が書き出すとズレる</span><span class="vpill">v2.113</span></div>
+        <p>通常テロップ・相手テロップに座布団を付けると、プレビューでは綺麗なのに書き出すと約36px下にズレていた問題を修正しました。この4種類だけ文字の基準線の扱いが違っていたのが原因です。<strong>文字の位置は一切変えていない</strong>ので、既存動画の見た目は変わりません。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">テンプレートを変えると文字が「線だけ」に見える</span><span class="vpill">v2.113</span></div>
+        <p>タイムラインエディタでテロップのテンプレートを変えたとき、プレビューで文字の色が抜けて白い縁だけに見えてしまう問題を修正しました。プレビュー画像を取りに行っている間の仮表示が原因でした。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">テンプレピッカーのデザイン変更が反映されない</span><span class="vpill">v2.113</span></div>
+        <p>座布団・縁取り・影などをテンプレピッカーで変えても、タイムラインエディタのプレビューに反映されない問題を修正しました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">ショート版でデザイン設定が反応しない</span><span class="vpill">v2.107</span></div>
+        <p>ショート版のテンプレピッカーで影・座布団・斜体・グラデ等を変えてもプレビューに反映されない問題を修正しました。保存自体は効いていたため、<strong>完成動画には従来から正しく反映されています</strong>。カラーが2列になる表示崩れも直しました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">文字数チェックの精度向上</span><span class="vpill">v2.107</span></div>
+        <p>テロップの文字サイズを個別に変更した場合も、その実際のサイズで文字数上限を判定するようになりました。3行以上のテロップも警告されます。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">ピッカーのプレビューが完成品と違うフォントだった</span><span class="vpill">v2.105.1</span></div>
+        <p>プレビューの文字が完成した動画と違う字形で描かれていました。修正後は明朝体・角ゴシックとも完成品と同じ字形で表示されます（横版・ショート版とも）。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag fix">FIX</span>
+      <span class="card-title">完成品に反映されなかった編集・その他</span>
+    </div>
+    <div class="fix-list">
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">メイン音量が完成品に反映されない</span><span class="vpill">v2.108</span></div>
+        <p>ピッカーで設定した「メイン音量」が書き出しに反映されない実バグを根治しました。未対応のプロジェクトには、2行だけの限定移行手順を案内します。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">箇条書きの編集が完成品に届かない</span><span class="vpill">v2.112</span></div>
+        <p>箇条書きの項目編集が完成品に反映されない／項目数を変えると無言のまま壊れる、という2つの問題を修正しました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">デモ動画を挿入すると後半が全部ズレる</span><span class="vpill">v2.107 / v2.105</span></div>
+        <p>物理挿入（動画を本編に割り込ませる方式）を使うと、挿入点より後ろのテロップ・SE・素材が挿入分だけ遅れて表示され、ベース動画が挿入点で頭から再生し直される不具合を根治しました（横版・ショート版とも）。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">素材が無い工程が黙って飛ばされていた</span><span class="vpill">v2.113</span></div>
+        <p>ダッシュボードでONにした工程が、素材が無いという理由で黙ってスキップされていたのをやめました。AIで作れる工程はそのまま進み、実素材が要る工程は開始時に「素材を今から入れる／この工程は飛ばす」を1回だけ確認します。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">Chrome も Edge も無い環境でスライド生成が失敗</span><span class="vpill">v2.105.1</span></div>
+        <p>Braveのみ等の環境で step13 のスライド撮影が丸ごと失敗していました。Remotionに同梱のブラウザを使うようにして解決しています。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">古いプロファイルが適用できない</span><span class="vpill">v2.105.1 / v2.105</span></div>
+        <p>昔に保存したプロファイルが「必須の項目が足りない」と判定されて適用できなかった問題を修正。さらに古い形式（schema 3）のプロファイルは<strong>適用時に自動で新形式へ移行</strong>するようになりました。手を加えた形跡がある場合は黙って上書きせず、選択肢を案内して止まります。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">ノートPCで動画プレビューが波形に隠れる</span><span class="vpill">v2.107</span></div>
+        <p>フルHD未満の画面で、カットピッカーの波形パネルが動画の下部に重なって再生ボタン・時刻が見えなくなる問題を修正しました。「書き出し」ボタンも常に表示されます。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">対談動画のワイプで顔が見切れる</span><span class="vpill">v2.114</span></div>
+        <p>対談動画のワイプは顔が中央に来るよう配置基準を変更しました。あわせて文字起こし修正の照合元に <code>knowledge.txt</code> を追加し、<code>knowledge.txt</code> には<strong>正しい表記だけ書けばよい</strong>ことを説明に明記しました（文字起こしがSpeechmatics前提になったため）。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">一部のファイルが検査を素通りしていた</span><span class="vpill">v2.114</span></div>
+        <p>特殊な文字が混入したファイルが検査対象から黙って外れ、そのファイルだけ他の検査もすべて素通りしていた不具合を修正しました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">その他の細かい調整</span><span class="vpill">v2.112</span></div>
+        <p>SEの既定音量を 0.08 → 0.13 に引き上げ（声を基準にした業界目安に整合）。カットピッカーの「言い直し検出」つまみが7段階に（OFF / 5〜10字・既定7字）。step04の文字起こしレビューが生成後に自動でエディタで開くように。「素材ビン」の表記を「素材フォルダ」に変更しました。</p>
+      </div>
+    </div>
+  </div>
+    </div>
+  </details>
+
+  <details class="archive" id="v2100">
+    <summary>⭐ ハイライトピッカー・Codex 連携 <span class="vpill">v2.100 → v2.103</span> <span class="sum-note">2026-07-22 〜 07-24</span></summary>
+    <div class="archive-body">
+<div class="lead-card">
+    <p>この3日間で4回のアップデートがありました。目玉は<strong>「ハイライトもピッカーで作れるように」「画像・スライド生成にCodexという新しい選択肢が増えた」「グリーンバックでパソコンが消える問題への対策」「APIキー設定がラクに」</strong>の4つです。</p>
+    <p>自動更新が有効なので、次に編集を始めるときに自動で反映されます。手動更新したい場合は <code>bash アップデート.sh</code> でOKです。</p>
+  </div>
+
+  <div class="section-label">大きな進化</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🎬 Highlight Picker — ハイライトもピッカーで作れます</span>
+    </div>
+    <p class="desc">これまで縦の切り抜き専用だった「ピッカー」画面が「Highlight Picker」にリニューアル。<strong>横動画の冒頭に入れるハイライト（本編ダイジェスト）も、ブラウザ画面をポチポチするだけで作れる</strong>ようになりました。2回のアップデートでここまで進化しています。</p>
+    <div class="shot">
+      <img src="whats-new-assets/v2100-1.jpg" alt="Highlight Picker 画面">
+      <div class="shot-cap">実際の Highlight Picker 画面 — 波形を見ながらハイライト区間を選び、種別・枠組みをその場で設定できる</div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">ハイライト作成そのものが可能に</span><span class="vpill">v2.100</span></div>
+          <p>使いたい区間を選ぶだけで枠線の色・背景画像・切り替え演出（黒/白フェード）を設定。複数のハイライトを好きな順番に並び替え可能。書き出しボタンひとつで「縦切り抜き」と「ハイライト」を同時生成し、本編冒頭に自動連結された完成品まで一気に作れます。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">見出しもテンプレートから選べるように</span><span class="vpill">v2.101</span></div>
+          <p>画面下部の「見出し」が固定デザイン+色選択のみだったのを、上部の「コメント」と同じ10種類のテンプレートから選べるように。2行入力にも対応し、新規クリップの初期値も「ショート」から「ハイライト」に変更しました。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">ループ再生時の枠線バグを修正</span><span class="vpill">v2.101</span></div>
+          <p>ハイライトのループ再生後、本編の頭出し位置に戻った際に金色の枠線が消えずに残ってしまう不具合を修正しました。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🎨 画像・スライド生成に「Codex」という新しい選択肢</span>
+    </div>
+    <p class="desc">Codex CLI（OpenAIのコーディングエージェント）をすでに導入・ログイン済みの方向けに、<strong>Lovart・Geminiに続く3つ目の生成方法</strong>としてCodexでの画像生成が使えるようになりました。追加の課金は発生しませんが、コーディング支援と利用枠を共有します。</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">画像挿入(インサート・オーバーレイ・顔アイコン)に対応</span><span class="vpill">v2.102</span></div>
+          <p>感情ベースの画像挿入で、横動画・ショート動画どちらでもCodexでの生成を選べるように。実写1枚が主役になる場面ではワイプ/テロップ用の空けゾーンを指定しない方が自然な構図になることを確認し、その設計を反映しています。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div class="tcontent">
+          <div class="thead"><span class="ttitle">スライド生成にも「参考画像スタイル再現」として追加</span><span class="vpill">v2.103</span></div>
+          <p>スライド生成の最初に、<strong>①HTMLスライド自動生成（推奨）／②参考画像のスタイルをCodexで再現（実験的）／③手持ちの完成スライドをそのまま使う</strong>の3択を必ず確認するようになりました。②は、お手元の参考デザイン画像（Canva等で作ったもの）を1枚ずつCodexが見たまま踏襲してスライド画像を生成します。段階表示演出や生成後の微調整は使えませんが、既存の受講生デザインをそのまま活かせます。</p>
+          <div class="shot">
+            <img src="whats-new-assets/v2100-2.jpg" alt="Codexで生成したスライドの例">
+              <div class="shot-cap">②参考画像のスタイルをCodexで再現 — 生成されたタイトルスライドの例</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">その他の新機能</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🖼️ グリーンバック — パソコンやマイクが消える問題への対策</span>
+      <span class="vpill">v2.100</span>
+    </div>
+    <p class="desc">机の上のパソコンやマイクが「人物じゃない」と誤判定されて消えてしまう…という声にお応えして、<strong>色をヒントに復活させる機能</strong>を追加しました。動画再生時のチラつき対策も入れてあります。実際の受講生素材で比較したところ明確な改善が見られたため、<strong>今回から既定でON</strong>になっています。</p>
+    <p class="desc" style="margin-top:10px">何もしなくても自動で適用されます。まれに背景がまだらになる等の副作用が出た場合は、step10 のガイドに記載の方法でオフにできます。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🔑 APIキー設定がラクになりました</span>
+      <span class="vpill">v2.100</span>
+    </div>
+    <p class="desc">これまで文字起こし（Speechmatics）や画像生成（Gemini・Lovart）のAPIキーは、プロジェクトを作るたびに <code>.env</code> に手で貼り付けてもらう必要がありました。</p>
+    <p class="desc" style="margin-top:10px"><strong>今回から一度設定すれば、以降の全プロジェクトで自動的に使い回されます。</strong>過去のプロジェクトに設定済みのキーがあれば「そこから使いますか？」と聞かれるだけ。初めての設定でも、コピーしてチャットに「できた」と送るだけで完了します（キーの値をチャットに貼る必要はありません）。</p>
+    <p class="desc" style="margin-top:10px">Speechmatics・Gemini・Lovart（ACCESS/SECRETペア）すべて同じ方式に対応しています。</p>
+  </div>
+
+  <div class="section-label">細かい修正</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag fix">FIX</span>
+      <span class="card-title">テロップ・画像生成・書き出しの細かい修正</span>
+    </div>
+    <div class="fix-list">
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">SE（効果音）の音量を倍に</span><span class="vpill">v2.100</span></div>
+        <p>「SEが小さい」というお声にお応えして既定音量を倍にしました。個別に音量調整済みのプロジェクトには影響ありません。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">テロップの強調判定を修正</span><span class="vpill">v2.100</span></div>
+        <p>数字を含む文章が、本来ネガティブな内容でも常に「データ強調」の金色デザインになってしまうバグを直しました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">「emphasis(赤グラデの強調テロップ)」の採用頻度を改善</span><span class="vpill">v2.100</span></div>
+        <p>これまでは短い文にしか使われず出番が少なかったのですが、文の長さではなく「発話の結論・断定かどうか」で判定するように変更。長めの発話でも自然に使われるようになりました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">画像生成の「性別・年代」の質問を修正</span><span class="vpill">v2.100</span></div>
+        <p>発信者本人ではなく、<strong>ターゲット層</strong>の情報を使って画像を生成するように変更。発信者と視聴者層の性別が違う場合に画像がミスマッチになる問題を解消しました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">書き出し時にビットレートを選べるように</span><span class="vpill">v2.100</span></div>
+        <p>YouTube向け / X向けを選ぶだけで、適切な画質で書き出せるようになりました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">文字起こしレビューが必ず入るように</span><span class="vpill">v2.100</span></div>
+        <p>台本が無い・内容が薄い動画では、これまで「必須」と案内だけされて実は素通りしていたレビュー工程を、実際に必ず立ち止まるよう修正しました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">スライドピッカーで背景画像をアップロードできるように</span><span class="vpill">v2.100</span></div>
+        <p>台本→スライド生成の工程で、好きな背景画像を差し込めるようになりました。</p>
+        <div class="shot">
+          <img src="whats-new-assets/v2100-3.jpg" alt="スライドピッカー画面">
+          <div class="shot-cap">スライドピッカー画面 — 色・フォント・レイアウトに加えて背景画像もその場でアップロードして反映できる</div>
+        </div>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">Codex画像生成の細かい不具合を修正</span><span class="vpill">v2.103</span></div>
+        <p>Windows環境でのプロンプト送信・画像リサイズまわりの内部的な不具合をいくつか修正し、より安定して動くようにしました。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">試験導入</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag beta">BETA</span>
+      <span class="card-title">⚡ レンダリングの高速化（試験導入・任意）</span>
+      <span class="vpill">v2.100</span>
+    </div>
+    <p class="desc">パソコンのGPUを使ってレンダリングを速くするオプションを試験的に追加しました。効果は動画の内容によって変わり（1〜2倍程度）、<strong>既定ではオフ</strong>のままです。</p>
+    <p class="desc" style="margin-top:10px">試したい方は <code>node scripts/setup-remotion-gl.mjs</code> を実行してください。実際に計測して効果があれば自動的に有効になります。</p>
+    <div class="note-box">
+      まだ検証中の機能です。無理に使う必要はありません。気になる方だけどうぞ。
+    </div>
+  </div>
+    </div>
+  </details>
+
+  <details class="archive" id="older">
+    <summary>📜 それ以前の履歴 <span class="vpill">v2.14 → v2.18</span> <span class="sum-note">2026-04〜05・26件</span></summary>
+    <div class="archive-body">
+<div class="card">
+  <p style="font-size: 13px; color: #666;">追加された機能・改善の一覧です。 自動更新が有効なので普段は気にしなくて OK。 手動で更新したい場合は <code>bash アップデート.sh</code> を実行してください (Mac / Windows 共通・Cursor 下部のターミナルで OK)。</p>
+</div>
+
+<div class="card">
+
+<!-- v2.14.1 〜 v2.18.5 (プロファイル機能本格運用) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge latest">v2.14.1〜v2.18.5</span>
+    <span class="version-date">2026-05-15</span>
+    <span style="background:#a855f7;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">プロファイル機能</span>
+  </div>
+
+  <div class="section-label">🎨 デザイン設定をプロファイル化 → 次の動画にワンタッチで再利用</div>
+  <p class="version-desc">過去動画で蓄積したデザイン (テロップ色 / フォント / アニメ / カラー / SE 音量 / オートモード設定) を 「プロファイル」 として保存できる仕組みを本格運用。 <code>/new-video</code> 起動時にプロファイルを選べば、 同じトンマナの動画が次の動画にもそのまま適用される。</p>
+  <ul>
+    <li><strong>プロファイル機械適用 (v2.15.0)</strong>: <code>apply-profile.mjs</code> でプロファイルから 3 ファイル (templateConfig / templateVariants / customColorVariants) を上書きコピー。 semver 互換チェック + エラーハンドリング</li>
+    <li><strong>フルオート制約 (v2.15.0)</strong>: プロファイル無しのフルオートは禁止 (= マニュアル / セミオート に降格)。 適当な動画が出来上がるリスクを排除</li>
+    <li><strong>台本自動推定 (v2.16.0)</strong>: フルオート + 台本あり → step01 の質問を全部スキップして AI が target / tone / style / 長さを推定。 受講生は「やり直して」で再実行可能</li>
+    <li><strong>停止ポイント編集 (v2.15.0)</strong>: オートモード中の停止ポイント (step01 / step08 / step19 等) を step ごとに「停止する/しない」 で個別カスタマイズ</li>
+    <li><strong>停止ポイント刷新 (v2.14.2)</strong>: マニュアル / セミオート / フルオートの 3 モードで step ごとに停止条件を整理 (例: step08-telop はマニュアル/セミオートで必ず停止 / step19-render は全モード必ず停止)</li>
+    <li><strong>profileRenderers.tsx 分離 (v2.18.0)</strong>: テロップの SVG レンダラー 7 種 (normal / emphasis / emphasis2 / section / negative / negative2 / third_party) を独立ファイル化 → プロファイルで丸ごと差替可能に</li>
+    <li><strong>素材投入フロー改善 (v2.14.1)</strong>: <code>新規作成.sh</code> 末尾で <code>public/videos/main/</code> を自動オープン (Mac: open / Win Git Bash: cmd start)。 step02 で開く挙動は撤廃</li>
+    <li><strong>extract-profile スキル再設計 (v2.16.0)</strong>: 旧「styles/{slug}.md に自然言語追記」 方式から「styles/projects/{slug}/ に 3 ファイル snapshot」 方式に刷新。 ファイルベースで誰でも再利用可能に</li>
+  </ul>
+</div>
+
+<!-- v2.17.0 (Studio UI 刷新) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.17.0</span>
+    <span class="version-date">2026-05-15</span>
+    <span style="background:#16a34a;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">Studio UI 刷新</span>
+  </div>
+
+  <div class="section-label">🎨 Remotion Studio Schema 編集を廃止 → picker-telop に統一</div>
+  <p class="version-desc">Studio の Props パネルでテロップを編集する旧仕様は反映バグ多発 (Save しても適用されない / 改行マーカー破壊) のため廃止。 新規プロジェクトでは telopData.ts を直接参照する形に変更し、 編集は <strong>picker-telop (<code>npm run telop</code>)</strong> に統一。 既存プロジェクトは旧形式を維持して破壊回避。</p>
+  <ul>
+    <li><strong>Timeline 非表示化</strong>: <code>Config.setMaxTimelineTracks(0)</code> で Studio の Timeline を完全非表示。 100 個以上のシーケンスがあるテロップで「動画が壊れて見える」誤解を解消</li>
+    <li><strong>ピッカーフォント差替</strong>: 「丸」 スロットを M PLUS Rounded 1c → <strong>Reggae One</strong> (極太字形) に変更。 4 スロットを「角 / 明 / 太 / 教」 で漢字統一</li>
+    <li><strong>Google Fonts 明示 import</strong>: <code>src/index.css</code> で 4 フォントを @import → Studio とレンダリング両方で確実に反映</li>
+  </ul>
+</div>
+
+<!-- v2.14.0 (対談動画話者分離 + picker-telop 手動修正) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.14.0</span>
+    <span class="version-date">2026-05-15</span>
+    <span style="background:#3b82f6;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">対談動画</span>
+  </div>
+
+  <div class="section-label">👥 対談 / インタビュー動画の話者分離を Claude 4 ルール v3 に刷新</div>
+  <p class="version-desc">インタビュアー (発信者・normal) / インタビュイー (ゲスト・interviewee) の自動判定ロジックを大幅刷新。 ASR では話者分離できないので、 step08-telop が transcript の内容を分析して自動分類する設計。 picker-telop に手動修正 UI を追加し、 AI 分類が間違った時もブラウザで一発修正可能に。</p>
+</div>
+
+<!-- v2.13.0 (Speechmatics 移行) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.13.0</span>
+    <span class="version-date">2026-05-14</span>
+    <span style="background:#f59e0b;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">文字起こし刷新</span>
+  </div>
+
+  <div class="section-label">🎙️ 文字起こし ASR を Speechmatics standard に完全移行</div>
+  <p class="version-desc">旧 mlx-whisper / faster-whisper は smoothing で「言い直し」が消えるため picker-cut の検出が機能していなかった (9 分動画で 1 件しか拾えず実用不可)。 <strong>Speechmatics standard</strong> に完全移行することで、 phrase 認識完全性と言い直し検出件数の両方で Deepgram を上回る結果に。</p>
+  <ul>
+    <li><strong>無料枠 8 時間/月</strong> (超過時 $0.204/時 = ¥31/時)</li>
+    <li><strong>動画 → 16kHz mono mp3 軽量化を内蔵</strong> (1GB → 数 MB に圧縮)</li>
+    <li><strong>Python + Whisper 環境が不要に</strong> (Mac mlx-whisper / Win faster-whisper のインストール手順が消える)</li>
+    <li><strong>API キー登録</strong>: <code>.env</code> ファイルに <code>SPEECHMATICS_API_KEY=</code> を直接記載 (チャットにキーを貼らせない流儀)</li>
+    <li><strong>句読点抑止</strong> で picker-cut の N-gram 検出が素直に動くように</li>
+  </ul>
+</div>
+
+<!-- v2.12.0 (picker-cut UI) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.12.0</span>
+    <span class="version-date">2026-05-14</span>
+    <span style="background:#ec4899;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">カット UI</span>
+  </div>
+
+  <div class="section-label">🎬 step05-cut に Filmora 相当のブラウザ UI (picker-cut) を統合</div>
+  <p class="version-desc">無音 + 言い直しカットをブラウザ UI でプレビューしながら確認 → 「ここは残す」 「ここは削る」 の手動調整が可能に。 N-gram 検出感度のスライダー、 波形表示、 ジャンプボタンを完備。</p>
+  <ul>
+    <li><strong>rsync → cp ベース置換</strong>: <code>sync_delete</code> / <code>sync_ignore_existing</code> 関数で実装。 Mac / Windows / Linux のどの Bash でも動作 (rsync 不要に)</li>
+    <li><strong>ライセンス API を Vercel に移行</strong>: GAS → <code>naoki-blueprint-license.vercel.app/exec</code>。 GAS の 302 リダイレクト問題を解消し、 バージョン記録 (rp) が正常動作するように</li>
+    <li><strong>アップデート.sh の git fetch を 3 回リトライ + 失敗時 exit 1</strong>: 「アップデート完了風」 メッセージで誤魔化さない</li>
+  </ul>
+</div>
+
+<!-- v2.11.24 〜 v2.11.27 (検証システム強化) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.11.24〜v2.11.27</span>
+    <span class="version-date">2026-05-11</span>
+    <span style="background:#16a34a;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">検証システム強化</span>
+  </div>
+
+  <div class="section-label">🛡 グリーンバック / エンドスクリーン配布バグ → 多層防御化</div>
+  <p class="version-desc">v2.10.0 で <code>icon/</code> フォルダの <code>.gitkeep</code> 取りこぼしを直したのと同じパターンが <code>greenback/</code> / <code>endscreen/</code> でも発生していた (受講生環境にフォルダが配布されず、 step10 / step17 の自動検知が常に OFF)。 「mistakes.md に書くだけでは再発する」 事実を直視し、 機械検知に移行する 4 段階の改修を実施。</p>
+  <ul>
+    <li><strong>v2.11.24 (即時の出血止め)</strong>: <code>.template/public/images/greenback/.gitkeep</code> + <code>endscreen/.gitkeep</code> + <code>.template-shorts/</code> 側両方を追加。 受講生環境に即配布</li>
+    <li><strong>v2.11.25 (構造的再発防止)</strong>: step02-assets SKILL.md に明示的な <code>mkdir -p</code> + Finder/Explorer-open ブロックを横/ショート両方に追加。 ROOT に <code>scripts/validate-template-paths.mjs</code> 新規 (SKILL.md / commands で参照される <code>public/&lt;top&gt;/&lt;sub&gt;/</code> パスを grep して <code>.gitkeep</code> 存在を検証)</li>
+    <li><strong>v2.11.26 (検知可能項目を validate へ昇格)</strong>: <code>validate-no-secrets.mjs</code> + <code>validate-shell-scripts.mjs</code> + <code>validate-triple-files.mjs</code> 追加。 <code>npm run validate-all</code> で 4 種一括実行。 mistakes.md §4 §5 §6 冒頭に 🤖 Machine-detected マーカーを追記</li>
+    <li><strong>v2.11.27 (走らせ忘れ防止)</strong>: <code>scripts/hooks/pre-commit</code> + <code>scripts/setup-hooks.sh</code> 追加。 commit 直前に validate-all が自動走行。 緊急時は <code>--no-verify</code> で bypass 可</li>
+  </ul>
+
+  <div class="section-label">🔍 4 種の validate スクリプトと検知範囲</div>
+  <ul>
+    <li><strong>validate-paths</strong>: SKILL.md / commands で参照される <code>public/&lt;top&gt;/&lt;sub&gt;/</code> のフォルダ + <code>.gitkeep</code> 存在チェック</li>
+    <li><strong>validate-secrets</strong>: <code>GOCSPX-</code> / <code>ghp_</code> / <code>github_pat_</code> / <code>AKIA*</code> / <code>sk-ant-</code> / <code>api_key=</code> / <code>PRIVATE KEY</code> 等のリテラル検出 (<code>--staged</code> フラグで pre-commit 用途)</li>
+    <li><strong>validate-shell</strong>: bare <code>python3</code> / pip <code>--break-system-packages</code> 抜け / <code>start "URL"</code> bare / <code>curl --max-time 5</code> 等 Win + Mac 互換の地雷パターン</li>
+    <li><strong>validate-triple</strong>: <code>.template/</code> ↔ <code>.template-shorts/</code> の B-section 構造同期 + <code>PROJECT_DIR</code> / <code>AUTO_RUN</code> / <code>.auto-checkpoint.json</code> / <code>AskUserQuestion</code> 必須キーワード存在</li>
+    <li>各 validate には行単位 whitelist 機構あり (<code># validate-skip: &lt;CHECK_NAME&gt;</code>)</li>
+  </ul>
+</div>
+
+<!-- v2.11.21 〜 v2.11.23 (作業会 FB + validate 9 個) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.11.21〜v2.11.23</span>
+    <span class="version-date">2026-05-11</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">作業会 FB 全件対応</span>
+  </div>
+
+  <div class="section-label">🎯 作業会フィードバック 9 件を一括解消 (v2.11.21)</div>
+  <p class="version-desc">2026-05-10 の作業会で受講生から挙がった 9 件のフィードバックを翌日に全件配布。</p>
+  <ul>
+    <li><strong>通常テロップの白縁を細く</strong>: strokeWidth 32 → 20 に統一 (CLAUDE.md + step09 SVG)</li>
+    <li><strong>mp3 入力でスライド中心動画</strong>: <code>audio-to-video.mjs</code> 新規 + step02 で audio フォルダ自動検出</li>
+    <li><strong>文字起こし手編集レビュー</strong>: <code>export-transcript-review.mjs</code> + <code>apply-transcript-review.mjs</code> + step04 Phase 6 で人間チェックフェーズ追加</li>
+    <li><strong>パーソナルナレッジ辞書</strong>: <code>knowledge.txt</code> を <code>transcribe.mjs</code> の Whisper <code>initial_prompt</code> に注入。 固有名詞 (受講生名・地名・専門用語) の認識率向上</li>
+    <li><strong>言い直しカット regression 修正</strong>: step05 の <code>min_ngram</code> をモード別に分岐 (default 10 / dialog_no_script 5)</li>
+    <li><strong>watch-finalize でテキスト消失バグ</strong>: <code>sync-from-root.mjs</code> に text 同期追加 (横/ショート両方)</li>
+    <li><strong>強調テロップ SVG 再現性</strong>: step09 SKILL.md に emphasis 5 層 / emphasis2 7 層の完全コード例転記</li>
+    <li><strong>3 カードスライドはみ出し</strong>: aislides three-cards を可変高化</li>
+  </ul>
+
+  <div class="section-label">📐 全 7 ステップに validate スクリプト追加 (v2.11.22)</div>
+  <p class="version-desc">step07 / 08 / 09 / 12 / 13 / 16 / 17 / 18 / 19 の各完了時点で機械的にチェック。 「Claude が SKILL.md を読んだ前提」 を信じず、 生成物を grep で実検証する体制に移行。</p>
+
+  <div class="section-label">🚦 validate 結果を 3 階層化 (v2.11.23)</div>
+  <p class="version-desc">9 個の validate を Critical / Warning / Info に分類して優先度を明示。</p>
+  <ul>
+    <li><strong>🔴 Critical (自動再生成・1 回まで)</strong>: validate-telop / validate-renderer / validate-slides — 受講生に見せる最終品質に直結</li>
+    <li><strong>🟡 Warning (続行・受講生判断)</strong>: validate-template / validate-slide-timeline / validate-special-components / validate-final-composition / validate-bgm</li>
+    <li><strong>🟢 Info (任意実行)</strong>: validate-render (ffprobe 検証)</li>
+  </ul>
+</div>
+
+<!-- v2.11.17 〜 v2.11.20 (SVG レンダラー強制上書き + スライド + Win Python) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.11.17〜v2.11.20</span>
+    <span class="version-date">2026-05-09〜11</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">配布インフラ修正</span>
+  </div>
+
+  <div class="section-label">🔧 SVG レンダラー本体の強制上書きに切替 (v2.11.17)</div>
+  <p class="version-desc">v2.7.6 以降、 SKILL.md / picker のテロップデザイン更新が受講生環境の <code>src/templateVariants.ts</code> / <code>templateColorVariants.ts</code> に降りない事故が継続 (約 1 ヶ月半)。 <code>アップデート.sh</code> の <code>src/</code> 同期を 2 段階に分離し、 SVG レンダラー本体だけ強制上書き、 その他 (telopData / MainComposition / templateConfig 等) は従来通り保護に変更。</p>
+
+  <div class="section-label">📐 スライド構造リファレンス + 検証スクリプト (v2.11.18 → v2.11.19)</div>
+  <p class="version-desc"><code>step12-slides-gen</code> のスライド再現性が振れていた問題を解消。 17 種類全テンプレ分の <code>aislides/reference.html</code> を同梱 + <code>validate-slides.mjs</code> で TODO プレースホルダー残り / 直書きカラー / 必須装飾欠落を機械検証。</p>
+  <ul>
+    <li>v2.11.18: 5 種 (stats / two-columns / three-cards / answer / closing) のリファレンス + validate-slides.mjs</li>
+    <li>v2.11.19: 17 種全部に拡張 (title / big-message / steps / before-after / quote / highlight-box / checklist / timeline / ranking / versus / key-concept / table 追加)</li>
+    <li>英語ラベル全廃 (Today's video → 「今日のテーマ」 等) + 複数行レイアウトを「最長行に合わせた中央配置・中身は左揃え」 ルールで統一</li>
+  </ul>
+
+  <div class="section-label">🪟 Windows Python 検出を実体検証ベースに (v2.11.20)</div>
+  <p class="version-desc">Microsoft Store の Python リダイレクトスタブが入った Windows 環境で、 <code>command -v python3</code> は true を返すのに実体は Store を開くだけのスタブ → <code>.license</code> パースが silently fail → update_allowed 判定が完全にスキップされ、 受講生はエラーに気付かないまま壊れた状態に。</p>
+  <ul>
+    <li>各候補 (<code>python3</code> → <code>python</code> → <code>py</code>) を実際に <code>--version</code> で叩いて 「Python X.Y.Z」 形式の出力検証してから採用するロジックに修正</li>
+    <li>Mac 環境セットアップを 1 行化 (<code>--break-system-packages</code> フラグを <code>docs/_main-content.html</code> の Mac インストーラに追加)</li>
+    <li>terms.html 同意書送信時に GitHub Outside Collaborator を自動招待 (PAT を GAS Script Properties に保存)</li>
+    <li>install-guide のリポジトリ取得セクションを cd コマンドコピペ事故を防ぐ構成に再構築</li>
+  </ul>
+</div>
+
+<!-- v2.11.0 〜 v2.11.16 (HDR speaker icon + picker 改善 + Studio) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.11.0〜v2.11.16</span>
+    <span class="version-date">2026-05-07〜09</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">対談動画 + picker 拡張</span>
+  </div>
+
+  <div class="section-label">🎤 HDR/SDR 自動判定 + 話者アイコン焼き込み式に刷新 (v2.11.0〜v2.11.4)</div>
+  <p class="version-desc">対談動画用の話者アイコン合成パイプラインを根本から作り直し。 iPhone HDR (BT.2020/HLG) 素材で色が破綻する事故を解消。</p>
+  <ul>
+    <li><strong>役割分担</strong>: ffmpeg (zscale + tonemap) で色変換 → Python (numpy/PIL) でアイコン合成 → ffmpeg (h264_videotoolbox / nvenc) で HW エンコード</li>
+    <li><strong>固定 + 部分追従の焼き込み式</strong>: アイコンは画面下部固定 / 顔の動きに合わせて x/y オフセット調整可</li>
+    <li><strong>setup-ffmpeg.sh</strong>: zscale 入り ffmpeg を自動 DL (Homebrew default は zimg 未対応)</li>
+  </ul>
+
+  <div class="section-label">🎨 emphasis テンプレ variant 連動 + picker UI 改善 (v2.11.5〜v2.11.12)</div>
+  <ul>
+    <li><strong>_emphasis テンプレ variant 継承</strong>: base template の variant を _emphasis にも継承 (色がバラバラになる事故修正)</li>
+    <li><strong>強調ワード色 10 色対応</strong>: variant 連動で picker から動的選択可</li>
+    <li><strong>mainVideoEffect "暗転" ラベル</strong>: blur → dim_on_bullet にリネーム + preview に動的暗転アニメ追加</li>
+    <li><strong>npm run dev / studio</strong>: どちらでも watch-finalize が同伴起動するように</li>
+    <li><strong>Win での npx.cmd spawn</strong>: shell:true で起動可能に</li>
+  </ul>
+
+  <div class="section-label">🔒 動画完成フロー強化 (v2.11.14〜v2.11.16)</div>
+  <ul>
+    <li><strong>プロファイル保存必須化</strong>: 動画完成時にスキップ防止 (受講生が styles/ にカスタムを残せるよう強制)</li>
+    <li><strong>レンダリング前に Studio プレビュー必須化</strong>: 完成前の目視確認を強制</li>
+    <li><strong>Apple Silicon 確実判定</strong>: hw arch を <code>uname -m</code> で取得 (x64 側で起動する事故修正)</li>
+  </ul>
+</div>
+
+<!-- v2.10.0 〜 v2.10.2 (ハイライト 4 択 + 2 行 tspan + faceicon 復活) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.10.0〜v2.10.2</span>
+    <span class="version-date">2026-05-07</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">ハイライト + 2 行表示</span>
+  </div>
+
+  <div class="section-label">🎬 ハイライト 4 択選択 (v2.10.0)</div>
+  <p class="version-desc">step20-highlight-final 起動時に 4 択を提示する形式に変更。</p>
+  <ul>
+    <li><strong>🤖 おまかせ自動選定</strong>: Claude が telopData/transcript から盛り上がり区間を自動抽出 (20-35 秒・冒頭/末尾 30 秒は除外)</li>
+    <li><strong>📋 推奨シーンから選ぶ</strong>: 候補 3 つを根拠付きで提示 → 番号で選択</li>
+    <li><strong>✏️ 手動で範囲指定</strong>: fromSec/toSec を直接入力 (既存挙動)</li>
+    <li><strong>⏭ ハイライト不要</strong>: step19 の MP4 をそのまま完成品に</li>
+    <li>候補スコアリング: emphasis +1.0 / emphasis2 +1.5 / negative・negative2 +1.5 / section・theme +2.0 / BulletList・TableComponent +1.5 / SE +0.5</li>
+    <li><code>public/images/icon/</code> フォルダの実体を <code>.gitkeep</code> 入りで復活 (v2.0 から取りこぼしていた)</li>
+  </ul>
+
+  <div class="section-label">🪛 ショート動画 2 行表示の実装ガイド復活 (v2.10.1)</div>
+  <p class="version-desc">v2.7.6 で 「<code>\n</code> で 2 行表示」 と SKILL.md / CLAUDE.md に書いたが、 step09-composition SKILL.md に実装ガイドを降ろし忘れ → 約 1 ヶ月半受講生環境で 1 行に詰まる事故継続。</p>
+  <ul>
+    <li>step09-composition SKILL.md に <code>&lt;tspan&gt;</code> で 2 行描画する実装パターンを追加 (negative 例 + 全 SVG 層共通化ガイド)</li>
+    <li><code>scripts/validate-telop.mjs</code> 追加: telopData の各 entry が単語の途中で切れているか検証 (5 種ヒューリスティック)</li>
+    <li>既存プロジェクトは src/ 保護のため自動反映されない。 step09 やり直しか手修正が必要</li>
+  </ul>
+
+  <div class="section-label">🛡 レンダラー出力検証スクリプト追加 (v2.10.2)</div>
+  <p class="version-desc"><code>scripts/validate-renderer.mjs</code> 追加。 生成された MainComposition.tsx を機械チェック (<code>&lt;tspan&gt;</code> 存在 / split 改行 / lineHeight 計算 / x 属性) し、 2 行レンダラー未実装なら exit 1。 入力 (telopData) と出力 (renderer) の二重ガードが完成。</p>
+</div>
+
+<!-- v2.7.6 〜 v2.9.x (中間パッチ群) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.7.6〜v2.9.x</span>
+    <span class="version-date">2026-05-04〜06</span>
+    <span style="background:#7c3aed;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">細部チューニング</span>
+  </div>
+
+  <div class="section-label">🔧 v2.7 リリース後の安定化パッチ群</div>
+  <p class="version-desc">v2.7.0 配布後に判明した細かい改善・バグ修正を継続的にリリース。 主にショート動画 2 行表示の周辺整備、 customColorVariants 周りのリネーム、 step09 SKILL.md の実装パターン整理など。</p>
+  <ul>
+    <li><strong>ショート動画 2 行テロップ周辺整備</strong>: <code>\n</code> 改行ルールを CLAUDE.md / SKILL.md / step08-telop / step09-composition の 4 箇所に同期 (実装漏れは v2.10.1 で完全解消)</li>
+    <li><strong>templateColorVariants → customColorVariants 整理</strong>: 受講生のカスタム保存先を customColorVariants.ts に分離 (アップデートで上書き保護)</li>
+    <li><strong>step08 emphasis vs normal_emphasis/interviewee_emphasis 境界明確化</strong>: 既存テロップとの色衝突を防ぐルール追加</li>
+    <li><strong>step09 emphasis SVG 実装パターン転記</strong>: 横/ショート両方の SKILL.md に実装パターンを記載</li>
+  </ul>
+</div>
+
+<!-- v2.7.0 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.7.0</span>
+    <span class="version-date">2026-05-04</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">文字起こし精度向上</span>
+  </div>
+
+  <div class="section-label">🎙️ 文字起こし AssemblyAI → mlx-whisper-large-v3 に復帰</div>
+  <p class="version-desc">v2.4 〜 v2.6 で採用していた AssemblyAI Universal-2 を廃止し、 mlx-whisper-large-v3 (Mac) / faster-whisper-large-v3 (Win) に復帰。 受講生のショート動画で精度低下事例が多発したため差し戻し。 ローカル実行のため API キー不要・追加費用なし。</p>
+  <ul>
+    <li><strong>初回セットアップ (v2.6 以前の方)</strong>: Mac → <code>brew install python@3.12 && /opt/homebrew/bin/pip3.12 install mlx-whisper</code> / Win → <code>winget install Python.Python.3.12; py -3.12 -m pip install faster-whisper</code></li>
+    <li><strong>初回実行で Whisper モデル (約 3GB) が自動 DL</strong> (5-10 分)。 2 回目以降はキャッシュ</li>
+    <li><strong><code>.env</code> の <code>ASSEMBLYAI_API_KEY=...</code> 行は不要</strong> (残っていても無視される)</li>
+  </ul>
+
+  <div class="section-label">📐 ショート動画の文字数制限 1080px 幅に厳格化</div>
+  <p class="version-desc">ショート動画 (1080×1920 縦) で横動画と同じ文字数を入れて画面外にはみ出す事故が頻発していたため、 1080px 幅に合わせて 文字数 を絞り込み。 旧 20字 / 14字 → 新 11字 / 8字 (fontSize 84 / 122 の場合)。</p>
+  <ul>
+    <li><strong>fontSize 84 (normal/normal_emphasis)</strong>: 20字 → <strong>11字</strong></li>
+    <li><strong>fontSize 84 third_party (通常モード)</strong>: 18字 → <strong>9字</strong> (｢ ｣ 占有 +2)</li>
+    <li><strong>fontSize 108 (theme)</strong>: 16字 → <strong>9字</strong></li>
+    <li><strong>fontSize 122 (emphasis 系)</strong>: 14字 → <strong>8字</strong></li>
+  </ul>
+
+  <div class="section-label">✂️ 改行ルール: 単語の途中で切らない</div>
+  <p class="version-desc">テロップ分割位置は 助詞 (は/の/に/を/が/で/も/て/と) の後 / 動詞活用語尾の後 / 名詞境界 で切る。 「ボ│レーが」 「ストレ│ートを」 のように単語の途中で切る分割は禁止。</p>
+
+  <div class="section-label">🎤 対談動画モード (dialogVideo) + interviewee テンプレ追加</div>
+  <p class="version-desc">step01-context で「対談 / インタビュー動画ですか？」 を確認。 対談動画モード時は transcript を内容分析して インタビュアー (発信者) / インタビュイー (ゲスト) を自動分類し、 ゲストには新テンプレ <code>interviewee</code> (teal 色・normal と同型 SVG) を適用。</p>
+  <ul>
+    <li><strong>新テンプレ <code>interviewee</code></strong>: NORMAL_VARIANTS の cyan variant (teal 系) で normal (紺) と視覚区別。 対談 / インタビュー動画でゲストの発話に使う</li>
+    <li><strong>新テンプレ <code>interviewee_emphasis</code></strong>: normal_emphasis のインタビュイー版 (teal ベース + 赤強調)。 ゲストの 1 語強調でもベース色が teal で維持される</li>
+    <li><strong>インタビュアー (発信者・質問する側)</strong>: <code>normal</code> / <code>normal_emphasis</code> (紺) をそのまま使用。 チャンネルの顔は既存色で統一</li>
+    <li><strong>判定アルゴリズム</strong>: 質問パターン (?, ですか, 教えてください) / 紹介パターン (お越しいただきました) / 短い相槌 (なるほど) → インタビュアー。 該当しない長めの発話 → インタビュイー</li>
+    <li><strong>third_party の ｢｣ 自動付与は OFF にしない</strong>: 対談動画でも視聴者の声を引用する場面で従来通り使用</li>
+  </ul>
+
+  <div class="section-label">🔊 SE 音量を 0.1 → 0.04 に下げる (-20dB → -28dB)</div>
+  <p class="version-desc">受講生から「SE が少し大きい」 と指摘あり。 旧仕様は BGM の -20dB ルールと同じ位置に SE があったため大きく聞こえていた。 新仕様で -28dB に統一 (BGM 0.03 の +2.5dB 上で聞こえる・メインから -28dB で邪魔しない)。 CLAUDE.md「音量基準」 セクションも業界経験則ベースで書き換え。</p>
+
+  <div class="section-label">⏱ テロップを Sequence でラップ (Studio タイムライン表示対応)</div>
+  <p class="version-desc">全テロップを <code>&lt;Sequence&gt;</code> でラップする運用に変更。 Remotion Studio の左下タイムラインに 1 テロップ = 1 ブロックとして並び、 視覚的にスクラブ・ドラッグ確認できるように。</p>
+
+  <div class="section-label">🔒 インフラ: 凍結リポを Private 化 + Pages を User Page repo に移行</div>
+  <p class="version-desc">v2.5.5 凍結 Public リポを Private 化してテンプレ漏洩リスクを完全排除。 Pages は <code>coachnaoki/coachnaoki.github.io</code> (User Page・docs only) から配信に切替。 URL は変わらず維持 (ブックマーク・SNS シェアそのまま)。</p>
+</div>
+
+<!-- v2.6.0 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.6.0</span>
+    <span class="version-date">2026-05-03</span>
+    <span style="background:#dc2626;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">セキュリティ強化</span>
+  </div>
+
+  <div class="section-label">🔒 Organization 移管 + Private リポ化</div>
+  <p class="version-desc">GitHub リポを Public → Private に変更。 受講生のみが clone できる体制に。 ノウハウ流出のリスクを根本解消しました。</p>
+  <ul>
+    <li><strong>リポ移管</strong>: <code>coachnaoki/naoki-blueprint</code> (Personal/Public) → <code>coach-naoki/naoki-blueprint</code> (Organization/Private)</li>
+    <li><strong>初回 1 回だけ <code>gh auth login</code></strong>: GitHub CLI で認証 (Mac/Win 共通・ブラウザ認証 1 分)</li>
+    <li><strong>アップデート.sh 改修</strong>: gh 認証チェック + remote URL 自動書き換え (旧 → 新)</li>
+    <li><strong>Google 認証は維持</strong>: GitHub 認証 = 読み取り権、 Google 認証 = 実行権 (ライセンス管理) で役割分離</li>
+  </ul>
+</div>
+
+<!-- v2.5.5 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.5.5</span>
+    <span class="version-date">2026-05-03</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.5 系</span>
+  </div>
+
+  <div class="section-label">🛠 受講生影響大の 4 件を一括解消</div>
+  <p class="version-desc">実機 <code>/new-video</code> テストで判明した残課題 4 件をまとめて潰しました。</p>
+  <ul>
+    <li><strong>Apple Silicon arm64 起動問題</strong>: <code>npm run dev:studio-only</code> が x64 側で動いて Studio 起動失敗 → <code>arch -arm64</code> 強制起動 wrapper</li>
+    <li><strong>ROOT/.env 親階層探索</strong>: <code>naoki-blueprint/.env</code> 1 つで全プロジェクト共通利用可能に</li>
+    <li><strong>step15-images 統合</strong>: 画像挿入 + AI 生成 (Gemini) を 1 step に。 課金リスクは step 内で 1 回確認に集約</li>
+    <li><strong>step09 SKILL に新ロジック反映</strong>: TEMPLATE_DEFAULT_EFFECTS / resolveVariant / mainVideoEffect 適用 (v2.5.4 の機能が新規動画でも効くように)</li>
+  </ul>
+</div>
+
+<!-- v2.5.4 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.5.4</span>
+    <span class="version-date">2026-05-03</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.5 系</span>
+  </div>
+
+  <div class="section-label">🎨 picker UI 大幅改修 + テンプレ自動 effect + ハイライト額縁</div>
+  <p class="version-desc">実機テストで詰めた多数の UX 改善・新機能をまとめてリリース。</p>
+  <ul>
+    <li><strong>picker UI 5 件改修</strong>: 「バリエーション → カラー」 リネーム / 🎲 ランダムボタン独立配置 / シチュエーションをプレビュー上に / メイン動画アニメ 1 行 layout / 「+ カスタム追加」 タブ化</li>
+    <li><strong>メイン動画アニメに blur 追加</strong>: なし / ズームイン / ズームアウト+グレースケール / ぼかし の 4 択</li>
+    <li><strong>テンプレ毎の自動 effect</strong>: bullet_list → blur / negative2 → zoom_out / emphasis2 → zoom_in</li>
+    <li><strong>variant=random</strong>: テロップ毎に 10 色から決定的ランダム選択 (startFrame シード)</li>
+    <li><strong>ハイライト額縁</strong>: 0.9 倍縮小 + 金縁 (#DAA520 4px) + 深紺 (#0A1A4D) で元動画と区別しやすく</li>
+  </ul>
+</div>
+
+<!-- v2.5.3 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.5.3</span>
+    <span class="version-date">2026-05-03</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.5 系</span>
+  </div>
+
+  <div class="section-label">🎯 N-gram 言い直し検出「最後の発話を残す」 ルール確立</div>
+  <p class="version-desc">v2.4.0〜v2.5.2 で同一フレーズが 2 回以上繰り返されると、 サブセット phrase の重複検出 + merge により 2 回目の発話冒頭まで食い込んでカットされていた問題を修正。</p>
+  <ul>
+    <li><strong>複数回言い直しでも最後の発話だけは残す</strong>: 採用したい発話 (最後の言い直し) の冒頭が消えなくなった</li>
+    <li><strong>クラスタリング方式</strong>: 同じ phrase の全出現位置を集めて [最初 〜 最後の出現開始] を 1 つの cut にまとめる</li>
+    <li><strong>サブセット phrase 重複排除</strong>: 長い N から降順処理し、 同一言い直し箇所が 1 つにまとまる</li>
+  </ul>
+</div>
+
+<!-- v2.5.2 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.5.2</span>
+    <span class="version-date">2026-05-03</span>
+    <span style="background:#dc2626;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">緊急バグ修正</span>
+  </div>
+
+  <div class="section-label">🚨 AssemblyAI API 仕様変更に追随</div>
+  <p class="version-desc">v2.4.0〜v2.5.1 で AssemblyAI 文字起こしが全環境で 400 エラーになる致命バグを修正。 公式仕様で <code>speech_model</code> が deprecated になり、 <code>speech_models</code> (配列) + モデル名 <code>universal-2</code> が必須に。</p>
+  <ul>
+    <li>旧: <code>speech_model: "universal"</code> → 新: <code>speech_models: ["universal-2"]</code></li>
+    <li>受講生対応: <code>bash アップデート.sh</code> で復旧。 .env の API キーはそのまま使える</li>
+  </ul>
+</div>
+
+<!-- v2.5.1 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.5.1</span>
+    <span class="version-date">2026-05-03</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.5 系</span>
+  </div>
+
+  <div class="section-label">🔑 AssemblyAI セットアップを <code>.env</code> 一本化</div>
+  <p class="version-desc">v2.4.0 で導入した Keychain (Mac) / PasswordVault (Win) 経由のセットアップを撤廃し、 Gemini と同じく <code>.env</code> ファイル直書き運用に統一。 セットアップが 2 ステップ → 1 ステップに簡略化。</p>
+  <ul>
+    <li>キー保存場所: Keychain → <code>.env</code> (.gitignore で除外)</li>
+    <li>受講生体験: Cursor で <code>.env</code> を開いて <code>ASSEMBLYAI_API_KEY=xxx</code> を 1 行追記するだけ</li>
+  </ul>
+</div>
+
+<!-- v2.5.0 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.5.0</span>
+    <span class="version-date">2026-05-02</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.5 系</span>
+  </div>
+
+  <div class="section-label">🎨 picker 機能拡張 (variant ランダム / メイン動画ズーム / カスタムテンプレ追加)</div>
+  <p class="version-desc">テンプレート設定 picker (localhost:5174) に 3 つの新機能を追加。</p>
+  <ul>
+    <li><strong>🎲 variant ランダム</strong>: 各テロップ毎に 10 色からランダム選択。 動画内で色が変わる</li>
+    <li><strong>🎬 メイン動画の動き</strong>: テロップ表示中だけ scale(1.20) ズームイン or scale(0.8) + グレースケール ズームアウト</li>
+    <li><strong>+ カスタムテンプレ追加</strong>: 既存テンプレをベースに自分用テンプレを <code>styles/templates/</code> に保存</li>
+  </ul>
+</div>
+
+<!-- v2.4.0 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.4.0</span>
+    <span class="version-date">2026-05-02</span>
+    <span style="background:#0891b2;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.4 系</span>
+  </div>
+
+  <div class="section-label">🚀 Whisper 完全廃止 + AssemblyAI Universal-2 一本化</div>
+  <p class="version-desc">文字起こしエンジンを mlx-whisper / faster-whisper から AssemblyAI Universal-2 (クラウド API) に切り替え。 Python / Whisper モデル (~3GB) への依存が消えてセットアップが大幅簡略化。</p>
+  <ul>
+    <li><strong>Python 不要に</strong>: 受講生環境から python@3.12 / mlx-whisper / faster-whisper / opencv-python の依存が全部消える</li>
+    <li><strong>word-level timestamps + 話者分離</strong>: speaker_labels=true でデフォルトで話者ID付き</li>
+    <li><strong>step05-cut 大幅改善</strong>: N-gram 重複検出 + Coverage gap 検出で言い直しを自動カット (90%+ 精度)</li>
+    <li><strong>無料枠 $50</strong>: 約 185 時間分。 個人利用なら課金される心配はほぼなし</li>
+  </ul>
+</div>
+
+<!-- v2.3.0 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.3.0</span>
+    <span class="version-date">2026-05-01</span>
+    <span style="background:#7c3aed;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.0 系</span>
+  </div>
+
+  <div class="section-label">🎬 OP/ED 構造変更 + 画像生成オプション</div>
+  <p class="version-desc">step17 を <code>step17-endscreen</code> から <code>step17-op-ed</code> にリネーム。 OP / ED 連結 + Composition "Final" 組み立てを Series 構造で実装。</p>
+  <ul>
+    <li><strong>step17-op-ed</strong>: OP のみ / ED のみ / 両方 / なし の 4 分岐</li>
+    <li><strong>Composition "Final"</strong>: OP → 本編 → ED の Series 構造で最終出力</li>
+  </ul>
+</div>
+
+<!-- v2.2.0 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.2.0</span>
+    <span class="version-date">2026-04-30</span>
+    <span style="background:#7c3aed;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.0 系</span>
+  </div>
+
+  <div class="section-label">🔧 新規インストール v1.12 → v2 への分岐修正</div>
+  <p class="version-desc">新規受講生が新規作成.sh で v2 でなく v1.12 が入ってしまう問題を解消。 <code>version_track</code> 廃止 + <code>main</code> ブランチ統合で v1/v2 をシンプル化。</p>
+</div>
+
+<!-- v2.1.0 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.1.0</span>
+    <span class="version-date">2026-04-29</span>
+    <span style="background:#7c3aed;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.0 系</span>
+  </div>
+
+  <div class="section-label">🎨 プロファイル選択 (受講生のカスタムスタイル)</div>
+  <p class="version-desc"><code>styles/{slug}.md</code> 形式で受講生がテロップデザインのカスタムを保存できるように。 動画作成時に「default / カスタム / なし」 から選択。</p>
+</div>
+
+
+<!-- v2.0.1 〜 v2.0.6 (パッチ群まとめ) -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.0.1〜v2.0.6</span>
+    <span class="version-date">2026-04-28</span>
+    <span style="background:#7c3aed;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.0 系</span>
+  </div>
+
+  <div class="section-label">🔧 v2.0 リリース後のパッチ群 (細かい改善)</div>
+  <p class="version-desc">v2.0.0 直後に短期間で出した複数のパッチ。 主に <code>/new-video</code> の体験改善 (ROOT から起動 / 再起動なしで AUTO_RUN 直結) と既存受講生の v2.0 アップグレード経路の整備。</p>
+  <ul>
+    <li><strong>/new-video の体験改善</strong>: ROOT cwd からも起動可能、 新規プロジェクト作成 → AUTO_RUN 直結で再起動不要に (横動画・ショート両対応)</li>
+    <li><strong>動画タイプの自動判定</strong>: <code>step20-highlight-final/</code> 有無で横動画 / ショート動画を判定</li>
+    <li><strong>新規作成.sh のダウングレード事故修正</strong>: v2 ライセンスの方は <code>v2.0</code> ブランチを参照</li>
+  </ul>
+</div>
+
+<!-- v2.0.0 -->
+<div class="version-entry">
+  <div class="version-header">
+    <span class="version-badge">v2.0.0</span>
+    <span class="version-date">2026-04-28</span>
+    <span style="background:#7c3aed;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;margin-left:6px;">v2.0 リリース</span>
+  </div>
+
+  <div class="section-label">🎉 naoki-blueprint v2.0 メジャーアップデート (5大機能)</div>
+  <p class="version-desc"><strong>v2.0 をご購入の方のみ対象</strong>。v1 系をご利用の方は影響なく、従来通りお使いいただけます。v2.0 への切り替えをご希望の方は Naoki までご連絡ください。</p>
+
+  <div class="section-label">🔐 1. Google認証で1ライセンス2台対応</div>
+  <ul>
+    <li>家のMac と出先のMacBook、2台で同じライセンスが使えるように</li>
+    <li><code>/link-google</code> コマンドで一発セットアップ</li>
+  </ul>
+
+  <div class="section-label">🎨 2. テロップデザイン110種類 + デザインピッカー</div>
+  <ul>
+    <li>11テンプレート × 10色 = 110バリエーションを追加</li>
+    <li>ブラウザでサムネをクリックするだけで動画の色味が変わります</li>
+    <li>Claude Code に指示する必要なし</li>
+  </ul>
+
+  <div class="section-label">✏️ 3. Remotion Studio でテロップエディタ</div>
+  <ul>
+    <li>動画を見ながら、ドラッグでテロップのタイミング調整が可能に</li>
+    <li>右パネルのスライダーでフレーム単位で動かせます</li>
+    <li>「コードを開かずに動画を見ながら直す」が実現</li>
+  </ul>
+
+  <div class="section-label">📊 4. AIスライド動的生成</div>
+  <ul>
+    <li>Claude が台本を読んでターゲット・トンマナに合わせて毎回ユニークな HTML スライドを設計</li>
+    <li>17テンプレート全部にブロック分割対応 (カード/ステップ/行が「ポコッ」と1要素ずつ積み上がる演出)</li>
+    <li>ターゲット別カラー選定 + トンマナ別フォント選定の自動化</li>
+  </ul>
+
+  <div class="section-label">🤖 5. オートモード実装</div>
+  <ul>
+    <li>新規プロジェクト作成時に「マニュアル / セミオート / フルオート」の3モードから選択可能</li>
+    <li>セミオート: 要所だけ確認、あとは全自動</li>
+    <li>フルオート: 最後まで完全自動</li>
+  </ul>
+
+  <div class="section-label">🛠 おまけ: カット精度の大幅改善</div>
+  <ul>
+    <li>Whisper が圧縮していた「隠れ言い直し」の検出精度が向上</li>
+    <li>Phase 2 パターン4 (Claude意味理解判定 + manual_cuts.json) を必須化</li>
+  </ul>
+</div>
+
+<!-- v1.x 系 (過去履歴・折りたたみ) -->
+<div class="version-entry" style="margin-top:24px">
+  <details style="cursor:pointer">
+    <summary style="font-size:15px;font-weight:700;color:#666;padding:8px 0;list-style:revert">📜 v1.x 系の更新履歴 (過去のリリース・クリックで展開)</summary>
+    <div style="margin-top:16px;padding-left:16px;border-left:3px solid #f0f0f0">
+      <p style="font-size:13px;color:#666;margin-bottom:14px">2026-04-19 〜 2026-04-26 にかけてリリースされた v1.0.0 〜 v1.12.1 の主要マイルストーン (全 21 リリース)。 配布スタートからの初期成長期で、 動画編集の基本機能が揃った時期です。</p>
+
+      <ul style="font-size:13px;color:#444;line-height:1.85;margin-left:20px">
+        <li><strong>v1.12.1</strong> (2026-04-26): emphasis2 ファインチューン (黄土色内縁 12→18px・negative2 縁取り強化)</li>
+        <li><strong>v1.12.0</strong> (2026-04-26): 動画作成中の改変を完成時にまとめて自動記録 (<code>styles/{slug}.md</code> へ追記)</li>
+        <li><strong>v1.11.0</strong>: 受講生のテロップカスタムを <code>styles/{slug}.md</code> に事前定義する仕組み</li>
+        <li><strong>v1.10.0</strong>: 通常テロップの SVG 4 層構造化 (外周にじみ + 太い白フチ + 本文 4 色グラデ)</li>
+        <li><strong>v1.9.0 - v1.6.0</strong>: テロップアニメーション・SE フォルダ管理・ワイプ位置調整</li>
+        <li><strong>v1.7.0</strong> (2026-04-24): カット精度改善 (音量ベース対称 padding) / 2 本目以降の動線改善</li>
+        <li><strong>v1.5.0 - v1.5.7</strong>: 自動更新 (24 時間に 1 回チェック) / step 構成の整理</li>
+        <li><strong>v1.4.0 - v1.0.0</strong>: 初期リリース・workshop-slides 配布・Chatwork 経由ライセンス配布開始</li>
+      </ul>
+
+      <p style="font-size:12px;color:#999;margin-top:14px">📌 詳細は <a href="https://github.com/coach-naoki/naoki-blueprint/blob/main/CHANGELOG.md" target="_blank" style="color:#666">GitHub の CHANGELOG.md</a> を参照してください (受講生は招待 Accept 後に閲覧可能)。</p>
+    </div>
+  </details>
+</div>
+
+</div>
+    </div>
+  </details>
+
   <div class="lead-card" style="margin-top: 34px;">
     <p><strong>アップデート方法</strong></p>
     <p>いつも通り自動で届きます（次に Claude Code で step を実行した時に反映・24時間に1回）。今すぐ反映したい場合はプロジェクトのフォルダで:</p>
@@ -331,10 +1656,8 @@
 
   <div class="footer">
     <p>Naoki式 丸投げビジネス動画編集 — 質問は Chatwork「質問雑談」グループへどうぞ</p>
-    <p class="vhistory">v2.116.0 (8/14) ・ v2.117.0 (8/14) ・ v2.118.0 (8/25) ・ v2.119.0 (8/25)</p>
+    <p class="vhistory">最新: v2.119.0 (2026-08-25)</p>
   </div>
-
 </div>
-
 </body>
 </html>
