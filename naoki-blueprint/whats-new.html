@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>v2.116 → v2.119 アップデートまとめ | Naoki式 丸投げビジネス動画編集</title>
+<meta name="description" content="naoki-blueprint の最新アップデート内容です。新機能・不具合修正・注意点をまとめています。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="v2.116 → v2.119 アップデートまとめ | Naoki式 丸投げビジネス動画編集">
+<meta property="og:description" content="naoki-blueprint の最新アップデート内容です。新機能・不具合修正・注意点をまとめています。">
+<meta property="og:url" content="https://coachnaoki.github.io/naoki-blueprint/whats-new.html">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 48px 20px 60px; }
+
+  .header { text-align: center; margin-bottom: 32px; }
+  .header .kicker {
+    font-size: 12px; letter-spacing: 0.28em; font-weight: 700;
+    color: #2563EB; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .header h1 { font-size: 26px; color: #121212; margin-bottom: 10px; letter-spacing: -0.01em; text-wrap: balance; }
+  .header .sub { font-size: 14px; color: #666; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid #ddd; border-radius: 10px;
+    padding: 10px 20px; margin-top: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .hero-badge .v {
+    font-family: 'SF Mono', 'Menlo', monospace; font-weight: 700; font-size: 15px;
+    background: #CCFF00; color: #121212; padding: 3px 10px; border-radius: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-badge .arrow { color: #bbb; font-size: 14px; }
+  .hero-badge .d { font-size: 13px; color: #888; }
+
+  .lead-card {
+    background: #fff; border: 1px solid #ddd; border-radius: 12px;
+    padding: 28px 32px; margin-bottom: 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-size: 14px; color: #444;
+  }
+  .lead-card p + p { margin-top: 10px; }
+  .lead-card strong { color: #121212; }
+
+  .section-label {
+    font-size: 12px; letter-spacing: 0.14em; font-weight: 700;
+    color: #999; text-transform: uppercase; margin: 34px 0 12px 4px;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  .card {
+    background: #fff; border: 1px solid #ddd; border-radius: 12px;
+    padding: 28px 32px; margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .tag {
+    display: inline-flex; align-items: center; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; padding: 4px 11px; border-radius: 5px; color: #fff;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .tag.new    { background: #2563EB; }
+  .tag.fix    { background: #16a34a; }
+  .tag.must   { background: #dc2626; }
+  .card-title { font-size: 17px; font-weight: 700; color: #121212; text-wrap: balance; }
+
+  .vpill {
+    font-family: 'SF Mono', 'Menlo', monospace; font-size: 11px; font-weight: 700;
+    color: #555; background: #f0f0f0; border: 1px solid #e2e2e2;
+    padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card p.desc { font-size: 14px; color: #444; margin-bottom: 0; }
+  .card p.desc + p.desc { margin-top: 10px; }
+  .card code {
+    background: #f0f0f0; color: #121212; padding: 2px 6px; border-radius: 4px;
+    font-family: 'SF Mono', 'Menlo', monospace; font-size: 13px;
+  }
+  .card ul { margin: 12px 0 0 20px; font-size: 14px; color: #444; }
+  .card ul li { margin-bottom: 6px; }
+
+  .fix-list { display: flex; flex-direction: column; gap: 14px; }
+  .fix-item { padding-left: 14px; border-left: 3px solid #f0f0f0; }
+  .fix-item .fix-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; flex-wrap: wrap; }
+  .fix-item .fix-title { font-size: 14.5px; font-weight: 700; color: #121212; }
+  .fix-item p { font-size: 13.5px; color: #666; }
+
+  .note-box {
+    background: #f7f5ff; border: 1px solid #e4defc; border-radius: 10px;
+    padding: 18px 22px; margin-top: 16px; font-size: 13.5px; color: #5b4fa0;
+  }
+  .note-box strong { color: #4B3B9E; }
+
+  .alert-box {
+    background: #fff5f5; border: 1px solid #f8d4d4; border-radius: 10px;
+    padding: 18px 22px; margin-top: 16px; font-size: 13.5px; color: #9b2c2c;
+  }
+  .alert-box strong { color: #7f1d1d; }
+
+  .scope-note {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; color: #6b21a8;
+    background: #faf5ff; border: 1px solid #ead9fb;
+    padding: 3px 10px; border-radius: 6px; white-space: nowrap;
+  }
+
+  .footer {
+    text-align: center; margin-top: 40px; padding: 20px;
+    font-size: 12px; color: #999;
+  }
+  .footer .vhistory { margin-top: 10px; font-family: 'SF Mono', 'Menlo', monospace; font-size: 11px; color: #bbb; }
+
+  @media (max-width: 480px) {
+    .card, .lead-card { padding: 22px 20px; }
+  }
+</style>
+
+<div class="container">
+
+  <div class="header">
+    <div class="kicker">Update Notice</div>
+    <h1>naoki-blueprint アップデートまとめ</h1>
+    <p class="sub">前回のまとめ (v2.115) 以降の4回のアップデートをご紹介します</p>
+    <div class="hero-badge">
+      <span class="v">v2.116.0</span>
+      <span class="arrow">→</span>
+      <span class="v">v2.119.0</span>
+      <span class="d">2026-08-14 〜 2026-08-25</span>
+    </div>
+  </div>
+
+  <div class="lead-card">
+    <p>今回は新機能が中心です。目玉は<strong>「書き出すだけで背景ノイズが消えるように」「タイムラインエディタの操作感アップ」「話者アイコンのサイズ自動化」「手持ちフォント対応」</strong>の4つです。</p>
+    <p>あわせて <strong>v2.119 でショート動画版の不具合を3件修正</strong>しました。ショート動画を作られている方は下の「最新の変更」をご確認ください。</p>
+    <p>自動更新が有効なので、次に編集を始めるときに自動で反映されます。手動更新したい場合は <code>bash アップデート.sh</code> でOKです。</p>
+  </div>
+
+  <div class="section-label">最新の変更 (v2.119)</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag fix">FIX</span>
+      <span class="card-title">📱 ショート動画版の不具合を3件修正しました</span>
+      <span class="vpill">v2.119</span>
+      <span class="scope-note">ショート動画版のみ</span>
+    </div>
+    <p class="desc">横動画版では直っていたのに、ショート動画版に反映されないまま残っていたものです。ご不便をおかけしました。</p>
+    <div class="fix-list" style="margin-top: 16px;">
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">テンプレ設定の確認が必ずエラーになっていた</span></div>
+        <p>テロップの1行あたりの文字数上限が横動画版の値（84px で20字）のままで、ショート動画の正しい値（84px で11字）になっていませんでした。step07 の確認コマンドが毎回22件のエラーを出す状態でした。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">画像生成の API キーが見つからないことがあった</span></div>
+        <p>プロジェクトの1つ上の階層に置いた共有の <code>.env</code> を読みに行かず、手順書の説明と実際の動作が食い違っていました。横動画版と同じく、上の階層まで探しに行くようになります。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">素材のない工程が黙って OFF にされていた</span></div>
+        <p>ダッシュボードで ON にした工程でも、素材フォルダが空だと何も告げずにスキップされていました。今後は <strong>ON のまま進み</strong>、その工程に入るときに「素材が見つかりません」と1回だけ確認します。<br>（横動画版では 2026-08-04 にいただいたご意見を受けて対応済みだった挙動です）</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag must">要確認</span>
+      <span class="card-title">🎨 テロップの見た目が2か所変わります</span>
+      <span class="vpill">v2.119</span>
+    </div>
+    <p class="desc">設定ファイル・手順書・ルールブックの間で、フォントや文字サイズの記載がバラバラになっていた箇所を実際の動作に合わせて統一しました。このうち2つは見た目に関わります。</p>
+    <ul>
+      <li><strong>無感情テロップのフォントが明朝 (Shippori Mincho) になります。</strong>設定ファイルにだけ教科書体 (Klee One) が混ざっており、ルールブックも手順書も既定値もすべて明朝でした</li>
+      <li><strong>見出しバナーの文字サイズを 64 に統一しました。</strong>これまで 54 と 64 が混在していました（すでに 64 で作られている動画がほとんどのため、多くの場合は変化ありません）</li>
+    </ul>
+    <div class="alert-box">
+      <p><strong>⚠️ 制作中・完成済みのプロジェクトはそのままです</strong></p>
+      <p style="margin-top: 8px;">テロップの設定ファイルは<strong>アップデートで上書きされません</strong>（みなさんが調整した内容を守るためです）。今回の変更が効くのは<strong>これから新しく作るプロジェクト</strong>からになります。</p>
+      <p style="margin-top: 8px;">進行中の動画で明朝に揃えたい場合は、Claude に「無感情テロップのフォントを明朝にして」と伝えてください。</p>
+    </div>
+    <div class="note-box">
+      <p><strong>💡 ついでに、こういうズレが起きにくくなりました</strong></p>
+      <p style="margin-top: 8px;">今回の修正は「横動画版だけ直してショート動画版を直し忘れる」ことが原因でした。両版の食い違いを機械が自動で見つける仕組みを大幅に強化しています（チェック対象を7ファイルから150ファイルへ）。手順書とテンプレ設定の食い違いも自動で検出するようになりました。</p>
+    </div>
+  </div>
+
+  <div class="section-label">大きな進化</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🔇 書き出すだけで背景ノイズが消えるように</span>
+      <span class="vpill">v2.118</span>
+    </div>
+    <p class="desc">「エアコンや外の音がうるさくて声が聞き取りにくい」問題に、<strong>AIノイズ除去 (RNNoise)</strong> で答えました。カットピッカーの <strong>[書き出し] を押すだけで自動で判定・適用</strong>されます。操作は一切不要です。</p>
+    <ul>
+      <li><strong>効果を実測してから採用します。</strong>実際に処理してみて「ノイズが十分減り、かつ音が荒れない」場合だけ適用。効果が薄い素材や元から静かな素材は自動で原音のままです（結果は書き出し完了メッセージに表示されます）</li>
+      <li><strong>拍手や笑い声はちゃんと残ります。</strong>原音を2割ブレンドする設計で、対談のリアクションが消えません</li>
+      <li><strong>映像の画質には一切影響しません</strong>（音声だけを差し替えます）。13分の動画で追加約40秒です</li>
+      <li>気に入らなければ Claude に<strong>「ノイズカットを外して」</strong>と言うだけで完全に元へ戻ります。以降その動画では適用されなくなり、「ノイズ除去を戻して」でいつでも再開できます</li>
+      <li>文字起こしへの影響も実素材で検証済み。精度はそのままで、固有名詞の認識はむしろ良くなる傾向でした</li>
+    </ul>
+    <div class="note-box">
+      <p><strong>💡 使い方は今まで通りです。</strong>step05 のカット → [書き出し] を押す → 完了メッセージに「🔇 背景ノイズを ◯dB 削減しました」と出ていれば適用されています。別タブで再生される動画がすでにノイズ除去済みなので、いつもの聴感確認がそのまま検品になります。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🎬 タイムラインエディタの操作感アップ</span>
+      <span class="vpill">v2.117</span>
+    </div>
+    <p class="desc">前回登場したタイムラインエディタに、使い込んでこそ効く改善が入りました。</p>
+    <ul>
+      <li><strong>再生中の画面が常にセンタリング追従</strong>するようになりました（これまでの「静止→ワープ→静止」の繰り返しがなくなり、目で追いやすくなっています）</li>
+      <li>テロップ本文は <strong>Enter = 確定 / Shift+Enter = 改行</strong> に（Slack と同じ規約）。日本語変換の確定 Enter で編集が終了してしまうこともありません</li>
+      <li><strong>「選択部分を強調」ボタン</strong>を追加。本文で語をなぞって押すだけで強調ワードに設定されます（同じ語を2回打つ必要がなくなりました）</li>
+      <li>素材の音声は<strong>「▶ この素材だけ試聴」</strong>方式に。選んだ素材1つだけを確認できます</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">👤 話者アイコンのサイズが自動に・動きもなめらかに</span>
+      <span class="vpill">v2.117-118</span>
+    </div>
+    <p class="desc">対談動画の話者アイコン（顔検出で話者に追従するアイコン）が進化しました。</p>
+    <ul>
+      <li><strong>顔検出ベースのサイズ提案</strong>が入り、素材ごとにちょうどいい大きさを自動で決められるようになりました</li>
+      <li>顔サイズに連動させたとき、追従区間の切り替わりで出ていた<strong>「段差」がなめらかに繋がる</strong>ようになりました（寄り引きの変化も自然に）</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🔤 手持ちフォントが使えるように</span>
+      <span class="vpill">v2.118</span>
+    </div>
+    <p class="desc">みなさんに答えていただいた<strong>フォントアンケートの結果を反映</strong>しました。ありがとうございました！</p>
+    <ul>
+      <li>BOOTH 等で購入した<strong>手持ちのフォントファイルをテロップに使える</strong>ようになりました（零ゴシック・源界明朝のリクエストに応えるものです）</li>
+      <li>アンケート上位の <strong>Noto 明朝 / M+ 1p</strong> を標準の選択肢に追加しました</li>
+      <li>フォント設定の経路も一本化し、ピッカーで選んだものがプレビューでも完成品でも同じ字形で出るようになっています</li>
+    </ul>
+    <div class="note-box">
+      <p><strong>💡 手持ちフォントの使い方（3ステップ）</strong></p>
+      <p>① フォントファイル（.woff2 / .ttf / .otf）をプロジェクトの <code>public/fonts/</code> フォルダに入れる（ダッシュボードの「🔤 手持ちフォント」ボタンからワンクリックで開けます）<br>
+      ② テンプレピッカーを起動し直す<br>
+      ③ フォントの選択肢に「◯◯ (手持ち)」として出てくるので、選ぶだけ</p>
+      <p style="margin-top: 10px;"><strong>⚠️ 2つだけ注意</strong><br>
+      ・ファイル名は<strong>半角英数字</strong>にしてください（例: <code>ZeroGothic.otf</code>）。日本語やスペース入りの名前は認識されません<br>
+      ・フォントのライセンス（動画への利用可否）は各自でご確認ください。フォントファイル自体は Blueprint からは配布されません</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">📋 「次回もこうして」を Claude が提案してくれるように</span>
+      <span class="vpill">v2.116</span>
+    </div>
+    <p class="desc">動画完成時に、今回の制作で決めたことの中から<strong>次回に引き継げそうなものを Claude が一覧で提示</strong>し、選ぶだけで保存できるようになりました。</p>
+    <ul>
+      <li>これまでは「次回もこうして」と明言したものだけが対象で、言いそびれると何も引き継がれませんでした</li>
+      <li>候補になるのはあなたの発言・承認した選択だけ。Claude の推測では保存しません</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">⌨️ ハイライトピッカーにもショートカット</span>
+      <span class="vpill">v2.116</span>
+    </div>
+    <ul style="margin-top: 0;">
+      <li><strong>J / K / L</strong> = 逆再生・停止・早送り（連打で 2x→4x→8x）</li>
+      <li><strong>Q / E</strong> = 選択中クリップの開始・終了を今の再生位置に合わせる</li>
+      <li><code>?</code> キーでショートカット一覧が開きます</li>
+    </ul>
+  </div>
+
+  <div class="section-label">そのほかの新機能・改善</div>
+
+  <div class="card">
+    <ul style="margin-top: 0;">
+      <li><strong>new-youtube の①分析が自動に。</strong>YouTube Analytics API から前回動画の数値を自動取得できます（任意・CSV アップロードも今まで通り使えます） <span class="vpill">v2.118</span></li>
+      <li><strong>対談動画は言い直し検出が既定 OFF</strong> になりました（台本が無い対談では誤検出の実害が大きいため。必要ならスライダーで ON にできます） <span class="vpill">v2.116</span></li>
+      <li>ダッシュボードの登場人物の欄が「進行役 (聞き手)」「ゲスト (話し手)」表記になりました <span class="vpill">v2.116</span></li>
+    </ul>
+  </div>
+
+  <div class="section-label">不具合の修正</div>
+
+  <div class="card">
+    <div class="fix-list">
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">プロファイル適用が毎回「失敗」と表示されていた</span><span class="vpill">v2.116</span></div>
+        <p>実際には<strong>適用は成功していた</strong>ので、設定はご安心ください。表示だけの問題を修正しました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">カットピッカーの境界ズレを根治</span><span class="vpill">v2.116</span></div>
+        <p>「灰色に見えるのに残ってしまう」ズレが構造的に起きなくなりました。カットの余韻バッファも語尾側だけになり、境界が見やすくなっています。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">そのほか</span><span class="vpill">v2.116-117</span></div>
+        <p>強調ワードの文字が一部テンプレで表示されない問題 / 箇条書きの項目タイミングがパネル移動に取り残される問題 / レンダリングの誤起動・中断後の二重実行、などを修正しました。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lead-card" style="margin-top: 34px;">
+    <p><strong>アップデート方法</strong></p>
+    <p>いつも通り自動で届きます（次に Claude Code で step を実行した時に反映・24時間に1回）。今すぐ反映したい場合はプロジェクトのフォルダで:</p>
+    <p><code>bash アップデート.sh</code></p>
+  </div>
+
+  <div class="footer">
+    <p>Naoki式 丸投げビジネス動画編集 — 質問は Chatwork「質問雑談」グループへどうぞ</p>
+    <p class="vhistory">v2.116.0 (8/14) ・ v2.117.0 (8/14) ・ v2.118.0 (8/25) ・ v2.119.0 (8/25)</p>
+  </div>
+
+</div>
+
+</body>
+</html>
