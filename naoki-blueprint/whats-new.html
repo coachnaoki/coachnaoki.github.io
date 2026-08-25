@@ -211,6 +211,15 @@
       font-size: 13px;
       color: #555;
     }
+
+  /* ── スクリーンショット ── */
+  .shot { margin-top:14px; border:1px solid #e2e2e2; border-radius:10px; overflow:hidden;
+          box-shadow:0 2px 6px rgba(0,0,0,0.05); background:#fff; }
+  .shot img { display:block; width:100%; max-width:100%; height:auto; }
+  .shot-cap { font-size:12px; color:#888; text-align:center; padding:8px 12px;
+              background:#fafafa; border-top:1px solid #eee; line-height:1.6; }
+  .shot-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  @media (max-width:560px){ .shot-row{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -269,6 +278,10 @@
       </div>
     </div>
   </div>
+    <div class="shot">
+      <img src="whats-new-assets/v2119-validate.jpg" alt="ショート動画版でテンプレ設定を確認したところ。修正前は毎回 21 件のエラーが出ていました" loading="lazy">
+      <div class="shot-cap">ショート動画版でテンプレ設定を確認したところ。修正前は毎回 21 件のエラーが出ていました</div>
+    </div>
 
   <div class="card">
     <div class="card-head">
@@ -281,6 +294,14 @@
       <li><strong>無感情テロップのフォントが明朝 (Shippori Mincho) になります。</strong>設定ファイルにだけ教科書体 (Klee One) が混ざっており、ルールブックも手順書も既定値もすべて明朝でした</li>
       <li><strong>見出しバナーの文字サイズを 64 に統一しました。</strong>これまで 54 と 64 が混在していました（すでに 64 で作られている動画がほとんどのため、多くの場合は変化ありません）</li>
     </ul>
+    <div class="shot">
+      <img src="whats-new-assets/v2119-emotionless.jpg" alt="無感情テロップ：教科書体 → 明朝 (Shippori Mincho)。新しく作るプロジェクトから適用されます" loading="lazy">
+      <div class="shot-cap">無感情テロップ：教科書体 → 明朝 (Shippori Mincho)。新しく作るプロジェクトから適用されます</div>
+    </div>
+    <div class="shot">
+      <img src="whats-new-assets/v2119-heading.jpg" alt="見出しバナー：54 と 64 の混在を 64 に統一" loading="lazy">
+      <div class="shot-cap">見出しバナー：54 と 64 の混在を 64 に統一</div>
+    </div>
     <div class="alert-box">
       <p><strong>⚠️ 制作中・完成済みのプロジェクトはそのままです</strong></p>
       <p style="margin-top: 8px;">テロップの設定ファイルは<strong>アップデートで上書きされません</strong>（みなさんが調整した内容を守るためです）。今回の変更が効くのは<strong>これから新しく作るプロジェクト</strong>からになります。</p>
@@ -460,6 +481,10 @@
       <li><strong>「選択部分を強調」ボタン</strong>を追加。本文で語をなぞって押すだけで強調ワードに設定されます（同じ語を2回打つ必要がなくなりました）</li>
       <li>素材の音声は<strong>「▶ この素材だけ試聴」</strong>方式に。選んだ素材1つだけを確認できます</li>
     </ul>
+      <div class="shot">
+        <img src="whats-new-assets/v2116-timeline.jpg" alt="タイムラインエディタの画面" loading="lazy">
+        <div class="shot-cap">タイムラインエディタ。テロップ・素材・ワイプ・スライド・SE・BGM を 9 レーンで一望できます</div>
+      </div>
   </div>
 
   <div class="card">
