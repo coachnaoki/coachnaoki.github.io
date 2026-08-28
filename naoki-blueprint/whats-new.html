@@ -171,10 +171,10 @@
     <h1>naoki-blueprint アップデートまとめ</h1>
     <p class="sub">これまでのアップデートを1ページに集約しました</p>
     <div class="hero-badge">
-      <span class="v">v2.14</span>
+      <span class="v">v2.100</span>
       <span class="arrow">&rarr;</span>
       <span class="v">v2.120</span>
-      <span class="d">2026-04 〜 2026-08</span>
+      <span class="d">2026-07 〜 2026-08</span>
     </div>
   </div>
 
@@ -198,48 +198,37 @@
 <div class="section-label">最新の変更 (v2.120)</div>
   <div class="card">
     <div class="card-head">
-      <span class="tag fix">FIX</span>
-      <span class="card-title">🔴 カットが書き出せない不具合を直しました</span>
+      <span class="tag new">NEW</span>
+      <span class="card-title">🔇 ノイズカットを、聴きながら自分で決められます</span>
       <span class="vpill">v2.120</span>
-      <span class="scope-note">お使いの方は必ず更新してください</span>
+      <span class="scope-note">対談動画</span>
     </div>
-    <p class="desc">step05 のカット書き出しが、素材によって<strong>必ず失敗する・途中で止まる</strong>不具合がありました。受講生の方に実際のファイルを送っていただき、原因を突き止めて直しました。</p>
-    <div class="fix-list" style="margin-top: 16px;">
-      <div class="fix-item">
-        <div class="fix-head"><span class="fix-title">原因は「素材の中で音の細かさが途中で変わっていた」ことでした</span></div>
-        <p>QuickTime の「ムービーを結合」でクリップをつなぐと、1本の動画の中で音の細かさ（48000Hz → 44100Hz → 48000Hz）が切り替わることがあります。<strong>ファイル情報には出てこない</strong>ので、見ただけでは分かりません。<br>これまでの作りだと、その切り替わり地点でカットの処理がお互いを待ち合って止まっていました。音を先に1本に揃えてから分ける形に変えて、<strong>止まっていた素材が10秒で書き出せる</strong>ようになりました。</p>
-      </div>
-      <div class="fix-item">
-        <div class="fix-head"><span class="fix-title">「CPU に切り替えたら書き出せた」のも同じ原因でした</span></div>
-        <p>GPU が悪いわけではなく、CPU だと遅いぶん待ち合わせが起きなかっただけです。今後はどちらでも書き出せます。</p>
-      </div>
-      <div class="fix-item">
-        <div class="fix-head"><span class="fix-title">新しい ffmpeg (バージョン9) で必ず失敗する問題も直しました</span></div>
-        <p>ffmpeg 9 で廃止された書き方を使っていました。お使いの ffmpeg に合わせて自動で切り替えます。</p>
-      </div>
-      <div class="fix-item">
-        <div class="fix-head"><span class="fix-title">カット区間の端を「短くできない」箇所があった問題</span></div>
-        <p>波形でカット区間の端をドラッグしたとき、伸ばせるのに短くできない場所がありました。短い区間で「終わり」をつかんだつもりが「始まり」と判定され、操作が逆向きになっていたためです。</p>
-      </div>
+    <p class="desc">対談動画の背景ノイズ（エアコン・環境音・遠くの物音）を消す機能を作り直しました。カットピッカーに<strong>「ノイズカット (AI)」のスライダー</strong>が増えます。</p>
+    <ul>
+      <li>スライダーを上げると裏で「声だけの音」を作ります。<strong>タイムラインをそのまま再生すれば、その強さで聞こえます</strong></li>
+      <li><strong>試聴した音と、書き出される音は同じです</strong>（聴き分けできない精度で一致することを確認しています）</li>
+      <li><strong>既定は 0%（何もしません）。</strong>これまでの自動判定はやめました。数値が良くても聴くと不自然、逆に数値が伸びなくても十分きれい、ということが実際の素材で頻繁に起きたためです</li>
+      <li>作るのに時間がかかります（28分の動画でおよそ6分）。作っている間も元の音のまま再生でき、できあがると自動で切り替わります</li>
+    </ul>
+    <div class="note-box">
+      <p><strong>💡 効きやすい素材・効きにくい素材があります</strong></p>
+      <p style="margin-top: 8px;">エアコンや空調のような「ずっと鳴っている音」はよく消えます。逆に<strong>拍手・笑い声・音楽が混ざる区間は苦手</strong>です（消したい音と残したい声を切り分けられないため）。効きが悪いと感じたら 0% のままにしてください。</p>
+      <p style="margin-top: 8px;">初回だけモデルの取得に 260MB ほどかかりますが、<strong>このアップデートのときに自動で落とします</strong>ので、使うときに待たされることはありません。</p>
     </div>
   </div>
 
   <div class="card">
     <div class="card-head">
       <span class="tag new">NEW</span>
-      <span class="card-title">🔇 ノイズカットを、聴きながら自分で決められます</span>
+      <span class="card-title">📝 企画から台本まで作って、そのまま編集に入れます</span>
       <span class="vpill">v2.120</span>
-      <span class="scope-note">対談動画のみ</span>
+      <span class="scope-note">YouTube 横動画</span>
     </div>
-    <p class="desc">対談動画の背景ノイズ（エアコン・環境音・遠くの物音）を消す機能を作り直しました。カットピッカーに<strong>「ノイズカット (AI)」のスライダー</strong>が増えます。</p>
+    <p class="desc"><code>/new-video</code> に「<strong>YouTube 台本を作る</strong>」を追加しました。企画を立てる → 台本を書く → そのプロジェクトを作る、までひと続きで進められます。</p>
     <ul>
-      <li><strong>既定は 0%（何もしません）。</strong>これまでの自動判定はやめました。数値が良くても聴くと不自然、逆に数値が伸びなくても十分きれい、ということが実際の素材で頻繁に起きたためです</li>
-      <li>スライダーを上げると裏で「声だけの音」を作ります。<strong>タイムラインをそのまま再生すれば、その強さで聞こえます</strong></li>
-      <li><strong>試聴した音と、書き出される音は同じです</strong>（聴き分けできない精度で一致することを確認しています）</li>
-      <li>作るのに時間がかかります（28分の動画でおよそ6分）。作っている間も元の音のまま再生でき、できあがると自動で切り替わります</li>
-      <li>拍手・笑い声・音楽が混ざる区間は苦手です。効きが悪いと感じたら 0% のままにしてください</li>
+      <li>これまで別々だった「台本づくり」と「動画制作の開始」がつながりました</li>
+      <li>YouTube ピッカーも刷新。<strong>保存ボタンが4つ → 1つ</strong>になり、リサーチも自動で走ります</li>
     </ul>
-    <p style="margin-top:12px;">初回だけモデルの取得に 260MB ほどかかりますが、<strong>このアップデートのときに自動で落とします</strong>ので、使うときに待たされることはありません（取得できなくてもアップデート自体は問題なく終わります）。</p>
   </div>
 
   <div class="card">
@@ -252,25 +241,23 @@
     <p>受講生の方の実物と 2,450 フレーム分を突き合わせて、<strong>完全に同じ見た目</strong>になることを確認しています。あわせて顔アイコンの位置の既定値を調整しました（顔の上に少しかぶる位置に）。</p>
   </div>
 
-  <div class="card">
-    <div class="card-head">
-      <span class="tag fix">FIX</span>
-      <span class="card-title">🔴 テロップが3倍の大きさで出る事故を直しました</span>
-      <span class="vpill">v2.120</span>
-    </div>
-    <p class="desc">縦長のリール動画など、<strong>動画の解像度がテンプレートと違う</strong>場合に、テロップや画像がとても大きく（または小さく）表示される不具合がありました。動画の実際の解像度がそのまま画面サイズとして使われていたためです。</p>
-  </div>
+  <div class="section-label">不具合の修正</div>
 
   <div class="card">
-    <div class="card-head">
-      <span class="tag new">NEW</span>
-      <span class="card-title">📊 YouTube ピッカーの刷新と、台本づくりの入口</span>
-      <span class="vpill">v2.120</span>
+    <div class="fix-list">
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">カットの書き出しが失敗・停止することがあった</span><span class="vpill">v2.120</span></div>
+        <p>素材の中で音の細かさが途中で変わっていると、書き出しが止まっていました（QuickTime の「ムービーを結合」でつないだ素材で起きます）。新しい ffmpeg で必ず失敗する問題もあわせて直しました。<strong>止まっていた素材が10秒で書き出せます。</strong></p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">カット区間の端を短くできない箇所があった</span><span class="vpill">v2.120</span></div>
+        <p>波形で端をドラッグしたとき、伸ばせるのに短くできない場所がありました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">テロップが大きすぎる・小さすぎることがあった</span><span class="vpill">v2.120</span></div>
+        <p>縦長のリール動画など、動画の解像度がテンプレートと違う場合に起きていました。</p>
+      </div>
     </div>
-    <ul>
-      <li>保存ボタンが4つ →<strong>1つ</strong>に。リサーチも自動で走ります</li>
-      <li><code>/new-video</code> に「<strong>YouTube 台本を作る</strong>」を追加しました。企画から台本、プロジェクト作成までひと続きで進められます</li>
-    </ul>
   </div>
 
   <details class="archive" id="v2119">
