@@ -93,7 +93,7 @@ function slide03Features() {
 // 04. 動画タイプ選択
 function slide04TypeProject() {
   return `<section class="slide" data-section="type-project"
-    data-notes="naoki-blueprintで作れる動画は2種類。YouTube用の横動画と、ショート動画用の縦動画です。横動画は20ステップ、縦動画は14ステップで完成します。両方とも同じ仕組みで、最初に動画タイプを選ぶだけ。途中で切り替える必要はありません。">
+    data-notes="naoki-blueprintで作れる動画は2種類。YouTube用の横動画と、ショート向けの縦動画です。横動画は20ステップ、縦動画は14ステップで完成します。両方とも同じ仕組みで、最初に動画タイプを選ぶだけ。途中で切り替える必要はありません。">
     ${ph(4, 'Two video types')}
     <div class="slide-content">
       <h2>2種類の動画が作れる</h2>
@@ -104,7 +104,7 @@ function slide04TypeProject() {
           <div class="card-body"><span class="hl">20ステップ</span><br/>OP・スライド・ワイプ・ハイライト対応<br/>長尺コンテンツ向け</div>
         </div>
         <div class="card card--hot">
-          <div class="pill pill--hot mb-16">ショート動画</div>
+          <div class="pill pill--hot mb-16">縦動画</div>
           <div class="card-title mt-16">1080×1920</div>
           <div class="card-body"><span class="hl">14ステップ</span><br/>テロップ重視で情報密度を優先<br/>YouTube Shorts / TikTok / Reels 対応</div>
         </div>
@@ -228,13 +228,13 @@ function slide07WorkflowLong() {
   </section>`;
 }
 
-// 08. ショート動画 14ステップフルリスト
+// 08. 縦動画 14ステップフルリスト
 function slide08WorkflowShort() {
   return `<section class="slide" data-section="workflow-short"
-    data-notes="ショート動画は14ステップ。縦動画は情報密度が詰まりすぎるので、スライドもワイプも削っています。1本60秒の動画なら1時間程度で作れます。横動画と同じくオートモードで全部進められます。">
+    data-notes="縦動画は14ステップ。縦動画は情報密度が詰まりすぎるので、スライドもワイプも削っています。1本60秒の動画なら1時間程度で作れます。横動画と同じくオートモードで全部進められます。">
     ${ph(8, 'Shorts / 14 steps')}
     <div class="slide-content">
-      <h2>ショート動画 <span class="g-warm">14ステップ</span> フルリスト</h2>
+      <h2>縦動画 <span class="g-warm">14ステップ</span> フルリスト</h2>
       <div class="grid-2" style="gap:64px">
         <div class="phase-row">
           <div class="phase-title">Phase 1 / 2　素材準備＋構築</div>

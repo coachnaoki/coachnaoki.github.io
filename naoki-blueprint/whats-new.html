@@ -173,20 +173,21 @@
     <div class="hero-badge">
       <span class="v">v2.14</span>
       <span class="arrow">&rarr;</span>
-      <span class="v">v2.119</span>
+      <span class="v">v2.120</span>
       <span class="d">2026-04 〜 2026-08</span>
     </div>
   </div>
 
   <div class="lead-card">
-    <p><strong>最新は v2.119.0 です。</strong>直近の変更はこの下に、それより前は年代順にたたんであります。見出しをクリックすると開きます。</p>
+    <p><strong>最新は v2.120.0 です。</strong>直近の変更はこの下に、それより前は年代順にたたんであります。見出しをクリックすると開きます。</p>
     <p>自動更新が有効なので、次に編集を始めるときに自動で反映されます。手動更新したい場合は <code>bash アップデート.sh</code> でOKです。</p>
   </div>
 
   <nav class="toc" aria-label="目次">
     <h2>もくじ</h2>
     <ol>
-      <li><a href="#latest">最新の変更<span class="range">v2.119</span></a></li>
+      <li><a href="#latest">最新の変更<span class="range">v2.120</span></a></li>
+      <li><a href="#v2119">縦動画版の不具合修正・テロップ設定の統一<span class="range">v2.119</span></a></li>
       <li><a href="#v2116">ノイズ除去・タイムラインエディタ・手持ちフォント<span class="range">v2.116 → v2.118</span></a></li>
       <li><a href="#v2104">タイムラインエディタ登場・カットピッカー刷新<span class="range">v2.104 → v2.115</span></a></li>
       <li><a href="#v2100">ハイライトピッカー・Codex 連携<span class="range">v2.100 → v2.103</span></a></li>
@@ -194,20 +195,101 @@
   </nav>
 
   <div id="latest"></div>
-<div class="section-label">最新の変更 (v2.119)</div>
+<div class="section-label">最新の変更 (v2.120)</div>
+  <div class="card">
+    <div class="card-head">
+      <span class="tag fix">FIX</span>
+      <span class="card-title">🔴 カットが書き出せない不具合を直しました</span>
+      <span class="vpill">v2.120</span>
+      <span class="scope-note">お使いの方は必ず更新してください</span>
+    </div>
+    <p class="desc">step05 のカット書き出しが、素材によって<strong>必ず失敗する・途中で止まる</strong>不具合がありました。受講生の方に実際のファイルを送っていただき、原因を突き止めて直しました。</p>
+    <div class="fix-list" style="margin-top: 16px;">
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">原因は「素材の中で音の細かさが途中で変わっていた」ことでした</span></div>
+        <p>QuickTime の「ムービーを結合」でクリップをつなぐと、1本の動画の中で音の細かさ（48000Hz → 44100Hz → 48000Hz）が切り替わることがあります。<strong>ファイル情報には出てこない</strong>ので、見ただけでは分かりません。<br>これまでの作りだと、その切り替わり地点でカットの処理がお互いを待ち合って止まっていました。音を先に1本に揃えてから分ける形に変えて、<strong>止まっていた素材が10秒で書き出せる</strong>ようになりました。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">「CPU に切り替えたら書き出せた」のも同じ原因でした</span></div>
+        <p>GPU が悪いわけではなく、CPU だと遅いぶん待ち合わせが起きなかっただけです。今後はどちらでも書き出せます。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">新しい ffmpeg (バージョン9) で必ず失敗する問題も直しました</span></div>
+        <p>ffmpeg 9 で廃止された書き方を使っていました。お使いの ffmpeg に合わせて自動で切り替えます。</p>
+      </div>
+      <div class="fix-item">
+        <div class="fix-head"><span class="fix-title">カット区間の端を「短くできない」箇所があった問題</span></div>
+        <p>波形でカット区間の端をドラッグしたとき、伸ばせるのに短くできない場所がありました。短い区間で「終わり」をつかんだつもりが「始まり」と判定され、操作が逆向きになっていたためです。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🔇 ノイズカットを、聴きながら自分で決められます</span>
+      <span class="vpill">v2.120</span>
+      <span class="scope-note">対談動画のみ</span>
+    </div>
+    <p class="desc">対談動画の背景ノイズ（エアコン・環境音・遠くの物音）を消す機能を作り直しました。カットピッカーに<strong>「ノイズカット (AI)」のスライダー</strong>が増えます。</p>
+    <ul>
+      <li><strong>既定は 0%（何もしません）。</strong>これまでの自動判定はやめました。数値が良くても聴くと不自然、逆に数値が伸びなくても十分きれい、ということが実際の素材で頻繁に起きたためです</li>
+      <li>スライダーを上げると裏で「声だけの音」を作ります。<strong>タイムラインをそのまま再生すれば、その強さで聞こえます</strong></li>
+      <li><strong>試聴した音と、書き出される音は同じです</strong>（聴き分けできない精度で一致することを確認しています）</li>
+      <li>作るのに時間がかかります（28分の動画でおよそ6分）。作っている間も元の音のまま再生でき、できあがると自動で切り替わります</li>
+      <li>拍手・笑い声・音楽が混ざる区間は苦手です。効きが悪いと感じたら 0% のままにしてください</li>
+    </ul>
+    <p style="margin-top:12px;">初回だけモデルの取得に 260MB ほどかかりますが、<strong>このアップデートのときに自動で落とします</strong>ので、使うときに待たされることはありません（取得できなくてもアップデート自体は問題なく終わります）。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">✨ 独自に作ったモーションが次の動画に引き継げます</span>
+      <span class="vpill">v2.120</span>
+    </div>
+    <p class="desc">ご自身で作られた独自のテロップの動きが、プロファイルを適用すると消えてしまう問題を解決しました。動きの定義をデータとして保存し、次のプロジェクトに持ち越せます。</p>
+    <p>受講生の方の実物と 2,450 フレーム分を突き合わせて、<strong>完全に同じ見た目</strong>になることを確認しています。あわせて顔アイコンの位置の既定値を調整しました（顔の上に少しかぶる位置に）。</p>
+  </div>
 
   <div class="card">
     <div class="card-head">
       <span class="tag fix">FIX</span>
-      <span class="card-title">📱 ショート動画版の不具合を3件修正しました</span>
-      <span class="vpill">v2.119</span>
-      <span class="scope-note">ショート動画版のみ</span>
+      <span class="card-title">🔴 テロップが3倍の大きさで出る事故を直しました</span>
+      <span class="vpill">v2.120</span>
     </div>
-    <p class="desc">横動画版では直っていたのに、ショート動画版に反映されないまま残っていたものです。ご不便をおかけしました。</p>
+    <p class="desc">縦長のリール動画など、<strong>動画の解像度がテンプレートと違う</strong>場合に、テロップや画像がとても大きく（または小さく）表示される不具合がありました。動画の実際の解像度がそのまま画面サイズとして使われていたためです。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">📊 YouTube ピッカーの刷新と、台本づくりの入口</span>
+      <span class="vpill">v2.120</span>
+    </div>
+    <ul>
+      <li>保存ボタンが4つ →<strong>1つ</strong>に。リサーチも自動で走ります</li>
+      <li><code>/new-video</code> に「<strong>YouTube 台本を作る</strong>」を追加しました。企画から台本、プロジェクト作成までひと続きで進められます</li>
+    </ul>
+  </div>
+
+  <details class="archive" id="v2119">
+    <summary>📱 縦動画版の不具合修正・テロップ設定の統一 <span class="vpill">v2.119</span> <span class="sum-note">2026-08-25</span></summary>
+    <div class="archive-body">
+
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag fix">FIX</span>
+      <span class="card-title">📱 縦動画版の不具合を3件修正しました</span>
+      <span class="vpill">v2.119</span>
+      <span class="scope-note">縦動画版のみ</span>
+    </div>
+    <p class="desc">横動画版では直っていたのに、縦動画版に反映されないまま残っていたものです。ご不便をおかけしました。</p>
     <div class="fix-list" style="margin-top: 16px;">
       <div class="fix-item">
         <div class="fix-head"><span class="fix-title">テンプレ設定の確認が必ずエラーになっていた</span></div>
-        <p>テロップの1行あたりの文字数上限が横動画版の値（84px で20字）のままで、ショート動画の正しい値（84px で11字）になっていませんでした。step07 の確認コマンドが毎回22件のエラーを出す状態でした。</p>
+        <p>テロップの1行あたりの文字数上限が横動画版の値（84px で20字）のままで、縦動画の正しい値（84px で11字）になっていませんでした。step07 の確認コマンドが毎回22件のエラーを出す状態でした。</p>
       </div>
       <div class="fix-item">
         <div class="fix-head"><span class="fix-title">画像生成の API キーが見つからないことがあった</span></div>
@@ -246,12 +328,15 @@
     </div>
     <div class="note-box">
       <p><strong>💡 ついでに、こういうズレが起きにくくなりました</strong></p>
-      <p style="margin-top: 8px;">今回の修正は「横動画版だけ直してショート動画版を直し忘れる」ことが原因でした。両版の食い違いを機械が自動で見つける仕組みを大幅に強化しています（チェック対象を7ファイルから150ファイルへ）。手順書とテンプレ設定の食い違いも自動で検出するようになりました。</p>
+      <p style="margin-top: 8px;">今回の修正は「横動画版だけ直して縦動画版を直し忘れる」ことが原因でした。両版の食い違いを機械が自動で見つける仕組みを大幅に強化しています（チェック対象を7ファイルから150ファイルへ）。手順書とテンプレ設定の食い違いも自動で検出するようになりました。</p>
     </div>
   </div>
 
 
-<details class="archive" id="v2116">
+    </div>
+  </details>
+
+  <details class="archive" id="v2116">
     <summary>🔇 ノイズ除去・タイムラインエディタ・手持ちフォント <span class="vpill">v2.116 → v2.118</span> <span class="sum-note">2026-08-14 〜 08-25</span></summary>
     <div class="archive-body">
       <div class="lead-card" style="margin-top:16px;">
@@ -650,7 +735,7 @@
     <div class="fix-list">
       <div class="fix-item">
         <div class="fix-head"><span class="fix-title">テンプレピッカーの説明文が古いままだった</span><span class="vpill">v2.115</span></div>
-        <p>テロップの選び方を作り直した（v2.114）のに、テンプレピッカーに出る説明文が古い定義のままでした。特に「危機感」は例が逆になっていました。横動画・ショート動画の両方を直しています。</p>
+        <p>テロップの選び方を作り直した（v2.114）のに、テンプレピッカーに出る説明文が古い定義のままでした。特に「危機感」は例が逆になっていました。横動画・縦動画の両方を直しています。</p>
         <ul>
           <li><strong>危機感</strong> — 「もったいない / 損してる」→「頭が真っ白になる / もう終わります」</li>
           <li><strong>衝撃</strong> — 「まさか / ありえない」→「それ今日でやめてください / 楽な道はない」</li>
@@ -796,7 +881,7 @@
         <div class="dot-col"><div class="dot"></div><div class="line"></div></div>
         <div class="tcontent">
           <div class="thead"><span class="ttitle">画像挿入(インサート・オーバーレイ・顔アイコン)に対応</span><span class="vpill">v2.102</span></div>
-          <p>感情ベースの画像挿入で、横動画・ショート動画どちらでもCodexでの生成を選べるように。実写1枚が主役になる場面ではワイプ/テロップ用の空けゾーンを指定しない方が自然な構図になることを確認し、その設計を反映しています。</p>
+          <p>感情ベースの画像挿入で、横動画・縦動画どちらでもCodexでの生成を選べるように。実写1枚が主役になる場面ではワイプ/テロップ用の空けゾーンを指定しない方が自然な構図になることを確認し、その設計を反映しています。</p>
         </div>
       </div>
       <div class="timeline-item">
