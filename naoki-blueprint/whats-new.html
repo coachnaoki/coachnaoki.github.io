@@ -173,20 +173,21 @@
     <div class="hero-badge">
       <span class="v">v2.100</span>
       <span class="arrow">&rarr;</span>
-      <span class="v">v2.121</span>
-      <span class="d">2026-07 〜 2026-08</span>
+      <span class="v">v2.122</span>
+      <span class="d">2026-07 〜 2026-09</span>
     </div>
   </div>
 
   <div class="lead-card">
-    <p><strong>最新は v2.121.0 です。</strong>直近の変更はこの下に、それより前は年代順にたたんであります。見出しをクリックすると開きます。</p>
+    <p><strong>最新は v2.122.0 です。</strong>直近の変更はこの下に、それより前は年代順にたたんであります。見出しをクリックすると開きます。</p>
     <p>自動更新が有効なので、次に編集を始めるときに自動で反映されます。手動更新したい場合は <code>bash アップデート.sh</code> でOKです。</p>
   </div>
 
   <nav class="toc" aria-label="目次">
     <h2>もくじ</h2>
     <ol>
-      <li><a href="#latest">最新の変更<span class="range">v2.121</span></a></li>
+      <li><a href="#latest">最新の変更<span class="range">v2.122</span></a></li>
+      <li><a href="#v2121">素材が無い工程の確認・「全部」と「おまかせ」<span class="range">v2.121</span></a></li>
       <li><a href="#v2120">ノイズカット・企画から台本まで<span class="range">v2.120</span></a></li>
       <li><a href="#v2119">縦動画版の不具合修正・テロップ設定の統一<span class="range">v2.119</span></a></li>
       <li><a href="#v2116">ノイズ除去・タイムラインエディタ・手持ちフォント<span class="range">v2.116 → v2.118</span></a></li>
@@ -196,7 +197,94 @@
   </nav>
 
   <div id="latest"></div>
-<div class="section-label">最新の変更 (v2.121)</div>
+<div class="section-label">最新の変更 (v2.122)</div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">📝 ショート動画のテロップを、縦書きにできます</span>
+      <span class="vpill">v2.122</span>
+      <span class="scope-note">ショート動画・一人語り</span>
+    </div>
+    <p class="desc">テンプレピッカーの「位置」 に<strong>縦書きへの切り替えボタン</strong>が増えました。 テンプレートごとに選べます。</p>
+    <div class="shot">
+      <img src="whats-new-assets/v2122-vertical-telop.jpg" alt="横書きのテロップが画面下に出ている状態と、縦書きにして画面の右側に縦に出ている状態の比較" loading="lazy">
+      <div class="shot-cap">同じテロップを<strong>横書き（これまで）</strong>と<strong>縦書き（v2.122 から）</strong>で表示したところ</div>
+    </div>
+    <ul>
+      <li><strong>今までどおり使う分には、何も変わりません。</strong> 最初は全部これまでどおりの横書きです</li>
+      <li>縦書きにすると、 位置の指定が「下から◯」 から<strong>「右から◯」</strong> に切り替わります（右から1/3 ／ 中央 ／ 左から1/3）</li>
+      <li>人物が右に立っている動画では「左から1/3」 を選ぶと、 顔にかぶりません</li>
+      <li><strong>入る文字数が増えます</strong>。 文字サイズ 84 なら 横書き 11 字 → <strong>縦書き 19 字</strong></li>
+    </ul>
+    <div class="note-box">
+      <p><strong>💡 数字は漢数字で書いてください</strong></p>
+      <p style="margin-top: 8px;">縦書きでは算用数字が横に倒れて読みにくくなります。 <code>1000万円</code> ではなく <code>一千万円</code>、 <code>2024年</code> ではなく <code>二〇二四年</code> と書きます。 算用数字が残っているとチェックがお知らせします（止まりはしません）。</p>
+    </div>
+    <div class="note-box">
+      <p><strong>対談動画では使えません</strong></p>
+      <p style="margin-top: 8px;">画面の左右に話者アイコンが出るため、 縦書きにすると必ず重なってしまいます。 一人語りの動画でだけ切り替えボタンが表示されます。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🗂️ 見出し・テーマ・箇条書きが、ショート動画でも使えます</span>
+      <span class="vpill">v2.122</span>
+      <span class="scope-note">ショート動画</span>
+    </div>
+    <p class="desc">これまで横動画にしかなかった<strong>見出しバナー・今回のテーマ・箇条書き</strong>を、 ショート動画でも使えるようにしました。</p>
+    <ul>
+      <li><strong>最初は「使用しない」 になっています。</strong> テンプレピッカーで「使用する」 に変えたときだけ出ます</li>
+      <li>見出しを「使用する」 にすると、 <strong>動画の組み立て工程が自動で追加します</strong>。 自分で書く必要はありません</li>
+      <li>テーマと箇条書きは、 テロップを作る工程で内容に合うところがあれば使われます</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🎬 縦切り抜きの上下の黒帯を、埋められます</span>
+      <span class="vpill">v2.122</span>
+      <span class="scope-note">ショート動画</span>
+    </div>
+    <p class="desc">横動画から縦に切り抜くと上下に黒帯が出ますが、 これを<strong>「動画をぼかしたもの」 か「好きな画像」</strong> で埋められるようになりました。</p>
+    <ul>
+      <li><strong>上の帯と下の帯を、 別々に選べます</strong>（上はぼかし・下は画像、 のような組み合わせもできます）</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag new">NEW</span>
+      <span class="card-title">🖼️ 冒頭ハイライトの額縁が、16 種類から選べます</span>
+      <span class="vpill">v2.122</span>
+    </div>
+    <p class="desc">冒頭ハイライトの周りに付く額縁に、 <strong>グラデーションの 16 種類</strong>が加わりました。</p>
+    <ul>
+      <li>ハイライトピッカーで選ぶと、 <strong>動画のプレビューにそのまま反映されます</strong>（別画面で確かめる必要がなくなりました）</li>
+      <li>操作している最中に画面が跳ねてしまうのも直しています</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="tag fix">修正</span>
+      <span class="card-title">🔧 直したところ</span>
+      <span class="vpill">v2.122</span>
+    </div>
+    <ul>
+      <li><strong>ハイライトの種別を切り替えて保存すると、 反対側の設定が消えて</strong>いました</li>
+      <li><strong>以前に保存したデザイン設定を読み込むと、 テンプレートの「使用しない」 が消えて</strong>いました</li>
+      <li>テロップの位置を数値で指定したときに、 画面の外へ飛んでしまうことがありました</li>
+    </ul>
+  </div>
+
+  <details class="archive" id="v2121">
+    <summary>🧩 素材が無い工程の確認・「全部」と「おまかせ」 <span class="vpill">v2.121</span> <span class="sum-note">2026-08-29</span></summary>
+    <div class="archive-body">
+<div class="section-label">v2.121 の変更</div>
   <div class="card">
     <div class="card-head">
       <span class="tag fix">要確認</span>
@@ -238,6 +326,9 @@
     <p><strong>📌 この更新は制作中のプロジェクトにも効きます</strong></p>
     <p style="margin-top: 8px;">工程の進め方を決めているファイルはアップデートで入れ替わるため、<strong>すでに作りかけのプロジェクトでも次回から新しい動きになります</strong>。動画の中身（テロップ・カット・スライド・BGM など）は<strong>一切変わりません</strong>。</p>
   </div>
+
+    </div>
+  </details>
 
   <details class="archive" id="v2120">
     <summary>🔇 ノイズカット・企画から台本まで <span class="vpill">v2.120</span> <span class="sum-note">2026-08-28</span></summary>
