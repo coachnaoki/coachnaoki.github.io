@@ -154,6 +154,19 @@
   @media (max-width:480px){ .archive > summary{padding:18px 20px;} .archive-body{padding:4px 16px 20px;} }
 
 
+  /* ── 時系列リスト (v2.100 以前の記事で使用。 CSS が欠けていて崩れていた・2026-09-04 追加) ── */
+  .timeline{ display:flex; flex-direction:column; margin-top:16px; }
+  .timeline-item{ display:flex; gap:14px; }
+  .timeline-item .dot-col{ display:flex; flex-direction:column; align-items:center; flex:0 0 12px; padding-top:7px; }
+  .timeline-item .dot{ width:9px; height:9px; border-radius:50%; background:#2563EB; flex:0 0 auto; }
+  .timeline-item .line{ width:2px; flex:1 1 auto; background:#e8e8e8; margin:5px 0 0; min-height:12px; }
+  .timeline-item .tcontent{ flex:1 1 auto; padding-bottom:18px; }
+  .timeline-item:last-child .tcontent{ padding-bottom:0; }
+  .timeline-item .thead{ display:flex; align-items:baseline; gap:8px; margin-bottom:4px; flex-wrap:wrap; }
+  .timeline-item .ttitle{ font-size:14.5px; font-weight:700; color:#121212; }
+  .timeline-item .tcontent p{ font-size:13.5px; color:#666; }
+  .tag.beta{ background:#7c3aed; }
+
   /* ── スクリーンショット ── */
   .shot { margin-top:14px; border:1px solid #e2e2e2; border-radius:10px; overflow:hidden;
           box-shadow:0 2px 6px rgba(0,0,0,0.05); background:#fff; }
